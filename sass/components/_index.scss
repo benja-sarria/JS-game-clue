@@ -1,0 +1,42 @@
+.index-body {
+    background-color: rgb(0, 0, 0);
+    .title-container {
+        position: absolute;
+        top: 0.5em;
+        left: 1.5em;
+        .index-title {
+            @include titleSubtitle;
+        }
+        .index-subtitle {
+            @include titleSubtitle;
+        }
+        .pad-container {
+            position: relative;
+            top: -7.5em;
+            left: 0;
+            width: 20em;
+            height: 90vh;
+            background-color: wheat;
+            z-index: -5;
+            max-height: 90vh;
+            overflow: scroll;
+            .pad-text {
+                @include titleSubtitle;
+                font-size: 1.2em;
+                position: relative;
+                top: 5em;
+            }
+        }
+    }
+    .board-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        img {
+            padding: auto;
+            opacity: 0.85;
+            max-width: 50%;
+            max-height: 97vh;
+        }
+    }
+}
