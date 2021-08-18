@@ -373,13 +373,81 @@ const manoMezclada = respuesta1.mezclarCartas(mano);
 // control de la mezcla
 console.log(manoMezclada);
 // creación de los sub-arrays para ser repartidos entre los jugadores - Se estipuló como max y min valores relacionados al total de cartas a repartir y la corrección necesaria para casos en donde hay resto
-const minCartasRepartir = 18 / playerNumber - 0.2;
+const minCartasRepartir = 18 / playerNumber - 0.5;
 const maxCartasRepartir = 18 / playerNumber + 0.5;
-const manoRepartida = respuesta1.repartirCartas(
+let manoRepartida = respuesta1.repartirCartas(
     manoMezclada,
     minCartasRepartir,
     maxCartasRepartir
 );
+// chequeo de cartas repartidas
+console.log(manoRepartida[manoRepartida.length - 1].length);
+console.log(manoRepartida);
+// función para emparejar la cantidad de cartas repartidas cuando hay desequilibrio
+const fairShuffle = () => {
+    while (
+        (playerNumber === 2 &&
+            manoRepartida[manoRepartida.length - 1].length < 9) ||
+        (playerNumber === 2 && manoRepartida.length === 3)
+    ) {
+        manoRepartida = respuesta1.repartirCartas(
+            manoMezclada,
+            minCartasRepartir,
+            maxCartasRepartir
+        );
+        console.log("volviendo a repartir");
+    }
+    while (
+        (playerNumber === 3 &&
+            manoRepartida[manoRepartida.length - 1].length < 6) ||
+        (playerNumber === 3 && manoRepartida.length === 4)
+    ) {
+        manoRepartida = respuesta1.repartirCartas(
+            manoMezclada,
+            minCartasRepartir,
+            maxCartasRepartir
+        );
+        console.log("volviendo a repartir");
+    }
+    while (
+        (playerNumber === 4 &&
+            manoRepartida[manoRepartida.length - 1].length < 4) ||
+        (playerNumber === 4 && manoRepartida.length === 5)
+    ) {
+        manoRepartida = respuesta1.repartirCartas(
+            manoMezclada,
+            minCartasRepartir,
+            maxCartasRepartir
+        );
+        console.log("volviendo a repartir");
+    }
+    while (
+        (playerNumber === 5 &&
+            manoRepartida[manoRepartida.length - 1].length < 3) ||
+        (playerNumber === 5 && manoRepartida.length === 6)
+    ) {
+        manoRepartida = respuesta1.repartirCartas(
+            manoMezclada,
+            minCartasRepartir,
+            maxCartasRepartir
+        );
+        console.log("volviendo a repartir");
+    }
+    while (
+        (playerNumber === 6 &&
+            manoRepartida[manoRepartida.length - 1].length < 3) ||
+        (playerNumber === 6 && manoRepartida.length === 7)
+    ) {
+        manoRepartida = respuesta1.repartirCartas(
+            manoMezclada,
+            minCartasRepartir,
+            maxCartasRepartir
+        );
+        console.log("volviendo a repartir");
+    }
+};
+fairShuffle();
+
 // controles de los sub-arrays creados - listos para ser repartidos
 console.table(manoRepartida);
 console.log(manoRepartida);
