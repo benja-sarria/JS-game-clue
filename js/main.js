@@ -336,25 +336,8 @@ class DatosDelCrimen {
             size = Math.min(max, Math.floor(Math.random() * max + min));
             arrs.push(arr.splice(0, size));
         }
-        // let largoArray = arrs[arrs.length - 1].length;
-        // console.log(arrs[arrs.length - 1].length);
-        // const lessThan4 = () => largoArray > 4 === false;
-        // if (arrs.some(lessThan4)) {
-        //     console.log("hay menores de 4");
-        // }
         return arrs;
     }
-    // sortearMano(players, hands) {
-    //     players.forEach((player) => {
-    //         let jugador = player;
-    //         return jugador;
-    //     });
-    //     hands.forEach((hand) => {
-    //         let manoJugador = hand;
-    //         return manoJugador;
-    //     });
-    // }
-
     startGame() {
         runGame();
     }
