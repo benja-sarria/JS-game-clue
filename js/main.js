@@ -1,10 +1,11 @@
 alert(
     `Bienvenido a The Clue - En cualquier momento del juego puedes insertar la letra "q" en los prompt para cortar la ejecución y salir del juego ¡Que lo disfurtes!`
 );
+// primero consultamos la cantidad de jugadores
 let playerNumber;
 
 const totalPlayers = [];
-
+// función para determinar cantidad de jugadores
 const determiningPlayers = () => {
     do {
         playerNumberPrompt = prompt("Ingrese el número de jugadores");
@@ -31,7 +32,7 @@ const determiningPlayers = () => {
 };
 
 playerNumber = determiningPlayers();
-
+// conformamos nuestro array de players
 for (let i = 1; i <= playerNumber; i += 1) {
     totalPlayers.push(i);
 }
@@ -44,7 +45,7 @@ const quiting = () => {
     }
     return exit;
 };
-
+// función con la dinámica del juego
 function playGame() {
     do {
         for (const player of totalPlayers) {
@@ -208,7 +209,6 @@ function playGame() {
                                     );
                                     continue;
                                 }
-                                continue;
                             } else if (acusacionActual[2] == true) {
                                 exit = acusacionActual[2];
                                 break;
@@ -226,12 +226,18 @@ function playGame() {
                 } else {
                     alert(`¡Tiraste menos de 5! Su turno ha finalizado`);
                 }
+            } else {
+                exit = true;
             }
-            continue;
+            if (exit === true) {
+                break;
+            } else {
+                continue;
+            }
         }
     } while (winCheck == false || exit == false);
 }
-
+// función para ejecutar el juego
 function runGame() {
     while (
         totalPlayers.length <= 6 &&
@@ -249,6 +255,7 @@ let sospechoso;
 const acusacionActual = [arma, lugar, sospechoso];
 let winCheck;
 
+// objeto literal con los personajes
 const personajes = {
     personaje1: "MOSTAZA",
     personaje2: "VERDI",
@@ -257,6 +264,8 @@ const personajes = {
     personaje5: "ESCARLATA",
     personaje6: "AZULINO",
 };
+
+//objeto literal con las armas
 const armas = {
     arma1: "CUCHILLO",
     arma2: "PISTOLA",
@@ -265,6 +274,8 @@ const armas = {
     arma5: "LLAVE DE TUERCAS",
     arma6: "CANDELABRO",
 };
+
+// objeto literal con los lugares
 const lugares = {
     lugar1: "COCINA",
     lugar2: "SALA DE MÚSICA",
@@ -277,24 +288,123 @@ const lugares = {
     lugar9: "SALA",
 };
 
+// clase constructora del objeto que va a contener los datos del crimen a develar/solución
 class DatosDelCrimen {
     constructor(culpable, arma, lugar) {
         this.culpable = culpable;
         this.arma = arma;
         this.lugar = lugar;
     }
+    // método que combina los distintos objetos en uno solo, convierte ese objeto en un array tomando los valores de cada clave, y filtra el mazo eliminando las cartas del sospechoso, arma y lugar del homicidio
+    armarMazo() {
+        const mazoCartas = {
+            ...personajes,
+            ...armas,
+            ...lugares,
+        };
+        const arrayCartas = Object.values(mazoCartas);
+        const mazoFiltrado = arrayCartas.filter(
+            (carta) =>
+                carta !== respuesta1.culpable &&
+                carta !== respuesta1.lugar &&
+                carta !== respuesta1.arma
+        );
+        return mazoFiltrado;
+    }
+    // método que permite mezclar las cartas una vez que el objeto fue convertido en array
+    mezclarCartas(array) {
+        let currentIndex = array.length,
+            randomIndex;
+        while (currentIndex != 0) {
+            randomIndex = Math.floor(Math.random() * currentIndex);
+            currentIndex -= 1;
+            [array[currentIndex], array[randomIndex]] = [
+                array[randomIndex],
+                array[currentIndex],
+            ];
+        }
+        return array;
+    }
+    // método que permite dividir el total de cartas en el array en tantos sub-arrays como jugadores haya
+    repartirCartas(array, min1, max1) {
+        let arr = array.slice();
+        let arrs = [],
+            size = 1;
+        let min = min1 || 1;
+        let max = max1 || min1 || 1;
+        while (arr.length > 0) {
+            size = Math.min(max, Math.floor(Math.random() * max + min));
+            arrs.push(arr.splice(0, size));
+        }
+        // let largoArray = arrs[arrs.length - 1].length;
+        // console.log(arrs[arrs.length - 1].length);
+        // const lessThan4 = () => largoArray > 4 === false;
+        // if (arrs.some(lessThan4)) {
+        //     console.log("hay menores de 4");
+        // }
+        return arrs;
+    }
+    // sortearMano(players, hands) {
+    //     players.forEach((player) => {
+    //         let jugador = player;
+    //         return jugador;
+    //     });
+    //     hands.forEach((hand) => {
+    //         let manoJugador = hand;
+    //         return manoJugador;
+    //     });
+    // }
+
     startGame() {
         runGame();
     }
 }
+// función que me permite distribuir los sub-arrays en cada jugador - Devuelve un objeto con la clave que identifica a cada jugador asignando como valor uno de los sub-arrays
+const armarTodasLasManos = () => {
+    let i = 0;
+    totalPlayers.forEach((player) => {
+        manosArmadas[player] = manoRepartida[i];
+        console.log(
+            `Asignando a ${player} las siguientes cartas: ${manosArmadas[player]}`
+        );
+        i += 1;
+    });
+};
 
+// creación del objeto con la solución a partir de la clase declarada
 const respuesta1 = new DatosDelCrimen(
     personajes["personaje" + Math.ceil(Math.random() * 6)],
     armas["arma" + Math.ceil(Math.random() * 6)],
     lugares["lugar" + Math.ceil(Math.random() * 9)]
 );
+// control del resultado/solución
 console.log(respuesta1);
 
 exit = quiting();
-
+// creación del mazo (array filtrado sin las cartas de la solución)
+const mano = respuesta1.armarMazo();
+// control de la mano
+console.log(mano);
+// creación de la mano mezclada - Array reordenado aleatoriamente
+const manoMezclada = respuesta1.mezclarCartas(mano);
+// control de la mezcla
+console.log(manoMezclada);
+// creación de los sub-arrays para ser repartidos entre los jugadores - Se estipuló como max y min valores relacionados al total de cartas a repartir y la corrección necesaria para casos en donde hay resto
+const minCartasRepartir = 18 / playerNumber - 0.2;
+const maxCartasRepartir = 18 / playerNumber + 0.5;
+const manoRepartida = respuesta1.repartirCartas(
+    manoMezclada,
+    minCartasRepartir,
+    maxCartasRepartir
+);
+// controles de los sub-arrays creados - listos para ser repartidos
+console.table(manoRepartida);
+console.log(manoRepartida);
+// creación objeto literal que contendrá la clave de cada jugador y el sub-array asignado
+const manosArmadas = {};
+// ejecución de la función que produce como resultado la asignación de los sub-arrays y los guarda en clave/valor dentro del objeto
+armarTodasLasManos();
+// control del objeto contenedor de la repartición
+console.log(manosArmadas);
+// Todo listo - ejecución del juego
 respuesta1.startGame();
