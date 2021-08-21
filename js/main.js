@@ -1,8 +1,51 @@
-alert(
-    `Bienvenido a The Clue - En cualquier momento del juego puedes insertar la letra "q" en los prompt para cortar la ejecución y salir del juego ¡Que lo disfurtes!`
-);
+// -------- DOM ---------
+const startBtn = document.querySelector(`#start-btn`);
+const quitBtn = document.querySelector(`#quit-btn`);
+const gameBtn = document.querySelector(`#game-btn`);
+const bannerContainer = document.querySelector(`#banner-container`);
+const sectionGameDesc = document.querySelector(`#game-description-section`);
+const gameBoard = document.querySelector(`#game-board`);
+
+const showGame = (e) => {
+    e.preventDefault();
+    gameBoard.classList.remove("hidden-game-container");
+    gameBoard.classList.add("game-area-container");
+    bannerContainer.classList.add("hidden-game-container");
+    bannerContainer.classList.remove("banner-container");
+    sectionGameDesc.classList.add("hidden-game-container");
+    sectionGameDesc.classList.remove("banner-container");
+};
+
+const hideGame = (e) => {
+    e.preventDefault();
+    gameBoard.classList.add("hidden-game-container");
+    gameBoard.classList.remove("game-area-container");
+    bannerContainer.classList.remove("hidden-game-container");
+    bannerContainer.classList.add("banner-container");
+    sectionGameDesc.classList.remove("hidden-game-container");
+    sectionGameDesc.classList.add("banner-container");
+};
+
+const startGame = (e) => {
+    e.preventDefault();
+    runGame();
+};
+
+startBtn.addEventListener("click", showGame);
+quitBtn.addEventListener("click", hideGame);
+gameBtn.addEventListener("click", startGame);
+
+// -------- DOM'S END ---------
+
 // primero consultamos la cantidad de jugadores
 let playerNumber;
+let respuesta1;
+let manoRepartida;
+// creación objeto literal que contendrá la clave de cada jugador y el sub-array asignado
+const manosArmadas = {};
+let manoMezclada;
+let minCartasRepartir;
+let maxCartasRepartir;
 
 const totalPlayers = [];
 // función para determinar cantidad de jugadores
@@ -15,11 +58,20 @@ const determiningPlayers = () => {
             alert(
                 `El límite es 6 jugadores y el mínimo es 2 jugadores. Intenta seleccionar la cantidad de jugadores nuevamente `
             );
-        } else if (isNaN(playerNumber) && playerNumberPrompt != "q") {
+        } else if (
+            isNaN(playerNumber) &&
+            playerNumberPrompt !== "q" &&
+            playerNumberPrompt !== "Q" &&
+            playerNumberPrompt !== null
+        ) {
             alert(
                 `El carácter ingresado: "${playerNumberPrompt}",  no es un número válido ¡Intenta nuevamente!`
             );
-        } else if (playerNumberPrompt == "q") {
+        } else if (
+            playerNumberPrompt === "q" ||
+            playerNumberPrompt === "Q" ||
+            playerNumberPrompt === null
+        ) {
             playerNumber = true;
             break;
         }
@@ -31,16 +83,8 @@ const determiningPlayers = () => {
     return playerNumber;
 };
 
-playerNumber = determiningPlayers();
-// conformamos nuestro array de players
-for (let i = 1; i <= playerNumber; i += 1) {
-    totalPlayers.push(i);
-}
-
-console.table(totalPlayers);
-
 const quiting = () => {
-    if (playerNumber == true) {
+    if (playerNumber === true) {
         exit = true;
     }
     return exit;
@@ -64,7 +108,14 @@ function playGame() {
                     do {
                         acusacionActual[0] = prompt(
                             `Con qué arma crees que lo mató | Opciones: ${armas.arma1} - ${armas.arma2} - ${armas.arma3} - ${armas.arma4} - ${armas.arma5} - ${armas.arma6}`
-                        ).toUpperCase();
+                        );
+                        if (acusacionActual[0] !== null) {
+                            acusacionActual[0] =
+                                acusacionActual[0].toUpperCase();
+                        } else {
+                            acusacionActual[0] = true;
+                            break;
+                        }
                         if (
                             acusacionActual[0] == armas.arma1 ||
                             acusacionActual[0] == armas.arma2 ||
@@ -102,7 +153,14 @@ function playGame() {
                         do {
                             acusacionActual[1] = prompt(
                                 `En qué lugar crees que lo mató | Opciones: ${lugares.lugar1} - ${lugares.lugar2} - ${lugares.lugar3} - ${lugares.lugar4} - ${lugares.lugar5} - ${lugares.lugar6} - ${lugares.lugar7} - ${lugares.lugar8} - ${lugares.lugar9}`
-                            ).toUpperCase();
+                            );
+                            if (acusacionActual[1] !== null) {
+                                acusacionActual[1] =
+                                    acusacionActual[1].toUpperCase();
+                            } else {
+                                acusacionActual[1] = true;
+                                break;
+                            }
                             if (
                                 acusacionActual[1] == lugares.lugar1 ||
                                 acusacionActual[1] == lugares.lugar2 ||
@@ -149,7 +207,14 @@ function playGame() {
                             do {
                                 acusacionActual[2] = prompt(
                                     `Quién crees que lo mató | Opciones: ${personajes.personaje1} - ${personajes.personaje2} - ${personajes.personaje3} - ${personajes.personaje4} - ${personajes.personaje5} - ${personajes.personaje6}`
-                                ).toUpperCase();
+                                );
+                                if (acusacionActual[2] !== null) {
+                                    acusacionActual[2] =
+                                        acusacionActual[2].toUpperCase();
+                                } else {
+                                    acusacionActual[2] = true;
+                                    break;
+                                }
                                 if (
                                     acusacionActual[2] ==
                                         personajes.personaje1 ||
@@ -237,8 +302,124 @@ function playGame() {
         }
     } while (winCheck == false || exit == false);
 }
+// función para emparejar la cantidad de cartas repartidas cuando hay desequilibrio
+const fairShuffle = () => {
+    while (
+        (playerNumber === 2 &&
+            manoRepartida[manoRepartida.length - 1].length < 9) ||
+        (playerNumber === 2 && manoRepartida.length === 3)
+    ) {
+        manoRepartida = respuesta1.repartirCartas(
+            manoMezclada,
+            minCartasRepartir,
+            maxCartasRepartir
+        );
+        console.log("volviendo a repartir");
+    }
+    while (
+        (playerNumber === 3 &&
+            manoRepartida[manoRepartida.length - 1].length < 6) ||
+        (playerNumber === 3 && manoRepartida.length === 4)
+    ) {
+        manoRepartida = respuesta1.repartirCartas(
+            manoMezclada,
+            minCartasRepartir,
+            maxCartasRepartir
+        );
+        console.log("volviendo a repartir");
+    }
+    while (
+        (playerNumber === 4 &&
+            manoRepartida[manoRepartida.length - 1].length < 4) ||
+        (playerNumber === 4 && manoRepartida.length === 5)
+    ) {
+        manoRepartida = respuesta1.repartirCartas(
+            manoMezclada,
+            minCartasRepartir,
+            maxCartasRepartir
+        );
+        console.log("volviendo a repartir");
+    }
+    while (
+        (playerNumber === 5 &&
+            manoRepartida[manoRepartida.length - 1].length < 3) ||
+        (playerNumber === 5 && manoRepartida.length === 6)
+    ) {
+        manoRepartida = respuesta1.repartirCartas(
+            manoMezclada,
+            minCartasRepartir,
+            maxCartasRepartir
+        );
+        console.log("volviendo a repartir");
+    }
+    while (
+        (playerNumber === 6 &&
+            manoRepartida[manoRepartida.length - 1].length < 3) ||
+        (playerNumber === 6 && manoRepartida.length === 7)
+    ) {
+        manoRepartida = respuesta1.repartirCartas(
+            manoMezclada,
+            minCartasRepartir,
+            maxCartasRepartir
+        );
+        console.log("volviendo a repartir");
+    }
+};
+
 // función para ejecutar el juego
 function runGame() {
+    alert(
+        `Bienvenido a The Clue - En cualquier momento del juego puedes insertar la letra "q" en los prompt para cortar la ejecución y salir del juego ¡Que lo disfurtes!`
+    );
+    playerNumber = determiningPlayers();
+    // conformamos nuestro array de players
+    for (let i = 1; i <= playerNumber; i += 1) {
+        totalPlayers.push(i);
+    }
+    console.table(totalPlayers);
+    // creación del objeto con la solución a partir de la clase declarada
+    respuesta1 = new DatosDelCrimen(
+        personajes["personaje" + Math.ceil(Math.random() * 6)],
+        armas["arma" + Math.ceil(Math.random() * 6)],
+        lugares["lugar" + Math.ceil(Math.random() * 9)]
+    );
+    // control del resultado/solución
+    console.log(respuesta1);
+
+    exit = quiting();
+
+    // creación del mazo (array filtrado sin las cartas de la solución)
+    if (exit !== true) {
+        const mano = respuesta1.armarMazo();
+        // control de la mano
+        console.log(mano);
+        // creación de la mano mezclada - Array reordenado aleatoriamente
+        manoMezclada = respuesta1.mezclarCartas(mano);
+        // control de la mezcla
+        console.log(manoMezclada);
+        // creación de los sub-arrays para ser repartidos entre los jugadores - Se estipuló como max y min valores relacionados al total de cartas a repartir y la corrección necesaria para casos en donde hay resto
+        minCartasRepartir = 18 / playerNumber - 0.5;
+        maxCartasRepartir = 18 / playerNumber + 0.5;
+        manoRepartida = respuesta1.repartirCartas(
+            manoMezclada,
+            minCartasRepartir,
+            maxCartasRepartir
+        );
+        // chequeo de cartas repartidas
+        console.log(manoRepartida[manoRepartida.length - 1].length);
+        console.log(manoRepartida);
+
+        fairShuffle();
+
+        // controles de los sub-arrays creados - listos para ser repartidos
+        console.table(manoRepartida);
+        console.log(manoRepartida);
+        // ejecución de la función que produce como resultado la asignación de los sub-arrays y los guarda en clave/valor dentro del objeto
+        armarTodasLasManos();
+        // control del objeto contenedor de la repartición
+        console.log(manosArmadas);
+    }
+
     while (
         totalPlayers.length <= 6 &&
         totalPlayers.length > 1 &&
@@ -353,109 +534,3 @@ const armarTodasLasManos = () => {
         i += 1;
     });
 };
-
-// creación del objeto con la solución a partir de la clase declarada
-const respuesta1 = new DatosDelCrimen(
-    personajes["personaje" + Math.ceil(Math.random() * 6)],
-    armas["arma" + Math.ceil(Math.random() * 6)],
-    lugares["lugar" + Math.ceil(Math.random() * 9)]
-);
-// control del resultado/solución
-console.log(respuesta1);
-
-exit = quiting();
-// creación del mazo (array filtrado sin las cartas de la solución)
-const mano = respuesta1.armarMazo();
-// control de la mano
-console.log(mano);
-// creación de la mano mezclada - Array reordenado aleatoriamente
-const manoMezclada = respuesta1.mezclarCartas(mano);
-// control de la mezcla
-console.log(manoMezclada);
-// creación de los sub-arrays para ser repartidos entre los jugadores - Se estipuló como max y min valores relacionados al total de cartas a repartir y la corrección necesaria para casos en donde hay resto
-const minCartasRepartir = 18 / playerNumber - 0.5;
-const maxCartasRepartir = 18 / playerNumber + 0.5;
-let manoRepartida = respuesta1.repartirCartas(
-    manoMezclada,
-    minCartasRepartir,
-    maxCartasRepartir
-);
-// chequeo de cartas repartidas
-console.log(manoRepartida[manoRepartida.length - 1].length);
-console.log(manoRepartida);
-// función para emparejar la cantidad de cartas repartidas cuando hay desequilibrio
-const fairShuffle = () => {
-    while (
-        (playerNumber === 2 &&
-            manoRepartida[manoRepartida.length - 1].length < 9) ||
-        (playerNumber === 2 && manoRepartida.length === 3)
-    ) {
-        manoRepartida = respuesta1.repartirCartas(
-            manoMezclada,
-            minCartasRepartir,
-            maxCartasRepartir
-        );
-        console.log("volviendo a repartir");
-    }
-    while (
-        (playerNumber === 3 &&
-            manoRepartida[manoRepartida.length - 1].length < 6) ||
-        (playerNumber === 3 && manoRepartida.length === 4)
-    ) {
-        manoRepartida = respuesta1.repartirCartas(
-            manoMezclada,
-            minCartasRepartir,
-            maxCartasRepartir
-        );
-        console.log("volviendo a repartir");
-    }
-    while (
-        (playerNumber === 4 &&
-            manoRepartida[manoRepartida.length - 1].length < 4) ||
-        (playerNumber === 4 && manoRepartida.length === 5)
-    ) {
-        manoRepartida = respuesta1.repartirCartas(
-            manoMezclada,
-            minCartasRepartir,
-            maxCartasRepartir
-        );
-        console.log("volviendo a repartir");
-    }
-    while (
-        (playerNumber === 5 &&
-            manoRepartida[manoRepartida.length - 1].length < 3) ||
-        (playerNumber === 5 && manoRepartida.length === 6)
-    ) {
-        manoRepartida = respuesta1.repartirCartas(
-            manoMezclada,
-            minCartasRepartir,
-            maxCartasRepartir
-        );
-        console.log("volviendo a repartir");
-    }
-    while (
-        (playerNumber === 6 &&
-            manoRepartida[manoRepartida.length - 1].length < 3) ||
-        (playerNumber === 6 && manoRepartida.length === 7)
-    ) {
-        manoRepartida = respuesta1.repartirCartas(
-            manoMezclada,
-            minCartasRepartir,
-            maxCartasRepartir
-        );
-        console.log("volviendo a repartir");
-    }
-};
-fairShuffle();
-
-// controles de los sub-arrays creados - listos para ser repartidos
-console.table(manoRepartida);
-console.log(manoRepartida);
-// creación objeto literal que contendrá la clave de cada jugador y el sub-array asignado
-const manosArmadas = {};
-// ejecución de la función que produce como resultado la asignación de los sub-arrays y los guarda en clave/valor dentro del objeto
-armarTodasLasManos();
-// control del objeto contenedor de la repartición
-console.log(manosArmadas);
-// Todo listo - ejecución del juego
-respuesta1.startGame();

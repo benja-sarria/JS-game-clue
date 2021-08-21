@@ -1,52 +1,120 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.navbar-light .navbar-toggler-icon {
+  background-image: url("../assets/hamburguermenumobile.png");
+}
+
 .index-body {
-  background-color: black;
+  background-color: white;
 }
-.index-body .title-container {
-  position: absolute;
-  top: 0.5em;
-  left: 1.5em;
+.index-body .index-header {
+  background-image: linear-gradient(to bottom, rgba(88, 249, 255, 0.212), white);
 }
-.index-body .title-container .index-title {
-  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans", Arial, sans-serif;
-  color: #181818;
-  z-index: 50;
-  padding-left: 0.5em;
+.index-body .index-header .navbar-index {
+  width: 100%;
+  background-color: #0e6ba7;
+  display: flex;
 }
-.index-body .title-container .index-subtitle {
-  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans", Arial, sans-serif;
-  color: #181818;
-  z-index: 50;
-  padding-left: 0.5em;
+.index-body .index-header .navbar-index .navbar-brand {
+  padding-left: 0em;
 }
-.index-body .title-container .pad-container {
-  position: relative;
-  top: -7.5em;
-  left: 0;
-  width: 20em;
-  height: 90vh;
-  background-color: wheat;
-  z-index: -5;
-  max-height: 90vh;
-  overflow: scroll;
+.index-body .index-header .navbar-index .navbar-brand .idex-navbar-logo {
+  width: 80%;
+  max-width: 100%;
 }
-.index-body .title-container .pad-container .pad-text {
-  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans", Arial, sans-serif;
-  color: #181818;
+.index-body .index-header .navbar-index .navbar-brand .index-title {
+  font-family: Poiret One;
+  color: #0e6ba7;
   z-index: 50;
   padding-left: 0.5em;
   font-size: 1.2em;
-  position: relative;
-  top: 5em;
 }
-.index-body .board-container {
+.index-body .index-header .navbar-index .navbar-toggler {
+  border-color: rgba(255, 255, 255, 0.205);
+}
+.index-body .index-header .banner-container {
+  margin-top: 5em;
+  top: 0.5em;
+  left: 1.5em;
+  width: 100%;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 }
-.index-body .board-container img {
-  padding: auto;
+.index-body .index-header .banner-container .index-subtitle {
+  font-family: Poiret One;
+  color: #0e6ba7;
+  z-index: 50;
+  padding-left: 0.5em;
+}
+.index-body .index-header .banner-container .main-banner-img-mobile {
+  width: 98%;
+  max-width: 98%;
+}
+.index-body .description-container .pad-container {
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+  max-width: 100%;
+  background-color: rgba(245, 222, 179, 0.45);
+  z-index: -5;
+  padding: 1em;
+  margin: 3em 0;
+  border-radius: 0.5em;
+}
+.index-body .description-container .pad-container .description-title {
+  color: #0e6ba7;
+  text-align: left;
+  padding-left: 0em;
+  letter-spacing: -0.03em;
+  line-height: -8em;
+}
+.index-body .description-container .pad-container .pad-text {
+  font-family: "Pontano Sans";
+  color: #0e6ba7;
+  z-index: 50;
+  padding-left: 0.5em;
+  text-align: justify;
+  line-height: 1.25em;
+  letter-spacing: -0.05em;
+  font-size: 1.15em;
+}
+.index-body .description-container .pad-container .pad-text:last-child {
+  margin-top: -0.5em;
+}
+.index-body .description-container .pad-container .btn {
+  margin: 0 auto;
+  max-width: 65%;
+  background-color: #0e6ba7;
+  font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+.index-body .hidden-game-container {
+  display: none;
+}
+.index-body .game-area-container {
+  padding: 0.5em;
+  border-radius: 0.25em;
+  background-image: linear-gradient(150deg, #00b2b0 30%, #0e6ba7 50%, #05293f 100%);
+  background-image: linear-gradient();
+}
+.index-body .game-area-container .game-interface-container {
+  padding: 1em;
+  background-color: white;
+  border-radius: 0.45em;
+}
+.index-body .game-area-container .game-interface-container .board-container {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+.index-body .game-area-container .game-interface-container .board-container img {
+  width: 100%;
   opacity: 0.85;
-  max-width: 50%;
   max-height: 97vh;
 }
 

@@ -1,7 +1,6 @@
-@mixin titleSubtitle {
-    font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
-        "Lucida Sans", Arial, sans-serif;
-    color: rgb(24, 24, 24);
+@mixin titleSubtitle($desiredfont) {
+    font-family: $desiredfont;
+    color: map-get($map: $generalpalette, $key: bluemain);
     z-index: 50;
     padding-left: 0.5em;
 }

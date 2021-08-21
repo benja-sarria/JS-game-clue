@@ -1,2 +1,9 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+@import "./base/fonts";
+@import "./base/colorPalette";
 @import "./base/mixins";
 @import "./components/index";
