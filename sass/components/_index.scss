@@ -317,6 +317,122 @@
                         );
                     margin-bottom: 0;
                 }
+                .system-messages-text {
+                    .message-title {
+                        @include titleSubtitle(
+                            map-get($map: $fonts, $key: lighfont)
+                        );
+                        text-align: justify;
+                        line-height: 1.25em;
+                        letter-spacing: -0.05em;
+                        font-size: 1.15em;
+                        border-bottom: 2px solid
+                            rgba(
+                                $color:
+                                    map-get(
+                                        $map: $generalpalette,
+                                        $key: bluemain
+                                    ),
+                                $alpha: 0.25
+                            );
+                        &:last-child {
+                            margin-top: -0.5em;
+                        }
+                        @media (min-width: 370px) {
+                            font-size: 1.5em;
+                        }
+                        @media (min-width: 1000px) {
+                            text-align: center;
+                            font-size: 1.6em;
+                        }
+                    }
+                    .message-text {
+                        @include titleSubtitle(
+                            map-get($map: $fonts, $key: lighfont)
+                        );
+                        text-align: justify;
+                        line-height: 1.25em;
+                        letter-spacing: -0.05em;
+                        font-size: 1.15em;
+                        padding-top: 0.8em;
+                        &:last-child {
+                            margin-top: -0.5em;
+                        }
+                        @media (min-width: 370px) {
+                            font-size: 1.2em;
+                        }
+                        @media (min-width: 1000px) {
+                            text-align: center;
+                            font-size: 1.3em;
+                        }
+                    }
+                }
+                .dialog-interface-hidden {
+                    display: none;
+                }
+                .dialog-interface-container {
+                    display: flex;
+                    margin: 2em auto 0;
+                    max-width: 30%;
+                    justify-content: space-evenly;
+                    position: relative;
+                    top: 30%;
+                    left: 0%;
+                    @media (min-width: 420px) {
+                        top: 30%;
+                        left: 18%;
+                    }
+                    @media (min-width: 530px) {
+                        top: 30%;
+                        left: 25%;
+                    }
+                    @media (min-width: 712px) and (max-width: 991px) {
+                        top: 30%;
+                        left: 33%;
+                    }
+                    @media (min-width: 922px) {
+                        position: unset;
+                        top: 0%;
+                        left: 0%;
+                        max-width: 30%;
+                    }
+                    .dialog-interface-box {
+                        color: map-get($map: $generalpalette, $key: bluemain);
+                        border-radius: 0.25em;
+                        min-height: 2em;
+                        border: 0.1em solid
+                            rgba(
+                                $color:
+                                    map-get(
+                                        $map: $generalpalette,
+                                        $key: tealmain
+                                    ),
+                                $alpha: 0.45
+                            );
+                        margin-right: 0.15em;
+                        &:focus {
+                            border-color: map-get(
+                                $map: $generalpalette,
+                                $key: bluemain
+                            );
+                        }
+                    }
+                    .dialog-interface-button {
+                        text-align: center;
+                        color: white;
+                        font-size: 1.25em;
+                        background-color: map-get(
+                            $map: $generalpalette,
+                            $key: bluemain
+                        );
+                        border: none;
+                        min-width: 1.8em;
+                        min-height: 1.8em;
+                        max-width: 3em;
+                        max-height: 3em;
+                        border-radius: 50em;
+                    }
+                }
             }
             .board-container {
                 display: flex;

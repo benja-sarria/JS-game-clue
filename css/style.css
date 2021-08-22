@@ -354,6 +354,116 @@
     margin-bottom: 0;
   }
 }
+.index-body .game-area-container .game-interface-container .system-message-area-container .system-messages-text .message-title {
+  font-family: "Pontano Sans";
+  color: #0e6ba7;
+  z-index: 50;
+  padding-left: 0.5em;
+  text-align: justify;
+  line-height: 1.25em;
+  letter-spacing: -0.05em;
+  font-size: 1.15em;
+  border-bottom: 2px solid rgba(14, 107, 167, 0.25);
+}
+.index-body .game-area-container .game-interface-container .system-message-area-container .system-messages-text .message-title:last-child {
+  margin-top: -0.5em;
+}
+@media (min-width: 370px) {
+  .index-body .game-area-container .game-interface-container .system-message-area-container .system-messages-text .message-title {
+    font-size: 1.5em;
+  }
+}
+@media (min-width: 1000px) {
+  .index-body .game-area-container .game-interface-container .system-message-area-container .system-messages-text .message-title {
+    text-align: center;
+    font-size: 1.6em;
+  }
+}
+.index-body .game-area-container .game-interface-container .system-message-area-container .system-messages-text .message-text {
+  font-family: "Pontano Sans";
+  color: #0e6ba7;
+  z-index: 50;
+  padding-left: 0.5em;
+  text-align: justify;
+  line-height: 1.25em;
+  letter-spacing: -0.05em;
+  font-size: 1.15em;
+  padding-top: 0.8em;
+}
+.index-body .game-area-container .game-interface-container .system-message-area-container .system-messages-text .message-text:last-child {
+  margin-top: -0.5em;
+}
+@media (min-width: 370px) {
+  .index-body .game-area-container .game-interface-container .system-message-area-container .system-messages-text .message-text {
+    font-size: 1.2em;
+  }
+}
+@media (min-width: 1000px) {
+  .index-body .game-area-container .game-interface-container .system-message-area-container .system-messages-text .message-text {
+    text-align: center;
+    font-size: 1.3em;
+  }
+}
+.index-body .game-area-container .game-interface-container .system-message-area-container .dialog-interface-hidden {
+  display: none;
+}
+.index-body .game-area-container .game-interface-container .system-message-area-container .dialog-interface-container {
+  display: flex;
+  margin: 2em auto 0;
+  max-width: 30%;
+  justify-content: space-evenly;
+  position: relative;
+  top: 30%;
+  left: 0%;
+}
+@media (min-width: 420px) {
+  .index-body .game-area-container .game-interface-container .system-message-area-container .dialog-interface-container {
+    top: 30%;
+    left: 18%;
+  }
+}
+@media (min-width: 530px) {
+  .index-body .game-area-container .game-interface-container .system-message-area-container .dialog-interface-container {
+    top: 30%;
+    left: 25%;
+  }
+}
+@media (min-width: 712px) and (max-width: 991px) {
+  .index-body .game-area-container .game-interface-container .system-message-area-container .dialog-interface-container {
+    top: 30%;
+    left: 33%;
+  }
+}
+@media (min-width: 922px) {
+  .index-body .game-area-container .game-interface-container .system-message-area-container .dialog-interface-container {
+    position: unset;
+    top: 0%;
+    left: 0%;
+    max-width: 30%;
+  }
+}
+.index-body .game-area-container .game-interface-container .system-message-area-container .dialog-interface-container .dialog-interface-box {
+  color: #0e6ba7;
+  border-radius: 0.25em;
+  min-height: 2em;
+  border: 0.1em solid rgba(0, 178, 176, 0.45);
+  margin-right: 0.15em;
+}
+.index-body .game-area-container .game-interface-container .system-message-area-container .dialog-interface-container .dialog-interface-box:focus {
+  border-color: #0e6ba7;
+}
+.index-body .game-area-container .game-interface-container .system-message-area-container .dialog-interface-container .dialog-interface-button {
+  text-align: center;
+  color: white;
+  font-size: 1.25em;
+  background-color: #0e6ba7;
+  border: none;
+  min-width: 1.8em;
+  min-height: 1.8em;
+  max-width: 3em;
+  max-height: 3em;
+  border-radius: 50em;
+}
 .index-body .game-area-container .game-interface-container .board-container {
   display: flex;
   justify-content: flex-end;

@@ -1,10 +1,15 @@
 // -------- DOM ---------
 const startBtn = document.querySelector(`#start-btn`);
+const otherStartBtn = document.querySelector(`#other-show-btn`);
 const quitBtn = document.querySelector(`#quit-btn`);
 const gameBtn = document.querySelector(`#game-btn`);
+const inputBtn = document.querySelector(`#input-btn`);
 const bannerContainer = document.querySelector(`#banner-container`);
 const sectionGameDesc = document.querySelector(`#game-description-section`);
 const gameBoard = document.querySelector(`#game-board`);
+const gameMessages = document.querySelector(`.system-messages-text`);
+const dialogInterface = document.querySelector(`#dialog-interface-form`);
+const dialogInterfaceInput = document.querySelector(`#dialog-interface-input`);
 
 const showGame = (e) => {
     e.preventDefault();
@@ -32,6 +37,7 @@ const startGame = (e) => {
 };
 
 startBtn.addEventListener("click", showGame);
+otherStartBtn.addEventListener("click", showGame);
 quitBtn.addEventListener("click", hideGame);
 gameBtn.addEventListener("click", startGame);
 
@@ -51,6 +57,9 @@ const totalPlayers = [];
 // función para determinar cantidad de jugadores
 const determiningPlayers = () => {
     do {
+        gameMessages.innerHTML = `<p class="message-text">Ingrese el número de jugadores:</p>`;
+        dialogInterface.classList.add("dialog-interface-container");
+        dialogInterface.classList.remove("dialog-interface-hidden");
         playerNumberPrompt = prompt("Ingrese el número de jugadores");
         playerNumber = parseInt(playerNumberPrompt);
         console.log(playerNumber);
@@ -368,9 +377,8 @@ const fairShuffle = () => {
 
 // función para ejecutar el juego
 function runGame() {
-    alert(
-        `Bienvenido a The Clue - En cualquier momento del juego puedes insertar la letra "q" en los prompt para cortar la ejecución y salir del juego ¡Que lo disfurtes!`
-    );
+    gameMessages.innerHTML = `<p class="message-title"">Bienvenido a The Clue</p>
+    <p class="message-text">En cualquier momento del juego puedes insertar la letra "q" en los prompt para cortar la ejecución y salir del juego ¡Que lo disfurtes!</p>`;
     playerNumber = determiningPlayers();
     // conformamos nuestro array de players
     for (let i = 1; i <= playerNumber; i += 1) {
