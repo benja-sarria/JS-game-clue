@@ -428,3 +428,41 @@ function playGame() {
         }
     } while (winCheck == false || exit == false); */
 }
+
+/* let mixedArray;
+        let coeficientModifier = 0;
+        for (let i = 0; i <= 20; i += 1) {
+            console.log(`Mezclando el array`);
+            mixedArray = array.sort((a, b) => {
+                let coeficient = Math.ceil(Math.random() * 3);
+                // console.log(coeficient);
+                console.log(coeficientModifier);
+                // console.log(coeficient + coeficientModifier);
+                if (Math.ceil(Math.random() * 3) === 2) {
+                    if (coeficientModifier <= 2) {
+                        coeficientModifier += Math.floor(Math.random() * 2);
+                    } else {
+                        coeficientModifier = 0;
+                    }
+                }
+                if (coeficient + coeficientModifier <= 3) {
+                    if (coeficient + coeficientModifier === 1) {
+                        return -1;
+                    } else if (coeficient + coeficientModifier === 2) {
+                        return 0;
+                    } else if (coeficient + coeficientModifier === 3) {
+                        return 1;
+                    }
+                } else {
+                    if (coeficient === 1) {
+                        return -1;
+                    } else if (coeficient === 2) {
+                        return 0;
+                    } else if (coeficient === 3) {
+                        return 1;
+                    }
+                }
+            });
+            console.log(mixedArray);
+        } */
+/* return mixedArray; */

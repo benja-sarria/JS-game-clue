@@ -701,7 +701,51 @@ class DatosDelCrimen {
     }
     // método que permite mezclar las cartas una vez que el objeto fue convertido en array
     mezclarCartas(array) {
-        let currentIndex = array.length,
+        let mixedArray = array;
+        let firstSixth,
+            secondSixth,
+            thirdSixth,
+            fourthSixth,
+            fifthSixth,
+            sixthSixth;
+        let readyToMixArray = [];
+        for (let i = 0; i <= 4; i += 1) {
+            firstSixth = mixedArray.slice(0, 3);
+            secondSixth = mixedArray.slice(3, 6);
+            thirdSixth = mixedArray.slice(6, 9);
+            fourthSixth = mixedArray.slice(9, 12);
+            fifthSixth = mixedArray.slice(12, 15);
+            sixthSixth = mixedArray.slice(15, 18);
+            console.log(firstSixth);
+            console.log(secondSixth);
+            console.log(thirdSixth);
+            console.log(fourthSixth);
+            console.log(fifthSixth);
+            console.log(sixthSixth);
+            readyToMixArray = thirdSixth.concat(firstSixth);
+            readyToMixArray = readyToMixArray.concat(sixthSixth);
+            readyToMixArray = readyToMixArray.concat(fourthSixth);
+            readyToMixArray = readyToMixArray.concat(fifthSixth);
+            readyToMixArray = readyToMixArray.concat(secondSixth);
+            console.log(readyToMixArray);
+            console.log(`Mezclando el array`);
+            mixedArray = readyToMixArray.sort((a, b) => {
+                let coeficient = Math.ceil(Math.random() * 3);
+                console.log(coeficient);
+                if (coeficient === 1) {
+                    return -1;
+                } else if (coeficient === 2) {
+                    return 0;
+                } else if (coeficient === 3) {
+                    return 1;
+                }
+            });
+            console.log(mixedArray);
+        }
+
+        return mixedArray;
+        // MÉTODO DE MEZCLADO ANTERIOR
+        /* let currentIndex = array.length,
             randomIndex;
         while (currentIndex != 0) {
             randomIndex = Math.floor(Math.random() * currentIndex);
@@ -711,7 +755,7 @@ class DatosDelCrimen {
                 array[currentIndex],
             ];
         }
-        return array;
+        return array; */
     }
     // método que permite dividir el total de cartas en el array en tantos sub-arrays como jugadores haya
     repartirCartas(array, min1, max1) {
