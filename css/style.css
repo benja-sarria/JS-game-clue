@@ -100,11 +100,19 @@
     width: 100%;
   }
 }
+.index-body .index-header .navbar-index .show {
+  position: absolute;
+  top: 0em;
+  right: 0em;
+}
 @media (min-width: 400px) {
   .index-body .index-header .navbar-index .show {
     display: flex;
     justify-content: flex-end;
   }
+}
+.index-body .index-header .navbar-index .navbar-links-container {
+  transition: height 300ms ease-in;
 }
 @media (min-width: 992px) {
   .index-body .index-header .navbar-index .navbar-links-container {
@@ -310,6 +318,7 @@
 }
 .index-body .description-container .pad-container .btn {
   display: flex;
+  font-size: 1.15em;
   justify-content: center;
   align-items: center;
   margin: 0 auto;
@@ -379,31 +388,6 @@
     font-size: 1.6em;
   }
 }
-.index-body .game-area-container .game-interface-container .system-message-area-container .system-messages-text .message-text {
-  font-family: "Pontano Sans";
-  color: #0e6ba7;
-  z-index: 50;
-  padding-left: 0.5em;
-  text-align: justify;
-  line-height: 1.25em;
-  letter-spacing: -0.05em;
-  font-size: 1.15em;
-  padding-top: 0.8em;
-}
-.index-body .game-area-container .game-interface-container .system-message-area-container .system-messages-text .message-text:last-child {
-  margin-top: -0.5em;
-}
-@media (min-width: 370px) {
-  .index-body .game-area-container .game-interface-container .system-message-area-container .system-messages-text .message-text {
-    font-size: 1.2em;
-  }
-}
-@media (min-width: 1000px) {
-  .index-body .game-area-container .game-interface-container .system-message-area-container .system-messages-text .message-text {
-    text-align: center;
-    font-size: 1.3em;
-  }
-}
 .index-body .game-area-container .game-interface-container .system-message-area-container .dialog-interface-hidden {
   display: none;
 }
@@ -412,8 +396,8 @@
   margin: 2em auto 0;
   max-width: 30%;
   justify-content: space-evenly;
-  position: relative;
-  top: 30%;
+  position: absolute;
+  top: 50%;
   left: 0%;
 }
 @media (min-width: 420px) {
@@ -424,14 +408,14 @@
 }
 @media (min-width: 530px) {
   .index-body .game-area-container .game-interface-container .system-message-area-container .dialog-interface-container {
-    top: 30%;
-    left: 25%;
+    top: 35%;
+    left: 57%;
   }
 }
 @media (min-width: 712px) and (max-width: 991px) {
   .index-body .game-area-container .game-interface-container .system-message-area-container .dialog-interface-container {
-    top: 30%;
-    left: 33%;
+    top: 40.5%;
+    left: 67%;
   }
 }
 @media (min-width: 922px) {
@@ -506,6 +490,59 @@
   font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   min-width: 5em;
   border: none;
+}
+.index-body .game-area-container .offcanvas-body .row .col .collapse .card-body {
+  width: 100%;
+}
+.index-body .game-area-container .offcanvas-body .row .col .collapse .card-body .category-container {
+  margin-bottom: 0;
+  padding-left: 0;
+  list-style: none;
+}
+.index-body .game-area-container .offcanvas-body .row .col .collapse .card-body .category-container .cards-category {
+  border-bottom: 2px solid rgba(0, 178, 176, 0.25);
+  min-height: 25vh;
+}
+.index-body .game-area-container .offcanvas-body .row .col .collapse .card-body .category-container .cards-category .card-suspect {
+  max-height: 25vh;
+}
+.index-body .game-area-container .offcanvas-body .row .col .collapse .card-body .category-container .cards-category:last-child {
+  border-bottom: transparent;
+}
+.index-body .game-area-container .offcanvas-body .row .col .collapse .card-2 {
+  right: 57%;
+}
+.index-body .game-area-container .offcanvas-body .row .col .show {
+  width: 200%;
+}
+.index-body .accusation-button {
+  display: block;
+  position: absolute;
+  top: 16.5em;
+  right: 3em;
+}
+.index-body .hidden-accusation-button {
+  display: none;
+}
+.index-body .modal .modal-dialog .modal-content .modal-body .hidden-accusation-category-container {
+  display: none;
+}
+.index-body .modal .modal-dialog .modal-content .modal-body .accusation-category-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  align-items: center;
+  max-width: 80%;
+  row-gap: 1em;
+  margin: 0 auto;
+  padding-left: 0;
+  list-style: none;
+}
+.index-body .modal .modal-dialog .modal-content .modal-body .accusation-category-container .accusation-card-item .accusation-card {
+  max-height: 10em;
+}
+.index-body .hidden-accusation-modal {
+  display: none;
 }
 
 /* @media (min-width: 768px) and (max-width: 992px) {

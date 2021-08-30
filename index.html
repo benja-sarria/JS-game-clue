@@ -5,28 +5,21 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <!-- BOOTSTRAP -->
-        <link
-            rel="stylesheet"
-            href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-            integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-            crossorigin="anonymous"
-        />
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
         <!-- GOOGLE FONTS -->
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Pontano+Sans&display=swap" rel="stylesheet">
         <!-- CSS -->
         <link rel="stylesheet" href="./css/style.css" />
-        <title>desafío_8</title>
+        <title>desafío_9</title>
     </head>
     <body class="index-body">
         <!-- BEGINS INDEX HEADER -->
         <header class="index-header">
             <nav
                 class="
-                    navbar-index navbar navbar-expand-lg navbar-light
-                    contaner-fluid
-                "
+                    navbar-index navbar navbar-expand-lg navbar-light contaner-fluid"
             >
                 <a class="navbar-brand col-6" href="#"
                     ><img
@@ -51,7 +44,7 @@
                     <ul class="navbar-nav">
                         <li class="nav-item active">
                             <a class="nav-link" href="index.html"
-                                >Inicio <span class="sr-only">(current)</span></a
+                                >Inicio</a
                             >
                         </li>
                         <li class="nav-item">
@@ -96,7 +89,7 @@
                         Ingresa la letra "q" en cualquiera de los prompt si deseas
                     terminar la ejecución y salir del juego.
                     </p>
-                    <input type="submit" class="btn btn-primary btn-lg" value="Empezar Juego" id="start-btn">
+                    <button class="btn btn-primary btn-lg" id="start-btn">Empezar Juego</button>
                 </div>
                 <p class="pad-text">
                    
@@ -111,12 +104,13 @@
         <!-- BEGINS GAME BOARD -->
         <section class="hidden-game-container" id="game-board">
             <div class="game-interface-container">
-                <div class="system-message-area-container">
+                <div class="system-message-area-container" id="system-message-area-container">
                     <p class="system-messages-text"></p>
                     <form action="" class="dialog-interface-hidden" id="dialog-interface-form">
                         <input type="text" class="dialog-interface-box" id="dialog-interface-input">
                         <input type="submit" class="dialog-interface-button" value="&#10140" id="input-btn">
                     </form>
+                    <button class="dialog-interface-hidden" id="dice-btn">DADOS</button>
                 </div>
                 <div class="board-container">
                     <img
@@ -131,25 +125,136 @@
                     <input type="submit" class="btn btn-primary btn-lg" value="Salir" id="quit-btn">
                 </div>
             </div>
+            <!-- OFFCANVAS BEGINS -->
+            <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvas" aria-labelledby="offcanvasLabel">
+                <div class="offcanvas-header">
+                  <h5 class="offcanvas-title" >(NOMBRE JUGADOR)</h5>
+                  <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+                <div class="offcanvas-body">
+                  Content for the offcanvas goes here. You can place just about any Bootstrap component or custom elements here.
+                </div>
+            </div>
+            <a class="btn btn-primary" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">
+                Link with href
+            </a>
+            <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
+                Button with data-bs-target
+            </button>
+              
+            <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+                <div class="offcanvas-header">
+                  <h5 class="offcanvas-title" id="offcanvasExampleLabel">(NOMBRE JUGADOR)</h5>
+                  <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+                <!-- COLLAPSE STARTS -->
+                <p>
+                    <a class="btn btn-primary" data-bs-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">Cartas en Mano</a>
+                        <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#multiCollapseExample2" aria-expanded="false" aria-controls="multiCollapseExample2">Cartas Descubiertas</button>
+                </p>
+                <div class="row" id="cardHolder">
+                    <div class="col">
+                        <div class="collapse multi-collapse" id="multiCollapseExample1">
+                            <div class="card card-body">
+                                <ul class="category-container">
+                                    <li class="cards-category suspects"></li>
+                                    <li class="cards-category weapons"></li>
+                                    <li class="cards-category rooms"></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="collapse multi-collapse" id="multiCollapseExample2">
+                        <div class="card card-body card-2">
+                            <ul class="category-container">
+                                <li class="cards-category shown-suspects"></li>
+                                <li class="cards-category shown-weapons"></li>
+                                <li class="cards-category shown-rooms"></li>
+                            </ul>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- COLLAPSE ENDS -->
+                <div>
+                    Some text as placeholder. In real life you can have the elements you have chosen. Like, text, images, lists, etc.
+                </div>
+                <div class="dropdown mt-3">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown">
+                      Dropdown button
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                      <li><a class="dropdown-item" href="#">Action</a></li>
+                      <li><a class="dropdown-item" href="#">Another action</a></li>
+                      <li><a class="dropdown-item" href="#">Something else here</a></li>
+                    </ul>
+                </div>
+            </div>
+              <!-- OFFCANVAS END -->
         </section>
+
+        <!-- ACCUSATION MODAL BEGINS -->
+<!-- Button trigger modal -->
+        <button type="button" class="btn btn-primary hidden-accusation-button" data-bs-toggle="modal" data-bs-target="#accusationModal" id="accusationButton">
+            Acusar
+        </button> 
+
+        <div class="modal" tabindex="-1" id="accusationModal">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">Modal title</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <ul class="hidden-accusation-category-container suspects-container">
+                      <li class="accusation-card-item"><img src="./assets/cartas/azulino.png" alt="carta de Sra. Azulino" class="accusation-card" id="azulino"></li>
+                      <li class="accusation-card-item"><img src="./assets/cartas/blanco.png" alt="carta de Sra. Blanco" class="accusation-card" id="blanco"></li>
+                      <li class="accusation-card-item"><img src="./assets/cartas/escarlata.png" alt="carta de Srta. Escarlata" class="accusation-card" id="escarlata"></li>
+                      <li class="accusation-card-item"><img src="./assets/cartas/moradillo.png" alt="carta de Prof. Moradillo" class="accusation-card" id="moradillo"></li>
+                      <li class="accusation-card-item"><img src="./assets/cartas/mostaza.png" alt="carta de Cnel. Mostaza" class="accusation-card" id="mostaza"></li>
+                      <li class="accusation-card-item"><img src="./assets/cartas/verdi.png" alt="carta de Sr. Verdi" class="accusation-card" id="verdi"></li>
+                  </ul>
+                  <ul class="hidden-accusation-category-container weapons-container">
+                      <li class="accusation-card-item"><img src="./assets/cartas/candelabro.png" alt="carta de Candelabro" class="accusation-card" id="candelabro"></li>
+                      <li class="accusation-card-item"><img src="./assets/cartas/cuchillo.png" alt="carta de Cuchillo"class="accusation-card" id="cuchillo"></li>
+                      <li class="accusation-card-item"><img src="./assets/cartas/cuerda.png" alt="carta de Cuerda" class="accusation-card" id="cuerda"></li>
+                      <li class="accusation-card-item"><img src="./assets/cartas/llavedetuercas.png" alt="carta de Llave de tuercas" class="accusation-card" id="llavedetuercas"></li>
+                      <li class="accusation-card-item"><img src="./assets/cartas/pistola.png" alt="carta de Pistola" class="accusation-card" id="pistola"></li>
+                      <li class="accusation-card-item"><img src="./assets/cartas/tubo.png" alt="carta de Tubo" class="accusation-card" id="tubo"></li>
+                  </ul>
+                  <ul class="hidden-accusation-category-container rooms-container">
+                      <li class="accusation-card-item"><img src="./assets/cartas/biblioteca.png" alt="carta de Biblioteca" class="accusation-card" id="biblioteca"></li>
+                      <li class="accusation-card-item"><img src="./assets/cartas/billar.png" alt="carta de Billar" class="accusation-card" id="saladebillar"></li>
+                      <li class="accusation-card-item"><img src="./assets/cartas/cocina.png" alt="carta de Cocina" class="accusation-card" id="cocina"></li>
+                      <li class="accusation-card-item"><img src="./assets/cartas/COMEDOR.png" alt="carta de Comedor" class="accusation-card" id="comedor"></li>
+                      <li class="accusation-card-item"><img src="./assets/cartas/estudio.png" alt="carta de Estudio" class="accusation-card" id="estudio"></li>
+                      <li class="accusation-card-item"><img src="./assets/cartas/hall.png" alt="carta de Vestíbulo" class="accusation-card" id="vestibulo"></li>
+                      <li class="accusation-card-item"><img src="./assets/cartas/invernadero.png" alt="carta de Invernadero" class="accusation-card" id="invernadero"></li>
+                      <li class="accusation-card-item"><img src="./assets/cartas/sala.png" alt="carta de Sala" class="accusation-card" id="sala"></li>
+                      <li class="accusation-card-item"><img src="./assets/cartas/salondebaile.png" alt="carta de Salón de Baile" class="accusation-card" id="salondebaile"></li>
+                  </ul>
+                  <ul class="hidden-accusation-category-container guessed-container">
+
+                  </ul>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary">Confirmar Acusación</button>
+                    <button type="button" class="btn btn-secondary" >Resetear Acusación</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        <!-- ACCUSATION MODAL ENDS -->
+
+
 
         <div></div>
         <!-- BEGIN BOOTSTRAP SCRIPTS -->
-        <script
-            src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-            crossorigin="anonymous"
-        ></script>
-        <script
-            src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-            crossorigin="anonymous"
-        ></script>
-        <script
-            src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-            crossorigin="anonymous"
-        ></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>   
         <!-- END BOOTSTRAP SCRIPTS -->
         <script src="./js/main.js"></script>
     </body>

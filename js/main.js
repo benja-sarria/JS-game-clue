@@ -1,4 +1,27 @@
+// primero consultamos la cantidad de jugadores
+let actualPlayer = 0;
+let playerNumber;
+let respuesta1;
+let manoRepartida;
+// creación objeto literal que contendrá la clave de cada jugador y el sub-array asignado
+const manosArmadas = {};
+let manoMezclada;
+let minCartasRepartir;
+let maxCartasRepartir;
+let movimiento;
+let isWinner;
+let selectedSuspect, selectedWeapon, selectedRoom;
+let solution;
+
+const totalPlayers = [];
+
+const manosClasificadas = [];
+
+let selectedTriade = [];
 // -------- DOM ---------
+const navbarIndex = document.querySelector(`.navbar-index`);
+const navbarCollapse = navbarIndex.childNodes[5];
+const navbarFix = document.querySelector(`.navbar-toggler`);
 const startBtn = document.querySelector(`#start-btn`);
 const otherStartBtn = document.querySelector(`#other-show-btn`);
 const quitBtn = document.querySelector(`#quit-btn`);
@@ -7,9 +30,59 @@ const inputBtn = document.querySelector(`#input-btn`);
 const bannerContainer = document.querySelector(`#banner-container`);
 const sectionGameDesc = document.querySelector(`#game-description-section`);
 const gameBoard = document.querySelector(`#game-board`);
-const gameMessages = document.querySelector(`.system-messages-text`);
+const gameMessages = document.querySelector(`#system-message-area-container`);
 const dialogInterface = document.querySelector(`#dialog-interface-form`);
 const dialogInterfaceInput = document.querySelector(`#dialog-interface-input`);
+const diceBtn = document.querySelector(`#dice-btn`);
+const cardHolder = document.querySelector(`#cardHolder`);
+const suspectHolderRow =
+    cardHolder.childNodes[1].childNodes[1].childNodes[1].childNodes[1]
+        .childNodes[1];
+const weaponsHolderRow =
+    cardHolder.childNodes[1].childNodes[1].childNodes[1].childNodes[1]
+        .childNodes[3];
+const roomsHolderRow =
+    cardHolder.childNodes[1].childNodes[1].childNodes[1].childNodes[1]
+        .childNodes[5];
+const accusationModal = document.querySelector(`#accusationModal`);
+const accusationButton = document.querySelector(`#accusationButton`);
+const suspectsAccContainer =
+    accusationModal.childNodes[1].childNodes[1].childNodes[3].childNodes[1];
+const weaponsAccContainer =
+    accusationModal.childNodes[1].childNodes[1].childNodes[3].childNodes[3];
+const roomsAccContainer =
+    accusationModal.childNodes[1].childNodes[1].childNodes[3].childNodes[5];
+const accusationCardSelector = document.querySelectorAll(
+    `.accusation-card-item`
+);
+const guessedAccContainer =
+    accusationModal.childNodes[1].childNodes[1].childNodes[3].childNodes[7];
+const accusationResetBtn =
+    accusationModal.childNodes[1].childNodes[1].childNodes[5].childNodes[3];
+const accusationConfirmBtn =
+    accusationModal.childNodes[1].childNodes[1].childNodes[5].childNodes[1];
+
+const navBarToggler = (e) => {
+    if (!navbarCollapse.classList.contains("show")) {
+        navbarCollapse.classList.add("collapsing");
+        navbarCollapse.style = `height: 100%; transition: height 300ms ease-in; position: initial`;
+        navbarCollapse.classList.remove("collapse");
+        setTimeout((e) => {
+            navbarCollapse.classList.remove("collapsing");
+            navbarCollapse.classList.add("show");
+            navbarCollapse.classList.add("collapse");
+        }, 20);
+    } else {
+        setTimeout((e) => {
+            navbarCollapse.classList.add("collapsing");
+            navbarCollapse.classList.remove("show");
+            navbarCollapse.classList.add("collapse");
+            navbarCollapse.style = `height: 1%;  transition: height 300ms ease-in;`;
+        }, 20);
+    }
+};
+
+navbarFix.addEventListener("click", navBarToggler);
 
 const showGame = (e) => {
     e.preventDefault();
@@ -33,7 +106,39 @@ const hideGame = (e) => {
 
 const startGame = (e) => {
     e.preventDefault();
-    runGame();
+    gameMessages.children[0].innerText = `Ingrese el número de jugadores:`;
+    dialogInterface.classList.remove("dialog-interface-hidden");
+    dialogInterface.classList.add("dialog-interface-container");
+};
+
+const hideInterface = (e) => {
+    gameMessages.children[0].innerText = ``;
+    dialogInterface.classList.add("dialog-interface-hidden");
+    dialogInterface.classList.remove("dialog-interface-container");
+};
+
+const showMessage = (message) => {
+    gameMessages.children[0].innerText = message;
+};
+
+const showInputReceiver = (e) => {
+    dialogInterface.classList.remove("dialog-interface-hidden");
+    dialogInterface.classList.add("dialog-interface-container");
+};
+
+const showDiceBtn = (e) => {
+    diceBtn.classList.remove("dialog-interface-hidden");
+    diceBtn.classList.add("dialog-interface-container");
+};
+
+const hideDiceBtn = (e) => {
+    diceBtn.classList.add("dialog-interface-hidden");
+    diceBtn.classList.remove("dialog-interface-container");
+};
+
+const showAccBtn = (e) => {
+    accusationButton.classList.remove("hidden-accusation-button");
+    accusationButton.classList.add("accusation-button");
 };
 
 startBtn.addEventListener("click", showGame);
@@ -41,282 +146,245 @@ otherStartBtn.addEventListener("click", showGame);
 quitBtn.addEventListener("click", hideGame);
 gameBtn.addEventListener("click", startGame);
 
-// -------- DOM'S END ---------
+/* ====================  COMIENZA EL JUEGO  ==================== */
 
-// primero consultamos la cantidad de jugadores
-let playerNumber;
-let respuesta1;
-let manoRepartida;
-// creación objeto literal que contendrá la clave de cada jugador y el sub-array asignado
-const manosArmadas = {};
-let manoMezclada;
-let minCartasRepartir;
-let maxCartasRepartir;
-
-const totalPlayers = [];
-// función para determinar cantidad de jugadores
-const determiningPlayers = () => {
-    do {
-        gameMessages.innerHTML = `<p class="message-text">Ingrese el número de jugadores:</p>`;
-        dialogInterface.classList.add("dialog-interface-container");
-        dialogInterface.classList.remove("dialog-interface-hidden");
-        playerNumberPrompt = prompt("Ingrese el número de jugadores");
-        playerNumber = parseInt(playerNumberPrompt);
-        console.log(playerNumber);
-        if (playerNumber > 6 || playerNumber < 2) {
-            alert(
-                `El límite es 6 jugadores y el mínimo es 2 jugadores. Intenta seleccionar la cantidad de jugadores nuevamente `
-            );
-        } else if (
-            isNaN(playerNumber) &&
-            playerNumberPrompt !== "q" &&
-            playerNumberPrompt !== "Q" &&
-            playerNumberPrompt !== null
-        ) {
-            alert(
-                `El carácter ingresado: "${playerNumberPrompt}",  no es un número válido ¡Intenta nuevamente!`
-            );
-        } else if (
-            playerNumberPrompt === "q" ||
-            playerNumberPrompt === "Q" ||
-            playerNumberPrompt === null
-        ) {
-            playerNumber = true;
-            break;
+// determinando cantidad de jugadores
+dialogInterface.addEventListener("submit", (evt) => {
+    evt.preventDefault();
+    if (!playerNumber) {
+        console.log(evt.target[0].value);
+        playerNumber = evt.target[0].value;
+        if (+playerNumber && playerNumber > 1 && playerNumber <= 6) {
+            hideInterface();
+            runGame();
+            turnDynamic(playerNumber);
+            evt.target[0].value = "";
+        } else {
+            gameMessages.children[0].innerText = `Error, el dato ingresado no es una cantidad válida. 
+        Intenta nuevamente eligiendo un número del 2 al 6:`;
+            evt.target[0].value = "";
         }
-    } while (
-        playerNumber > 6 ||
-        playerNumber < 2 ||
-        (isNaN(playerNumber) && playerNumberPrompt != "q")
-    );
-    return playerNumber;
-};
-
-const quiting = () => {
-    if (playerNumber === true) {
-        exit = true;
     }
-    return exit;
+    return playerNumber;
+});
+
+gameMessages.children[0].innerText = `¡Bienvenido a The Clue!
+    En cualquier momento del juego puedes insertar la letra "q" en los prompt para cortar la ejecución y salir del juego ¡Que lo disfurtes!`;
+
+const rollDice = () => {
+    movimiento = Math.ceil(Math.random() * 6);
+    alert(`Tiraste un ${movimiento}`);
+    return enoughToAccuse(movimiento);
 };
-// función con la dinámica del juego
-function playGame() {
-    do {
-        for (const player of totalPlayers) {
-            alert(`Turno Jugador ${player}`);
-            let dice = confirm("¡Tira los dados!");
-            if (dice == true) {
-                let movimiento = Math.ceil(Math.random() * 6);
-                alert(`Tiraste un ${movimiento}`);
-                if (movimiento >= 5) {
-                    alert(
-                        `Tiraste un 5 o más (${movimiento}). Puedes formular tu acusación!`
-                    );
-                    alert(
-                        `Turno de Acusar del Jugador ${player}: Debes elegir una opción para lugar, arma, sospechoso.`
-                    );
-                    do {
-                        acusacionActual[0] = prompt(
-                            `Con qué arma crees que lo mató | Opciones: ${armas.arma1} - ${armas.arma2} - ${armas.arma3} - ${armas.arma4} - ${armas.arma5} - ${armas.arma6}`
-                        );
-                        if (acusacionActual[0] !== null) {
-                            acusacionActual[0] =
-                                acusacionActual[0].toUpperCase();
-                        } else {
-                            acusacionActual[0] = true;
-                            break;
-                        }
-                        if (
-                            acusacionActual[0] == armas.arma1 ||
-                            acusacionActual[0] == armas.arma2 ||
-                            acusacionActual[0] == armas.arma3 ||
-                            acusacionActual[0] == armas.arma4 ||
-                            acusacionActual[0] == armas.arma5 ||
-                            acusacionActual[0] == armas.arma6
-                        ) {
-                            break;
-                        } else if (acusacionActual[0] == "Q") {
-                            acusacionActual[0] = true;
-                            break;
-                        } else {
-                            alert(
-                                `El arma ingresada no está disponible. Prueba de vuelta.`
-                            );
-                        }
-                    } while (
-                        acusacionActual[arma] != armas.arma1 ||
-                        acusacionActual[arma] != armas.arma2 ||
-                        acusacionActual[arma] != armas.arma3 ||
-                        acusacionActual[arma] != armas.arma4 ||
-                        acusacionActual[arma] != armas.arma5 ||
-                        acusacionActual[arma] != armas.arma6 ||
-                        acusacionActual[arma] != "Q"
-                    );
-                    if (
-                        acusacionActual[0] == armas.arma1 ||
-                        acusacionActual[0] == armas.arma2 ||
-                        acusacionActual[0] == armas.arma3 ||
-                        acusacionActual[0] == armas.arma4 ||
-                        acusacionActual[0] == armas.arma5 ||
-                        acusacionActual[0] == armas.arma6
-                    ) {
-                        do {
-                            acusacionActual[1] = prompt(
-                                `En qué lugar crees que lo mató | Opciones: ${lugares.lugar1} - ${lugares.lugar2} - ${lugares.lugar3} - ${lugares.lugar4} - ${lugares.lugar5} - ${lugares.lugar6} - ${lugares.lugar7} - ${lugares.lugar8} - ${lugares.lugar9}`
-                            );
-                            if (acusacionActual[1] !== null) {
-                                acusacionActual[1] =
-                                    acusacionActual[1].toUpperCase();
-                            } else {
-                                acusacionActual[1] = true;
-                                break;
-                            }
-                            if (
-                                acusacionActual[1] == lugares.lugar1 ||
-                                acusacionActual[1] == lugares.lugar2 ||
-                                acusacionActual[1] == lugares.lugar3 ||
-                                acusacionActual[1] == lugares.lugar4 ||
-                                acusacionActual[1] == lugares.lugar5 ||
-                                acusacionActual[1] == lugares.lugar6 ||
-                                acusacionActual[1] == lugares.lugar7 ||
-                                acusacionActual[1] == lugares.lugar8 ||
-                                acusacionActual[1] == lugares.lugar9
-                            ) {
-                                break;
-                            } else if (acusacionActual[1] == "Q") {
-                                acusacionActual[1] = true;
-                                break;
-                            } else {
-                                alert(
-                                    `El lugar ingresado no está disponible. Prueba de vuelta.`
-                                );
-                            }
-                        } while (
-                            acusacionActual[1] != lugares.lugar1 ||
-                            acusacionActual[1] != lugares.lugar2 ||
-                            acusacionActual[1] != lugares.lugar3 ||
-                            acusacionActual[1] != lugares.lugar4 ||
-                            acusacionActual[1] != lugares.lugar5 ||
-                            acusacionActual[1] != lugares.lugar6 ||
-                            acusacionActual[1] != lugares.lugar7 ||
-                            acusacionActual[1] != lugares.lugar8 ||
-                            acusacionActual[1] != lugares.lugar9 ||
-                            acusacionActual[1] != "Q"
-                        );
-                        if (
-                            acusacionActual[1] == lugares.lugar1 ||
-                            acusacionActual[1] == lugares.lugar2 ||
-                            acusacionActual[1] == lugares.lugar3 ||
-                            acusacionActual[1] == lugares.lugar4 ||
-                            acusacionActual[1] == lugares.lugar5 ||
-                            acusacionActual[1] == lugares.lugar6 ||
-                            acusacionActual[1] == lugares.lugar7 ||
-                            acusacionActual[1] == lugares.lugar8 ||
-                            acusacionActual[1] == lugares.lugar9
-                        ) {
-                            do {
-                                acusacionActual[2] = prompt(
-                                    `Quién crees que lo mató | Opciones: ${personajes.personaje1} - ${personajes.personaje2} - ${personajes.personaje3} - ${personajes.personaje4} - ${personajes.personaje5} - ${personajes.personaje6}`
-                                );
-                                if (acusacionActual[2] !== null) {
-                                    acusacionActual[2] =
-                                        acusacionActual[2].toUpperCase();
-                                } else {
-                                    acusacionActual[2] = true;
-                                    break;
-                                }
-                                if (
-                                    acusacionActual[2] ==
-                                        personajes.personaje1 ||
-                                    acusacionActual[2] ==
-                                        personajes.personaje2 ||
-                                    acusacionActual[2] ==
-                                        personajes.personaje3 ||
-                                    acusacionActual[2] ==
-                                        personajes.personaje4 ||
-                                    acusacionActual[2] ==
-                                        personajes.personaje5 ||
-                                    acusacionActual[2] == personajes.personaje6
-                                ) {
-                                    break;
-                                } else if (acusacionActual[2] == "Q") {
-                                    acusacionActual[2] = true;
-                                    break;
-                                } else {
-                                    alert(
-                                        `El/la sospechoso/a ingresado/a no está disponible. Prueba de vuelta.`
-                                    );
-                                }
-                            } while (
-                                acusacionActual[2] != personajes.personaje1 ||
-                                acusacionActual[2] != personajes.personaje2 ||
-                                acusacionActual[2] != personajes.personaje3 ||
-                                acusacionActual[2] != personajes.personaje4 ||
-                                acusacionActual[2] != personajes.personaje5 ||
-                                acusacionActual[2] != personajes.personaje6 ||
-                                acusacionActual[2] != "Q"
-                            );
-                            if (
-                                acusacionActual[2] == personajes.personaje1 ||
-                                acusacionActual[2] == personajes.personaje2 ||
-                                acusacionActual[2] == personajes.personaje3 ||
-                                acusacionActual[2] == personajes.personaje4 ||
-                                acusacionActual[2] == personajes.personaje5 ||
-                                acusacionActual[2] == personajes.personaje6
-                            ) {
-                                if (
-                                    respuesta1.arma == acusacionActual[0] &&
-                                    respuesta1.lugar == acusacionActual[1] &&
-                                    respuesta1.culpable == acusacionActual[2]
-                                ) {
-                                    alert(
-                                        `¡Felicitaciones! Has desvelado el crimen`
-                                    );
-                                    alert(
-                                        `El/la asesino/a era ${respuesta1.culpable} con el/la ${respuesta1.arma}, en el/la ${respuesta1.lugar}`
-                                    );
-                                    winCheck = true;
-                                    exit = true;
-                                    return winCheck;
-                                } else {
-                                    alert(
-                                        `¡No acertaste! Mejor suerte en el próximo turno `
-                                    );
-                                    continue;
-                                }
-                            } else if (acusacionActual[2] == true) {
-                                exit = acusacionActual[2];
-                                break;
-                            }
-                            continue;
-                        } else if (acusacionActual[1] == true) {
-                            exit = acusacionActual[1];
-                            break;
-                        }
-                        continue;
-                    } else if (acusacionActual[0] == true) {
-                        exit = acusacionActual[0];
-                        break;
-                    }
-                } else {
-                    alert(`¡Tiraste menos de 5! Su turno ha finalizado`);
-                }
-            } else {
-                exit = true;
+// const movement = diceBtn.addEventListener("click", rollDice);
+
+const turn = (player) => {
+    setTimeout(() => {
+        showMessage(`Turno Jugador ${player}`);
+    }, 2000);
+    setTimeout(() => {
+        showMessage(`¡Tira los dados!`);
+    }, 5000);
+    setTimeout(() => {
+        showDiceBtn();
+    }, 5000);
+    hideInterface();
+};
+
+isEnoughtToAccuse = diceBtn.addEventListener("click", rollDice);
+
+const turnDynamic = (playerNumber) => {
+    console.log("está llegando antes del switch");
+    switch (+playerNumber) {
+        case 2:
+            console.log(`Dos jugadores`);
+            // Turno Jugador 1
+            let someOneWon = false;
+            if (actualPlayer === 0) {
+                suspectHolderRow.innerHTML = ``;
+                weaponsHolderRow.innerHTML = ``;
+                roomsHolderRow.innerHTML = ``;
+                turn(1);
+                printCards(actualPlayer);
+            } else if (actualPlayer === 1) {
+                suspectHolderRow.innerHTML = ``;
+                weaponsHolderRow.innerHTML = ``;
+                roomsHolderRow.innerHTML = ``;
+                turn(2);
+                printCards(actualPlayer);
             }
-            if (exit === true) {
-                break;
-            } else {
-                continue;
-            }
+
+            break;
+        case 3:
+            break;
+        case 4:
+            break;
+        case 5:
+            break;
+        case 6:
+            break;
+        default:
+            break;
+    }
+};
+
+const accusation = () => {};
+
+const enoughToAccuse = (diceNumber) => {
+    console.log("ejecutando enoughToAccuse");
+    if (diceNumber >= 5) {
+        dialogInterface.addEventListener("submit", (evt) => {
+            evt.preventDefault();
+            evt.target[0].value = "";
+            console.log(evt.target[0].value);
+        });
+        console.log(`puedes acusar`);
+        setTimeout(() => {
+            showMessage(`El Jugador ${actualPlayer + 1} puede acusar:`);
+        }, 2000);
+        showAccBtn();
+        hideDiceBtn();
+        accusationDynamic();
+    } else {
+        console.log(`No puedes acusar`);
+        if (actualPlayer < playerNumber - 1) {
+            console.log("pasando al siguiente turno");
+            actualPlayer += 1;
+            console.log(`ActualPlayer es: ${actualPlayer}`);
+        } else {
+            console.log("reiniciando la ronda");
+            actualPlayer = 0;
+            console.log(`ActualPlayer es: ${actualPlayer}`);
         }
-    } while (winCheck == false || exit == false);
-}
+        hideDiceBtn();
+        turnDynamic(playerNumber);
+    }
+};
+
+const isInTriad = () => {
+    for (item of selectedTriade) {
+        console.log(item);
+        if (
+            item === selectedSuspect ||
+            item === selectedWeapon ||
+            item === selectedRoom
+        ) {
+            console.log(`se encontró en la tríada`);
+            return true;
+        } else {
+            console.log(`no se encontró en la tríada`);
+            return false;
+        }
+    }
+};
+
+const confirmAccusation = (evt) => {
+    console.log(`la Solución es: ${solution}`);
+    console.log(`la acusación es: ${selectedTriade}`);
+    if (
+        selectedTriade[0] === solution[0] &&
+        selectedTriade[1] === solution[1] &&
+        selectedTriade[2] === solution[2]
+    ) {
+        console.log(`has ganado!`);
+    }
+};
+
+let suspectCheck, weaponCheck;
+
+const suspectSelection = (evt) => {
+    console.log(evt.target.id);
+    switch (selectedTriade.length) {
+        case 0:
+            suspectsAccContainer.classList.remove(
+                "hidden-accusation-category-container"
+            );
+            suspectsAccContainer.classList.add("accusation-category-container");
+            selectedTriade.push(evt.target.id.toUpperCase());
+            suspectsAccContainer.classList.add(
+                "hidden-accusation-category-container"
+            );
+            suspectsAccContainer.classList.remove(
+                "accusation-category-container"
+            );
+            weaponsAccContainer.classList.add("accusation-category-container");
+            weaponsAccContainer.classList.remove(
+                "hidden-accusation-category-container"
+            );
+
+            break;
+        case 1:
+            selectedTriade.push(evt.target.id.toUpperCase());
+            weaponsAccContainer.classList.remove(
+                "accusation-category-container"
+            );
+            weaponsAccContainer.classList.add(
+                "hidden-accusation-category-container"
+            );
+            roomsAccContainer.classList.add("accusation-category-container");
+            roomsAccContainer.classList.remove(
+                "hidden-accusation-category-container"
+            );
+            break;
+        case 2:
+            selectedTriade.push(evt.target.id.toUpperCase());
+            console.log(selectedTriade);
+            roomsAccContainer.classList.remove("accusation-category-container");
+            roomsAccContainer.classList.add(
+                "hidden-accusation-category-container"
+            );
+            guessedAccContainer.classList.remove(
+                "hidden-accusation-category-container"
+            );
+            guessedAccContainer.classList.add("accusation-category-container");
+            for (let guess of selectedTriade) {
+                guessedAccContainer.innerHTML += `<img src="${
+                    cartas[`${guess.toLowerCase()}`]
+                }" alt="${guess.toLowerCase()}" class="card-suspect">`;
+            }
+            break;
+    }
+    accusationConfirmBtn.addEventListener("click", confirmAccusation);
+};
+
+const resetAccusation = (evt) => {
+    guessedAccContainer.innerHTML = "";
+    selectedTriade = [];
+    guessedAccContainer.classList.add("hidden-accusation-category-container");
+    guessedAccContainer.classList.remove("accusation-category-container");
+    suspectsAccContainer.classList.remove(
+        "hidden-accusation-category-container"
+    );
+    suspectsAccContainer.classList.add("accusation-category-container");
+    for (let card of accusationCardSelector) {
+        card.addEventListener("click", suspectSelection);
+    }
+};
+
+accusationResetBtn.addEventListener("click", resetAccusation);
+
+console.log(selectedTriade);
+selectedTriade = [];
+const accusationDynamic = () => {
+    let accusationStage = 0;
+    if (accusationStage === 0) {
+        suspectsAccContainer.classList.remove(
+            "hidden-accusation-category-container"
+        );
+        suspectsAccContainer.classList.add("accusation-category-container");
+        for (let card of accusationCardSelector) {
+            card.addEventListener("click", suspectSelection);
+        }
+    }
+};
+
 // función para emparejar la cantidad de cartas repartidas cuando hay desequilibrio
 const fairShuffle = () => {
+    console.log(`Ejecutando Fair-Shuffle`);
     while (
-        (playerNumber === 2 &&
+        (+playerNumber === 2 &&
             manoRepartida[manoRepartida.length - 1].length < 9) ||
-        (playerNumber === 2 && manoRepartida.length === 3)
+        (+playerNumber === 2 && manoRepartida.length === 3)
     ) {
         manoRepartida = respuesta1.repartirCartas(
             manoMezclada,
@@ -326,9 +394,10 @@ const fairShuffle = () => {
         console.log("volviendo a repartir");
     }
     while (
-        (playerNumber === 3 &&
-            manoRepartida[manoRepartida.length - 1].length < 6) ||
-        (playerNumber === 3 && manoRepartida.length === 4)
+        +playerNumber === 3 &&
+        manoRepartida.length >
+            playerNumber /* [manoRepartida.length - 1].length < 6) */ /* ||
+        (playerNumber === 3 && manoRepartida.length < 3) */
     ) {
         manoRepartida = respuesta1.repartirCartas(
             manoMezclada,
@@ -338,9 +407,9 @@ const fairShuffle = () => {
         console.log("volviendo a repartir");
     }
     while (
-        (playerNumber === 4 &&
+        (+playerNumber === 4 &&
             manoRepartida[manoRepartida.length - 1].length < 4) ||
-        (playerNumber === 4 && manoRepartida.length === 5)
+        (+playerNumber === 4 && manoRepartida.length === 5)
     ) {
         manoRepartida = respuesta1.repartirCartas(
             manoMezclada,
@@ -350,9 +419,9 @@ const fairShuffle = () => {
         console.log("volviendo a repartir");
     }
     while (
-        (playerNumber === 5 &&
+        (+playerNumber === 5 &&
             manoRepartida[manoRepartida.length - 1].length < 3) ||
-        (playerNumber === 5 && manoRepartida.length === 6)
+        (+playerNumber === 5 && manoRepartida.length === 6)
     ) {
         manoRepartida = respuesta1.repartirCartas(
             manoMezclada,
@@ -362,9 +431,9 @@ const fairShuffle = () => {
         console.log("volviendo a repartir");
     }
     while (
-        (playerNumber === 6 &&
+        (+playerNumber === 6 &&
             manoRepartida[manoRepartida.length - 1].length < 3) ||
-        (playerNumber === 6 && manoRepartida.length === 7)
+        (+playerNumber === 6 && manoRepartida.length === 7)
     ) {
         manoRepartida = respuesta1.repartirCartas(
             manoMezclada,
@@ -373,13 +442,11 @@ const fairShuffle = () => {
         );
         console.log("volviendo a repartir");
     }
+    console.log(`No se detectaron desequilibrios a corregir`);
 };
 
 // función para ejecutar el juego
 function runGame() {
-    gameMessages.innerHTML = `<p class="message-title"">Bienvenido a The Clue</p>
-    <p class="message-text">En cualquier momento del juego puedes insertar la letra "q" en los prompt para cortar la ejecución y salir del juego ¡Que lo disfurtes!</p>`;
-    playerNumber = determiningPlayers();
     // conformamos nuestro array de players
     for (let i = 1; i <= playerNumber; i += 1) {
         totalPlayers.push(i);
@@ -393,48 +460,39 @@ function runGame() {
     );
     // control del resultado/solución
     console.log(respuesta1);
-
-    exit = quiting();
-
+    solution = Object.values(respuesta1);
     // creación del mazo (array filtrado sin las cartas de la solución)
-    if (exit !== true) {
-        const mano = respuesta1.armarMazo();
-        // control de la mano
-        console.log(mano);
-        // creación de la mano mezclada - Array reordenado aleatoriamente
-        manoMezclada = respuesta1.mezclarCartas(mano);
-        // control de la mezcla
-        console.log(manoMezclada);
-        // creación de los sub-arrays para ser repartidos entre los jugadores - Se estipuló como max y min valores relacionados al total de cartas a repartir y la corrección necesaria para casos en donde hay resto
-        minCartasRepartir = 18 / playerNumber - 0.5;
-        maxCartasRepartir = 18 / playerNumber + 0.5;
-        manoRepartida = respuesta1.repartirCartas(
-            manoMezclada,
-            minCartasRepartir,
-            maxCartasRepartir
-        );
-        // chequeo de cartas repartidas
-        console.log(manoRepartida[manoRepartida.length - 1].length);
-        console.log(manoRepartida);
+    const mano = respuesta1.armarMazo();
+    // control de la mano
+    console.log(mano);
+    // creación de la mano mezclada - Array reordenado aleatoriamente
+    manoMezclada = respuesta1.mezclarCartas(mano);
+    // control de la mezcla
+    console.log(manoMezclada);
+    // creación de los sub-arrays para ser repartidos entre los jugadores - Se estipuló como max y min valores relacionados al total de cartas a repartir y la corrección necesaria para casos en donde hay resto
+    minCartasRepartir = 18 / playerNumber - 0.5;
+    maxCartasRepartir = 18 / playerNumber + 0.5;
+    manoRepartida = respuesta1.repartirCartas(
+        manoMezclada,
+        minCartasRepartir,
+        maxCartasRepartir
+    );
+    // chequeo de cartas repartidas
+    console.log(manoRepartida[manoRepartida.length - 1].length);
+    console.log(manoRepartida);
 
-        fairShuffle();
+    fairShuffle();
 
-        // controles de los sub-arrays creados - listos para ser repartidos
-        console.table(manoRepartida);
-        console.log(manoRepartida);
-        // ejecución de la función que produce como resultado la asignación de los sub-arrays y los guarda en clave/valor dentro del objeto
-        armarTodasLasManos();
-        // control del objeto contenedor de la repartición
-        console.log(manosArmadas);
-    }
-
-    while (
-        totalPlayers.length <= 6 &&
-        totalPlayers.length > 1 &&
-        exit != true
-    ) {
-        playGame();
-    }
+    // controles de los sub-arrays creados - listos para ser repartidos
+    console.table(manoRepartida);
+    console.log(manoRepartida);
+    // ejecución de la función que produce como resultado la asignación de los sub-arrays y los guarda en clave/valor dentro del objeto
+    clasificarCartas();
+    const manosArmadas = armarTodasLasManos();
+    // control del objeto contenedor de la repartición
+    console.log(manosArmadas);
+    /* printCards(1); */
+    /* playGame(); */
 }
 
 let exit;
@@ -460,21 +518,162 @@ const armas = {
     arma2: "PISTOLA",
     arma3: "TUBO",
     arma4: "CUERDA",
-    arma5: "LLAVE DE TUERCAS",
+    arma5: "LLAVEDETUERCAS",
     arma6: "CANDELABRO",
 };
 
 // objeto literal con los lugares
 const lugares = {
     lugar1: "COCINA",
-    lugar2: "SALA DE MÚSICA",
+    lugar2: "SALONDEBAILE",
     lugar3: "INVERNADERO",
     lugar4: "COMEDOR",
-    lugar5: "SALA DE BILLAR",
+    lugar5: "SALADEBILLAR",
     lugar6: "BIBLIOTECA",
     lugar7: "ESTUDIO",
-    lugar8: "VESTÍBULO",
+    lugar8: "VESTIBULO",
     lugar9: "SALA",
+};
+
+const cartas = {
+    mostaza: "assets/cartas/mostaza.png",
+    verdi: "assets/cartas/verdi.png",
+    moradillo: "assets/cartas/moradillo.png",
+    blanco: "assets/cartas/blanco.png",
+    escarlata: "assets/cartas/escarlata.png",
+    azulino: "assets/cartas/azulino.png",
+    cuchillo: "assets/cartas/cuchillo.png",
+    pistola: "assets/cartas/pistola.png",
+    tubo: "assets/cartas/tubo.png",
+    cuerda: "assets/cartas/cuerda.png",
+    llavedetuercas: "assets/cartas/llavedetuercas.png",
+    candelabro: "assets/cartas/candelabro.png",
+    cocina: "assets/cartas/cocina.png",
+    salondebaile: "assets/cartas/salondebaile.png",
+    invernadero: "assets/cartas/invernadero.png",
+    comedor: "assets/cartas/COMEDOR.png",
+    saladebillar: "assets/cartas/billar.png",
+    biblioteca: "assets/cartas/biblioteca.png",
+    estudio: "assets/cartas/estudio.png",
+    vestibulo: "assets/cartas/hall.png",
+    sala: "assets/cartas/sala.png",
+};
+
+/* suspectHolderRow.innerHTML = `<img src="${cartas.mostaza}" alt="coronel mostaza" class="card-suspect">`; */
+const printCards = (jugador) => {
+    let listaCartas = Object.keys(cartas);
+    let manosJugador = Object.values(manosArmadas)[jugador];
+    console.log(manosJugador);
+    let actualArray = 0;
+    for (carta of listaCartas) {
+        console.log(`Buscando para imprimir la carta ${carta}`);
+        for (let category of manosJugador) {
+            console.table(category);
+            if (category.includes(carta.toUpperCase())) {
+                console.log(`se encontró`);
+                if (actualArray === 0) {
+                    if (!suspectHolderRow.innerHTML) {
+                        console.log(
+                            `Imprimiendo la carta "${carta} en columna Sospechosos"`
+                        );
+                        suspectHolderRow.innerHTML = `<img src="${
+                            cartas[`${carta}`]
+                        }" alt="${carta}" class="card-suspect">`;
+                        actualArray += 1;
+                        if (actualArray > 2) {
+                            actualArray = 0;
+                        }
+                        continue;
+                    } else {
+                        console.log(
+                            `Imprimiendo la carta "${carta} en columna Sospechosos"`
+                        );
+                        suspectHolderRow.innerHTML += `<img src="${
+                            cartas[`${carta}`]
+                        }" alt="${carta}" class="card-suspect">`;
+                        actualArray += 1;
+                        if (actualArray > 2) {
+                            actualArray = 0;
+                        }
+                        continue;
+                    }
+                } else if (actualArray === 1) {
+                    if (!weaponsHolderRow.innerHTML) {
+                        console.log(
+                            `Imprimiendo la carta "${carta} en columna Armas"`
+                        );
+                        weaponsHolderRow.innerHTML = `<img src="${
+                            cartas[`${carta}`]
+                        }" alt="${carta}" class="card-suspect">`;
+                        actualArray += 1;
+                        if (actualArray > 2) {
+                            actualArray = 0;
+                        }
+                        continue;
+                    } else {
+                        console.log(
+                            `Imprimiendo la carta "${carta} en columna Armas"`
+                        );
+                        weaponsHolderRow.innerHTML += `<img src="${
+                            cartas[`${carta}`]
+                        }" alt="${carta}" class="card-suspect">`;
+                        actualArray += 1;
+                        if (actualArray > 2) {
+                            actualArray = 0;
+                        }
+                        continue;
+                    }
+                } else if (actualArray === 2) {
+                    if (!roomsHolderRow.innerHTML) {
+                        console.log(
+                            `Imprimiendo la carta "${carta} en columna Habitaciones"`
+                        );
+                        roomsHolderRow.innerHTML = `<img src="${
+                            cartas[`${carta}`]
+                        }" alt="${carta}" class="card-suspect">`;
+                        actualArray += 1;
+                        if (actualArray > 2) {
+                            actualArray = 0;
+                        }
+                        continue;
+                    } else {
+                        console.log(
+                            `Imprimiendo la carta "${carta} en columna Habitaciones"`
+                        );
+                        roomsHolderRow.innerHTML += `<img src="${
+                            cartas[`${carta}`]
+                        }" alt="${carta}" class="card-suspect">`;
+                        actualArray += 1;
+                        if (actualArray > 2) {
+                            actualArray = 0;
+                        }
+                        continue;
+                    }
+                }
+            } else {
+                console.log(`no tiene esta carta`);
+            }
+            /*  for (let item of category) {
+                console.log("=========TABLE DE ELEMENT ==============");
+                console.table(item);
+                console.log(`Es ${carta} igual a ${item}?`);
+                if (item === carta.toUpperCase()) {
+                    console.log(
+                        `Se encontró la carta "${carta}" dentro del array "${category}"`
+                    ); */ /*
+             */
+            /*    actualArray += 1;
+                    console.log(`El actual array es ${actualArray}`);
+                } */
+            /* for (let item of category) {
+                } */
+            console.log(`El actual array es ${actualArray}`);
+            actualArray += 1;
+            if (actualArray > 2) {
+                actualArray = 0;
+            }
+        }
+    }
 };
 
 // clase constructora del objeto que va a contener los datos del crimen a develar/solución
@@ -535,10 +734,84 @@ class DatosDelCrimen {
 const armarTodasLasManos = () => {
     let i = 0;
     totalPlayers.forEach((player) => {
-        manosArmadas[player] = manoRepartida[i];
+        manosArmadas[player] = manosClasificadas[i];
         console.log(
             `Asignando a ${player} las siguientes cartas: ${manosArmadas[player]}`
         );
         i += 1;
     });
+    return manosArmadas;
+};
+
+const esPersonaje = (carta) => {
+    let valoresPersonajes = Object.values(personajes);
+    console.log(`La carta a buscar es ${carta}`);
+    for (let personaje of valoresPersonajes) {
+        console.log(`El personaje en análisis es: ${personaje}`);
+        if (carta === personaje) {
+            return carta;
+        }
+    }
+};
+const esArma = (carta) => {
+    let valoresArmas = Object.values(armas);
+    console.log(`La carta a buscar es ${carta}`);
+    for (let arma of valoresArmas) {
+        console.log(`El arma en análisis es: ${arma}`);
+        if (carta === arma) {
+            return carta;
+        }
+    }
+};
+const esHabitacion = (carta) => {
+    let valoresHabitaciones = Object.values(lugares);
+    console.log(`La carta a buscar es ${carta}`);
+    for (let habitacion of valoresHabitaciones) {
+        console.log(`La habitación en análisis es: ${habitacion}`);
+        if (carta === habitacion) {
+            return carta;
+        }
+    }
+};
+
+const clasificarCartas = () => {
+    let i = 0;
+    for (let mano of manoRepartida) {
+        manosClasificadas.push([[], [], []]);
+        console.log("clasificando primer array");
+        console.log(manosClasificadas);
+        console.log(`La mano que se está analizando es ${mano}`);
+        for (let carta of mano) {
+            let matchPersonaje = esPersonaje(carta);
+            let matchArma;
+            let matchHabitacion;
+            if (matchPersonaje !== carta) {
+                matchArma = esArma(carta);
+                if (matchArma !== carta) {
+                    matchHabitacion = esHabitacion(carta);
+                }
+            }
+            if (matchPersonaje == carta) {
+                console.log(
+                    `Se encontró el personaje ${matchPersonaje} en el array del jugador ${i}`
+                );
+                manosClasificadas[i][0].push(matchPersonaje);
+            } else if (matchArma == carta) {
+                console.log(
+                    `Se encontró el arma ${matchArma} en el array del jugador ${i}`
+                );
+                manosClasificadas[i][1].push(matchArma);
+            } else if (matchHabitacion == carta) {
+                console.log(
+                    `Se encontró la habitación ${matchHabitacion} en el array del jugador ${i}`
+                );
+                manosClasificadas[i][2].push(matchHabitacion);
+            }
+        }
+        i += 1;
+        console.log(manosClasificadas);
+    }
+    console.log(`Clasificación finalizada:`);
+    console.dir(manosClasificadas);
+    return manosClasificadas;
 };

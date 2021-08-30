@@ -78,6 +78,9 @@
                 }
             }
             .show {
+                position: absolute;
+                top: 0em;
+                right: 0em;
                 @media (min-width: 400px) {
                     display: flex;
                     justify-content: flex-end;
@@ -87,6 +90,7 @@
                 }
             }
             .navbar-links-container {
+                transition: height 300ms ease-in;
                 @media (min-width: 992px) {
                     max-width: 20em;
                 }
@@ -250,6 +254,7 @@
             }
             .btn {
                 display: flex;
+                font-size: 1.15em;
                 justify-content: center;
                 align-items: center;
                 margin: 0 auto;
@@ -346,26 +351,6 @@
                             font-size: 1.6em;
                         }
                     }
-                    .message-text {
-                        @include titleSubtitle(
-                            map-get($map: $fonts, $key: lighfont)
-                        );
-                        text-align: justify;
-                        line-height: 1.25em;
-                        letter-spacing: -0.05em;
-                        font-size: 1.15em;
-                        padding-top: 0.8em;
-                        &:last-child {
-                            margin-top: -0.5em;
-                        }
-                        @media (min-width: 370px) {
-                            font-size: 1.2em;
-                        }
-                        @media (min-width: 1000px) {
-                            text-align: center;
-                            font-size: 1.3em;
-                        }
-                    }
                 }
                 .dialog-interface-hidden {
                     display: none;
@@ -375,20 +360,20 @@
                     margin: 2em auto 0;
                     max-width: 30%;
                     justify-content: space-evenly;
-                    position: relative;
-                    top: 30%;
+                    position: absolute;
+                    top: 50%;
                     left: 0%;
                     @media (min-width: 420px) {
                         top: 30%;
                         left: 18%;
                     }
                     @media (min-width: 530px) {
-                        top: 30%;
-                        left: 25%;
+                        top: 35%;
+                        left: 57%;
                     }
                     @media (min-width: 712px) and (max-width: 991px) {
-                        top: 30%;
-                        left: 33%;
+                        top: 40.5%;
+                        left: 67%;
                     }
                     @media (min-width: 922px) {
                         position: unset;
@@ -484,6 +469,91 @@
                 }
             }
         }
+        .offcanvas-body {
+            .row {
+                .col {
+                    .collapse {
+                        .card-body {
+                            width: 100%;
+                            .category-container {
+                                margin-bottom: 0;
+                                padding-left: 0;
+                                list-style: none;
+                                .cards-category {
+                                    border-bottom: 2px solid
+                                        rgba(
+                                            $color:
+                                                map-get(
+                                                    $map: $generalpalette,
+                                                    $key: tealmain
+                                                ),
+                                            $alpha: 0.25
+                                        );
+                                    min-height: 25vh;
+                                    .card-suspect {
+                                        max-height: 25vh;
+                                    }
+                                    &:last-child {
+                                        border-bottom: transparent;
+                                    }
+                                }
+                            }
+                        }
+                        .card-2 {
+                            right: 57%;
+                        }
+                    }
+                    .show {
+                        width: 200%;
+                    }
+                }
+            }
+        }
+    }
+    .accusation-button {
+        display: block;
+        position: absolute;
+        top: 16.5em;
+        right: 3em;
+    }
+    .hidden-accusation-button {
+        display: none;
+    }
+    .modal {
+        .modal-dialog {
+            .modal-content {
+                .modal-header {
+                    .modal-title {
+                    }
+                }
+                .modal-body {
+                    .hidden-accusation-category-container {
+                        display: none;
+                    }
+                    .accusation-category-container {
+                        display: flex;
+                        flex-wrap: wrap;
+                        justify-content: space-evenly;
+                        align-items: center;
+                        max-width: 80%;
+                        row-gap: 1em;
+                        margin: 0 auto;
+                        padding-left: 0;
+                        list-style: none;
+                        .accusation-card-item {
+                            .accusation-card {
+                                max-height: 10em;
+                            }
+                        }
+                    }
+                }
+                .modal-footer {
+                }
+            }
+        }
+    }
+    .hidden-accusation-modal {
+        display: none;
     }
 }
 
