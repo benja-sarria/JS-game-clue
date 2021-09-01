@@ -1,3 +1,4 @@
+// DECLARACIÓN DE VARIABLES A SER UTILIZADAS POSTERIORMENTE
 // primero consultamos la cantidad de jugadores
 let actualPlayer = 0;
 let playerNumber;
@@ -24,7 +25,7 @@ const totalPlayers = [];
 const manosClasificadas = [];
 
 let selectedTriade = [];
-// -------- DOM ---------
+// -------- DOM: Captura de elementos ---------
 const navbarIndex = document.querySelector(`.navbar-index`);
 const navbarCollapse = navbarIndex.childNodes[5];
 const navbarFix = document.querySelector(`.navbar-toggler`);
@@ -70,6 +71,7 @@ const accusationConfirmBtn =
 const accusationCloseBtn =
     accusationModal.childNodes[1].childNodes[1].childNodes[1].childNodes[3];
 
+// AJUSTE DEL CÓDIGO DEL NAVBAR PARA QUE SE VEA EL HAMBURGUER MENU
 const navBarToggler = (e) => {
     if (!navbarCollapse.classList.contains("show")) {
         navbarCollapse.classList.add("collapsing");
@@ -92,6 +94,7 @@ const navBarToggler = (e) => {
 
 navbarFix.addEventListener("click", navBarToggler);
 
+// DECLARACIÓN DE FUNCIONES QUE ESTÁN RELACIONADAS A MOSTRAR ELEMENTOS DE LA INTERFAZ
 const showGame = (e) => {
     e.preventDefault();
     gameBoard.classList.remove("hidden-game-container");
@@ -159,6 +162,8 @@ otherStartBtn.addEventListener("click", showGame);
 quitBtn.addEventListener("click", hideGame);
 gameBtn.addEventListener("click", startGame);
 
+// FIN DECLARACIÓN DE FUNCIONES QUE ESTÁN RELACIONADAS A MOSTRAR ELEMENTOS DE LA INTERFAZ
+
 /* ====================  COMIENZA EL JUEGO  ==================== */
 
 // determinando cantidad de jugadores
@@ -181,16 +186,21 @@ dialogInterface.addEventListener("submit", (evt) => {
     return playerNumber;
 });
 
+// Cartel de Bienvenida al juego
 gameMessages.children[0].innerText = `¡Bienvenido a The Clue!
-    En cualquier momento del juego puedes insertar la letra "q" en los prompt para cortar la ejecución y salir del juego ¡Que lo disfurtes!`;
 
+    En esta casa se ha cometido un crimen. Deberás recorrer la casa, investigando y hallando pistas que te ayuden a aclarar lo sucedido ¡Éxitos en tu búsqueda!`;
+
+// FUNCIÓN PARA DETERMINAR EL MOVIMIENTO DEL JUGADOR
 const rollDice = () => {
     movimiento = Math.ceil(Math.random() * 6);
-    alert(`Tiraste un ${movimiento}`);
+    setTimeout(() => {
+        showMessage(`Tiraste un ${movimiento}`);
+    }, 100);
     return enoughToAccuse(movimiento);
 };
-// const movement = diceBtn.addEventListener("click", rollDice);
 
+// FUNCIÓN QUE EXPLICITA EL TURNO DE QUÉ JUGADOR ES, SIRVE DE CALLBACK, Y DISPONIBILIZA EL BOTÓN PARA ECHAR LOS DADOS
 const turn = (player) => {
     setTimeout(() => {
         showMessage(`Turno Jugador ${player}`);
@@ -205,8 +215,11 @@ const turn = (player) => {
 };
 
 isEnoughtToAccuse = diceBtn.addEventListener("click", rollDice);
+
+// Checkmark para indicar que ya se anunció la cantidad de jugadores por interfaz
 let playerNumberConfirmation;
 
+// FUNCIÓN CLAVE, CONTIENE TODA LA DINÁMICA DE TURNOS DEL JUEGO Y ARTICULA EL CAMBIO DE JUGADOR EN JUGADOR
 const turnDynamic = (playerNumber) => {
     console.log("está llegando antes del switch");
     switch (+playerNumber) {
@@ -593,6 +606,7 @@ const turnDynamic = (playerNumber) => {
 
 const accusation = () => {};
 
+// FUNCIÓN QUE DETERMINA SI EL MOVIMIENTO OBTENIDO ES SUFICIENTE PARA ACUSAR (En un futuro va a ser modificada, dado que lo que permite la oportunidad de acusar va a ser un evento desencadenado por la pieza ingresando a una habitación en el tablero)
 const enoughToAccuse = (diceNumber) => {
     console.log("ejecutando enoughToAccuse");
     if (diceNumber >= 5) {
@@ -609,21 +623,26 @@ const enoughToAccuse = (diceNumber) => {
         hideDiceBtn();
         accusationDynamic();
     } else {
-        console.log(`No puedes acusar`);
-        if (actualPlayer < playerNumber - 1) {
-            console.log("pasando al siguiente turno");
-            actualPlayer += 1;
-            console.log(`ActualPlayer es: ${actualPlayer}`);
-        } else {
-            console.log("reiniciando la ronda");
-            actualPlayer = 0;
-            console.log(`ActualPlayer es: ${actualPlayer}`);
-        }
         hideDiceBtn();
-        turnDynamic(playerNumber);
+        setTimeout(() => {
+            setTimeout(() => {
+                showMessage(`Sacaste menos de 5, no puedes acusar`);
+            }, 100);
+            if (actualPlayer < playerNumber - 1) {
+                console.log("pasando al siguiente turno");
+                actualPlayer += 1;
+                console.log(`ActualPlayer es: ${actualPlayer}`);
+            } else {
+                console.log("reiniciando la ronda");
+                actualPlayer = 0;
+                console.log(`ActualPlayer es: ${actualPlayer}`);
+            }
+            turnDynamic(playerNumber);
+        }, 2000);
     }
 };
 
+// Función auxiliar que permite que al seleccionar las cartas de sospechoso, arma y lugar, vaya haciendo un checkmark y no se repitan en la tríada
 const isInTriad = () => {
     for (item of selectedTriade) {
         console.log(item);
@@ -641,6 +660,7 @@ const isInTriad = () => {
     }
 };
 
+// FUNCIÓN QUE UNA VEZ CONFIRMADA LA ACUSACIÓN CHEQUEA SI CORRESPONDE DECLARAR UN GANADOR, O SI POR EL CONTRARIO, CORRESPONDE DAR CURSO AL SIGUIENTE TURNO
 const confirmAccusation = (evt) => {
     console.log(`la Solución es: ${solution}`);
     console.log(`la acusación es: ${selectedTriade}`);
@@ -682,6 +702,7 @@ const confirmAccusation = (evt) => {
 
 let suspectCheck, weaponCheck;
 
+// FUNCIÓN CALLBACK QUE CONTIENE LA LÓGICA DE LA SELECCIÓN DE SOSPECHOSO, ARMA Y LUGAR, MANIPULA LAS INTERFACES Y MUESTRA UNA INTERFAZ FINAL DE LA ACUSACIÓN REALIZADA
 const suspectSelection = (evt) => {
     console.log(evt.target.id);
     switch (selectedTriade.length) {
@@ -737,6 +758,7 @@ const suspectSelection = (evt) => {
     accusationConfirmBtn.addEventListener("click", confirmAccusation);
 };
 
+// FUNCIÓN AUXILIAR QUE PERMITE RESTAURAR LA TRÍADA DE ACUSACIÓN A "" - SE PUEDE EJECUTAR SI EL USUARIO SE ARREPIENTE Y DESEA VARIAR LA ACUSACIÓN; ASÍ COMO CUANDO LA ACUSACIÓN FUE CONFIRMADA Y NO SE CORRESPONDE CON LA SOLUCIÓN
 const resetAccusation = (evt) => {
     guessedAccContainer.innerHTML = "";
     selectedTriade = [];
@@ -754,9 +776,10 @@ const resetAccusation = (evt) => {
         card.addEventListener("click", suspectSelection);
     }
 };
-
+// Botón para desencadenar el reset de la acusación
 accusationResetBtn.addEventListener("click", resetAccusation);
 
+// FUNCIÓN CALLBACK QUE PERMITE DAR INICIO A LA ACUSACIÓN
 console.log(selectedTriade);
 selectedTriade = [];
 const accusationDynamic = () => {
@@ -874,7 +897,7 @@ function runGame() {
     // chequeo de cartas repartidas
     console.log(manoRepartida[manoRepartida.length - 1].length);
     console.log(manoRepartida);
-
+    // Ejecutando control de justicia en la repartida
     fairShuffle();
 
     // controles de los sub-arrays creados - listos para ser repartidos
@@ -928,7 +951,7 @@ const lugares = {
     lugar8: "VESTIBULO",
     lugar9: "SALA",
 };
-
+// Objeto literal contenedor de las imágenes correspondientes a las cartas
 const cartas = {
     mostaza: "assets/cartas/mostaza.png",
     verdi: "assets/cartas/verdi.png",
@@ -952,7 +975,7 @@ const cartas = {
     vestibulo: "assets/cartas/hall.png",
     sala: "assets/cartas/sala.png",
 };
-
+// FUNCIÓN QUE PERMITE DETERMINAR QUÉ CARTAS TIENE EL JUGADOR, LAS CLASIFICA EN CATEGORÍAS, Y DEVUELVE UN OBJETO QUE SERÁ ALMACENADO EN LA SESSION STORAGE A LOS FINES DE PODER IMPRIMIR LAS CARTAS DEL JUGADOR EN PANTALLA, EVITANDO TENER QUE REALIZAR DICHO CÁLCULO CADA VEZ QUE SEA SU TURNO
 const readyForPrint = (jugador) => {
     console.log(`Ejecutando readyForPrint`);
     let forPrint = {};
@@ -1012,6 +1035,7 @@ const readyForPrint = (jugador) => {
     return forPrint;
 };
 
+// FUNCIÓN QUE TOMA EL OBJETO GENERADO EN LA ANTERIOR FUNCIÓN, Y SEGÚN EL TURNO QUE SE TRATE, IMPRIME LA MANO DE CARTAS CORRESPONDIENTES AL JUGADOR
 const printMechanism = (hand) => {
     let handToPrint;
     let alt;
@@ -1080,6 +1104,7 @@ const printMechanism = (hand) => {
     }
 };
 
+// FUNCIÓN CALLBACK QUE INICIA EL MECANISMO DE IMPRESIÓN A MEDIDA QUE VAN AVANZANDO LOS TURNOS
 const printCards = (jugador) => {
     switch (jugador + 1) {
         case 1:
@@ -1220,6 +1245,7 @@ const armarTodasLasManos = () => {
     return manosArmadas;
 };
 
+// Función auxiliar para la clasificación de personajes
 const esPersonaje = (carta) => {
     let valoresPersonajes = Object.values(personajes);
     console.log(`La carta a buscar es ${carta}`);
@@ -1230,6 +1256,7 @@ const esPersonaje = (carta) => {
         }
     }
 };
+// Función auxiliar para la clasificación de armas
 const esArma = (carta) => {
     let valoresArmas = Object.values(armas);
     console.log(`La carta a buscar es ${carta}`);
@@ -1240,6 +1267,7 @@ const esArma = (carta) => {
         }
     }
 };
+// Función auxiliar para la clasificación de habitaciones
 const esHabitacion = (carta) => {
     let valoresHabitaciones = Object.values(lugares);
     console.log(`La carta a buscar es ${carta}`);
@@ -1250,7 +1278,7 @@ const esHabitacion = (carta) => {
         }
     }
 };
-
+// FUNCIÓN PRINCIPAL CLASIFICADORA DE CARTAS, QUE SERVIRÁ PARA PODER IMPRIMIR LUEGO POR CATEGORÍAS LAS CARTAS
 const clasificarCartas = () => {
     let i = 0;
     for (let mano of manoRepartida) {
