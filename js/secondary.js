@@ -466,3 +466,109 @@ function playGame() {
             console.log(mixedArray);
         } */
 /* return mixedArray; */
+
+// ALGORITMO VIEJO PARA IMPRIMIR CARTAS
+
+/* suspectHolderRow.innerHTML = `<img src="${cartas.mostaza}" alt="coronel mostaza" class="card-suspect">`; */
+/* const printCards = (jugador) => {
+    let listaCartas = Object.keys(cartas);
+    let manosJugador = Object.values(manosArmadas)[jugador];
+    console.log(manosJugador);
+    let actualArray = 0;
+    for (carta of listaCartas) {
+        console.log(`Buscando para imprimir la carta ${carta}`);
+        for (let category of manosJugador) {
+            console.table(category);
+            if (category.includes(carta.toUpperCase())) {
+                console.log(`se encontró`);
+                if (actualArray === 0) {
+                    if (!suspectHolderRow.innerHTML) {
+                        console.log(
+                            `Imprimiendo la carta "${carta} en columna Sospechosos"`
+                        );
+                        suspectHolderRow.innerHTML = `<img src="${
+                            cartas[`${carta}`]
+                        }" alt="${carta}" class="card-suspect">`;
+                        actualArray += 1;
+                        if (actualArray > 2) {
+                            actualArray = 0;
+                        }
+                        continue;
+                    } else {
+                        console.log(
+                            `Imprimiendo la carta "${carta} en columna Sospechosos"`
+                        );
+                        suspectHolderRow.innerHTML += `<img src="${
+                            cartas[`${carta}`]
+                        }" alt="${carta}" class="card-suspect">`;
+                        actualArray += 1;
+                        if (actualArray > 2) {
+                            actualArray = 0;
+                        }
+                        continue;
+                    }
+                } else if (actualArray === 1) {
+                    if (!weaponsHolderRow.innerHTML) {
+                        console.log(
+                            `Imprimiendo la carta "${carta} en columna Armas"`
+                        );
+                        weaponsHolderRow.innerHTML = `<img src="${
+                            cartas[`${carta}`]
+                        }" alt="${carta}" class="card-suspect">`;
+                        actualArray += 1;
+                        if (actualArray > 2) {
+                            actualArray = 0;
+                        }
+                        continue;
+                    } else {
+                        console.log(
+                            `Imprimiendo la carta "${carta} en columna Armas"`
+                        );
+                        weaponsHolderRow.innerHTML += `<img src="${
+                            cartas[`${carta}`]
+                        }" alt="${carta}" class="card-suspect">`;
+                        actualArray += 1;
+                        if (actualArray > 2) {
+                            actualArray = 0;
+                        }
+                        continue;
+                    }
+                } else if (actualArray === 2) {
+                    if (!roomsHolderRow.innerHTML) {
+                        console.log(
+                            `Imprimiendo la carta "${carta} en columna Habitaciones"`
+                        );
+                        roomsHolderRow.innerHTML = `<img src="${
+                            cartas[`${carta}`]
+                        }" alt="${carta}" class="card-suspect">`;
+                        actualArray += 1;
+                        if (actualArray > 2) {
+                            actualArray = 0;
+                        }
+                        continue;
+                    } else {
+                        console.log(
+                            `Imprimiendo la carta "${carta} en columna Habitaciones"`
+                        );
+                        roomsHolderRow.innerHTML += `<img src="${
+                            cartas[`${carta}`]
+                        }" alt="${carta}" class="card-suspect">`;
+                        actualArray += 1;
+                        if (actualArray > 2) {
+                            actualArray = 0;
+                        }
+                        continue;
+                    }
+                }
+            } else {
+                console.log(`no tiene esta carta`);
+            }
+
+            console.log(`El actual array es ${actualArray}`);
+            actualArray += 1;
+            if (actualArray > 2) {
+                actualArray = 0;
+            }
+        }
+    }
+}; */

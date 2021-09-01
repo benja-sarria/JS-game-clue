@@ -12,6 +12,12 @@ let movimiento;
 let isWinner;
 let selectedSuspect, selectedWeapon, selectedRoom;
 let solution;
+let playerHand1,
+    playerHand2,
+    playerHand3,
+    playerHand4,
+    playerHand5,
+    playerHand6;
 
 const totalPlayers = [];
 
@@ -61,6 +67,8 @@ const accusationResetBtn =
     accusationModal.childNodes[1].childNodes[1].childNodes[5].childNodes[3];
 const accusationConfirmBtn =
     accusationModal.childNodes[1].childNodes[1].childNodes[5].childNodes[1];
+const accusationCloseBtn =
+    accusationModal.childNodes[1].childNodes[1].childNodes[1].childNodes[3];
 
 const navBarToggler = (e) => {
     if (!navbarCollapse.classList.contains("show")) {
@@ -141,6 +149,11 @@ const showAccBtn = (e) => {
     accusationButton.classList.add("accusation-button");
 };
 
+const hideAccBtn = (e) => {
+    accusationButton.classList.add("hidden-accusation-button");
+    accusationButton.classList.remove("accusation-button");
+};
+
 startBtn.addEventListener("click", showGame);
 otherStartBtn.addEventListener("click", showGame);
 quitBtn.addEventListener("click", hideGame);
@@ -192,36 +205,386 @@ const turn = (player) => {
 };
 
 isEnoughtToAccuse = diceBtn.addEventListener("click", rollDice);
+let playerNumberConfirmation;
 
 const turnDynamic = (playerNumber) => {
     console.log("está llegando antes del switch");
     switch (+playerNumber) {
         case 2:
-            console.log(`Dos jugadores`);
+            if (!playerNumberConfirmation) {
+                setTimeout(() => {
+                    showMessage(`Dos jugadores`);
+                }, 300);
+                playerNumberConfirmation = true;
+            }
             // Turno Jugador 1
-            let someOneWon = false;
+            /* let someOneWon = false; */
             if (actualPlayer === 0) {
                 suspectHolderRow.innerHTML = ``;
                 weaponsHolderRow.innerHTML = ``;
                 roomsHolderRow.innerHTML = ``;
                 turn(1);
+                if (!playerHand1) {
+                    console.log(`Creando PlayerHand1`);
+                    playerHand1 = readyForPrint(actualPlayer);
+                    console.table(`${playerHand1}`);
+                    playerHand1 = JSON.stringify(playerHand1);
+                    console.log(playerHand1);
+                    sessionStorage.setItem("playerHand1", playerHand1);
+                } else {
+                    console.log(`Playerhand 1 ya fue creada`);
+                }
                 printCards(actualPlayer);
             } else if (actualPlayer === 1) {
                 suspectHolderRow.innerHTML = ``;
                 weaponsHolderRow.innerHTML = ``;
                 roomsHolderRow.innerHTML = ``;
                 turn(2);
+                if (!playerHand2) {
+                    console.log(`Creando PlayerHand2`);
+                    playerHand2 = readyForPrint(actualPlayer);
+                    console.table(`${playerHand2}`);
+                    playerHand2 = JSON.stringify(playerHand2);
+                    console.log(playerHand2);
+                    sessionStorage.setItem("playerHand2", playerHand2);
+                } else {
+                    console.log(`Playerhand 1 ya fue creada`);
+                }
                 printCards(actualPlayer);
             }
 
             break;
         case 3:
+            if (!playerNumberConfirmation) {
+                setTimeout(() => {
+                    showMessage(`Tres jugadores`);
+                }, 300);
+                playerNumberConfirmation = true;
+            }
+            // Turno Jugador 1
+            /* let someOneWon = false; */
+            if (actualPlayer === 0) {
+                suspectHolderRow.innerHTML = ``;
+                weaponsHolderRow.innerHTML = ``;
+                roomsHolderRow.innerHTML = ``;
+                turn(1);
+                if (!playerHand1) {
+                    console.log(`Creando PlayerHand1`);
+                    playerHand1 = readyForPrint(actualPlayer);
+                    console.table(`${playerHand1}`);
+                    playerHand1 = JSON.stringify(playerHand1);
+                    console.log(playerHand1);
+                    sessionStorage.setItem("playerHand1", playerHand1);
+                } else {
+                    console.log(`Playerhand 1 ya fue creada`);
+                }
+                printCards(actualPlayer);
+            } else if (actualPlayer === 1) {
+                suspectHolderRow.innerHTML = ``;
+                weaponsHolderRow.innerHTML = ``;
+                roomsHolderRow.innerHTML = ``;
+                turn(2);
+                if (!playerHand2) {
+                    console.log(`Creando PlayerHand2`);
+                    playerHand2 = readyForPrint(actualPlayer);
+                    console.table(`${playerHand2}`);
+                    playerHand2 = JSON.stringify(playerHand2);
+                    console.log(playerHand2);
+                    sessionStorage.setItem("playerHand2", playerHand2);
+                } else {
+                    console.log(`Playerhand 2 ya fue creada`);
+                }
+                printCards(actualPlayer);
+            } else if (actualPlayer === 2) {
+                suspectHolderRow.innerHTML = ``;
+                weaponsHolderRow.innerHTML = ``;
+                roomsHolderRow.innerHTML = ``;
+                turn(3);
+                if (!playerHand3) {
+                    console.log(`Creando PlayerHand3`);
+                    playerHand3 = readyForPrint(actualPlayer);
+                    console.table(`${playerHand3}`);
+                    playerHand3 = JSON.stringify(playerHand3);
+                    console.log(playerHand3);
+                    sessionStorage.setItem("playerHand3", playerHand3);
+                } else {
+                    console.log(`Playerhand 3 ya fue creada`);
+                }
+                printCards(actualPlayer);
+            }
             break;
         case 4:
+            if (!playerNumberConfirmation) {
+                setTimeout(() => {
+                    showMessage(`Cuatro jugadores`);
+                }, 300);
+                playerNumberConfirmation = true;
+            }
+            // Turno Jugador 1
+            /* let someOneWon = false; */
+            if (actualPlayer === 0) {
+                suspectHolderRow.innerHTML = ``;
+                weaponsHolderRow.innerHTML = ``;
+                roomsHolderRow.innerHTML = ``;
+                turn(1);
+                if (!playerHand1) {
+                    console.log(`Creando PlayerHand1`);
+                    playerHand1 = readyForPrint(actualPlayer);
+                    console.table(`${playerHand1}`);
+                    playerHand1 = JSON.stringify(playerHand1);
+                    console.log(playerHand1);
+                    sessionStorage.setItem("playerHand1", playerHand1);
+                } else {
+                    console.log(`Playerhand 1 ya fue creada`);
+                }
+                printCards(actualPlayer);
+            } else if (actualPlayer === 1) {
+                suspectHolderRow.innerHTML = ``;
+                weaponsHolderRow.innerHTML = ``;
+                roomsHolderRow.innerHTML = ``;
+                turn(2);
+                if (!playerHand2) {
+                    console.log(`Creando PlayerHand2`);
+                    playerHand2 = readyForPrint(actualPlayer);
+                    console.table(`${playerHand2}`);
+                    playerHand2 = JSON.stringify(playerHand2);
+                    console.log(playerHand2);
+                    sessionStorage.setItem("playerHand2", playerHand2);
+                } else {
+                    console.log(`Playerhand 2 ya fue creada`);
+                }
+                printCards(actualPlayer);
+            } else if (actualPlayer === 2) {
+                suspectHolderRow.innerHTML = ``;
+                weaponsHolderRow.innerHTML = ``;
+                roomsHolderRow.innerHTML = ``;
+                turn(3);
+                if (!playerHand3) {
+                    console.log(`Creando PlayerHand3`);
+                    playerHand3 = readyForPrint(actualPlayer);
+                    console.table(`${playerHand3}`);
+                    playerHand3 = JSON.stringify(playerHand3);
+                    console.log(playerHand3);
+                    sessionStorage.setItem("playerHand3", playerHand3);
+                } else {
+                    console.log(`Playerhand 3 ya fue creada`);
+                }
+                printCards(actualPlayer);
+            } else if (actualPlayer === 3) {
+                suspectHolderRow.innerHTML = ``;
+                weaponsHolderRow.innerHTML = ``;
+                roomsHolderRow.innerHTML = ``;
+                turn(4);
+                if (!playerHand4) {
+                    console.log(`Creando PlayerHand4`);
+                    playerHand4 = readyForPrint(actualPlayer);
+                    console.table(`${playerHand4}`);
+                    playerHand4 = JSON.stringify(playerHand4);
+                    console.log(playerHand4);
+                    sessionStorage.setItem("playerHand4", playerHand4);
+                } else {
+                    console.log(`Playerhand 4 ya fue creada`);
+                }
+                printCards(actualPlayer);
+            }
             break;
         case 5:
+            if (!playerNumberConfirmation) {
+                setTimeout(() => {
+                    showMessage(`Cinco jugadores`);
+                }, 300);
+                playerNumberConfirmation = true;
+            }
+            // Turno Jugador 1
+            /* let someOneWon = false; */
+            if (actualPlayer === 0) {
+                suspectHolderRow.innerHTML = ``;
+                weaponsHolderRow.innerHTML = ``;
+                roomsHolderRow.innerHTML = ``;
+                turn(1);
+                if (!playerHand1) {
+                    console.log(`Creando PlayerHand1`);
+                    playerHand1 = readyForPrint(actualPlayer);
+                    console.table(`${playerHand1}`);
+                    playerHand1 = JSON.stringify(playerHand1);
+                    console.log(playerHand1);
+                    sessionStorage.setItem("playerHand1", playerHand1);
+                } else {
+                    console.log(`Playerhand 1 ya fue creada`);
+                }
+                printCards(actualPlayer);
+            } else if (actualPlayer === 1) {
+                suspectHolderRow.innerHTML = ``;
+                weaponsHolderRow.innerHTML = ``;
+                roomsHolderRow.innerHTML = ``;
+                turn(2);
+                if (!playerHand2) {
+                    console.log(`Creando PlayerHand2`);
+                    playerHand2 = readyForPrint(actualPlayer);
+                    console.table(`${playerHand2}`);
+                    playerHand2 = JSON.stringify(playerHand2);
+                    console.log(playerHand2);
+                    sessionStorage.setItem("playerHand2", playerHand2);
+                } else {
+                    console.log(`Playerhand 2 ya fue creada`);
+                }
+                printCards(actualPlayer);
+            } else if (actualPlayer === 2) {
+                suspectHolderRow.innerHTML = ``;
+                weaponsHolderRow.innerHTML = ``;
+                roomsHolderRow.innerHTML = ``;
+                turn(3);
+                if (!playerHand3) {
+                    console.log(`Creando PlayerHand3`);
+                    playerHand3 = readyForPrint(actualPlayer);
+                    console.table(`${playerHand3}`);
+                    playerHand3 = JSON.stringify(playerHand3);
+                    console.log(playerHand3);
+                    sessionStorage.setItem("playerHand3", playerHand3);
+                } else {
+                    console.log(`Playerhand 3 ya fue creada`);
+                }
+                printCards(actualPlayer);
+            } else if (actualPlayer === 3) {
+                suspectHolderRow.innerHTML = ``;
+                weaponsHolderRow.innerHTML = ``;
+                roomsHolderRow.innerHTML = ``;
+                turn(4);
+                if (!playerHand4) {
+                    console.log(`Creando PlayerHand4`);
+                    playerHand4 = readyForPrint(actualPlayer);
+                    console.table(`${playerHand4}`);
+                    playerHand4 = JSON.stringify(playerHand4);
+                    console.log(playerHand4);
+                    sessionStorage.setItem("playerHand4", playerHand4);
+                } else {
+                    console.log(`Playerhand 4 ya fue creada`);
+                }
+                printCards(actualPlayer);
+            } else if (actualPlayer === 4) {
+                suspectHolderRow.innerHTML = ``;
+                weaponsHolderRow.innerHTML = ``;
+                roomsHolderRow.innerHTML = ``;
+                turn(5);
+                if (!playerHand5) {
+                    console.log(`Creando PlayerHand5`);
+                    playerHand5 = readyForPrint(actualPlayer);
+                    console.table(`${playerHand5}`);
+                    playerHand5 = JSON.stringify(playerHand5);
+                    console.log(playerHand5);
+                    sessionStorage.setItem("playerHand5", playerHand5);
+                } else {
+                    console.log(`Playerhand 5 ya fue creada`);
+                }
+                printCards(actualPlayer);
+            }
             break;
         case 6:
+            if (!playerNumberConfirmation) {
+                setTimeout(() => {
+                    showMessage(`Seis jugadores`);
+                }, 300);
+                playerNumberConfirmation = true;
+            }
+            // Turno Jugador 1
+            /* let someOneWon = false; */
+            if (actualPlayer === 0) {
+                suspectHolderRow.innerHTML = ``;
+                weaponsHolderRow.innerHTML = ``;
+                roomsHolderRow.innerHTML = ``;
+                turn(1);
+                if (!playerHand1) {
+                    console.log(`Creando PlayerHand1`);
+                    playerHand1 = readyForPrint(actualPlayer);
+                    console.table(`${playerHand1}`);
+                    playerHand1 = JSON.stringify(playerHand1);
+                    console.log(playerHand1);
+                    sessionStorage.setItem("playerHand1", playerHand1);
+                } else {
+                    console.log(`Playerhand 1 ya fue creada`);
+                }
+                printCards(actualPlayer);
+            } else if (actualPlayer === 1) {
+                suspectHolderRow.innerHTML = ``;
+                weaponsHolderRow.innerHTML = ``;
+                roomsHolderRow.innerHTML = ``;
+                turn(2);
+                if (!playerHand2) {
+                    console.log(`Creando PlayerHand2`);
+                    playerHand2 = readyForPrint(actualPlayer);
+                    console.table(`${playerHand2}`);
+                    playerHand2 = JSON.stringify(playerHand2);
+                    console.log(playerHand2);
+                    sessionStorage.setItem("playerHand2", playerHand2);
+                } else {
+                    console.log(`Playerhand 2 ya fue creada`);
+                }
+                printCards(actualPlayer);
+            } else if (actualPlayer === 2) {
+                suspectHolderRow.innerHTML = ``;
+                weaponsHolderRow.innerHTML = ``;
+                roomsHolderRow.innerHTML = ``;
+                turn(3);
+                if (!playerHand3) {
+                    console.log(`Creando PlayerHand3`);
+                    playerHand3 = readyForPrint(actualPlayer);
+                    console.table(`${playerHand3}`);
+                    playerHand3 = JSON.stringify(playerHand3);
+                    console.log(playerHand3);
+                    sessionStorage.setItem("playerHand3", playerHand3);
+                } else {
+                    console.log(`Playerhand 3 ya fue creada`);
+                }
+                printCards(actualPlayer);
+            } else if (actualPlayer === 3) {
+                suspectHolderRow.innerHTML = ``;
+                weaponsHolderRow.innerHTML = ``;
+                roomsHolderRow.innerHTML = ``;
+                turn(4);
+                if (!playerHand4) {
+                    console.log(`Creando PlayerHand4`);
+                    playerHand4 = readyForPrint(actualPlayer);
+                    console.table(`${playerHand4}`);
+                    playerHand4 = JSON.stringify(playerHand4);
+                    console.log(playerHand4);
+                    sessionStorage.setItem("playerHand4", playerHand4);
+                } else {
+                    console.log(`Playerhand 4 ya fue creada`);
+                }
+                printCards(actualPlayer);
+            } else if (actualPlayer === 4) {
+                suspectHolderRow.innerHTML = ``;
+                weaponsHolderRow.innerHTML = ``;
+                roomsHolderRow.innerHTML = ``;
+                turn(5);
+                if (!playerHand5) {
+                    console.log(`Creando PlayerHand5`);
+                    playerHand5 = readyForPrint(actualPlayer);
+                    console.table(`${playerHand5}`);
+                    playerHand5 = JSON.stringify(playerHand5);
+                    console.log(playerHand5);
+                    sessionStorage.setItem("playerHand5", playerHand5);
+                } else {
+                    console.log(`Playerhand 5 ya fue creada`);
+                }
+                printCards(actualPlayer);
+            } else if (actualPlayer === 5) {
+                suspectHolderRow.innerHTML = ``;
+                weaponsHolderRow.innerHTML = ``;
+                roomsHolderRow.innerHTML = ``;
+                turn(6);
+                if (!playerHand6) {
+                    console.log(`Creando PlayerHand6`);
+                    playerHand6 = readyForPrint(actualPlayer);
+                    console.table(`${playerHand6}`);
+                    playerHand6 = JSON.stringify(playerHand6);
+                    console.log(playerHand6);
+                    sessionStorage.setItem("playerHand6", playerHand6);
+                } else {
+                    console.log(`Playerhand 6 ya fue creada`);
+                }
+                printCards(actualPlayer);
+            }
             break;
         default:
             break;
@@ -286,7 +649,34 @@ const confirmAccusation = (evt) => {
         selectedTriade[1] === solution[1] &&
         selectedTriade[2] === solution[2]
     ) {
-        console.log(`has ganado!`);
+        accusationCloseBtn.click();
+        setTimeout(() => {
+            showMessage(
+                `¡Has ganado! El/la asesino/a era ${solution[0]}, con el/la ${solution[1]} en el/la ${solution[2]}`
+            );
+        }, 200);
+        for (let i = 1; i <= 6; i += 1) {
+            sessionStorage.removeItem(`playerHand${i}`);
+        }
+        hideAccBtn();
+    } else {
+        setTimeout(() => {
+            showMessage(`¡No acertaste, prueba mejor suerte la próxima vez!`);
+        }, 200);
+        if (actualPlayer < playerNumber - 1) {
+            console.log("pasando al siguiente turno");
+            actualPlayer += 1;
+            console.log(`ActualPlayer es: ${actualPlayer}`);
+        } else {
+            console.log("reiniciando la ronda");
+            actualPlayer = 0;
+            console.log(`ActualPlayer es: ${actualPlayer}`);
+        }
+        accusationCloseBtn.click();
+        hideDiceBtn();
+        hideAccBtn();
+        resetAccusation();
+        turnDynamic(playerNumber);
     }
 };
 
@@ -356,6 +746,10 @@ const resetAccusation = (evt) => {
         "hidden-accusation-category-container"
     );
     suspectsAccContainer.classList.add("accusation-category-container");
+    weaponsAccContainer.classList.remove("accusation-category-container");
+    weaponsAccContainer.classList.add("hidden-accusation-category-container");
+    roomsAccContainer.classList.remove("accusation-category-container");
+    roomsAccContainer.classList.add("hidden-accusation-category-container");
     for (let card of accusationCardSelector) {
         card.addEventListener("click", suspectSelection);
     }
@@ -559,8 +953,12 @@ const cartas = {
     sala: "assets/cartas/sala.png",
 };
 
-/* suspectHolderRow.innerHTML = `<img src="${cartas.mostaza}" alt="coronel mostaza" class="card-suspect">`; */
-const printCards = (jugador) => {
+const readyForPrint = (jugador) => {
+    console.log(`Ejecutando readyForPrint`);
+    let forPrint = {};
+    let suspects = [];
+    let weapons = [];
+    let rooms = [];
     let listaCartas = Object.keys(cartas);
     let manosJugador = Object.values(manosArmadas)[jugador];
     console.log(manosJugador);
@@ -572,107 +970,142 @@ const printCards = (jugador) => {
             if (category.includes(carta.toUpperCase())) {
                 console.log(`se encontró`);
                 if (actualArray === 0) {
-                    if (!suspectHolderRow.innerHTML) {
-                        console.log(
-                            `Imprimiendo la carta "${carta} en columna Sospechosos"`
-                        );
-                        suspectHolderRow.innerHTML = `<img src="${
-                            cartas[`${carta}`]
-                        }" alt="${carta}" class="card-suspect">`;
-                        actualArray += 1;
-                        if (actualArray > 2) {
-                            actualArray = 0;
-                        }
-                        continue;
-                    } else {
-                        console.log(
-                            `Imprimiendo la carta "${carta} en columna Sospechosos"`
-                        );
-                        suspectHolderRow.innerHTML += `<img src="${
-                            cartas[`${carta}`]
-                        }" alt="${carta}" class="card-suspect">`;
-                        actualArray += 1;
-                        if (actualArray > 2) {
-                            actualArray = 0;
-                        }
-                        continue;
+                    suspects.push(cartas[`${carta}`]);
+                    actualArray += 1;
+                    if (actualArray > 2) {
+                        actualArray = 0;
                     }
+                    continue;
                 } else if (actualArray === 1) {
-                    if (!weaponsHolderRow.innerHTML) {
-                        console.log(
-                            `Imprimiendo la carta "${carta} en columna Armas"`
-                        );
-                        weaponsHolderRow.innerHTML = `<img src="${
-                            cartas[`${carta}`]
-                        }" alt="${carta}" class="card-suspect">`;
-                        actualArray += 1;
-                        if (actualArray > 2) {
-                            actualArray = 0;
-                        }
-                        continue;
-                    } else {
-                        console.log(
-                            `Imprimiendo la carta "${carta} en columna Armas"`
-                        );
-                        weaponsHolderRow.innerHTML += `<img src="${
-                            cartas[`${carta}`]
-                        }" alt="${carta}" class="card-suspect">`;
-                        actualArray += 1;
-                        if (actualArray > 2) {
-                            actualArray = 0;
-                        }
-                        continue;
+                    weapons.push(cartas[`${carta}`]);
+                    actualArray += 1;
+                    if (actualArray > 2) {
+                        actualArray = 0;
                     }
+                    continue;
                 } else if (actualArray === 2) {
-                    if (!roomsHolderRow.innerHTML) {
-                        console.log(
-                            `Imprimiendo la carta "${carta} en columna Habitaciones"`
-                        );
-                        roomsHolderRow.innerHTML = `<img src="${
-                            cartas[`${carta}`]
-                        }" alt="${carta}" class="card-suspect">`;
-                        actualArray += 1;
-                        if (actualArray > 2) {
-                            actualArray = 0;
-                        }
-                        continue;
-                    } else {
-                        console.log(
-                            `Imprimiendo la carta "${carta} en columna Habitaciones"`
-                        );
-                        roomsHolderRow.innerHTML += `<img src="${
-                            cartas[`${carta}`]
-                        }" alt="${carta}" class="card-suspect">`;
-                        actualArray += 1;
-                        if (actualArray > 2) {
-                            actualArray = 0;
-                        }
-                        continue;
+                    rooms.push(cartas[`${carta}`]);
+                    actualArray += 1;
+                    if (actualArray > 2) {
+                        actualArray = 0;
                     }
+                    continue;
                 }
             } else {
                 console.log(`no tiene esta carta`);
             }
-            /*  for (let item of category) {
-                console.log("=========TABLE DE ELEMENT ==============");
-                console.table(item);
-                console.log(`Es ${carta} igual a ${item}?`);
-                if (item === carta.toUpperCase()) {
-                    console.log(
-                        `Se encontró la carta "${carta}" dentro del array "${category}"`
-                    ); */ /*
-             */
-            /*    actualArray += 1;
-                    console.log(`El actual array es ${actualArray}`);
-                } */
-            /* for (let item of category) {
-                } */
+
             console.log(`El actual array es ${actualArray}`);
             actualArray += 1;
             if (actualArray > 2) {
                 actualArray = 0;
             }
         }
+    }
+    console.log(`El jugador tiene los siguientes sospechosos: ${suspects}`);
+    console.log(`El jugador tiene los siguientes sospechosos: ${weapons}`);
+    console.log(`El jugador tiene los siguientes sospechosos: ${rooms}`);
+    forPrint.suspects = suspects;
+    forPrint.weapons = weapons;
+    forPrint.rooms = rooms;
+    console.log(forPrint);
+    return forPrint;
+};
+
+const printMechanism = (hand) => {
+    let handToPrint;
+    let alt;
+    handToPrint = sessionStorage.getItem(hand);
+    console.log(handToPrint);
+    handToPrint = JSON.parse(handToPrint);
+    console.log(handToPrint);
+    let suspects = handToPrint.suspects;
+    let weapons = handToPrint.weapons;
+    let rooms = handToPrint.rooms;
+    console.log(suspects);
+    console.log(weapons);
+    console.log(rooms);
+    for (let card of suspects) {
+        for (const key in cartas) {
+            console.log(key);
+            console.log(cartas[`${key}`]);
+            if (cartas[`${key}`] === card) {
+                alt = key;
+                break;
+            }
+        }
+        if (!suspectHolderRow.innerHTML) {
+            console.log(`Imprimiendo la carta "${alt} en columna Sospechosos"`);
+            suspectHolderRow.innerHTML = `<img src="${card}" alt="${alt}" class="card-suspect">`;
+        } else {
+            console.log(`Imprimiendo la carta "${alt} en columna Sospechosos"`);
+            suspectHolderRow.innerHTML += `<img src="${card}" alt="${alt}" class="card-suspect">`;
+        }
+    }
+    for (let card of weapons) {
+        for (const key in cartas) {
+            console.log(key);
+            if (cartas[`${key}`] === card) {
+                alt = key;
+                break;
+            }
+        }
+        if (!weaponsHolderRow.innerHTML) {
+            console.log(`Imprimiendo la carta "${alt} en columna Armas"`);
+            weaponsHolderRow.innerHTML = `<img src="${card}" alt="${alt}" class="card-suspect">`;
+        } else {
+            console.log(`Imprimiendo la carta "${alt} en columna Armas"`);
+            weaponsHolderRow.innerHTML += `<img src="${card}" alt="${alt}" class="card-suspect">`;
+        }
+    }
+    for (let card of rooms) {
+        for (const key in cartas) {
+            console.log(key);
+            if (cartas[`${key}`] === card) {
+                alt = key;
+                break;
+            }
+        }
+        if (!roomsHolderRow.innerHTML) {
+            console.log(
+                `Imprimiendo la carta "${alt} en columna Habitaciones"`
+            );
+            roomsHolderRow.innerHTML = `<img src="${card}" alt="${alt}" class="card-suspect">`;
+        } else {
+            console.log(
+                `Imprimiendo la carta "${alt} en columna Habitaciones"`
+            );
+            roomsHolderRow.innerHTML += `<img src="${card}" alt="${alt}" class="card-suspect">`;
+        }
+    }
+};
+
+const printCards = (jugador) => {
+    switch (jugador + 1) {
+        case 1:
+            console.log(`Imprimiendo cartas jugador ${jugador + 1}`);
+            printMechanism("playerHand1");
+            break;
+        case 2:
+            console.log(`Imprimiendo cartas jugador ${jugador + 1}`);
+            printMechanism("playerHand2");
+            break;
+        case 3:
+            console.log(`Imprimiendo cartas jugador ${jugador + 1}`);
+            printMechanism("playerHand3");
+            break;
+        case 4:
+            console.log(`Imprimiendo cartas jugador ${jugador + 1}`);
+            printMechanism("playerHand4");
+            break;
+        case 5:
+            console.log(`Imprimiendo cartas jugador ${jugador + 1}`);
+            printMechanism("playerHand5");
+            break;
+        case 6:
+            console.log(`Imprimiendo cartas jugador ${jugador + 1}`);
+            printMechanism("playerHand6");
+            break;
     }
 };
 
@@ -858,4 +1291,10 @@ const clasificarCartas = () => {
     console.log(`Clasificación finalizada:`);
     console.dir(manosClasificadas);
     return manosClasificadas;
+};
+
+window.onunload = function () {
+    for (let i = 1; i <= 6; i += 1) {
+        sessionStorage.removeItem(`playerHand${i}`);
+    }
 };
