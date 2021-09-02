@@ -71,6 +71,9 @@ const accusationConfirmBtn =
 const accusationCloseBtn =
     accusationModal.childNodes[1].childNodes[1].childNodes[1].childNodes[3];
 
+const accusationTotalCards = document.querySelectorAll(`.accusation-card-item`);
+const offCanvasBtn = document.querySelector(`.offcanvas-btn`);
+
 // AJUSTE DEL CÓDIGO DEL NAVBAR PARA QUE SE VEA EL HAMBURGUER MENU
 const navBarToggler = (e) => {
     if (!navbarCollapse.classList.contains("show")) {
@@ -173,6 +176,7 @@ dialogInterface.addEventListener("submit", (evt) => {
         console.log(evt.target[0].value);
         playerNumber = evt.target[0].value;
         if (+playerNumber && playerNumber > 1 && playerNumber <= 6) {
+            offCanvasBtn.classList.remove(`hide-offcanvas-btn`);
             hideInterface();
             runGame();
             turnDynamic(playerNumber);
@@ -181,6 +185,7 @@ dialogInterface.addEventListener("submit", (evt) => {
             gameMessages.children[0].innerText = `Error, el dato ingresado no es una cantidad válida. 
         Intenta nuevamente eligiendo un número del 2 al 6:`;
             evt.target[0].value = "";
+            playerNumber = undefined;
         }
     }
     return playerNumber;
@@ -204,14 +209,97 @@ const rollDice = () => {
 const turn = (player) => {
     setTimeout(() => {
         showMessage(`Turno Jugador ${player}`);
-    }, 2000);
+    }, 1500);
     setTimeout(() => {
         showMessage(`¡Tira los dados!`);
-    }, 5000);
+    }, 3000);
     setTimeout(() => {
         showDiceBtn();
-    }, 5000);
+    }, 3000);
     hideInterface();
+};
+
+const personalizePlayerOffcanvas = (player) => {
+    switch (player + 1) {
+        case 1:
+            for (let i = 1; i <= 6; i += 1) {
+                offCanvasBtn.classList.remove(`offcanvas-btn-player${i}`);
+            }
+            offCanvasBtn.classList.add(`offcanvas-btn-player1`);
+            setTimeout(() => {
+                offCanvasBtn.focus();
+            }, 1500);
+            setTimeout(() => {
+                offCanvasBtn.blur();
+            }, 2500);
+            offCanvasBtn.innerText = "Srita. Escarlata";
+            break;
+        case 2:
+            for (let i = 1; i <= 6; i += 1) {
+                offCanvasBtn.classList.remove(`offcanvas-btn-player${i}`);
+            }
+            offCanvasBtn.classList.add(`offcanvas-btn-player2`);
+            setTimeout(() => {
+                offCanvasBtn.focus();
+            }, 1500);
+            setTimeout(() => {
+                offCanvasBtn.blur();
+            }, 2500);
+            offCanvasBtn.innerText = "Cnel. Mostaza";
+            break;
+        case 3:
+            for (let i = 1; i <= 6; i += 1) {
+                offCanvasBtn.classList.remove(`offcanvas-btn-player${i}`);
+            }
+            offCanvasBtn.classList.add(`offcanvas-btn-player3`);
+            setTimeout(() => {
+                offCanvasBtn.focus();
+            }, 1500);
+            setTimeout(() => {
+                offCanvasBtn.blur();
+            }, 2500);
+            offCanvasBtn.innerText = "Sra. Blanco";
+            break;
+        case 4:
+            for (let i = 1; i <= 6; i += 1) {
+                offCanvasBtn.classList.remove(`offcanvas-btn-player${i}`);
+            }
+            offCanvasBtn.classList.add(`offcanvas-btn-player4`);
+            setTimeout(() => {
+                offCanvasBtn.focus();
+            }, 1500);
+            setTimeout(() => {
+                offCanvasBtn.blur();
+            }, 2500);
+            offCanvasBtn.innerText = "Sr. Verdi";
+            break;
+        case 5:
+            for (let i = 1; i <= 6; i += 1) {
+                offCanvasBtn.classList.remove(`offcanvas-btn-player${i}`);
+            }
+            offCanvasBtn.classList.add(`offcanvas-btn-player5`);
+            setTimeout(() => {
+                offCanvasBtn.focus();
+            }, 1500);
+            setTimeout(() => {
+                offCanvasBtn.blur();
+            }, 2500);
+            offCanvasBtn.innerText = "Sra. Azulino";
+            break;
+        case 6:
+            for (let i = 1; i <= 6; i += 1) {
+                offCanvasBtn.classList.remove(`offcanvas-btn-player${i}`);
+            }
+            offCanvasBtn.classList.add(`offcanvas-btn-player6`);
+            setTimeout(() => {
+                offCanvasBtn.focus();
+            }, 1500);
+            setTimeout(() => {
+                offCanvasBtn.blur();
+            }, 2500);
+            offCanvasBtn.innerText = "Prof. Moradillo";
+            break;
+    }
 };
 
 isEnoughtToAccuse = diceBtn.addEventListener("click", rollDice);
@@ -247,7 +335,9 @@ const turnDynamic = (playerNumber) => {
                 } else {
                     console.log(`Playerhand 1 ya fue creada`);
                 }
+                personalizePlayerOffcanvas(actualPlayer);
                 printCards(actualPlayer);
+                greyscaleCards(actualPlayer);
             } else if (actualPlayer === 1) {
                 suspectHolderRow.innerHTML = ``;
                 weaponsHolderRow.innerHTML = ``;
@@ -263,7 +353,9 @@ const turnDynamic = (playerNumber) => {
                 } else {
                     console.log(`Playerhand 1 ya fue creada`);
                 }
+                personalizePlayerOffcanvas(actualPlayer);
                 printCards(actualPlayer);
+                greyscaleCards(actualPlayer);
             }
 
             break;
@@ -291,7 +383,9 @@ const turnDynamic = (playerNumber) => {
                 } else {
                     console.log(`Playerhand 1 ya fue creada`);
                 }
+                personalizePlayerOffcanvas(actualPlayer);
                 printCards(actualPlayer);
+                greyscaleCards(actualPlayer);
             } else if (actualPlayer === 1) {
                 suspectHolderRow.innerHTML = ``;
                 weaponsHolderRow.innerHTML = ``;
@@ -307,7 +401,9 @@ const turnDynamic = (playerNumber) => {
                 } else {
                     console.log(`Playerhand 2 ya fue creada`);
                 }
+                personalizePlayerOffcanvas(actualPlayer);
                 printCards(actualPlayer);
+                greyscaleCards(actualPlayer);
             } else if (actualPlayer === 2) {
                 suspectHolderRow.innerHTML = ``;
                 weaponsHolderRow.innerHTML = ``;
@@ -323,7 +419,9 @@ const turnDynamic = (playerNumber) => {
                 } else {
                     console.log(`Playerhand 3 ya fue creada`);
                 }
+                personalizePlayerOffcanvas(actualPlayer);
                 printCards(actualPlayer);
+                greyscaleCards(actualPlayer);
             }
             break;
         case 4:
@@ -350,7 +448,9 @@ const turnDynamic = (playerNumber) => {
                 } else {
                     console.log(`Playerhand 1 ya fue creada`);
                 }
+                personalizePlayerOffcanvas(actualPlayer);
                 printCards(actualPlayer);
+                greyscaleCards(actualPlayer);
             } else if (actualPlayer === 1) {
                 suspectHolderRow.innerHTML = ``;
                 weaponsHolderRow.innerHTML = ``;
@@ -366,7 +466,9 @@ const turnDynamic = (playerNumber) => {
                 } else {
                     console.log(`Playerhand 2 ya fue creada`);
                 }
+                personalizePlayerOffcanvas(actualPlayer);
                 printCards(actualPlayer);
+                greyscaleCards(actualPlayer);
             } else if (actualPlayer === 2) {
                 suspectHolderRow.innerHTML = ``;
                 weaponsHolderRow.innerHTML = ``;
@@ -382,7 +484,9 @@ const turnDynamic = (playerNumber) => {
                 } else {
                     console.log(`Playerhand 3 ya fue creada`);
                 }
+                personalizePlayerOffcanvas(actualPlayer);
                 printCards(actualPlayer);
+                greyscaleCards(actualPlayer);
             } else if (actualPlayer === 3) {
                 suspectHolderRow.innerHTML = ``;
                 weaponsHolderRow.innerHTML = ``;
@@ -398,7 +502,9 @@ const turnDynamic = (playerNumber) => {
                 } else {
                     console.log(`Playerhand 4 ya fue creada`);
                 }
+                personalizePlayerOffcanvas(actualPlayer);
                 printCards(actualPlayer);
+                greyscaleCards(actualPlayer);
             }
             break;
         case 5:
@@ -425,7 +531,9 @@ const turnDynamic = (playerNumber) => {
                 } else {
                     console.log(`Playerhand 1 ya fue creada`);
                 }
+                personalizePlayerOffcanvas(actualPlayer);
                 printCards(actualPlayer);
+                greyscaleCards(actualPlayer);
             } else if (actualPlayer === 1) {
                 suspectHolderRow.innerHTML = ``;
                 weaponsHolderRow.innerHTML = ``;
@@ -441,7 +549,9 @@ const turnDynamic = (playerNumber) => {
                 } else {
                     console.log(`Playerhand 2 ya fue creada`);
                 }
+                personalizePlayerOffcanvas(actualPlayer);
                 printCards(actualPlayer);
+                greyscaleCards(actualPlayer);
             } else if (actualPlayer === 2) {
                 suspectHolderRow.innerHTML = ``;
                 weaponsHolderRow.innerHTML = ``;
@@ -457,7 +567,9 @@ const turnDynamic = (playerNumber) => {
                 } else {
                     console.log(`Playerhand 3 ya fue creada`);
                 }
+                personalizePlayerOffcanvas(actualPlayer);
                 printCards(actualPlayer);
+                greyscaleCards(actualPlayer);
             } else if (actualPlayer === 3) {
                 suspectHolderRow.innerHTML = ``;
                 weaponsHolderRow.innerHTML = ``;
@@ -473,7 +585,9 @@ const turnDynamic = (playerNumber) => {
                 } else {
                     console.log(`Playerhand 4 ya fue creada`);
                 }
+                personalizePlayerOffcanvas(actualPlayer);
                 printCards(actualPlayer);
+                greyscaleCards(actualPlayer);
             } else if (actualPlayer === 4) {
                 suspectHolderRow.innerHTML = ``;
                 weaponsHolderRow.innerHTML = ``;
@@ -489,7 +603,9 @@ const turnDynamic = (playerNumber) => {
                 } else {
                     console.log(`Playerhand 5 ya fue creada`);
                 }
+                personalizePlayerOffcanvas(actualPlayer);
                 printCards(actualPlayer);
+                greyscaleCards(actualPlayer);
             }
             break;
         case 6:
@@ -516,7 +632,9 @@ const turnDynamic = (playerNumber) => {
                 } else {
                     console.log(`Playerhand 1 ya fue creada`);
                 }
+                personalizePlayerOffcanvas(actualPlayer);
                 printCards(actualPlayer);
+                greyscaleCards(actualPlayer);
             } else if (actualPlayer === 1) {
                 suspectHolderRow.innerHTML = ``;
                 weaponsHolderRow.innerHTML = ``;
@@ -532,7 +650,9 @@ const turnDynamic = (playerNumber) => {
                 } else {
                     console.log(`Playerhand 2 ya fue creada`);
                 }
+                personalizePlayerOffcanvas(actualPlayer);
                 printCards(actualPlayer);
+                greyscaleCards(actualPlayer);
             } else if (actualPlayer === 2) {
                 suspectHolderRow.innerHTML = ``;
                 weaponsHolderRow.innerHTML = ``;
@@ -548,7 +668,9 @@ const turnDynamic = (playerNumber) => {
                 } else {
                     console.log(`Playerhand 3 ya fue creada`);
                 }
+                personalizePlayerOffcanvas(actualPlayer);
                 printCards(actualPlayer);
+                greyscaleCards(actualPlayer);
             } else if (actualPlayer === 3) {
                 suspectHolderRow.innerHTML = ``;
                 weaponsHolderRow.innerHTML = ``;
@@ -564,7 +686,9 @@ const turnDynamic = (playerNumber) => {
                 } else {
                     console.log(`Playerhand 4 ya fue creada`);
                 }
+                personalizePlayerOffcanvas(actualPlayer);
                 printCards(actualPlayer);
+                greyscaleCards(actualPlayer);
             } else if (actualPlayer === 4) {
                 suspectHolderRow.innerHTML = ``;
                 weaponsHolderRow.innerHTML = ``;
@@ -580,7 +704,9 @@ const turnDynamic = (playerNumber) => {
                 } else {
                     console.log(`Playerhand 5 ya fue creada`);
                 }
+                personalizePlayerOffcanvas(actualPlayer);
                 printCards(actualPlayer);
+                greyscaleCards(actualPlayer);
             } else if (actualPlayer === 5) {
                 suspectHolderRow.innerHTML = ``;
                 weaponsHolderRow.innerHTML = ``;
@@ -596,7 +722,9 @@ const turnDynamic = (playerNumber) => {
                 } else {
                     console.log(`Playerhand 6 ya fue creada`);
                 }
+                personalizePlayerOffcanvas(actualPlayer);
                 printCards(actualPlayer);
+                greyscaleCards(actualPlayer);
             }
             break;
         default:
@@ -701,6 +829,219 @@ const confirmAccusation = (evt) => {
 };
 
 let suspectCheck, weaponCheck;
+
+const unGrayingCards = () => {
+    console.log(`Despintando cartas jugador`);
+    let counter = 0;
+    for (let screenCard of accusationTotalCards) {
+        console.log(counter);
+        accusationTotalCards[counter].childNodes[0].classList.remove(
+            `greyed-card`
+        );
+        if (counter < 20) {
+            counter += 1;
+        } else {
+            counter = 0;
+        }
+    }
+    return;
+};
+
+// FUNCIÓN QUE PINTA EN GRIS LAS CARTAS QUE EL JUGADOR HA VISTO Y SABE QUE NO SON LAS DE LA SOLUCIÓN
+const greyscaleCards = (jugador) => {
+    console.log(` ========= Runing grayscale =========`);
+    let currentHand;
+    let storagedHand;
+    let counter = 0;
+    switch (jugador + 1) {
+        case 1:
+            unGrayingCards();
+            storagedHand = "playerHand1";
+            currentHand = sessionStorage.getItem(storagedHand);
+            console.log(currentHand);
+            currentHand = JSON.parse(currentHand);
+            console.log(currentHand);
+            for (const key in currentHand) {
+                for (let card of currentHand[`${key}`]) {
+                    console.log(card);
+                    console.log(`./${card}`);
+                    for (let screenCard of accusationTotalCards) {
+                        console.log(counter);
+                        if (
+                            accusationTotalCards[counter].childNodes[0]
+                                .attributes[0].value === `./${card}`
+                        ) {
+                            console.log(`Se encontró ${card} en ${screenCard}`);
+                            accusationTotalCards[
+                                counter
+                            ].childNodes[0].classList.add(`greyed-card`);
+                        }
+                        if (counter < 20) {
+                            counter += 1;
+                        } else {
+                            counter = 0;
+                        }
+                    }
+                }
+            }
+            break;
+        case 2:
+            storagedHand = "playerHand2";
+            unGrayingCards();
+            currentHand = sessionStorage.getItem(storagedHand);
+            console.log(currentHand);
+            currentHand = JSON.parse(currentHand);
+            console.log(currentHand);
+            for (const key in currentHand) {
+                for (let card of currentHand[`${key}`]) {
+                    console.log(card);
+                    console.log(`./${card}`);
+                    for (let screenCard of accusationTotalCards) {
+                        console.log(counter);
+                        if (
+                            accusationTotalCards[counter].childNodes[0]
+                                .attributes[0].value === `./${card}`
+                        ) {
+                            console.log(`Se encontró ${card} en ${screenCard}`);
+                            accusationTotalCards[
+                                counter
+                            ].childNodes[0].classList.add(`greyed-card`);
+                        }
+                        if (counter < 20) {
+                            counter += 1;
+                        } else {
+                            counter = 0;
+                        }
+                    }
+                }
+            }
+            break;
+        case 3:
+            storagedHand = "playerHand3";
+            unGrayingCards();
+            currentHand = sessionStorage.getItem(storagedHand);
+            console.log(currentHand);
+            currentHand = JSON.parse(currentHand);
+            console.log(currentHand);
+            for (const key in currentHand) {
+                for (let card of currentHand[`${key}`]) {
+                    console.log(card);
+                    console.log(`./${card}`);
+                    for (let screenCard of accusationTotalCards) {
+                        console.log(counter);
+                        if (
+                            accusationTotalCards[counter].childNodes[0]
+                                .attributes[0].value === `./${card}`
+                        ) {
+                            console.log(`Se encontró ${card} en ${screenCard}`);
+                            accusationTotalCards[
+                                counter
+                            ].childNodes[0].classList.add(`greyed-card`);
+                        }
+                        if (counter < 20) {
+                            counter += 1;
+                        } else {
+                            counter = 0;
+                        }
+                    }
+                }
+            }
+            break;
+        case 4:
+            storagedHand = "playerHand4";
+            unGrayingCards();
+            currentHand = sessionStorage.getItem(storagedHand);
+            console.log(currentHand);
+            currentHand = JSON.parse(currentHand);
+            console.log(currentHand);
+            for (const key in currentHand) {
+                for (let card of currentHand[`${key}`]) {
+                    console.log(card);
+                    console.log(`./${card}`);
+                    for (let screenCard of accusationTotalCards) {
+                        console.log(counter);
+                        if (
+                            accusationTotalCards[counter].childNodes[0]
+                                .attributes[0].value === `./${card}`
+                        ) {
+                            console.log(`Se encontró ${card} en ${screenCard}`);
+                            accusationTotalCards[
+                                counter
+                            ].childNodes[0].classList.add(`greyed-card`);
+                        }
+                        if (counter < 20) {
+                            counter += 1;
+                        } else {
+                            counter = 0;
+                        }
+                    }
+                }
+            }
+            break;
+        case 5:
+            storagedHand = "playerHand5";
+            unGrayingCards();
+            currentHand = sessionStorage.getItem(storagedHand);
+            console.log(currentHand);
+            currentHand = JSON.parse(currentHand);
+            console.log(currentHand);
+            for (const key in currentHand) {
+                for (let card of currentHand[`${key}`]) {
+                    console.log(card);
+                    console.log(`./${card}`);
+                    for (let screenCard of accusationTotalCards) {
+                        console.log(counter);
+                        if (
+                            accusationTotalCards[counter].childNodes[0]
+                                .attributes[0].value === `./${card}`
+                        ) {
+                            console.log(`Se encontró ${card} en ${screenCard}`);
+                            accusationTotalCards[
+                                counter
+                            ].childNodes[0].classList.add(`greyed-card`);
+                        }
+                        if (counter < 20) {
+                            counter += 1;
+                        } else {
+                            counter = 0;
+                        }
+                    }
+                }
+            }
+            break;
+        case 6:
+            storagedHand = "playerHand6";
+            unGrayingCards();
+            currentHand = sessionStorage.getItem(storagedHand);
+            console.log(currentHand);
+            currentHand = JSON.parse(currentHand);
+            console.log(currentHand);
+            for (const key in currentHand) {
+                for (let card of currentHand[`${key}`]) {
+                    console.log(card);
+                    console.log(`./${card}`);
+                    for (let screenCard of accusationTotalCards) {
+                        console.log(counter);
+                        if (
+                            accusationTotalCards[counter].childNodes[0]
+                                .attributes[0].value === `./${card}`
+                        ) {
+                            console.log(`Se encontró ${card} en ${screenCard}`);
+                            accusationTotalCards[
+                                counter
+                            ].childNodes[0].classList.add(`greyed-card`);
+                        }
+                        if (counter < 20) {
+                            counter += 1;
+                        } else {
+                            counter = 0;
+                        }
+                    }
+                }
+            }
+            break;
+    }
+};
 
 // FUNCIÓN CALLBACK QUE CONTIENE LA LÓGICA DE LA SELECCIÓN DE SOSPECHOSO, ARMA Y LUGAR, MANIPULA LAS INTERFACES Y MUESTRA UNA INTERFAZ FINAL DE LA ACUSACIÓN REALIZADA
 const suspectSelection = (evt) => {

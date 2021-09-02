@@ -491,6 +491,137 @@
   min-width: 5em;
   border: none;
 }
+.index-body .game-area-container .hide-offcanvas-btn {
+  display: none;
+}
+.index-body .game-area-container .offcanvas-btn {
+  position: absolute;
+  top: 27.5vh;
+  left: -10vw;
+  transition: all 150ms ease;
+  min-width: 13vw;
+}
+@media (min-width: 992px) {
+  .index-body .game-area-container .offcanvas-btn {
+    position: absolute;
+    left: -7vw;
+    top: 20vh;
+    min-height: 3em;
+  }
+}
+.index-body .game-area-container .offcanvas-btn:focus {
+  left: -1vw;
+  border: transparent;
+  transition: all 200ms ease;
+  outline: transparent;
+  box-shadow: 0 0 0 0 transparent;
+}
+.index-body .game-area-container .offcanvas-btn:hover {
+  left: -1vw;
+  border: transparent;
+  transition: all 200ms ease;
+}
+.index-body .game-area-container .offcanvas-btn-player1 {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  background-color: #ce0000;
+  border-color: #b50000;
+}
+.index-body .game-area-container .offcanvas-btn-player1:hover {
+  color: #f5fdf4;
+  border: solid 2px rgba(226, 183, 183, 0.808);
+  box-shadow: 0 0 15px 5px rgba(187, 63, 63, 0.808);
+}
+.index-body .game-area-container .offcanvas-btn-player1:focus {
+  color: #f5fdf4;
+  border: solid 2px rgba(226, 183, 183, 0.808);
+  box-shadow: 0 0 15px 5px rgba(187, 63, 63, 0.808);
+}
+.index-body .game-area-container .offcanvas-btn-player2 {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  color: #494200;
+  background-color: #e2cb00;
+  border-color: #c9b400;
+}
+.index-body .game-area-container .offcanvas-btn-player2:hover {
+  border: solid 2px #faf5cc;
+  box-shadow: 0 0 15px 5px #e2cb00;
+}
+.index-body .game-area-container .offcanvas-btn-player2:focus {
+  border: solid 2px #faf5cc;
+  box-shadow: 0 0 15px 5px #e2cb00;
+}
+.index-body .game-area-container .offcanvas-btn-player3 {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  color: #363636;
+  background-color: #dbdbd3;
+  border-color: #d0d0c5;
+}
+.index-body .game-area-container .offcanvas-btn-player3:hover {
+  border: solid 2px lightgray;
+  box-shadow: 0 0 15px 5px #b0b1b0;
+}
+.index-body .game-area-container .offcanvas-btn-player3:focus {
+  border: solid 2px lightgray;
+  box-shadow: 0 0 15px 5px #b0b1b0;
+}
+.index-body .game-area-container .offcanvas-btn-player4 {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  color: #0d3607;
+  background-color: #2cbe18;
+  border-color: #1c7a0f;
+}
+.index-body .game-area-container .offcanvas-btn-player4:hover {
+  color: #f5fdf4;
+  border: solid 2px #c8e5c4;
+  box-shadow: 0 0 15px 5px #71b168;
+}
+.index-body .game-area-container .offcanvas-btn-player4:focus {
+  color: #f5fdf4;
+  border: solid 2px #c8e5c4;
+  box-shadow: 0 0 15px 5px #71b168;
+}
+.index-body .game-area-container .offcanvas-btn-player5 {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  background-color: #3162e9;
+  border-color: #1a50e7;
+}
+.index-body .game-area-container .offcanvas-btn-player5:hover {
+  color: #f5fdf4;
+  border: solid 2px rgba(112, 132, 185, 0.801);
+  box-shadow: 0 0 15px 5px rgba(60, 96, 195, 0.801);
+}
+.index-body .game-area-container .offcanvas-btn-player5:focus {
+  color: #f5fdf4;
+  border: solid 2px rgba(112, 132, 185, 0.801);
+  box-shadow: 0 0 15px 5px rgba(60, 96, 195, 0.801);
+}
+.index-body .game-area-container .offcanvas-btn-player6 {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  background-color: #6b11c0;
+  border-color: #5e0fa9;
+}
+.index-body .game-area-container .offcanvas-btn-player6:hover {
+  color: #f5fdf4;
+  border: solid 2px rgba(151, 116, 184, 0.801);
+  box-shadow: 0 0 15px 5px rgba(121, 57, 180, 0.801);
+}
+.index-body .game-area-container .offcanvas-btn-player6:focus {
+  color: #f5fdf4;
+  border: solid 2px rgba(151, 116, 184, 0.801);
+  box-shadow: 0 0 15px 5px rgba(121, 57, 180, 0.801);
+}
 .index-body .game-area-container .offcanvas-body .row .col .collapse .card-body {
   width: 100%;
 }
@@ -540,6 +671,9 @@
 }
 .index-body .modal .modal-dialog .modal-content .modal-body .accusation-category-container .accusation-card-item .accusation-card {
   max-height: 10em;
+}
+.index-body .modal .modal-dialog .modal-content .modal-body .accusation-category-container .accusation-card-item .greyed-card {
+  filter: grayscale(100%);
 }
 .index-body .hidden-accusation-modal {
   display: none;
