@@ -113,10 +113,662 @@
                     <button class="dialog-interface-hidden" id="dice-btn">DADOS</button>
                 </div>
                 <div class="board-container">
-                    <img
+                    <table class="game-board-table">
+                        <tr id="row-1" class="board-row">
+                            <td id="cell-1a" class="board-cell unable"></td>
+                            <td id="cell-1b" class="board-cell unable"></td>
+                            <td id="cell-1c" class="board-cell unable"></td>
+                            <td id="cell-1d" class="board-cell unable"></td>
+                            <td id="cell-1e" class="board-cell unable"></td>
+                            <td id="cell-1f" class="board-cell unable"></td>
+                            <td id="cell-1g" class="board-cell unable"></td>
+                            <td id="cell-1h" class="board-cell able"></td>
+                            <td id="cell-1i" class="board-cell unable"></td>
+                            <td id="cell-1j" class="board-cell unable"></td>
+                            <td id="cell-1k" class="board-cell unable"></td>
+                            <td id="cell-1l" class="board-cell unable"></td>
+                            <td id="cell-1m" class="board-cell unable"></td>
+                            <td id="cell-1n" class="board-cell unable"></td>
+                            <td id="cell-1o" class="board-cell unable"></td>
+                            <td id="cell-1p" class="board-cell unable"></td>
+                            <td id="cell-1q" class="board-cell able"><img src="./assets/fichas/escarlata.png" alt="ficha de Srita. Escarlata" id="escarlata-ficha"></td>
+                            <td id="cell-1r" class="board-cell unable"></td>
+                            <td id="cell-1s" class="board-cell unable"></td>
+                            <td id="cell-1t" class="board-cell unable"></td>
+                            <td id="cell-1u" class="board-cell unable"></td>
+                            <td id="cell-1v" class="board-cell unable"></td>
+                            <td id="cell-1w" class="board-cell unable"></td>
+                            <td id="cell-1x" class="board-cell unable"></td>
+                        </tr>
+                        <tr id="row-2" class="board-row">
+                            <td id="cell-2a" class="board-cell unable"></td>
+                            <td id="cell-2b" class="board-cell unable"></td>
+                            <td id="cell-2c" class="board-cell unable"></td>
+                            <td id="cell-2d" class="board-cell unable"></td>
+                            <td id="cell-2e" class="board-cell unable"></td>
+                            <td id="cell-2f" class="board-cell unable"></td>
+                            <td id="cell-2g" class="board-cell unable"></td>
+                            <td id="cell-2h" class="board-cell able"></td>
+                            <td id="cell-2i" class="board-cell able"></td>
+                            <td id="cell-2j" class="board-cell unable"></td>
+                            <td id="cell-2k" class="board-cell unable"></td>
+                            <td id="cell-2l" class="board-cell unable"></td>
+                            <td id="cell-2m" class="board-cell unable"></td>
+                            <td id="cell-2n" class="board-cell unable"></td>
+                            <td id="cell-2o" class="board-cell unable"></td>
+                            <td id="cell-2p" class="board-cell able"></td>
+                            <td id="cell-2q" class="board-cell able"></td>
+                            <td id="cell-2r" class="board-cell unable"></td>
+                            <td id="cell-2s" class="board-cell unable"></td>
+                            <td id="cell-2t" class="board-cell unable"></td>
+                            <td id="cell-2u" class="board-cell unable"></td>
+                            <td id="cell-2v" class="board-cell unable"></td>
+                            <td id="cell-2w" class="board-cell unable"></td>
+                            <td id="cell-2x" class="board-cell unable"></td>
+                        </tr>
+                        <tr id="row-3" class="board-row">
+                            <td id="cell-3a" class="board-cell unable"></td>
+                            <td id="cell-3b" class="board-cell unable"></td>
+                            <td id="cell-3c" class="board-cell unable"></td>
+                            <td id="cell-3d" class="board-cell unable"></td>
+                            <td id="cell-3e" class="board-cell unable"></td>
+                            <td id="cell-3f" class="board-cell unable"></td>
+                            <td id="cell-3g" class="board-cell unable"></td>
+                            <td id="cell-3h" class="board-cell able"></td>
+                            <td id="cell-3i" class="board-cell able"></td>
+                            <td id="cell-3j" class="board-cell unable"></td>
+                            <td id="cell-3k" class="board-cell unable"></td>
+                            <td id="cell-3l" class="board-cell unable"></td>
+                            <td id="cell-3m" class="board-cell unable"></td>
+                            <td id="cell-3n" class="board-cell unable"></td>
+                            <td id="cell-3o" class="board-cell unable"></td>
+                            <td id="cell-3p" class="board-cell able"></td>
+                            <td id="cell-3q" class="board-cell able"></td>
+                            <td id="cell-3r" class="board-cell unable"></td>
+                            <td id="cell-3s" class="board-cell unable"></td>
+                            <td id="cell-3t" class="board-cell unable"></td>
+                            <td id="cell-3u" class="board-cell unable"></td>
+                            <td id="cell-3v" class="board-cell unable"></td>
+                            <td id="cell-3w" class="board-cell unable"></td>
+                            <td id="cell-3x" class="board-cell unable"></td>
+                        </tr>
+                        <tr id="row-4" class="board-row">
+                            <td id="cell-4a" class="board-cell unable"></td>
+                            <td id="cell-4b" class="board-cell unable"></td>
+                            <td id="cell-4c" class="board-cell unable"></td>
+                            <td id="cell-4d" class="board-cell unable"></td>
+                            <td id="cell-4e" class="board-cell unable"></td>
+                            <td id="cell-4f" class="board-cell unable"></td>
+                            <td id="cell-4g" class="board-cell able"></td>
+                            <td id="cell-4h" class="board-cell able"></td>
+                            <td id="cell-4i" class="board-cell able"></td>
+                            <td id="cell-4j" class="board-cell unable"></td>
+                            <td id="cell-4k" class="board-cell unable"></td>
+                            <td id="cell-4l" class="board-cell unable"></td>
+                            <td id="cell-4m" class="board-cell unable"></td>
+                            <td id="cell-4n" class="board-cell unable"></td>
+                            <td id="cell-4o" class="board-cell unable"></td>
+                            <td id="cell-4p" class="board-cell able"></td>
+                            <td id="cell-4q" class="board-cell able"></td>
+                            <td id="cell-4r" class="board-cell unable"></td>
+                            <td id="cell-4s" class="board-cell unable"></td>
+                            <td id="cell-4t" class="board-cell unable"></td>
+                            <td id="cell-4u" class="board-cell unable"></td>
+                            <td id="cell-4v" class="board-cell unable"></td>
+                            <td id="cell-4w" class="board-cell unable"></td>
+                            <td id="cell-4x" class="board-cell unable"></td>
+                        </tr>
+                        <tr id="row-5" class="board-row">
+                            <td id="cell-5a" class="board-cell unable"></td>
+                            <td id="cell-5b" class="board-cell able"></td>
+                            <td id="cell-5c" class="board-cell able"></td>
+                            <td id="cell-5d" class="board-cell able"></td>
+                            <td id="cell-5e" class="board-cell able"></td>
+                            <td id="cell-5f" class="board-cell able"></td>
+                            <td id="cell-5g" class="board-cell able"></td>
+                            <td id="cell-5h" class="board-cell able"></td>
+                            <td id="cell-5i" class="board-cell able"></td>
+                            <td id="cell-5j" class="board-cell able"></td>
+                            <td id="cell-5k" class="board-cell unable"></td>
+                            <td id="cell-5l" class="board-cell unable"></td>
+                            <td id="cell-5m" class="board-cell unable"></td>
+                            <td id="cell-5n" class="board-cell unable"></td>
+                            <td id="cell-5o" class="board-cell unable"></td>
+                            <td id="cell-5p" class="board-cell able"></td>
+                            <td id="cell-5q" class="board-cell able"></td>
+                            <td id="cell-5r" class="board-cell unable"></td>
+                            <td id="cell-5s" class="board-cell unable"></td>
+                            <td id="cell-5t" class="board-cell unable"></td>
+                            <td id="cell-5u" class="board-cell unable"></td>
+                            <td id="cell-5v" class="board-cell unable"></td>
+                            <td id="cell-5w" class="board-cell unable"></td>
+                            <td id="cell-5x" class="board-cell unable"></td>
+                        </tr>
+                        <tr id="row-6" class="board-row">
+                            <td id="cell-6a" class="board-cell able"><img src="./assets/fichas/moradillo.png" alt="ficha de Prof. Moradillo" id="moradillo-ficha"></td>
+                            <td id="cell-6b" class="board-cell able"></td>
+                            <td id="cell-6c" class="board-cell able"></td>
+                            <td id="cell-6d" class="board-cell able"></td>
+                            <td id="cell-6e" class="board-cell able"></td>
+                            <td id="cell-6f" class="board-cell able"></td>
+                            <td id="cell-6g" class="board-cell able"></td>
+                            <td id="cell-6h" class="board-cell able"></td>
+                            <td id="cell-6i" class="board-cell able"></td>
+                            <td id="cell-6j" class="board-cell unable"></td>
+                            <td id="cell-6k" class="board-cell unable"></td>
+                            <td id="cell-6l" class="board-cell unable"></td>
+                            <td id="cell-6m" class="board-cell unable"></td>
+                            <td id="cell-6n" class="board-cell unable"></td>
+                            <td id="cell-6o" class="board-cell unable"></td>
+                            <td id="cell-6p" class="board-cell able"></td>
+                            <td id="cell-6q" class="board-cell able"></td>
+                            <td id="cell-6r" class="board-cell able"></td>
+                            <td id="cell-6s" class="board-cell unable"></td>
+                            <td id="cell-6t" class="board-cell unable"></td>
+                            <td id="cell-6u" class="board-cell unable"></td>
+                            <td id="cell-6v" class="board-cell unable"></td>
+                            <td id="cell-6w" class="board-cell unable"></td>
+                            <td id="cell-6x" class="board-cell unable"></td>
+                        </tr>
+                        <tr id="row-7" class="board-row">
+                            <td id="cell-7a" class="board-cell unable"></td>
+                            <td id="cell-7b" class="board-cell unable"></td>
+                            <td id="cell-7c" class="board-cell unable"></td>
+                            <td id="cell-7d" class="board-cell unable"></td>
+                            <td id="cell-7e" class="board-cell unable"></td>
+                            <td id="cell-7f" class="board-cell unable"></td>
+                            <td id="cell-7g" class="board-cell able"></td>
+                            <td id="cell-7h" class="board-cell able"></td>
+                            <td id="cell-7i" class="board-cell able"></td>
+                            <td id="cell-7j" class="board-cell unable"></td>
+                            <td id="cell-7k" class="board-cell unable"></td>
+                            <td id="cell-7l" class="board-cell able"></td>
+                            <td id="cell-7m" class="board-cell able"></td>
+                            <td id="cell-7n" class="board-cell unable"></td>
+                            <td id="cell-7o" class="board-cell unable"></td>
+                            <td id="cell-7p" class="board-cell able"></td>
+                            <td id="cell-7q" class="board-cell able"></td>
+                            <td id="cell-7r" class="board-cell able"></td>
+                            <td id="cell-7s" class="board-cell able"></td>
+                            <td id="cell-7t" class="board-cell able"></td>
+                            <td id="cell-7u" class="board-cell able"></td>
+                            <td id="cell-7v" class="board-cell able"></td>
+                            <td id="cell-7w" class="board-cell able"></td>
+                            <td id="cell-7x" class="board-cell unable"></td>
+                        </tr>
+                        <tr id="row-8" class="board-row">
+                            <td id="cell-8a" class="board-cell unable"></td>
+                            <td id="cell-8b" class="board-cell unable"></td>
+                            <td id="cell-8c" class="board-cell unable"></td>
+                            <td id="cell-8d" class="board-cell unable"></td>
+                            <td id="cell-8e" class="board-cell unable"></td>
+                            <td id="cell-8f" class="board-cell unable"></td>
+                            <td id="cell-8g" class="board-cell unable"></td>
+                            <td id="cell-8h" class="board-cell able"></td>
+                            <td id="cell-8i" class="board-cell able"></td>
+                            <td id="cell-8j" class="board-cell able"></td>
+                            <td id="cell-8k" class="board-cell able"></td>
+                            <td id="cell-8l" class="board-cell able"></td>
+                            <td id="cell-8m" class="board-cell able"></td>
+                            <td id="cell-8n" class="board-cell able"></td>
+                            <td id="cell-8o" class="board-cell able"></td>
+                            <td id="cell-8p" class="board-cell able"></td>
+                            <td id="cell-8q" class="board-cell able"></td>
+                            <td id="cell-8r" class="board-cell able"></td>
+                            <td id="cell-8s" class="board-cell able"></td>
+                            <td id="cell-8t" class="board-cell able"></td>
+                            <td id="cell-8u" class="board-cell able"></td>
+                            <td id="cell-8v" class="board-cell able"></td>
+                            <td id="cell-8w" class="board-cell able"></td>
+                            <td id="cell-8x" class="board-cell able"><img src="./assets/fichas/mostaza.png" alt="ficha de coronel mostaza" id="mostaza-ficha"></td>
+                        </tr>
+                        <tr id="row-9" class="board-row">
+                            <td id="cell-9a" class="board-cell unable"></td>
+                            <td id="cell-9b" class="board-cell unable"></td>
+                            <td id="cell-9c" class="board-cell unable"></td>
+                            <td id="cell-9d" class="board-cell unable"></td>
+                            <td id="cell-9e" class="board-cell unable"></td>
+                            <td id="cell-9f" class="board-cell unable"></td>
+                            <td id="cell-9g" class="board-cell able"></td>
+                            <td id="cell-9h" class="board-cell able"></td>
+                            <td id="cell-9i" class="board-cell able"></td>
+                            <td id="cell-9j" class="board-cell unable"></td>
+                            <td id="cell-9k" class="board-cell unable"></td>
+                            <td id="cell-9l" class="board-cell unable"></td>
+                            <td id="cell-9m" class="board-cell unable"></td>
+                            <td id="cell-9n" class="board-cell unable"></td>
+                            <td id="cell-9o" class="board-cell able"></td>
+                            <td id="cell-9p" class="board-cell able"></td>
+                            <td id="cell-9q" class="board-cell able"></td>
+                            <td id="cell-9r" class="board-cell able"></td>
+                            <td id="cell-9s" class="board-cell able"></td>
+                            <td id="cell-9t" class="board-cell able"></td>
+                            <td id="cell-9u" class="board-cell able"></td>
+                            <td id="cell-9v" class="board-cell able"></td>
+                            <td id="cell-9w" class="board-cell able"></td>
+                            <td id="cell-9x" class="board-cell unable"></td>
+                        </tr>
+                        <tr id="row-10" class="board-row">
+                            <td id="cell-10a" class="board-cell unable"></td>
+                            <td id="cell-10b" class="board-cell unable"></td>
+                            <td id="cell-10c" class="board-cell unable"></td>
+                            <td id="cell-10d" class="board-cell unable"></td>
+                            <td id="cell-10e" class="board-cell unable"></td>
+                            <td id="cell-10f" class="board-cell unable"></td>
+                            <td id="cell-10g" class="board-cell unable"></td>
+                            <td id="cell-10h" class="board-cell able"></td>
+                            <td id="cell-10i" class="board-cell able"></td>
+                            <td id="cell-10j" class="board-cell unable"></td>
+                            <td id="cell-10k" class="board-cell unable"></td>
+                            <td id="cell-10l" class="board-cell unable"></td>
+                            <td id="cell-10m" class="board-cell unable"></td>
+                            <td id="cell-10n" class="board-cell unable"></td>
+                            <td id="cell-10o" class="board-cell able"></td>
+                            <td id="cell-10p" class="board-cell able"></td>
+                            <td id="cell-10q" class="board-cell unable"></td>
+                            <td id="cell-10r" class="board-cell able"></td>
+                            <td id="cell-10s" class="board-cell unable"></td>
+                            <td id="cell-10t" class="board-cell unable"></td>
+                            <td id="cell-10u" class="board-cell unable"></td>
+                            <td id="cell-10v" class="board-cell unable"></td>
+                            <td id="cell-10w" class="board-cell unable"></td>
+                            <td id="cell-10x" class="board-cell unable"></td>
+                        </tr>
+                        <tr id="row-11" class="board-row">
+                            <td id="cell-11a" class="board-cell unable"></td>
+                            <td id="cell-11b" class="board-cell unable"></td>
+                            <td id="cell-11c" class="board-cell unable"></td>
+                            <td id="cell-11d" class="board-cell able"></td>
+                            <td id="cell-11e" class="board-cell unable"></td>
+                            <td id="cell-11f" class="board-cell unable"></td>
+                            <td id="cell-11g" class="board-cell able"></td>
+                            <td id="cell-11h" class="board-cell able"></td>
+                            <td id="cell-11i" class="board-cell able"></td>
+                            <td id="cell-11j" class="board-cell unable"></td>
+                            <td id="cell-11k" class="board-cell unable"></td>
+                            <td id="cell-11l" class="board-cell unable"></td>
+                            <td id="cell-11m" class="board-cell unable"></td>
+                            <td id="cell-11n" class="board-cell unable"></td>
+                            <td id="cell-11o" class="board-cell able"></td>
+                            <td id="cell-11p" class="board-cell able"></td>
+                            <td id="cell-11q" class="board-cell unable"></td>
+                            <td id="cell-11r" class="board-cell unable"></td>
+                            <td id="cell-11s" class="board-cell unable"></td>
+                            <td id="cell-11t" class="board-cell unable"></td>
+                            <td id="cell-11u" class="board-cell unable"></td>
+                            <td id="cell-11v" class="board-cell unable"></td>
+                            <td id="cell-11w" class="board-cell unable"></td>
+                            <td id="cell-11x" class="board-cell unable"></td>
+                        </tr>
+                        <tr id="row-12" class="board-row">
+                            <td id="cell-12a" class="board-cell unable"></td>
+                            <td id="cell-12b" class="board-cell able"></td>
+                            <td id="cell-12c" class="board-cell able"></td>
+                            <td id="cell-12d" class="board-cell able"></td>
+                            <td id="cell-12e" class="board-cell able"></td>
+                            <td id="cell-12f" class="board-cell able"></td>
+                            <td id="cell-12g" class="board-cell able"></td>
+                            <td id="cell-12h" class="board-cell able"></td>
+                            <td id="cell-12i" class="board-cell able"></td>
+                            <td id="cell-12j" class="board-cell unable"></td>
+                            <td id="cell-12k" class="board-cell unable"></td>
+                            <td id="cell-12l" class="board-cell unable"></td>
+                            <td id="cell-12m" class="board-cell unable"></td>
+                            <td id="cell-12n" class="board-cell unable"></td>
+                            <td id="cell-12o" class="board-cell able"></td>
+                            <td id="cell-12p" class="board-cell able"></td>
+                            <td id="cell-12q" class="board-cell unable"></td>
+                            <td id="cell-12r" class="board-cell unable"></td>
+                            <td id="cell-12s" class="board-cell unable"></td>
+                            <td id="cell-12t" class="board-cell unable"></td>
+                            <td id="cell-12u" class="board-cell unable"></td>
+                            <td id="cell-12v" class="board-cell unable"></td>
+                            <td id="cell-12w" class="board-cell unable"></td>
+                            <td id="cell-12x" class="board-cell unable"></td>
+                        </tr>
+                        <tr id="row-13" class="board-row">
+                            <td id="cell-13a" class="board-cell unable"></td>
+                            <td id="cell-13b" class="board-cell able"></td>
+                            <td id="cell-13c" class="board-cell unable"></td>
+                            <td id="cell-13d" class="board-cell unable"></td>
+                            <td id="cell-13e" class="board-cell unable"></td>
+                            <td id="cell-13f" class="board-cell unable"></td>
+                            <td id="cell-13g" class="board-cell able"></td>
+                            <td id="cell-13h" class="board-cell able"></td>
+                            <td id="cell-13i" class="board-cell able"></td>
+                            <td id="cell-13j" class="board-cell unable"></td>
+                            <td id="cell-13k" class="board-cell unable"></td>
+                            <td id="cell-13l" class="board-cell unable"></td>
+                            <td id="cell-13m" class="board-cell unable"></td>
+                            <td id="cell-13n" class="board-cell unable"></td>
+                            <td id="cell-13o" class="board-cell able"></td>
+                            <td id="cell-13p" class="board-cell able"></td>
+                            <td id="cell-13q" class="board-cell able"></td>
+                            <td id="cell-13r" class="board-cell unable"></td>
+                            <td id="cell-13s" class="board-cell unable"></td>
+                            <td id="cell-13t" class="board-cell unable"></td>
+                            <td id="cell-13u" class="board-cell unable"></td>
+                            <td id="cell-13v" class="board-cell unable"></td>
+                            <td id="cell-13w" class="board-cell unable"></td>
+                            <td id="cell-13x" class="board-cell unable"></td>
+                        </tr>
+                        <tr id="row-14" class="board-row">
+                            <td id="cell-14a" class="board-cell unable"></td>
+                            <td id="cell-14b" class="board-cell unable"></td>
+                            <td id="cell-14c" class="board-cell unable"></td>
+                            <td id="cell-14d" class="board-cell unable"></td>
+                            <td id="cell-14e" class="board-cell unable"></td>
+                            <td id="cell-14f" class="board-cell unable"></td>
+                            <td id="cell-14g" class="board-cell able"></td>
+                            <td id="cell-14h" class="board-cell able"></td>
+                            <td id="cell-14i" class="board-cell able"></td>
+                            <td id="cell-14j" class="board-cell unable"></td>
+                            <td id="cell-14k" class="board-cell unable"></td>
+                            <td id="cell-14l" class="board-cell unable"></td>
+                            <td id="cell-14m" class="board-cell unable"></td>
+                            <td id="cell-14n" class="board-cell unable"></td>
+                            <td id="cell-14o" class="board-cell able"></td>
+                            <td id="cell-14p" class="board-cell able"></td>
+                            <td id="cell-14q" class="board-cell unable"></td>
+                            <td id="cell-14r" class="board-cell unable"></td>
+                            <td id="cell-14s" class="board-cell unable"></td>
+                            <td id="cell-14t" class="board-cell unable"></td>
+                            <td id="cell-14u" class="board-cell unable"></td>
+                            <td id="cell-14v" class="board-cell unable"></td>
+                            <td id="cell-14w" class="board-cell unable"></td>
+                            <td id="cell-14x" class="board-cell unable"></td>
+                        </tr>
+                        <tr id="row-15" class="board-row">
+                            <td id="cell-15a" class="board-cell unable"></td>
+                            <td id="cell-15b" class="board-cell unable"></td>
+                            <td id="cell-15c" class="board-cell unable"></td>
+                            <td id="cell-15d" class="board-cell unable"></td>
+                            <td id="cell-15e" class="board-cell unable"></td>
+                            <td id="cell-15f" class="board-cell unable"></td>
+                            <td id="cell-15g" class="board-cell able"></td>
+                            <td id="cell-15h" class="board-cell able"></td>
+                            <td id="cell-15i" class="board-cell able"></td>
+                            <td id="cell-15j" class="board-cell unable"></td>
+                            <td id="cell-15k" class="board-cell unable"></td>
+                            <td id="cell-15l" class="board-cell unable"></td>
+                            <td id="cell-15m" class="board-cell unable"></td>
+                            <td id="cell-15n" class="board-cell unable"></td>
+                            <td id="cell-15o" class="board-cell able"></td>
+                            <td id="cell-15p" class="board-cell able"></td>
+                            <td id="cell-15q" class="board-cell unable"></td>
+                            <td id="cell-15r" class="board-cell unable"></td>
+                            <td id="cell-15s" class="board-cell unable"></td>
+                            <td id="cell-15t" class="board-cell unable"></td>
+                            <td id="cell-15u" class="board-cell unable"></td>
+                            <td id="cell-15v" class="board-cell unable"></td>
+                            <td id="cell-15w" class="board-cell unable"></td>
+                            <td id="cell-15x" class="board-cell unable"></td>
+                        </tr>
+                        <tr id="row-16" class="board-row">
+                            <td id="cell-16a" class="board-cell unable"></td>
+                            <td id="cell-16b" class="board-cell unable"></td>
+                            <td id="cell-16c" class="board-cell unable"></td>
+                            <td id="cell-16d" class="board-cell unable"></td>
+                            <td id="cell-16e" class="board-cell unable"></td>
+                            <td id="cell-16f" class="board-cell able"></td>
+                            <td id="cell-16g" class="board-cell able"></td>
+                            <td id="cell-16h" class="board-cell able"></td>
+                            <td id="cell-16i" class="board-cell able"></td>
+                            <td id="cell-16j" class="board-cell able"></td>
+                            <td id="cell-16k" class="board-cell able"></td>
+                            <td id="cell-16l" class="board-cell able"></td>
+                            <td id="cell-16m" class="board-cell able"></td>
+                            <td id="cell-16n" class="board-cell able"></td>
+                            <td id="cell-16o" class="board-cell able"></td>
+                            <td id="cell-16p" class="board-cell able"></td>
+                            <td id="cell-16q" class="board-cell able"></td>
+                            <td id="cell-16r" class="board-cell able"></td>
+                            <td id="cell-16s" class="board-cell able"></td>
+                            <td id="cell-16t" class="board-cell unable"></td>
+                            <td id="cell-16u" class="board-cell unable"></td>
+                            <td id="cell-16v" class="board-cell unable"></td>
+                            <td id="cell-16w" class="board-cell unable"></td>
+                            <td id="cell-16x" class="board-cell unable"></td>
+                        </tr>
+                        <tr id="row-17" class="board-row">
+                            <td id="cell-17a" class="board-cell unable"></td>
+                            <td id="cell-17b" class="board-cell unable"></td>
+                            <td id="cell-17c" class="board-cell unable"></td>
+                            <td id="cell-17d" class="board-cell unable"></td>
+                            <td id="cell-17e" class="board-cell unable"></td>
+                            <td id="cell-17f" class="board-cell unable"></td>
+                            <td id="cell-17g" class="board-cell able"></td>
+                            <td id="cell-17h" class="board-cell able"></td>
+                            <td id="cell-17i" class="board-cell able"></td>
+                            <td id="cell-17j" class="board-cell able"></td>
+                            <td id="cell-17k" class="board-cell able"></td>
+                            <td id="cell-17l" class="board-cell able"></td>
+                            <td id="cell-17m" class="board-cell able"></td>
+                            <td id="cell-17n" class="board-cell able"></td>
+                            <td id="cell-17o" class="board-cell able"></td>
+                            <td id="cell-17p" class="board-cell able"></td>
+                            <td id="cell-17q" class="board-cell able"></td>
+                            <td id="cell-17r" class="board-cell able"></td>
+                            <td id="cell-17s" class="board-cell able"></td>
+                            <td id="cell-17t" class="board-cell able"></td>
+                            <td id="cell-17u" class="board-cell able"></td>
+                            <td id="cell-17v" class="board-cell able"></td>
+                            <td id="cell-17w" class="board-cell able"></td>
+                            <td id="cell-17x" class="board-cell unable"></td>
+                        </tr>
+                        <tr id="row-18" class="board-row">
+                            <td id="cell-18a" class="board-cell unable"></td>
+                            <td id="cell-18b" class="board-cell able"></td>
+                            <td id="cell-18c" class="board-cell able"></td>
+                            <td id="cell-18d" class="board-cell able"></td>
+                            <td id="cell-18e" class="board-cell able"></td>
+                            <td id="cell-18f" class="board-cell able"></td>
+                            <td id="cell-18g" class="board-cell able"></td>
+                            <td id="cell-18h" class="board-cell able"></td>
+                            <td id="cell-18i" class="board-cell unable"></td>
+                            <td id="cell-18j" class="board-cell able"></td>
+                            <td id="cell-18k" class="board-cell unable"></td>
+                            <td id="cell-18l" class="board-cell unable"></td>
+                            <td id="cell-18m" class="board-cell unable"></td>
+                            <td id="cell-18n" class="board-cell unable"></td>
+                            <td id="cell-18o" class="board-cell able"></td>
+                            <td id="cell-18p" class="board-cell unable"></td>
+                            <td id="cell-18q" class="board-cell able"></td>
+                            <td id="cell-18r" class="board-cell able"></td>
+                            <td id="cell-18s" class="board-cell able"></td>
+                            <td id="cell-18t" class="board-cell able"></td>
+                            <td id="cell-18u" class="board-cell able"></td>
+                            <td id="cell-18v" class="board-cell able"></td>
+                            <td id="cell-18w" class="board-cell able"></td>
+                            <td id="cell-18x" class="board-cell able"></td>
+                        </tr>
+                        <tr id="row-19" class="board-row">
+                            <td id="cell-19a" class="board-cell able"><img src="./assets/fichas/azulino.png" alt="ficha de Sra. Azulino" id="azulino-ficha"></td>
+                            <td id="cell-19b" class="board-cell able"></td>
+                            <td id="cell-19c" class="board-cell able"></td>
+                            <td id="cell-19d" class="board-cell able"></td>
+                            <td id="cell-19e" class="board-cell able"></td>
+                            <td id="cell-19f" class="board-cell able"></td>
+                            <td id="cell-19g" class="board-cell able"></td>
+                            <td id="cell-19h" class="board-cell able"></td>
+                            <td id="cell-19i" class="board-cell unable"></td>
+                            <td id="cell-19j" class="board-cell unable"></td>
+                            <td id="cell-19k" class="board-cell unable"></td>
+                            <td id="cell-19l" class="board-cell unable"></td>
+                            <td id="cell-19m" class="board-cell unable"></td>
+                            <td id="cell-19n" class="board-cell unable"></td>
+                            <td id="cell-19o" class="board-cell unable"></td>
+                            <td id="cell-19p" class="board-cell unable"></td>
+                            <td id="cell-19q" class="board-cell able"></td>
+                            <td id="cell-19r" class="board-cell able"></td>
+                            <td id="cell-19s" class="board-cell unable"></td>
+                            <td id="cell-19t" class="board-cell able"></td>
+                            <td id="cell-19u" class="board-cell unable"></td>
+                            <td id="cell-19v" class="board-cell unable"></td>
+                            <td id="cell-19w" class="board-cell unable"></td>
+                            <td id="cell-19x" class="board-cell unable"></td>
+                        </tr>
+                        <tr id="row-20" class="board-row">
+                            <td id="cell-20a" class="board-cell unable"></td>
+                            <td id="cell-20b" class="board-cell unable"></td>
+                            <td id="cell-20c" class="board-cell unable"></td>
+                            <td id="cell-20d" class="board-cell unable"></td>
+                            <td id="cell-20e" class="board-cell able"></td>
+                            <td id="cell-20f" class="board-cell able"></td>
+                            <td id="cell-20g" class="board-cell able"></td>
+                            <td id="cell-20h" class="board-cell able"></td>
+                            <td id="cell-20i" class="board-cell able"></td>
+                            <td id="cell-20j" class="board-cell unable"></td>
+                            <td id="cell-20k" class="board-cell unable"></td>
+                            <td id="cell-20l" class="board-cell unable"></td>
+                            <td id="cell-20m" class="board-cell unable"></td>
+                            <td id="cell-20n" class="board-cell unable"></td>
+                            <td id="cell-20o" class="board-cell unable"></td>
+                            <td id="cell-20p" class="board-cell able"></td>
+                            <td id="cell-20q" class="board-cell able"></td>
+                            <td id="cell-20r" class="board-cell able"></td>
+                            <td id="cell-20s" class="board-cell unable"></td>
+                            <td id="cell-20t" class="board-cell unable"></td>
+                            <td id="cell-20u" class="board-cell unable"></td>
+                            <td id="cell-20v" class="board-cell unable"></td>
+                            <td id="cell-20w" class="board-cell unable"></td>
+                            <td id="cell-20x" class="board-cell unable"></td>
+                        </tr>
+                        <tr id="row-21" class="board-row">
+                            <td id="cell-21a" class="board-cell unable"></td>
+                            <td id="cell-21b" class="board-cell unable"></td>
+                            <td id="cell-21c" class="board-cell unable"></td>
+                            <td id="cell-21d" class="board-cell unable"></td>
+                            <td id="cell-21e" class="board-cell unable"></td>
+                            <td id="cell-21f" class="board-cell unable"></td>
+                            <td id="cell-21g" class="board-cell able"></td>
+                            <td id="cell-21h" class="board-cell able"></td>
+                            <td id="cell-21i" class="board-cell unable"></td>
+                            <td id="cell-21j" class="board-cell unable"></td>
+                            <td id="cell-21k" class="board-cell unable"></td>
+                            <td id="cell-21l" class="board-cell unable"></td>
+                            <td id="cell-21m" class="board-cell unable"></td>
+                            <td id="cell-21n" class="board-cell unable"></td>
+                            <td id="cell-21o" class="board-cell unable"></td>
+                            <td id="cell-21p" class="board-cell unable"></td>
+                            <td id="cell-21q" class="board-cell able"></td>
+                            <td id="cell-21r" class="board-cell able"></td>
+                            <td id="cell-21s" class="board-cell unable"></td>
+                            <td id="cell-21t" class="board-cell unable"></td>
+                            <td id="cell-21u" class="board-cell unable"></td>
+                            <td id="cell-21v" class="board-cell unable"></td>
+                            <td id="cell-21w" class="board-cell unable"></td>
+                            <td id="cell-21x" class="board-cell unable"></td>
+                        </tr>
+                        <tr id="row-22" class="board-row">
+                            <td id="cell-22a" class="board-cell unable"></td>
+                            <td id="cell-22b" class="board-cell unable"></td>
+                            <td id="cell-22c" class="board-cell unable"></td>
+                            <td id="cell-22d" class="board-cell unable"></td>
+                            <td id="cell-22e" class="board-cell unable"></td>
+                            <td id="cell-22f" class="board-cell unable"></td>
+                            <td id="cell-22g" class="board-cell able"></td>
+                            <td id="cell-22h" class="board-cell able"></td>
+                            <td id="cell-22i" class="board-cell unable"></td>
+                            <td id="cell-22j" class="board-cell unable"></td>
+                            <td id="cell-22k" class="board-cell unable"></td>
+                            <td id="cell-22l" class="board-cell unable"></td>
+                            <td id="cell-22m" class="board-cell unable"></td>
+                            <td id="cell-22n" class="board-cell unable"></td>
+                            <td id="cell-22o" class="board-cell unable"></td>
+                            <td id="cell-22p" class="board-cell unable"></td>
+                            <td id="cell-22q" class="board-cell able"></td>
+                            <td id="cell-22r" class="board-cell able"></td>
+                            <td id="cell-22s" class="board-cell unable"></td>
+                            <td id="cell-22t" class="board-cell unable"></td>
+                            <td id="cell-22u" class="board-cell unable"></td>
+                            <td id="cell-22v" class="board-cell unable"></td>
+                            <td id="cell-22w" class="board-cell unable"></td>
+                            <td id="cell-22x" class="board-cell unable"></td>
+                        </tr>
+                        <tr id="row-23" class="board-row">
+                            <td id="cell-23a" class="board-cell unable"></td>
+                            <td id="cell-23b" class="board-cell unable"></td>
+                            <td id="cell-23c" class="board-cell unable"></td>
+                            <td id="cell-23d" class="board-cell unable"></td>
+                            <td id="cell-23e" class="board-cell unable"></td>
+                            <td id="cell-23f" class="board-cell unable"></td>
+                            <td id="cell-23g" class="board-cell able"></td>
+                            <td id="cell-23h" class="board-cell able"></td>
+                            <td id="cell-23i" class="board-cell unable"></td>
+                            <td id="cell-23j" class="board-cell unable"></td>
+                            <td id="cell-23k" class="board-cell unable"></td>
+                            <td id="cell-23l" class="board-cell unable"></td>
+                            <td id="cell-23m" class="board-cell unable"></td>
+                            <td id="cell-23n" class="board-cell unable"></td>
+                            <td id="cell-23o" class="board-cell unable"></td>
+                            <td id="cell-23p" class="board-cell unable"></td>
+                            <td id="cell-23q" class="board-cell able"></td>
+                            <td id="cell-23r" class="board-cell able"></td>
+                            <td id="cell-23s" class="board-cell unable"></td>
+                            <td id="cell-23t" class="board-cell unable"></td>
+                            <td id="cell-23u" class="board-cell unable"></td>
+                            <td id="cell-23v" class="board-cell unable"></td>
+                            <td id="cell-23w" class="board-cell unable"></td>
+                            <td id="cell-23x" class="board-cell unable"></td>
+                        </tr>
+                        <tr id="row-24" class="board-row">
+                            <td id="cell-24a" class="board-cell unable"></td>
+                            <td id="cell-24b" class="board-cell unable"></td>
+                            <td id="cell-24c" class="board-cell unable"></td>
+                            <td id="cell-24d" class="board-cell unable"></td>
+                            <td id="cell-24e" class="board-cell unable"></td>
+                            <td id="cell-24f" class="board-cell unable"></td>
+                            <td id="cell-24g" class="board-cell unable"></td>
+                            <td id="cell-24h" class="board-cell able"></td>
+                            <td id="cell-24i" class="board-cell able"></td>
+                            <td id="cell-24j" class="board-cell able"></td>
+                            <td id="cell-24k" class="board-cell unable"></td>
+                            <td id="cell-24l" class="board-cell unable"></td>
+                            <td id="cell-24m" class="board-cell unable"></td>
+                            <td id="cell-24n" class="board-cell unable"></td>
+                            <td id="cell-24o" class="board-cell able"></td>
+                            <td id="cell-24p" class="board-cell able"></td>
+                            <td id="cell-24q" class="board-cell able"></td>
+                            <td id="cell-24r" class="board-cell unable"></td>
+                            <td id="cell-24s" class="board-cell unable"></td>
+                            <td id="cell-24t" class="board-cell unable"></td>
+                            <td id="cell-24u" class="board-cell unable"></td>
+                            <td id="cell-24v" class="board-cell unable"></td>
+                            <td id="cell-24w" class="board-cell unable"></td>
+                            <td id="cell-24x" class="board-cell unable"></td>
+                        </tr>
+                        <tr id="row-25" class="board-row">
+                            <td id="cell-25a" class="board-cell unable"></td>
+                            <td id="cell-25b" class="board-cell unable"></td>
+                            <td id="cell-25c" class="board-cell unable"></td>
+                            <td id="cell-25d" class="board-cell unable"></td>
+                            <td id="cell-25e" class="board-cell unable"></td>
+                            <td id="cell-25f" class="board-cell unable"></td>
+                            <td id="cell-25g" class="board-cell unable"></td>
+                            <td id="cell-25h" class="board-cell unable"></td>
+                            <td id="cell-25i" class="board-cell unable"></td>
+                            <td id="cell-25j" class="board-cell able"><img src="./assets/fichas/verdi.png" alt="ficha de Sr. Verdi" id="verdi-ficha"></td>
+                            <td id="cell-25k" class="board-cell unable"></td>
+                            <td id="cell-25l" class="board-cell unable"></td>
+                            <td id="cell-25m" class="board-cell unable"></td>
+                            <td id="cell-25n" class="board-cell unable"></td>
+                            <td id="cell-25o" class="board-cell able"><img src="./assets/fichas/blanco.png" alt="ficha de Sra. Blanco" id="blanco-ficha"></td>
+                            <td id="cell-25p" class="board-cell unable"></td>
+                            <td id="cell-25q" class="board-cell unable"></td>
+                            <td id="cell-25r" class="board-cell unable"></td>
+                            <td id="cell-25s" class="board-cell unable"></td>
+                            <td id="cell-25t" class="board-cell unable"></td>
+                            <td id="cell-25u" class="board-cell unable"></td>
+                            <td id="cell-25v" class="board-cell unable"></td>
+                            <td id="cell-25w" class="board-cell unable"></td>
+                            <td id="cell-25x" class="board-cell unable"></td>
+                        </tr>
+                    </table>
+                    <!-- <img
                         src="./assets/400ce7445c7a92ab881a717f52a941e1.jpg"
                         alt="tablero de juego"
-                    />
+                    /> -->
                 </div>
             </div>
             <div class="button-area">

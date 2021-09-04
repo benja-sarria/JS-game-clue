@@ -25,6 +25,62 @@ const totalPlayers = [];
 const manosClasificadas = [];
 
 let selectedTriade = [];
+
+/* MAPA DEL TABLERO: Como los jugadores van del 1 al 6 - y en el array de jugadores los index van del 0 al 5, me reservo los números del 1 al 6 para ubicar a los jugadores, quedando el número 0 indicando los casilleros disponibles y el número 7 aquellos que no lo están. Las habitaciones se identifican por los siguientes numeros:
+Estudio: 8
+Vestíbulo: 9
+Sala: 10
+Biblioteca: 11
+Comedor: 12
+Billar: 13
+Invernadero: 14
+Salón de Baile: 15
+Cocina: 16
+
+LAS FICHAS DE LOS JUGADORES VAN POR LOS SIGUIENTES NÚMEROS:
+Escarlata: 1
+Mostaza: 2
+Blanco: 3
+Verdi: 4
+Azulino: 5
+Moradillo: 6
+
+*/
+const movementBoard = [
+    [7, 7, 7, 7, 7, 7, 7, 0, 7, 7, 7, 7, 7, 7, 7, 7, 1, 7, 7, 7, 7, 7, 7, 7],
+    [7, 7, 7, 7, 7, 7, 7, 0, 0, 7, 7, 7, 7, 7, 7, 0, 0, 7, 7, 7, 7, 7, 7, 7],
+    [7, 7, 7, 7, 7, 7, 7, 0, 0, 7, 7, 7, 7, 7, 7, 0, 0, 7, 7, 7, 7, 7, 7, 7],
+    [7, 7, 7, 7, 7, 7, 8, 0, 0, 7, 7, 7, 7, 7, 7, 0, 0, 7, 7, 7, 7, 7, 7, 7],
+    [7, 0, 0, 0, 0, 0, 0, 0, 0, 9, 7, 7, 7, 7, 7, 0, 0, 7, 7, 7, 7, 7, 7, 7],
+    [6, 0, 0, 0, 0, 0, 0, 0, 0, 7, 7, 7, 7, 7, 7, 0, 0, 10, 7, 7, 7, 7, 7, 7],
+    [7, 7, 7, 7, 7, 7, 0, 0, 0, 7, 7, 9, 9, 7, 7, 0, 0, 0, 0, 0, 0, 0, 0, 7],
+    [7, 7, 7, 7, 7, 7, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2],
+    [7, 7, 7, 7, 7, 7, 11, 0, 0, 7, 7, 7, 7, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7],
+    [7, 7, 7, 7, 7, 7, 7, 0, 0, 7, 7, 7, 7, 7, 0, 0, 7, 12, 7, 7, 7, 7, 7, 7],
+    [7, 7, 7, 11, 7, 7, 0, 0, 0, 7, 7, 7, 7, 7, 0, 0, 7, 7, 7, 7, 7, 7, 7, 7],
+    [7, 0, 0, 0, 0, 0, 0, 0, 0, 7, 7, 7, 7, 7, 0, 0, 7, 7, 7, 7, 7, 7, 7, 7],
+    [7, 13, 7, 7, 7, 7, 0, 0, 0, 7, 7, 7, 7, 7, 0, 0, 12, 7, 7, 7, 7, 7, 7, 7],
+    [7, 7, 7, 7, 7, 7, 0, 0, 0, 7, 7, 7, 7, 7, 0, 0, 7, 7, 7, 7, 7, 7, 7, 7],
+    [7, 7, 7, 7, 7, 7, 0, 0, 0, 7, 7, 7, 7, 7, 0, 0, 7, 7, 7, 7, 7, 7, 7, 7],
+    [7, 7, 7, 7, 7, 13, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 7, 7, 7, 7],
+    [7, 7, 7, 7, 7, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7],
+    [7, 0, 0, 0, 0, 0, 0, 0, 7, 15, 7, 7, 7, 7, 15, 7, 0, 0, 0, 0, 0, 0, 0, 0],
+    [5, 0, 0, 0, 0, 0, 0, 0, 7, 7, 7, 7, 7, 7, 7, 7, 0, 0, 7, 16, 7, 7, 7, 7],
+    [7, 7, 7, 7, 14, 0, 0, 0, 15, 7, 7, 7, 7, 7, 7, 15, 0, 0, 7, 7, 7, 7, 7, 7],
+    [7, 7, 7, 7, 7, 7, 0, 0, 7, 7, 7, 7, 7, 7, 7, 7, 0, 0, 7, 7, 7, 7, 7, 7],
+    [7, 7, 7, 7, 7, 7, 0, 0, 7, 7, 7, 7, 7, 7, 7, 7, 0, 0, 7, 7, 7, 7, 7, 7],
+    [7, 7, 7, 7, 7, 7, 0, 0, 7, 7, 7, 7, 7, 7, 7, 7, 0, 0, 7, 7, 7, 7, 7, 7],
+    [7, 7, 7, 7, 7, 7, 7, 0, 0, 0, 7, 7, 7, 7, 0, 0, 0, 7, 7, 7, 7, 7, 7, 7],
+    [7, 7, 7, 7, 7, 7, 7, 7, 7, 4, 7, 7, 7, 7, 3, 7, 7, 7, 7, 7, 7, 7, 7, 7],
+];
+
+// DECLARACIÓN DE MATRIX DEL TABLERO CON IDENTIFICADORES DE CELDA
+
+const matrixBoard = [];
+
+//
+/* const */
+
 // -------- DOM: Captura de elementos ---------
 const navbarIndex = document.querySelector(`.navbar-index`);
 const navbarCollapse = navbarIndex.childNodes[5];
@@ -73,6 +129,8 @@ const accusationCloseBtn =
 
 const accusationTotalCards = document.querySelectorAll(`.accusation-card-item`);
 const offCanvasBtn = document.querySelector(`.offcanvas-btn`);
+const movementBoardTable =
+    document.querySelectorAll(`.game-board-table`)[0].childNodes[1];
 
 // AJUSTE DEL CÓDIGO DEL NAVBAR PARA QUE SE VEA EL HAMBURGUER MENU
 const navBarToggler = (e) => {
@@ -202,7 +260,8 @@ const rollDice = () => {
     setTimeout(() => {
         showMessage(`Tiraste un ${movimiento}`);
     }, 100);
-    return enoughToAccuse(movimiento);
+    return playerMovement(movimiento, actualPlayer);
+    /* return enoughToAccuse(movimiento); */
 };
 
 // FUNCIÓN QUE EXPLICITA EL TURNO DE QUÉ JUGADOR ES, SIRVE DE CALLBACK, Y DISPONIBILIZA EL BOTÓN PARA ECHAR LOS DADOS
@@ -309,7 +368,7 @@ let playerNumberConfirmation;
 
 // FUNCIÓN CLAVE, CONTIENE TODA LA DINÁMICA DE TURNOS DEL JUEGO Y ARTICULA EL CAMBIO DE JUGADOR EN JUGADOR
 const turnDynamic = (playerNumber) => {
-    console.log("está llegando antes del switch");
+    /* console.log("está llegando antes del switch"); */
     switch (+playerNumber) {
         case 2:
             if (!playerNumberConfirmation) {
@@ -328,9 +387,9 @@ const turnDynamic = (playerNumber) => {
                 if (!playerHand1) {
                     console.log(`Creando PlayerHand1`);
                     playerHand1 = readyForPrint(actualPlayer);
-                    console.table(`${playerHand1}`);
+                    /* console.table(`${playerHand1}`); */
                     playerHand1 = JSON.stringify(playerHand1);
-                    console.log(playerHand1);
+                    /* console.log(playerHand1); */
                     sessionStorage.setItem("playerHand1", playerHand1);
                 } else {
                     console.log(`Playerhand 1 ya fue creada`);
@@ -346,9 +405,9 @@ const turnDynamic = (playerNumber) => {
                 if (!playerHand2) {
                     console.log(`Creando PlayerHand2`);
                     playerHand2 = readyForPrint(actualPlayer);
-                    console.table(`${playerHand2}`);
+                    /* console.table(`${playerHand2}`); */
                     playerHand2 = JSON.stringify(playerHand2);
-                    console.log(playerHand2);
+                    /*  console.log(playerHand2); */
                     sessionStorage.setItem("playerHand2", playerHand2);
                 } else {
                     console.log(`Playerhand 1 ya fue creada`);
@@ -376,9 +435,9 @@ const turnDynamic = (playerNumber) => {
                 if (!playerHand1) {
                     console.log(`Creando PlayerHand1`);
                     playerHand1 = readyForPrint(actualPlayer);
-                    console.table(`${playerHand1}`);
+                    /* console.table(`${playerHand1}`); */
                     playerHand1 = JSON.stringify(playerHand1);
-                    console.log(playerHand1);
+                    /*  console.log(playerHand1); */
                     sessionStorage.setItem("playerHand1", playerHand1);
                 } else {
                     console.log(`Playerhand 1 ya fue creada`);
@@ -394,9 +453,9 @@ const turnDynamic = (playerNumber) => {
                 if (!playerHand2) {
                     console.log(`Creando PlayerHand2`);
                     playerHand2 = readyForPrint(actualPlayer);
-                    console.table(`${playerHand2}`);
+                    /* console.table(`${playerHand2}`); */
                     playerHand2 = JSON.stringify(playerHand2);
-                    console.log(playerHand2);
+                    /* console.log(playerHand2); */
                     sessionStorage.setItem("playerHand2", playerHand2);
                 } else {
                     console.log(`Playerhand 2 ya fue creada`);
@@ -412,9 +471,9 @@ const turnDynamic = (playerNumber) => {
                 if (!playerHand3) {
                     console.log(`Creando PlayerHand3`);
                     playerHand3 = readyForPrint(actualPlayer);
-                    console.table(`${playerHand3}`);
+                    /*  console.table(`${playerHand3}`); */
                     playerHand3 = JSON.stringify(playerHand3);
-                    console.log(playerHand3);
+                    /* console.log(playerHand3); */
                     sessionStorage.setItem("playerHand3", playerHand3);
                 } else {
                     console.log(`Playerhand 3 ya fue creada`);
@@ -441,9 +500,9 @@ const turnDynamic = (playerNumber) => {
                 if (!playerHand1) {
                     console.log(`Creando PlayerHand1`);
                     playerHand1 = readyForPrint(actualPlayer);
-                    console.table(`${playerHand1}`);
+                    /* console.table(`${playerHand1}`); */
                     playerHand1 = JSON.stringify(playerHand1);
-                    console.log(playerHand1);
+                    /* console.log(playerHand1); */
                     sessionStorage.setItem("playerHand1", playerHand1);
                 } else {
                     console.log(`Playerhand 1 ya fue creada`);
@@ -459,9 +518,9 @@ const turnDynamic = (playerNumber) => {
                 if (!playerHand2) {
                     console.log(`Creando PlayerHand2`);
                     playerHand2 = readyForPrint(actualPlayer);
-                    console.table(`${playerHand2}`);
+                    /* console.table(`${playerHand2}`); */
                     playerHand2 = JSON.stringify(playerHand2);
-                    console.log(playerHand2);
+                    /*   console.log(playerHand2); */
                     sessionStorage.setItem("playerHand2", playerHand2);
                 } else {
                     console.log(`Playerhand 2 ya fue creada`);
@@ -477,9 +536,9 @@ const turnDynamic = (playerNumber) => {
                 if (!playerHand3) {
                     console.log(`Creando PlayerHand3`);
                     playerHand3 = readyForPrint(actualPlayer);
-                    console.table(`${playerHand3}`);
+                    /* console.table(`${playerHand3}`); */
                     playerHand3 = JSON.stringify(playerHand3);
-                    console.log(playerHand3);
+                    /* console.log(playerHand3); */
                     sessionStorage.setItem("playerHand3", playerHand3);
                 } else {
                     console.log(`Playerhand 3 ya fue creada`);
@@ -495,9 +554,9 @@ const turnDynamic = (playerNumber) => {
                 if (!playerHand4) {
                     console.log(`Creando PlayerHand4`);
                     playerHand4 = readyForPrint(actualPlayer);
-                    console.table(`${playerHand4}`);
+                    /* console.table(`${playerHand4}`); */
                     playerHand4 = JSON.stringify(playerHand4);
-                    console.log(playerHand4);
+                    /* console.log(playerHand4); */
                     sessionStorage.setItem("playerHand4", playerHand4);
                 } else {
                     console.log(`Playerhand 4 ya fue creada`);
@@ -524,9 +583,9 @@ const turnDynamic = (playerNumber) => {
                 if (!playerHand1) {
                     console.log(`Creando PlayerHand1`);
                     playerHand1 = readyForPrint(actualPlayer);
-                    console.table(`${playerHand1}`);
+                    /* console.table(`${playerHand1}`); */
                     playerHand1 = JSON.stringify(playerHand1);
-                    console.log(playerHand1);
+                    /* console.log(playerHand1); */
                     sessionStorage.setItem("playerHand1", playerHand1);
                 } else {
                     console.log(`Playerhand 1 ya fue creada`);
@@ -542,9 +601,9 @@ const turnDynamic = (playerNumber) => {
                 if (!playerHand2) {
                     console.log(`Creando PlayerHand2`);
                     playerHand2 = readyForPrint(actualPlayer);
-                    console.table(`${playerHand2}`);
+                    /* console.table(`${playerHand2}`); */
                     playerHand2 = JSON.stringify(playerHand2);
-                    console.log(playerHand2);
+                    /*  console.log(playerHand2); */
                     sessionStorage.setItem("playerHand2", playerHand2);
                 } else {
                     console.log(`Playerhand 2 ya fue creada`);
@@ -560,9 +619,9 @@ const turnDynamic = (playerNumber) => {
                 if (!playerHand3) {
                     console.log(`Creando PlayerHand3`);
                     playerHand3 = readyForPrint(actualPlayer);
-                    console.table(`${playerHand3}`);
+                    /* console.table(`${playerHand3}`); */
                     playerHand3 = JSON.stringify(playerHand3);
-                    console.log(playerHand3);
+                    /* console.log(playerHand3); */
                     sessionStorage.setItem("playerHand3", playerHand3);
                 } else {
                     console.log(`Playerhand 3 ya fue creada`);
@@ -578,9 +637,9 @@ const turnDynamic = (playerNumber) => {
                 if (!playerHand4) {
                     console.log(`Creando PlayerHand4`);
                     playerHand4 = readyForPrint(actualPlayer);
-                    console.table(`${playerHand4}`);
+                    /* console.table(`${playerHand4}`); */
                     playerHand4 = JSON.stringify(playerHand4);
-                    console.log(playerHand4);
+                    /* console.log(playerHand4); */
                     sessionStorage.setItem("playerHand4", playerHand4);
                 } else {
                     console.log(`Playerhand 4 ya fue creada`);
@@ -596,9 +655,9 @@ const turnDynamic = (playerNumber) => {
                 if (!playerHand5) {
                     console.log(`Creando PlayerHand5`);
                     playerHand5 = readyForPrint(actualPlayer);
-                    console.table(`${playerHand5}`);
+                    /* console.table(`${playerHand5}`); */
                     playerHand5 = JSON.stringify(playerHand5);
-                    console.log(playerHand5);
+                    /* console.log(playerHand5); */
                     sessionStorage.setItem("playerHand5", playerHand5);
                 } else {
                     console.log(`Playerhand 5 ya fue creada`);
@@ -625,9 +684,9 @@ const turnDynamic = (playerNumber) => {
                 if (!playerHand1) {
                     console.log(`Creando PlayerHand1`);
                     playerHand1 = readyForPrint(actualPlayer);
-                    console.table(`${playerHand1}`);
+                    /* console.table(`${playerHand1}`); */
                     playerHand1 = JSON.stringify(playerHand1);
-                    console.log(playerHand1);
+                    /*  console.log(playerHand1); */
                     sessionStorage.setItem("playerHand1", playerHand1);
                 } else {
                     console.log(`Playerhand 1 ya fue creada`);
@@ -643,9 +702,9 @@ const turnDynamic = (playerNumber) => {
                 if (!playerHand2) {
                     console.log(`Creando PlayerHand2`);
                     playerHand2 = readyForPrint(actualPlayer);
-                    console.table(`${playerHand2}`);
+                    /* console.table(`${playerHand2}`); */
                     playerHand2 = JSON.stringify(playerHand2);
-                    console.log(playerHand2);
+                    /*  console.log(playerHand2); */
                     sessionStorage.setItem("playerHand2", playerHand2);
                 } else {
                     console.log(`Playerhand 2 ya fue creada`);
@@ -661,9 +720,9 @@ const turnDynamic = (playerNumber) => {
                 if (!playerHand3) {
                     console.log(`Creando PlayerHand3`);
                     playerHand3 = readyForPrint(actualPlayer);
-                    console.table(`${playerHand3}`);
+                    /* console.table(`${playerHand3}`); */
                     playerHand3 = JSON.stringify(playerHand3);
-                    console.log(playerHand3);
+                    /* console.log(playerHand3); */
                     sessionStorage.setItem("playerHand3", playerHand3);
                 } else {
                     console.log(`Playerhand 3 ya fue creada`);
@@ -679,9 +738,9 @@ const turnDynamic = (playerNumber) => {
                 if (!playerHand4) {
                     console.log(`Creando PlayerHand4`);
                     playerHand4 = readyForPrint(actualPlayer);
-                    console.table(`${playerHand4}`);
+                    /* console.table(`${playerHand4}`); */
                     playerHand4 = JSON.stringify(playerHand4);
-                    console.log(playerHand4);
+                    /* console.log(playerHand4); */
                     sessionStorage.setItem("playerHand4", playerHand4);
                 } else {
                     console.log(`Playerhand 4 ya fue creada`);
@@ -697,9 +756,9 @@ const turnDynamic = (playerNumber) => {
                 if (!playerHand5) {
                     console.log(`Creando PlayerHand5`);
                     playerHand5 = readyForPrint(actualPlayer);
-                    console.table(`${playerHand5}`);
+                    /* console.table(`${playerHand5}`); */
                     playerHand5 = JSON.stringify(playerHand5);
-                    console.log(playerHand5);
+                    /*  console.log(playerHand5); */
                     sessionStorage.setItem("playerHand5", playerHand5);
                 } else {
                     console.log(`Playerhand 5 ya fue creada`);
@@ -715,9 +774,9 @@ const turnDynamic = (playerNumber) => {
                 if (!playerHand6) {
                     console.log(`Creando PlayerHand6`);
                     playerHand6 = readyForPrint(actualPlayer);
-                    console.table(`${playerHand6}`);
+                    /* console.table(`${playerHand6}`); */
                     playerHand6 = JSON.stringify(playerHand6);
-                    console.log(playerHand6);
+                    /* console.log(playerHand6); */
                     sessionStorage.setItem("playerHand6", playerHand6);
                 } else {
                     console.log(`Playerhand 6 ya fue creada`);
@@ -733,6 +792,107 @@ const turnDynamic = (playerNumber) => {
 };
 
 const accusation = () => {};
+
+const playerMovement = (diceNumber, actualPlayer) => {
+    console.log(`ejecutando player movement`);
+    /* console.log(actualPlayer);
+    console.log(diceNumber); */
+    movement = diceNumber;
+    let movingPlayerIndex;
+    let movingPlayerRow;
+    let possibleMovementRow;
+    let possibleMovementCell;
+    let materializedCell;
+    let i = 0;
+    let rowCounter = 0;
+    let movingPlayer = actualPlayer + 1;
+    /* console.log(movingPlayer); */
+    for (let row of movementBoard) {
+        /* console.log(row); */
+        for (let cell of row) {
+            /* console.log(cell);
+            console.log(`Analizando el index ${i} del array ${row}`);
+            console.log(movementBoard[movementBoard.indexOf(row)][i]); */
+            if (movingPlayer === cell) {
+                movingPlayerIndex = row.indexOf(cell);
+                movingPlayerRow = movementBoard.indexOf(row);
+                console.log(
+                    `La ubicación del jugador es en fila ${movementBoard.indexOf(
+                        row
+                    )}, celda ${movingPlayerIndex}`
+                );
+                possibleMovementCell = i;
+                possibleMovementRow = movementBoard.indexOf(row);
+            }
+            /* console.log(`El valor del rowcounter es ${rowCounter}`);
+            console.log(`El valor del i es ${i}`);
+            console.log(
+                `El valor de la celda es ${movementBoard[rowCounter][i]}`
+            ); */
+            if (movementBoard[rowCounter][i] !== 7) {
+                /* console.log(rowCounter);
+                console.log(possibleMovementRow + movement); */
+                let cellDifference = Math.abs(i - movingPlayerIndex);
+                let rowDifference = Math.abs(rowCounter - movingPlayerRow);
+                if (
+                    rowCounter <= possibleMovementRow + movement &&
+                    (i <= possibleMovementCell + movement ||
+                        i <= possibleMovementCell - movement) &&
+                    cellDifference <= movement &&
+                    rowDifference <= movement
+                ) {
+                    if (
+                        rowCounter === movingPlayerRow ||
+                        i === movingPlayerIndex
+                    ) {
+                        console.log(
+                            `se encontraron los siguientes movimientos posibles`
+                        );
+                        materializedCell =
+                            movementBoardTable.children[rowCounter].children[i];
+                        console.log(materializedCell);
+                        if (materializedCell) {
+                            if (
+                                !materializedCell.classList.contains(`unable`)
+                            ) {
+                                materializedCell.classList.add(
+                                    `movement-in-cell`
+                                );
+                            }
+                        }
+                    } else {
+                        console.log(
+                            `se encontraron los siguientes movimientos posibles`
+                        );
+                        materializedCell =
+                            movementBoardTable.children[rowCounter - 1]
+                                .children[i];
+                        console.log(materializedCell);
+                        if (materializedCell) {
+                            if (
+                                !materializedCell.classList.contains(`unable`)
+                            ) {
+                                materializedCell.classList.add(
+                                    `movement-in-cell`
+                                );
+                            }
+                        }
+                    }
+                }
+            }
+            if (i < 23) {
+                i += 1;
+            } else {
+                i = 0;
+            }
+        }
+        if (rowCounter < 24) {
+            rowCounter += 1;
+        } else {
+            rowCounter = 0;
+        }
+    }
+};
 
 // FUNCIÓN QUE DETERMINA SI EL MOVIMIENTO OBTENIDO ES SUFICIENTE PARA ACUSAR (En un futuro va a ser modificada, dado que lo que permite la oportunidad de acusar va a ser un evento desencadenado por la pieza ingresando a una habitación en el tablero)
 const enoughToAccuse = (diceNumber) => {
@@ -834,7 +994,7 @@ const unGrayingCards = () => {
     console.log(`Despintando cartas jugador`);
     let counter = 0;
     for (let screenCard of accusationTotalCards) {
-        console.log(counter);
+        /* console.log(counter); */
         accusationTotalCards[counter].childNodes[0].classList.remove(
             `greyed-card`
         );
@@ -858,20 +1018,20 @@ const greyscaleCards = (jugador) => {
             unGrayingCards();
             storagedHand = "playerHand1";
             currentHand = sessionStorage.getItem(storagedHand);
-            console.log(currentHand);
+            /* console.log(currentHand); */
             currentHand = JSON.parse(currentHand);
-            console.log(currentHand);
+            /* console.log(currentHand); */
             for (const key in currentHand) {
                 for (let card of currentHand[`${key}`]) {
-                    console.log(card);
-                    console.log(`./${card}`);
+                    /* console.log(card); */
+                    /* console.log(`./${card}`); */
                     for (let screenCard of accusationTotalCards) {
-                        console.log(counter);
+                        /* console.log(counter); */
                         if (
                             accusationTotalCards[counter].childNodes[0]
                                 .attributes[0].value === `./${card}`
                         ) {
-                            console.log(`Se encontró ${card} en ${screenCard}`);
+                            /* console.log(`Se encontró ${card} en ${screenCard}`); */
                             accusationTotalCards[
                                 counter
                             ].childNodes[0].classList.add(`greyed-card`);
@@ -889,20 +1049,20 @@ const greyscaleCards = (jugador) => {
             storagedHand = "playerHand2";
             unGrayingCards();
             currentHand = sessionStorage.getItem(storagedHand);
-            console.log(currentHand);
+            /* console.log(currentHand); */
             currentHand = JSON.parse(currentHand);
-            console.log(currentHand);
+            /* console.log(currentHand); */
             for (const key in currentHand) {
                 for (let card of currentHand[`${key}`]) {
-                    console.log(card);
-                    console.log(`./${card}`);
+                    /* console.log(card);
+                    console.log(`./${card}`); */
                     for (let screenCard of accusationTotalCards) {
-                        console.log(counter);
+                        /* console.log(counter); */
                         if (
                             accusationTotalCards[counter].childNodes[0]
                                 .attributes[0].value === `./${card}`
                         ) {
-                            console.log(`Se encontró ${card} en ${screenCard}`);
+                            /* console.log(`Se encontró ${card} en ${screenCard}`); */
                             accusationTotalCards[
                                 counter
                             ].childNodes[0].classList.add(`greyed-card`);
@@ -920,20 +1080,20 @@ const greyscaleCards = (jugador) => {
             storagedHand = "playerHand3";
             unGrayingCards();
             currentHand = sessionStorage.getItem(storagedHand);
-            console.log(currentHand);
+            /* console.log(currentHand); */
             currentHand = JSON.parse(currentHand);
-            console.log(currentHand);
+            /* console.log(currentHand); */
             for (const key in currentHand) {
                 for (let card of currentHand[`${key}`]) {
-                    console.log(card);
-                    console.log(`./${card}`);
+                    /* console.log(card);
+                    console.log(`./${card}`); */
                     for (let screenCard of accusationTotalCards) {
-                        console.log(counter);
+                        /* console.log(counter); */
                         if (
                             accusationTotalCards[counter].childNodes[0]
                                 .attributes[0].value === `./${card}`
                         ) {
-                            console.log(`Se encontró ${card} en ${screenCard}`);
+                            /* console.log(`Se encontró ${card} en ${screenCard}`); */
                             accusationTotalCards[
                                 counter
                             ].childNodes[0].classList.add(`greyed-card`);
@@ -951,20 +1111,20 @@ const greyscaleCards = (jugador) => {
             storagedHand = "playerHand4";
             unGrayingCards();
             currentHand = sessionStorage.getItem(storagedHand);
-            console.log(currentHand);
+            /* console.log(currentHand); */
             currentHand = JSON.parse(currentHand);
-            console.log(currentHand);
+            /* console.log(currentHand); */
             for (const key in currentHand) {
                 for (let card of currentHand[`${key}`]) {
-                    console.log(card);
-                    console.log(`./${card}`);
+                    /* console.log(card);
+                    console.log(`./${card}`); */
                     for (let screenCard of accusationTotalCards) {
                         console.log(counter);
                         if (
                             accusationTotalCards[counter].childNodes[0]
                                 .attributes[0].value === `./${card}`
                         ) {
-                            console.log(`Se encontró ${card} en ${screenCard}`);
+                            /* console.log(`Se encontró ${card} en ${screenCard}`); */
                             accusationTotalCards[
                                 counter
                             ].childNodes[0].classList.add(`greyed-card`);
@@ -982,20 +1142,20 @@ const greyscaleCards = (jugador) => {
             storagedHand = "playerHand5";
             unGrayingCards();
             currentHand = sessionStorage.getItem(storagedHand);
-            console.log(currentHand);
+            /* console.log(currentHand); */
             currentHand = JSON.parse(currentHand);
-            console.log(currentHand);
+            /* console.log(currentHand); */
             for (const key in currentHand) {
                 for (let card of currentHand[`${key}`]) {
-                    console.log(card);
-                    console.log(`./${card}`);
+                    /* console.log(card);
+                    console.log(`./${card}`); */
                     for (let screenCard of accusationTotalCards) {
-                        console.log(counter);
+                        /* console.log(counter); */
                         if (
                             accusationTotalCards[counter].childNodes[0]
                                 .attributes[0].value === `./${card}`
                         ) {
-                            console.log(`Se encontró ${card} en ${screenCard}`);
+                            /* console.log(`Se encontró ${card} en ${screenCard}`); */
                             accusationTotalCards[
                                 counter
                             ].childNodes[0].classList.add(`greyed-card`);
@@ -1013,20 +1173,20 @@ const greyscaleCards = (jugador) => {
             storagedHand = "playerHand6";
             unGrayingCards();
             currentHand = sessionStorage.getItem(storagedHand);
-            console.log(currentHand);
+            /* console.log(currentHand); */
             currentHand = JSON.parse(currentHand);
-            console.log(currentHand);
+            /* console.log(currentHand); */
             for (const key in currentHand) {
                 for (let card of currentHand[`${key}`]) {
-                    console.log(card);
-                    console.log(`./${card}`);
+                    /* console.log(card);
+                    console.log(`./${card}`); */
                     for (let screenCard of accusationTotalCards) {
-                        console.log(counter);
+                        /* console.log(counter); */
                         if (
                             accusationTotalCards[counter].childNodes[0]
                                 .attributes[0].value === `./${card}`
                         ) {
-                            console.log(`Se encontró ${card} en ${screenCard}`);
+                            /* console.log(`Se encontró ${card} en ${screenCard}`); */
                             accusationTotalCards[
                                 counter
                             ].childNodes[0].classList.add(`greyed-card`);
@@ -1325,12 +1485,12 @@ const readyForPrint = (jugador) => {
     let rooms = [];
     let listaCartas = Object.keys(cartas);
     let manosJugador = Object.values(manosArmadas)[jugador];
-    console.log(manosJugador);
+    /* console.log(manosJugador); */
     let actualArray = 0;
     for (carta of listaCartas) {
-        console.log(`Buscando para imprimir la carta ${carta}`);
+        /* console.log(`Buscando para imprimir la carta ${carta}`); */
         for (let category of manosJugador) {
-            console.table(category);
+            /* console.table(category); */
             if (category.includes(carta.toUpperCase())) {
                 console.log(`se encontró`);
                 if (actualArray === 0) {
@@ -1356,10 +1516,10 @@ const readyForPrint = (jugador) => {
                     continue;
                 }
             } else {
-                console.log(`no tiene esta carta`);
+                /* console.log(`no tiene esta carta`); */
             }
 
-            console.log(`El actual array es ${actualArray}`);
+            /* console.log(`El actual array es ${actualArray}`); */
             actualArray += 1;
             if (actualArray > 2) {
                 actualArray = 0;
@@ -1381,19 +1541,19 @@ const printMechanism = (hand) => {
     let handToPrint;
     let alt;
     handToPrint = sessionStorage.getItem(hand);
-    console.log(handToPrint);
+    /* console.log(handToPrint); */
     handToPrint = JSON.parse(handToPrint);
-    console.log(handToPrint);
+    /* console.log(handToPrint); */
     let suspects = handToPrint.suspects;
     let weapons = handToPrint.weapons;
     let rooms = handToPrint.rooms;
-    console.log(suspects);
+    /* console.log(suspects);
     console.log(weapons);
-    console.log(rooms);
+    console.log(rooms); */
     for (let card of suspects) {
         for (const key in cartas) {
-            console.log(key);
-            console.log(cartas[`${key}`]);
+            /* console.log(key);
+            console.log(cartas[`${key}`]); */
             if (cartas[`${key}`] === card) {
                 alt = key;
                 break;
@@ -1409,7 +1569,7 @@ const printMechanism = (hand) => {
     }
     for (let card of weapons) {
         for (const key in cartas) {
-            console.log(key);
+            /* console.log(key); */
             if (cartas[`${key}`] === card) {
                 alt = key;
                 break;
@@ -1425,7 +1585,7 @@ const printMechanism = (hand) => {
     }
     for (let card of rooms) {
         for (const key in cartas) {
-            console.log(key);
+            /* console.log(key); */
             if (cartas[`${key}`] === card) {
                 alt = key;
                 break;
@@ -1515,22 +1675,22 @@ class DatosDelCrimen {
             fourthSixth = mixedArray.slice(9, 12);
             fifthSixth = mixedArray.slice(12, 15);
             sixthSixth = mixedArray.slice(15, 18);
-            console.log(firstSixth);
+            /* console.log(firstSixth);
             console.log(secondSixth);
             console.log(thirdSixth);
             console.log(fourthSixth);
             console.log(fifthSixth);
-            console.log(sixthSixth);
+            console.log(sixthSixth); */
             readyToMixArray = thirdSixth.concat(firstSixth);
             readyToMixArray = readyToMixArray.concat(sixthSixth);
             readyToMixArray = readyToMixArray.concat(fourthSixth);
             readyToMixArray = readyToMixArray.concat(fifthSixth);
             readyToMixArray = readyToMixArray.concat(secondSixth);
-            console.log(readyToMixArray);
+            /* console.log(readyToMixArray); */
             console.log(`Mezclando el array`);
             mixedArray = readyToMixArray.sort((a, b) => {
                 let coeficient = Math.ceil(Math.random() * 3);
-                console.log(coeficient);
+                /* console.log(coeficient); */
                 if (coeficient === 1) {
                     return -1;
                 } else if (coeficient === 2) {
@@ -1539,7 +1699,7 @@ class DatosDelCrimen {
                     return 1;
                 }
             });
-            console.log(mixedArray);
+            /* console.log(mixedArray); */
         }
 
         return mixedArray;
@@ -1589,9 +1749,9 @@ const armarTodasLasManos = () => {
 // Función auxiliar para la clasificación de personajes
 const esPersonaje = (carta) => {
     let valoresPersonajes = Object.values(personajes);
-    console.log(`La carta a buscar es ${carta}`);
+    /* console.log(`La carta a buscar es ${carta}`); */
     for (let personaje of valoresPersonajes) {
-        console.log(`El personaje en análisis es: ${personaje}`);
+        /* console.log(`El personaje en análisis es: ${personaje}`); */
         if (carta === personaje) {
             return carta;
         }
@@ -1600,9 +1760,9 @@ const esPersonaje = (carta) => {
 // Función auxiliar para la clasificación de armas
 const esArma = (carta) => {
     let valoresArmas = Object.values(armas);
-    console.log(`La carta a buscar es ${carta}`);
+    /* console.log(`La carta a buscar es ${carta}`); */
     for (let arma of valoresArmas) {
-        console.log(`El arma en análisis es: ${arma}`);
+        /* console.log(`El arma en análisis es: ${arma}`); */
         if (carta === arma) {
             return carta;
         }
@@ -1611,9 +1771,9 @@ const esArma = (carta) => {
 // Función auxiliar para la clasificación de habitaciones
 const esHabitacion = (carta) => {
     let valoresHabitaciones = Object.values(lugares);
-    console.log(`La carta a buscar es ${carta}`);
+    /* console.log(`La carta a buscar es ${carta}`); */
     for (let habitacion of valoresHabitaciones) {
-        console.log(`La habitación en análisis es: ${habitacion}`);
+        /* console.log(`La habitación en análisis es: ${habitacion}`); */
         if (carta === habitacion) {
             return carta;
         }
@@ -1625,8 +1785,8 @@ const clasificarCartas = () => {
     for (let mano of manoRepartida) {
         manosClasificadas.push([[], [], []]);
         console.log("clasificando primer array");
-        console.log(manosClasificadas);
-        console.log(`La mano que se está analizando es ${mano}`);
+        /* console.log(manosClasificadas);
+        console.log(`La mano que se está analizando es ${mano}`); */
         for (let carta of mano) {
             let matchPersonaje = esPersonaje(carta);
             let matchArma;
@@ -1655,7 +1815,7 @@ const clasificarCartas = () => {
             }
         }
         i += 1;
-        console.log(manosClasificadas);
+        /* console.log(manosClasificadas); */
     }
     console.log(`Clasificación finalizada:`);
     console.dir(manosClasificadas);

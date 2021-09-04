@@ -291,6 +291,7 @@
             background-color: white;
             border-radius: 0.45em;
             .system-message-area-container {
+                padding: 1em;
                 min-height: 30vh;
                 height: 30vh;
                 border: 0.35em solid
@@ -303,8 +304,8 @@
                     );
                 margin-bottom: 1em;
                 @media (min-width: 922px) {
-                    max-width: 37vw;
-                    max-height: 95vh;
+                    max-width: 25vw;
+                    min-height: 130vh;
                     width: 30em;
                     height: 39em;
                     // background-color: red;
@@ -361,20 +362,29 @@
                     max-width: 30%;
                     justify-content: space-evenly;
                     position: absolute;
-                    top: 50%;
-                    left: 0%;
+                    top: 30%;
+                    left: 35%;
+                    @media (min-width: 323px) {
+                        top: 35%;
+                        left: 35%;
+                    }
                     @media (min-width: 420px) {
                         top: 30%;
-                        left: 18%;
+                        left: 35%;
                     }
                     @media (min-width: 530px) {
                         top: 35%;
                         left: 57%;
                     }
-                    @media (min-width: 712px) and (max-width: 991px) {
+                    @media (min-width: 712px) {
                         top: 40.5%;
                         left: 67%;
                     }
+                    @media (min-width: 900px) {
+                        top: 35%;
+                        left: 67%;
+                    }
+
                     @media (min-width: 922px) {
                         position: unset;
                         top: 0%;
@@ -421,26 +431,2486 @@
             }
             .board-container {
                 display: flex;
-                justify-content: flex-end;
+                justify-content: center;
                 align-items: center;
                 @media (min-width: 922px) {
+                    max-width: 70vw;
                     justify-content: flex-start;
                 }
+                #escarlata-ficha {
+                    box-shadow: 0px 0px 20px 5px
+                        rgba($color: rgb(206, 0, 0), $alpha: 1);
+                    background-color: rgba(
+                        $color: rgb(206, 0, 0),
+                        $alpha: 0.55
+                    );
+                }
+                #mostaza-ficha {
+                    box-shadow: 0px 0px 20px 5px
+                        rgba($color: rgb(226, 203, 0), $alpha: 1);
+                    background-color: rgba(
+                        $color: rgb(226, 203, 0),
+                        $alpha: 0.55
+                    );
+                }
+                #blanco-ficha {
+                    box-shadow: 0px 0px 20px 5px
+                        rgba($color: rgb(219, 219, 211), $alpha: 1);
+                    background-color: rgba(
+                        $color: rgb(219, 219, 211),
+                        $alpha: 0.55
+                    );
+                }
+                #verdi-ficha {
+                    box-shadow: 0px 0px 20px 5px
+                        rgba($color: rgb(44, 190, 24), $alpha: 1);
+                    background-color: rgba(
+                        $color: rgb(44, 190, 24),
+                        $alpha: 0.55
+                    );
+                }
+                #azulino-ficha {
+                    box-shadow: 0px 0px 20px 5px
+                        rgba($color: rgb(49, 98, 233), $alpha: 1);
+                    background-color: rgba(
+                        $color: rgb(49, 98, 233),
+                        $alpha: 0.55
+                    );
+                }
+                #moradillo-ficha {
+                    box-shadow: 0px 0px 20px 5px
+                        rgba($color: rgb(107, 17, 192), $alpha: 1);
+                    background-color: rgba(
+                        $color: rgb(107, 17, 192),
+                        $alpha: 0.55
+                    );
+                }
                 img {
+                    margin: 0 auto;
                     width: 100%;
                     opacity: 0.85;
-                    max-height: 97vh;
-                    border-radius: 0.75em;
-                    box-shadow: 1px 10px 20px 10px
-                        rgba(
-                            $color:
-                                map-get($map: $generalpalette, $key: tealmain),
-                            $alpha: 0.75
-                        );
+                    /* box-shadow: 0px 0px 20px 5px
+                        rgba($color: #ff0000, $alpha: 1);
+                    background-color: rgba($color: #ff0000, $alpha: 1); */
                     @media (min-width: 922px) {
                         display: flex;
                         justify-content: center;
                         width: 60%;
+                    }
+                }
+                .game-board-table {
+                    @media (min-width: 300px) {
+                        width: 100%;
+                    }
+                    .board-row {
+                        height: 1.8em;
+                        .movement-in-cell {
+                            filter: brightness(0.5);
+                        }
+                        .board-cell {
+                            /* min-width: 3em; */
+                            width: 1.8em;
+                        }
+                        #cell-1a {
+                            background-image: url("../assets/celdas/sectorizada/images/1a.gif");
+                            background-size: cover;
+                        }
+                        #cell-1b {
+                            background-image: url("../assets/celdas/sectorizada/images/1b.gif");
+                            background-size: cover;
+                        }
+                        #cell-1c {
+                            background-image: url("../assets/celdas/sectorizada/images/1c.gif");
+                            background-size: cover;
+                        }
+                        #cell-1d {
+                            background-image: url("../assets/celdas/sectorizada/images/1d.gif");
+                            background-size: cover;
+                        }
+                        #cell-1e {
+                            background-image: url("../assets/celdas/sectorizada/images/1e.gif");
+                            background-size: cover;
+                        }
+                        #cell-1f {
+                            background-image: url("../assets/celdas/sectorizada/images/1f.gif");
+                            background-size: cover;
+                        }
+                        #cell-1g {
+                            background-image: url("../assets/celdas/sectorizada/images/1g.gif");
+                            background-size: cover;
+                        }
+                        #cell-1h {
+                            background-image: url("../assets/celdas/sectorizada/images/1h.gif");
+                            background-size: cover;
+                        }
+                        #cell-1i {
+                            background-image: url("../assets/celdas/sectorizada/images/1i.gif");
+                            background-size: cover;
+                        }
+                        #cell-1j {
+                            background-image: url("../assets/celdas/sectorizada/images/1j.gif");
+                            background-size: cover;
+                        }
+                        #cell-1k {
+                            background-image: url("../assets/celdas/sectorizada/images/1k.gif");
+                            background-size: cover;
+                        }
+                        #cell-1l {
+                            background-image: url("../assets/celdas/sectorizada/images/1l.gif");
+                            background-size: cover;
+                        }
+                        #cell-1m {
+                            background-image: url("../assets/celdas/sectorizada/images/1m.gif");
+                            background-size: cover;
+                        }
+                        #cell-1n {
+                            background-image: url("../assets/celdas/sectorizada/images/1n.gif");
+                            background-size: cover;
+                        }
+                        #cell-1o {
+                            background-image: url("../assets/celdas/sectorizada/images/1o.gif");
+                            background-size: cover;
+                        }
+                        #cell-1p {
+                            background-image: url("../assets/celdas/sectorizada/images/1p.gif");
+                            background-size: cover;
+                        }
+                        #cell-1q {
+                            background-image: url("../assets/celdas/sectorizada/images/1q.gif");
+                            background-size: cover;
+                        }
+                        #cell-1r {
+                            background-image: url("../assets/celdas/sectorizada/images/1r.gif");
+                            background-size: cover;
+                        }
+                        #cell-1s {
+                            background-image: url("../assets/celdas/sectorizada/images/1s.gif");
+                            background-size: cover;
+                        }
+                        #cell-1t {
+                            background-image: url("../assets/celdas/sectorizada/images/1t.gif");
+                            background-size: cover;
+                        }
+                        #cell-1u {
+                            background-image: url("../assets/celdas/sectorizada/images/1u.gif");
+                            background-size: cover;
+                        }
+                        #cell-1v {
+                            background-image: url("../assets/celdas/sectorizada/images/1v.gif");
+                            background-size: cover;
+                        }
+                        #cell-1w {
+                            background-image: url("../assets/celdas/sectorizada/images/1w.gif");
+                            background-size: cover;
+                        }
+                        #cell-1x {
+                            background-image: url("../assets/celdas/sectorizada/images/1x.gif");
+                            background-size: cover;
+                        }
+                        #cell-2a {
+                            background-image: url("../assets/celdas/sectorizada/images/2a.gif");
+                            background-size: cover;
+                        }
+                        #cell-2b {
+                            background-image: url("../assets/celdas/sectorizada/images/2b.gif");
+                            background-size: cover;
+                        }
+                        #cell-2c {
+                            background-image: url("../assets/celdas/sectorizada/images/2c.gif");
+                            background-size: cover;
+                        }
+                        #cell-2d {
+                            background-image: url("../assets/celdas/sectorizada/images/2d.gif");
+                            background-size: cover;
+                        }
+                        #cell-2e {
+                            background-image: url("../assets/celdas/sectorizada/images/2e.gif");
+                            background-size: cover;
+                        }
+                        #cell-2f {
+                            background-image: url("../assets/celdas/sectorizada/images/2f.gif");
+                            background-size: cover;
+                        }
+                        #cell-2g {
+                            background-image: url("../assets/celdas/sectorizada/images/2g.gif");
+                            background-size: cover;
+                        }
+                        #cell-2h {
+                            background-image: url("../assets/celdas/sectorizada/images/2h.gif");
+                            background-size: cover;
+                        }
+                        #cell-2i {
+                            background-image: url("../assets/celdas/sectorizada/images/2i.gif");
+                            background-size: cover;
+                        }
+                        #cell-2j {
+                            background-image: url("../assets/celdas/sectorizada/images/2j.gif");
+                            background-size: cover;
+                        }
+                        #cell-2k {
+                            background-image: url("../assets/celdas/sectorizada/images/2k.gif");
+                            background-size: cover;
+                        }
+                        #cell-2l {
+                            background-image: url("../assets/celdas/sectorizada/images/2l.gif");
+                            background-size: cover;
+                        }
+                        #cell-2m {
+                            background-image: url("../assets/celdas/sectorizada/images/2m.gif");
+                            background-size: cover;
+                        }
+                        #cell-2n {
+                            background-image: url("../assets/celdas/sectorizada/images/2n.gif");
+                            background-size: cover;
+                        }
+                        #cell-2o {
+                            background-image: url("../assets/celdas/sectorizada/images/2o.gif");
+                            background-size: cover;
+                        }
+                        #cell-2p {
+                            background-image: url("../assets/celdas/sectorizada/images/2p.gif");
+                            background-size: cover;
+                        }
+                        #cell-2q {
+                            background-image: url("../assets/celdas/sectorizada/images/2q.gif");
+                            background-size: cover;
+                        }
+                        #cell-2r {
+                            background-image: url("../assets/celdas/sectorizada/images/2r.gif");
+                            background-size: cover;
+                        }
+                        #cell-2s {
+                            background-image: url("../assets/celdas/sectorizada/images/2s.gif");
+                            background-size: cover;
+                        }
+                        #cell-2t {
+                            background-image: url("../assets/celdas/sectorizada/images/2t.gif");
+                            background-size: cover;
+                        }
+                        #cell-2u {
+                            background-image: url("../assets/celdas/sectorizada/images/2u.gif");
+                            background-size: cover;
+                        }
+                        #cell-2v {
+                            background-image: url("../assets/celdas/sectorizada/images/2v.gif");
+                            background-size: cover;
+                        }
+                        #cell-2w {
+                            background-image: url("../assets/celdas/sectorizada/images/2w.gif");
+                            background-size: cover;
+                        }
+                        #cell-2x {
+                            background-image: url("../assets/celdas/sectorizada/images/2x.gif");
+                            background-size: cover;
+                        }
+                        #cell-3a {
+                            background-image: url("../assets/celdas/sectorizada/images/3a.gif");
+                            background-size: cover;
+                        }
+                        #cell-3b {
+                            background-image: url("../assets/celdas/sectorizada/images/3b.gif");
+                            background-size: cover;
+                        }
+                        #cell-3c {
+                            background-image: url("../assets/celdas/sectorizada/images/3c.gif");
+                            background-size: cover;
+                        }
+                        #cell-3d {
+                            background-image: url("../assets/celdas/sectorizada/images/3d.gif");
+                            background-size: cover;
+                        }
+                        #cell-3e {
+                            background-image: url("../assets/celdas/sectorizada/images/3e.gif");
+                            background-size: cover;
+                        }
+                        #cell-3f {
+                            background-image: url("../assets/celdas/sectorizada/images/3f.gif");
+                            background-size: cover;
+                        }
+                        #cell-3g {
+                            background-image: url("../assets/celdas/sectorizada/images/3g.gif");
+                            background-size: cover;
+                        }
+                        #cell-3h {
+                            background-image: url("../assets/celdas/sectorizada/images/3h.gif");
+                            background-size: cover;
+                        }
+                        #cell-3i {
+                            background-image: url("../assets/celdas/sectorizada/images/3i.gif");
+                            background-size: cover;
+                        }
+                        #cell-3j {
+                            background-image: url("../assets/celdas/sectorizada/images/3j.gif");
+                            background-size: cover;
+                        }
+                        #cell-3k {
+                            background-image: url("../assets/celdas/sectorizada/images/3k.gif");
+                            background-size: cover;
+                        }
+                        #cell-3l {
+                            background-image: url("../assets/celdas/sectorizada/images/3l.gif");
+                            background-size: cover;
+                        }
+                        #cell-3m {
+                            background-image: url("../assets/celdas/sectorizada/images/3m.gif");
+                            background-size: cover;
+                        }
+                        #cell-3n {
+                            background-image: url("../assets/celdas/sectorizada/images/3n.gif");
+                            background-size: cover;
+                        }
+                        #cell-3o {
+                            background-image: url("../assets/celdas/sectorizada/images/3o.gif");
+                            background-size: cover;
+                        }
+                        #cell-3p {
+                            background-image: url("../assets/celdas/sectorizada/images/3p.gif");
+                            background-size: cover;
+                        }
+                        #cell-3q {
+                            background-image: url("../assets/celdas/sectorizada/images/3q.gif");
+                            background-size: cover;
+                        }
+                        #cell-3r {
+                            background-image: url("../assets/celdas/sectorizada/images/3r.gif");
+                            background-size: cover;
+                        }
+                        #cell-3s {
+                            background-image: url("../assets/celdas/sectorizada/images/3s.gif");
+                            background-size: cover;
+                        }
+                        #cell-3t {
+                            background-image: url("../assets/celdas/sectorizada/images/3t.gif");
+                            background-size: cover;
+                        }
+                        #cell-3u {
+                            background-image: url("../assets/celdas/sectorizada/images/3u.gif");
+                            background-size: cover;
+                        }
+                        #cell-3v {
+                            background-image: url("../assets/celdas/sectorizada/images/3v.gif");
+                            background-size: cover;
+                        }
+                        #cell-3w {
+                            background-image: url("../assets/celdas/sectorizada/images/3w.gif");
+                            background-size: cover;
+                        }
+                        #cell-3x {
+                            background-image: url("../assets/celdas/sectorizada/images/3x.gif");
+                            background-size: cover;
+                        }
+                        #cell-4a {
+                            background-image: url("../assets/celdas/sectorizada/images/4a.gif");
+                            background-size: cover;
+                        }
+                        #cell-4b {
+                            background-image: url("../assets/celdas/sectorizada/images/4b.gif");
+                            background-size: cover;
+                        }
+                        #cell-4c {
+                            background-image: url("../assets/celdas/sectorizada/images/4c.gif");
+                            background-size: cover;
+                        }
+                        #cell-4d {
+                            background-image: url("../assets/celdas/sectorizada/images/4d.gif");
+                            background-size: cover;
+                        }
+                        #cell-4e {
+                            background-image: url("../assets/celdas/sectorizada/images/4e.gif");
+                            background-size: cover;
+                        }
+                        #cell-4f {
+                            background-image: url("../assets/celdas/sectorizada/images/4f.gif");
+                            background-size: cover;
+                        }
+                        #cell-4g {
+                            background-image: url("../assets/celdas/sectorizada/images/4g.gif");
+                            background-size: cover;
+                        }
+                        #cell-4h {
+                            background-image: url("../assets/celdas/sectorizada/images/4h.gif");
+                            background-size: cover;
+                        }
+                        #cell-4i {
+                            background-image: url("../assets/celdas/sectorizada/images/4i.gif");
+                            background-size: cover;
+                        }
+                        #cell-4j {
+                            background-image: url("../assets/celdas/sectorizada/images/4j.gif");
+                            background-size: cover;
+                        }
+                        #cell-4k {
+                            background-image: url("../assets/celdas/sectorizada/images/4k.gif");
+                            background-size: cover;
+                        }
+                        #cell-4l {
+                            background-image: url("../assets/celdas/sectorizada/images/4l.gif");
+                            background-size: cover;
+                        }
+                        #cell-4m {
+                            background-image: url("../assets/celdas/sectorizada/images/4m.gif");
+                            background-size: cover;
+                        }
+                        #cell-4n {
+                            background-image: url("../assets/celdas/sectorizada/images/4n.gif");
+                            background-size: cover;
+                        }
+                        #cell-4o {
+                            background-image: url("../assets/celdas/sectorizada/images/4o.gif");
+                            background-size: cover;
+                        }
+                        #cell-4p {
+                            background-image: url("../assets/celdas/sectorizada/images/4p.gif");
+                            background-size: cover;
+                        }
+                        #cell-4q {
+                            background-image: url("../assets/celdas/sectorizada/images/4q.gif");
+                            background-size: cover;
+                        }
+                        #cell-4r {
+                            background-image: url("../assets/celdas/sectorizada/images/4r.gif");
+                            background-size: cover;
+                        }
+                        #cell-4s {
+                            background-image: url("../assets/celdas/sectorizada/images/4s.gif");
+                            background-size: cover;
+                        }
+                        #cell-4t {
+                            background-image: url("../assets/celdas/sectorizada/images/4t.gif");
+                            background-size: cover;
+                        }
+                        #cell-4u {
+                            background-image: url("../assets/celdas/sectorizada/images/4u.gif");
+                            background-size: cover;
+                        }
+                        #cell-4v {
+                            background-image: url("../assets/celdas/sectorizada/images/4v.gif");
+                            background-size: cover;
+                        }
+                        #cell-4w {
+                            background-image: url("../assets/celdas/sectorizada/images/4w.gif");
+                            background-size: cover;
+                        }
+                        #cell-4x {
+                            background-image: url("../assets/celdas/sectorizada/images/4x.gif");
+                            background-size: cover;
+                        }
+                        #cell-5a {
+                            background-image: url("../assets/celdas/sectorizada/images/5a.gif");
+                            background-size: cover;
+                        }
+                        #cell-5b {
+                            background-image: url("../assets/celdas/sectorizada/images/5b.gif");
+                            background-size: cover;
+                        }
+                        #cell-5c {
+                            background-image: url("../assets/celdas/sectorizada/images/5c.gif");
+                            background-size: cover;
+                        }
+                        #cell-5d {
+                            background-image: url("../assets/celdas/sectorizada/images/5d.gif");
+                            background-size: cover;
+                        }
+                        #cell-5e {
+                            background-image: url("../assets/celdas/sectorizada/images/5e.gif");
+                            background-size: cover;
+                        }
+                        #cell-5f {
+                            background-image: url("../assets/celdas/sectorizada/images/5f.gif");
+                            background-size: cover;
+                        }
+                        #cell-5g {
+                            background-image: url("../assets/celdas/sectorizada/images/5g.gif");
+                            background-size: cover;
+                        }
+                        #cell-5h {
+                            background-image: url("../assets/celdas/sectorizada/images/5h.gif");
+                            background-size: cover;
+                        }
+                        #cell-5i {
+                            background-image: url("../assets/celdas/sectorizada/images/5i.gif");
+                            background-size: cover;
+                        }
+                        #cell-5j {
+                            background-image: url("../assets/celdas/sectorizada/images/5j.gif");
+                            background-size: cover;
+                        }
+                        #cell-5k {
+                            background-image: url("../assets/celdas/sectorizada/images/5k.gif");
+                            background-size: cover;
+                        }
+                        #cell-5l {
+                            background-image: url("../assets/celdas/sectorizada/images/5l.gif");
+                            background-size: cover;
+                        }
+                        #cell-5m {
+                            background-image: url("../assets/celdas/sectorizada/images/5m.gif");
+                            background-size: cover;
+                        }
+                        #cell-5n {
+                            background-image: url("../assets/celdas/sectorizada/images/5n.gif");
+                            background-size: cover;
+                        }
+                        #cell-5o {
+                            background-image: url("../assets/celdas/sectorizada/images/5o.gif");
+                            background-size: cover;
+                        }
+                        #cell-5p {
+                            background-image: url("../assets/celdas/sectorizada/images/5p.gif");
+                            background-size: cover;
+                        }
+                        #cell-5q {
+                            background-image: url("../assets/celdas/sectorizada/images/5q.gif");
+                            background-size: cover;
+                        }
+                        #cell-5r {
+                            background-image: url("../assets/celdas/sectorizada/images/5r.gif");
+                            background-size: cover;
+                        }
+                        #cell-5s {
+                            background-image: url("../assets/celdas/sectorizada/images/5s.gif");
+                            background-size: cover;
+                        }
+                        #cell-5t {
+                            background-image: url("../assets/celdas/sectorizada/images/5t.gif");
+                            background-size: cover;
+                        }
+                        #cell-5u {
+                            background-image: url("../assets/celdas/sectorizada/images/5u.gif");
+                            background-size: cover;
+                        }
+                        #cell-5v {
+                            background-image: url("../assets/celdas/sectorizada/images/5v.gif");
+                            background-size: cover;
+                        }
+                        #cell-5w {
+                            background-image: url("../assets/celdas/sectorizada/images/5w.gif");
+                            background-size: cover;
+                        }
+                        #cell-5x {
+                            background-image: url("../assets/celdas/sectorizada/images/5x.gif");
+                            background-size: cover;
+                        }
+                        #cell-6a {
+                            background-image: url("../assets/celdas/sectorizada/images/6a.gif");
+                            background-size: cover;
+                        }
+                        #cell-6b {
+                            background-image: url("../assets/celdas/sectorizada/images/6b.gif");
+                            background-size: cover;
+                        }
+                        #cell-6c {
+                            background-image: url("../assets/celdas/sectorizada/images/6c.gif");
+                            background-size: cover;
+                        }
+                        #cell-6d {
+                            background-image: url("../assets/celdas/sectorizada/images/6d.gif");
+                            background-size: cover;
+                        }
+                        #cell-6e {
+                            background-image: url("../assets/celdas/sectorizada/images/6e.gif");
+                            background-size: cover;
+                        }
+                        #cell-6f {
+                            background-image: url("../assets/celdas/sectorizada/images/6f.gif");
+                            background-size: cover;
+                        }
+                        #cell-6g {
+                            background-image: url("../assets/celdas/sectorizada/images/6g.gif");
+                            background-size: cover;
+                        }
+                        #cell-6h {
+                            background-image: url("../assets/celdas/sectorizada/images/6h.gif");
+                            background-size: cover;
+                        }
+                        #cell-6i {
+                            background-image: url("../assets/celdas/sectorizada/images/6i.gif");
+                            background-size: cover;
+                        }
+                        #cell-6j {
+                            background-image: url("../assets/celdas/sectorizada/images/6j.gif");
+                            background-size: cover;
+                        }
+                        #cell-6k {
+                            background-image: url("../assets/celdas/sectorizada/images/6k.gif");
+                            background-size: cover;
+                        }
+                        #cell-6l {
+                            background-image: url("../assets/celdas/sectorizada/images/6l.gif");
+                            background-size: cover;
+                        }
+                        #cell-6m {
+                            background-image: url("../assets/celdas/sectorizada/images/6m.gif");
+                            background-size: cover;
+                        }
+                        #cell-6n {
+                            background-image: url("../assets/celdas/sectorizada/images/6n.gif");
+                            background-size: cover;
+                        }
+                        #cell-6o {
+                            background-image: url("../assets/celdas/sectorizada/images/6o.gif");
+                            background-size: cover;
+                        }
+                        #cell-6p {
+                            background-image: url("../assets/celdas/sectorizada/images/6p.gif");
+                            background-size: cover;
+                        }
+                        #cell-6q {
+                            background-image: url("../assets/celdas/sectorizada/images/6q.gif");
+                            background-size: cover;
+                        }
+                        #cell-6r {
+                            background-image: url("../assets/celdas/sectorizada/images/6r.gif");
+                            background-size: cover;
+                        }
+                        #cell-6s {
+                            background-image: url("../assets/celdas/sectorizada/images/6s.gif");
+                            background-size: cover;
+                        }
+                        #cell-6t {
+                            background-image: url("../assets/celdas/sectorizada/images/6t.gif");
+                            background-size: cover;
+                        }
+                        #cell-6u {
+                            background-image: url("../assets/celdas/sectorizada/images/6u.gif");
+                            background-size: cover;
+                        }
+                        #cell-6v {
+                            background-image: url("../assets/celdas/sectorizada/images/6v.gif");
+                            background-size: cover;
+                        }
+                        #cell-6w {
+                            background-image: url("../assets/celdas/sectorizada/images/6w.gif");
+                            background-size: cover;
+                        }
+                        #cell-6x {
+                            background-image: url("../assets/celdas/sectorizada/images/6x.gif");
+                            background-size: cover;
+                        }
+                        #cell-7a {
+                            background-image: url("../assets/celdas/sectorizada/images/7a.gif");
+                            background-size: cover;
+                        }
+                        #cell-7b {
+                            background-image: url("../assets/celdas/sectorizada/images/7b.gif");
+                            background-size: cover;
+                        }
+                        #cell-7c {
+                            background-image: url("../assets/celdas/sectorizada/images/7c.gif");
+                            background-size: cover;
+                        }
+                        #cell-7d {
+                            background-image: url("../assets/celdas/sectorizada/images/7d.gif");
+                            background-size: cover;
+                        }
+                        #cell-7e {
+                            background-image: url("../assets/celdas/sectorizada/images/7e.gif");
+                            background-size: cover;
+                        }
+                        #cell-7f {
+                            background-image: url("../assets/celdas/sectorizada/images/7f.gif");
+                            background-size: cover;
+                        }
+                        #cell-7g {
+                            background-image: url("../assets/celdas/sectorizada/images/7g.gif");
+                            background-size: cover;
+                        }
+                        #cell-7h {
+                            background-image: url("../assets/celdas/sectorizada/images/7h.gif");
+                            background-size: cover;
+                        }
+                        #cell-7i {
+                            background-image: url("../assets/celdas/sectorizada/images/7i.gif");
+                            background-size: cover;
+                        }
+                        #cell-7j {
+                            background-image: url("../assets/celdas/sectorizada/images/7j.gif");
+                            background-size: cover;
+                        }
+                        #cell-7k {
+                            background-image: url("../assets/celdas/sectorizada/images/7k.gif");
+                            background-size: cover;
+                        }
+                        #cell-7l {
+                            background-image: url("../assets/celdas/sectorizada/images/7l.gif");
+                            background-size: cover;
+                        }
+                        #cell-7m {
+                            background-image: url("../assets/celdas/sectorizada/images/7m.gif");
+                            background-size: cover;
+                        }
+                        #cell-7n {
+                            background-image: url("../assets/celdas/sectorizada/images/7n.gif");
+                            background-size: cover;
+                        }
+                        #cell-7o {
+                            background-image: url("../assets/celdas/sectorizada/images/7o.gif");
+                            background-size: cover;
+                        }
+                        #cell-7p {
+                            background-image: url("../assets/celdas/sectorizada/images/7p.gif");
+                            background-size: cover;
+                        }
+                        #cell-7q {
+                            background-image: url("../assets/celdas/sectorizada/images/7q.gif");
+                            background-size: cover;
+                        }
+                        #cell-7r {
+                            background-image: url("../assets/celdas/sectorizada/images/7r.gif");
+                            background-size: cover;
+                        }
+                        #cell-7s {
+                            background-image: url("../assets/celdas/sectorizada/images/7s.gif");
+                            background-size: cover;
+                        }
+                        #cell-7t {
+                            background-image: url("../assets/celdas/sectorizada/images/7t.gif");
+                            background-size: cover;
+                        }
+                        #cell-7u {
+                            background-image: url("../assets/celdas/sectorizada/images/7u.gif");
+                            background-size: cover;
+                        }
+                        #cell-7v {
+                            background-image: url("../assets/celdas/sectorizada/images/7v.gif");
+                            background-size: cover;
+                        }
+                        #cell-7w {
+                            background-image: url("../assets/celdas/sectorizada/images/7w.gif");
+                            background-size: cover;
+                        }
+                        #cell-7x {
+                            background-image: url("../assets/celdas/sectorizada/images/7x.gif");
+                            background-size: cover;
+                        }
+                        #cell-8a {
+                            background-image: url("../assets/celdas/sectorizada/images/8a.gif");
+                            background-size: cover;
+                        }
+                        #cell-8b {
+                            background-image: url("../assets/celdas/sectorizada/images/8b.gif");
+                            background-size: cover;
+                        }
+                        #cell-8c {
+                            background-image: url("../assets/celdas/sectorizada/images/8c.gif");
+                            background-size: cover;
+                        }
+                        #cell-8d {
+                            background-image: url("../assets/celdas/sectorizada/images/8d.gif");
+                            background-size: cover;
+                        }
+                        #cell-8e {
+                            background-image: url("../assets/celdas/sectorizada/images/8e.gif");
+                            background-size: cover;
+                        }
+                        #cell-8f {
+                            background-image: url("../assets/celdas/sectorizada/images/8f.gif");
+                            background-size: cover;
+                        }
+                        #cell-8g {
+                            background-image: url("../assets/celdas/sectorizada/images/8g.gif");
+                            background-size: cover;
+                        }
+                        #cell-8h {
+                            background-image: url("../assets/celdas/sectorizada/images/8h.gif");
+                            background-size: cover;
+                        }
+                        #cell-8i {
+                            background-image: url("../assets/celdas/sectorizada/images/8i.gif");
+                            background-size: cover;
+                        }
+                        #cell-8j {
+                            background-image: url("../assets/celdas/sectorizada/images/8j.gif");
+                            background-size: cover;
+                        }
+                        #cell-8k {
+                            background-image: url("../assets/celdas/sectorizada/images/8k.gif");
+                            background-size: cover;
+                        }
+                        #cell-8l {
+                            background-image: url("../assets/celdas/sectorizada/images/8l.gif");
+                            background-size: cover;
+                        }
+                        #cell-8m {
+                            background-image: url("../assets/celdas/sectorizada/images/8m.gif");
+                            background-size: cover;
+                        }
+                        #cell-8n {
+                            background-image: url("../assets/celdas/sectorizada/images/8n.gif");
+                            background-size: cover;
+                        }
+                        #cell-8o {
+                            background-image: url("../assets/celdas/sectorizada/images/8o.gif");
+                            background-size: cover;
+                        }
+                        #cell-8p {
+                            background-image: url("../assets/celdas/sectorizada/images/8p.gif");
+                            background-size: cover;
+                        }
+                        #cell-8q {
+                            background-image: url("../assets/celdas/sectorizada/images/8q.gif");
+                            background-size: cover;
+                        }
+                        #cell-8r {
+                            background-image: url("../assets/celdas/sectorizada/images/8r.gif");
+                            background-size: cover;
+                        }
+                        #cell-8s {
+                            background-image: url("../assets/celdas/sectorizada/images/8s.gif");
+                            background-size: cover;
+                        }
+                        #cell-8t {
+                            background-image: url("../assets/celdas/sectorizada/images/8t.gif");
+                            background-size: cover;
+                        }
+                        #cell-8u {
+                            background-image: url("../assets/celdas/sectorizada/images/8u.gif");
+                            background-size: cover;
+                        }
+                        #cell-8v {
+                            background-image: url("../assets/celdas/sectorizada/images/8v.gif");
+                            background-size: cover;
+                        }
+                        #cell-8w {
+                            background-image: url("../assets/celdas/sectorizada/images/8w.gif");
+                            background-size: cover;
+                        }
+                        #cell-8x {
+                            background-image: url("../assets/celdas/sectorizada/images/8x.gif");
+                            background-size: cover;
+                        }
+                        #cell-9a {
+                            background-image: url("../assets/celdas/sectorizada/images/9a.gif");
+                            background-size: cover;
+                        }
+                        #cell-9b {
+                            background-image: url("../assets/celdas/sectorizada/images/9b.gif");
+                            background-size: cover;
+                        }
+                        #cell-9c {
+                            background-image: url("../assets/celdas/sectorizada/images/9c.gif");
+                            background-size: cover;
+                        }
+                        #cell-9d {
+                            background-image: url("../assets/celdas/sectorizada/images/9d.gif");
+                            background-size: cover;
+                        }
+                        #cell-9e {
+                            background-image: url("../assets/celdas/sectorizada/images/9e.gif");
+                            background-size: cover;
+                        }
+                        #cell-9f {
+                            background-image: url("../assets/celdas/sectorizada/images/9f.gif");
+                            background-size: cover;
+                        }
+                        #cell-9g {
+                            background-image: url("../assets/celdas/sectorizada/images/9g.gif");
+                            background-size: cover;
+                        }
+                        #cell-9h {
+                            background-image: url("../assets/celdas/sectorizada/images/9h.gif");
+                            background-size: cover;
+                        }
+                        #cell-9i {
+                            background-image: url("../assets/celdas/sectorizada/images/9i.gif");
+                            background-size: cover;
+                        }
+                        #cell-9j {
+                            background-image: url("../assets/celdas/sectorizada/images/9j.gif");
+                            background-size: cover;
+                        }
+                        #cell-9k {
+                            background-image: url("../assets/celdas/sectorizada/images/9k.gif");
+                            background-size: cover;
+                        }
+                        #cell-9l {
+                            background-image: url("../assets/celdas/sectorizada/images/9l.gif");
+                            background-size: cover;
+                        }
+                        #cell-9m {
+                            background-image: url("../assets/celdas/sectorizada/images/9m.gif");
+                            background-size: cover;
+                        }
+                        #cell-9n {
+                            background-image: url("../assets/celdas/sectorizada/images/9n.gif");
+                            background-size: cover;
+                        }
+                        #cell-9o {
+                            background-image: url("../assets/celdas/sectorizada/images/9o.gif");
+                            background-size: cover;
+                        }
+                        #cell-9p {
+                            background-image: url("../assets/celdas/sectorizada/images/9p.gif");
+                            background-size: cover;
+                        }
+                        #cell-9q {
+                            background-image: url("../assets/celdas/sectorizada/images/9q.gif");
+                            background-size: cover;
+                        }
+                        #cell-9r {
+                            background-image: url("../assets/celdas/sectorizada/images/9r.gif");
+                            background-size: cover;
+                        }
+                        #cell-9s {
+                            background-image: url("../assets/celdas/sectorizada/images/9s.gif");
+                            background-size: cover;
+                        }
+                        #cell-9t {
+                            background-image: url("../assets/celdas/sectorizada/images/9t.gif");
+                            background-size: cover;
+                        }
+                        #cell-9u {
+                            background-image: url("../assets/celdas/sectorizada/images/9u.gif");
+                            background-size: cover;
+                        }
+                        #cell-9v {
+                            background-image: url("../assets/celdas/sectorizada/images/9v.gif");
+                            background-size: cover;
+                        }
+                        #cell-9w {
+                            background-image: url("../assets/celdas/sectorizada/images/9w.gif");
+                            background-size: cover;
+                        }
+                        #cell-9x {
+                            background-image: url("../assets/celdas/sectorizada/images/9x.gif");
+                            background-size: cover;
+                        }
+                        #cell-10a {
+                            background-image: url("../assets/celdas/sectorizada/images/10a.gif");
+                            background-size: cover;
+                        }
+                        #cell-10b {
+                            background-image: url("../assets/celdas/sectorizada/images/10b.gif");
+                            background-size: cover;
+                        }
+                        #cell-10c {
+                            background-image: url("../assets/celdas/sectorizada/images/10c.gif");
+                            background-size: cover;
+                        }
+                        #cell-10d {
+                            background-image: url("../assets/celdas/sectorizada/images/10d.gif");
+                            background-size: cover;
+                        }
+                        #cell-10e {
+                            background-image: url("../assets/celdas/sectorizada/images/10e.gif");
+                            background-size: cover;
+                        }
+                        #cell-10f {
+                            background-image: url("../assets/celdas/sectorizada/images/10f.gif");
+                            background-size: cover;
+                        }
+                        #cell-10g {
+                            background-image: url("../assets/celdas/sectorizada/images/10g.gif");
+                            background-size: cover;
+                        }
+                        #cell-10h {
+                            background-image: url("../assets/celdas/sectorizada/images/10h.gif");
+                            background-size: cover;
+                        }
+                        #cell-10i {
+                            background-image: url("../assets/celdas/sectorizada/images/10i.gif");
+                            background-size: cover;
+                        }
+                        #cell-10j {
+                            background-image: url("../assets/celdas/sectorizada/images/10j.gif");
+                            background-size: cover;
+                        }
+                        #cell-10k {
+                            background-image: url("../assets/celdas/sectorizada/images/10k.gif");
+                            background-size: cover;
+                        }
+                        #cell-10l {
+                            background-image: url("../assets/celdas/sectorizada/images/10l.gif");
+                            background-size: cover;
+                        }
+                        #cell-10m {
+                            background-image: url("../assets/celdas/sectorizada/images/10m.gif");
+                            background-size: cover;
+                        }
+                        #cell-10n {
+                            background-image: url("../assets/celdas/sectorizada/images/10n.gif");
+                            background-size: cover;
+                        }
+                        #cell-10o {
+                            background-image: url("../assets/celdas/sectorizada/images/10o.gif");
+                            background-size: cover;
+                        }
+                        #cell-10p {
+                            background-image: url("../assets/celdas/sectorizada/images/10p.gif");
+                            background-size: cover;
+                        }
+                        #cell-10q {
+                            background-image: url("../assets/celdas/sectorizada/images/10q.gif");
+                            background-size: cover;
+                        }
+                        #cell-10r {
+                            background-image: url("../assets/celdas/sectorizada/images/10r.gif");
+                            background-size: cover;
+                        }
+                        #cell-10s {
+                            background-image: url("../assets/celdas/sectorizada/images/10s.gif");
+                            background-size: cover;
+                        }
+                        #cell-10t {
+                            background-image: url("../assets/celdas/sectorizada/images/10t.gif");
+                            background-size: cover;
+                        }
+                        #cell-10u {
+                            background-image: url("../assets/celdas/sectorizada/images/10u.gif");
+                            background-size: cover;
+                        }
+                        #cell-10v {
+                            background-image: url("../assets/celdas/sectorizada/images/10v.gif");
+                            background-size: cover;
+                        }
+                        #cell-10w {
+                            background-image: url("../assets/celdas/sectorizada/images/10w.gif");
+                            background-size: cover;
+                        }
+                        #cell-10x {
+                            background-image: url("../assets/celdas/sectorizada/images/10x.gif");
+                            background-size: cover;
+                        }
+                        #cell-11a {
+                            background-image: url("../assets/celdas/sectorizada/images/11a.gif");
+                            background-size: cover;
+                        }
+                        #cell-11b {
+                            background-image: url("../assets/celdas/sectorizada/images/11b.gif");
+                            background-size: cover;
+                        }
+                        #cell-11c {
+                            background-image: url("../assets/celdas/sectorizada/images/11c.gif");
+                            background-size: cover;
+                        }
+                        #cell-11d {
+                            background-image: url("../assets/celdas/sectorizada/images/11d.gif");
+                            background-size: cover;
+                        }
+                        #cell-11e {
+                            background-image: url("../assets/celdas/sectorizada/images/11e.gif");
+                            background-size: cover;
+                        }
+                        #cell-11f {
+                            background-image: url("../assets/celdas/sectorizada/images/11f.gif");
+                            background-size: cover;
+                        }
+                        #cell-11g {
+                            background-image: url("../assets/celdas/sectorizada/images/11g.gif");
+                            background-size: cover;
+                        }
+                        #cell-11h {
+                            background-image: url("../assets/celdas/sectorizada/images/11h.gif");
+                            background-size: cover;
+                        }
+                        #cell-11i {
+                            background-image: url("../assets/celdas/sectorizada/images/11i.gif");
+                            background-size: cover;
+                        }
+                        #cell-11j {
+                            background-image: url("../assets/celdas/sectorizada/images/11j.gif");
+                            background-size: cover;
+                        }
+                        #cell-11k {
+                            background-image: url("../assets/celdas/sectorizada/images/11k.gif");
+                            background-size: cover;
+                        }
+                        #cell-11l {
+                            background-image: url("../assets/celdas/sectorizada/images/11l.gif");
+                            background-size: cover;
+                        }
+                        #cell-11m {
+                            background-image: url("../assets/celdas/sectorizada/images/11m.gif");
+                            background-size: cover;
+                        }
+                        #cell-11n {
+                            background-image: url("../assets/celdas/sectorizada/images/11n.gif");
+                            background-size: cover;
+                        }
+                        #cell-11o {
+                            background-image: url("../assets/celdas/sectorizada/images/11o.gif");
+                            background-size: cover;
+                        }
+                        #cell-11p {
+                            background-image: url("../assets/celdas/sectorizada/images/11p.gif");
+                            background-size: cover;
+                        }
+                        #cell-11q {
+                            background-image: url("../assets/celdas/sectorizada/images/11q.gif");
+                            background-size: cover;
+                        }
+                        #cell-11r {
+                            background-image: url("../assets/celdas/sectorizada/images/11r.gif");
+                            background-size: cover;
+                        }
+                        #cell-11s {
+                            background-image: url("../assets/celdas/sectorizada/images/11s.gif");
+                            background-size: cover;
+                        }
+                        #cell-11t {
+                            background-image: url("../assets/celdas/sectorizada/images/11t.gif");
+                            background-size: cover;
+                        }
+                        #cell-11u {
+                            background-image: url("../assets/celdas/sectorizada/images/11u.gif");
+                            background-size: cover;
+                        }
+                        #cell-11v {
+                            background-image: url("../assets/celdas/sectorizada/images/11v.gif");
+                            background-size: cover;
+                        }
+                        #cell-11w {
+                            background-image: url("../assets/celdas/sectorizada/images/11w.gif");
+                            background-size: cover;
+                        }
+                        #cell-11x {
+                            background-image: url("../assets/celdas/sectorizada/images/11x.gif");
+                            background-size: cover;
+                        }
+                        #cell-12a {
+                            background-image: url("../assets/celdas/sectorizada/images/12a.gif");
+                            background-size: cover;
+                        }
+                        #cell-12b {
+                            background-image: url("../assets/celdas/sectorizada/images/12b.gif");
+                            background-size: cover;
+                        }
+                        #cell-12c {
+                            background-image: url("../assets/celdas/sectorizada/images/12c.gif");
+                            background-size: cover;
+                        }
+                        #cell-12d {
+                            background-image: url("../assets/celdas/sectorizada/images/12d.gif");
+                            background-size: cover;
+                        }
+                        #cell-12e {
+                            background-image: url("../assets/celdas/sectorizada/images/12e.gif");
+                            background-size: cover;
+                        }
+                        #cell-12f {
+                            background-image: url("../assets/celdas/sectorizada/images/12f.gif");
+                            background-size: cover;
+                        }
+                        #cell-12g {
+                            background-image: url("../assets/celdas/sectorizada/images/12g.gif");
+                            background-size: cover;
+                        }
+                        #cell-12h {
+                            background-image: url("../assets/celdas/sectorizada/images/12h.gif");
+                            background-size: cover;
+                        }
+                        #cell-12i {
+                            background-image: url("../assets/celdas/sectorizada/images/12i.gif");
+                            background-size: cover;
+                        }
+                        #cell-12j {
+                            background-image: url("../assets/celdas/sectorizada/images/12j.gif");
+                            background-size: cover;
+                        }
+                        #cell-12k {
+                            background-image: url("../assets/celdas/sectorizada/images/12k.gif");
+                            background-size: cover;
+                        }
+                        #cell-12l {
+                            background-image: url("../assets/celdas/sectorizada/images/12l.gif");
+                            background-size: cover;
+                        }
+                        #cell-12m {
+                            background-image: url("../assets/celdas/sectorizada/images/12m.gif");
+                            background-size: cover;
+                        }
+                        #cell-12n {
+                            background-image: url("../assets/celdas/sectorizada/images/12n.gif");
+                            background-size: cover;
+                        }
+                        #cell-12o {
+                            background-image: url("../assets/celdas/sectorizada/images/12o.gif");
+                            background-size: cover;
+                        }
+                        #cell-12p {
+                            background-image: url("../assets/celdas/sectorizada/images/12p.gif");
+                            background-size: cover;
+                        }
+                        #cell-12q {
+                            background-image: url("../assets/celdas/sectorizada/images/12q.gif");
+                            background-size: cover;
+                        }
+                        #cell-12r {
+                            background-image: url("../assets/celdas/sectorizada/images/12r.gif");
+                            background-size: cover;
+                        }
+                        #cell-12s {
+                            background-image: url("../assets/celdas/sectorizada/images/12s.gif");
+                            background-size: cover;
+                        }
+                        #cell-12t {
+                            background-image: url("../assets/celdas/sectorizada/images/12t.gif");
+                            background-size: cover;
+                        }
+                        #cell-12u {
+                            background-image: url("../assets/celdas/sectorizada/images/12u.gif");
+                            background-size: cover;
+                        }
+                        #cell-12v {
+                            background-image: url("../assets/celdas/sectorizada/images/12v.gif");
+                            background-size: cover;
+                        }
+                        #cell-12w {
+                            background-image: url("../assets/celdas/sectorizada/images/12w.gif");
+                            background-size: cover;
+                        }
+                        #cell-12x {
+                            background-image: url("../assets/celdas/sectorizada/images/12x.gif");
+                            background-size: cover;
+                        }
+                        #cell-13a {
+                            background-image: url("../assets/celdas/sectorizada/images/13a.gif");
+                            background-size: cover;
+                        }
+                        #cell-13b {
+                            background-image: url("../assets/celdas/sectorizada/images/13b.gif");
+                            background-size: cover;
+                        }
+                        #cell-13c {
+                            background-image: url("../assets/celdas/sectorizada/images/13c.gif");
+                            background-size: cover;
+                        }
+                        #cell-13d {
+                            background-image: url("../assets/celdas/sectorizada/images/13d.gif");
+                            background-size: cover;
+                        }
+                        #cell-13e {
+                            background-image: url("../assets/celdas/sectorizada/images/13e.gif");
+                            background-size: cover;
+                        }
+                        #cell-13f {
+                            background-image: url("../assets/celdas/sectorizada/images/13f.gif");
+                            background-size: cover;
+                        }
+                        #cell-13g {
+                            background-image: url("../assets/celdas/sectorizada/images/13g.gif");
+                            background-size: cover;
+                        }
+                        #cell-13h {
+                            background-image: url("../assets/celdas/sectorizada/images/13h.gif");
+                            background-size: cover;
+                        }
+                        #cell-13i {
+                            background-image: url("../assets/celdas/sectorizada/images/13i.gif");
+                            background-size: cover;
+                        }
+                        #cell-13j {
+                            background-image: url("../assets/celdas/sectorizada/images/13j.gif");
+                            background-size: cover;
+                        }
+                        #cell-13k {
+                            background-image: url("../assets/celdas/sectorizada/images/13k.gif");
+                            background-size: cover;
+                        }
+                        #cell-13l {
+                            background-image: url("../assets/celdas/sectorizada/images/13l.gif");
+                            background-size: cover;
+                        }
+                        #cell-13m {
+                            background-image: url("../assets/celdas/sectorizada/images/13m.gif");
+                            background-size: cover;
+                        }
+                        #cell-13n {
+                            background-image: url("../assets/celdas/sectorizada/images/13n.gif");
+                            background-size: cover;
+                        }
+                        #cell-13o {
+                            background-image: url("../assets/celdas/sectorizada/images/13o.gif");
+                            background-size: cover;
+                        }
+                        #cell-13p {
+                            background-image: url("../assets/celdas/sectorizada/images/13p.gif");
+                            background-size: cover;
+                        }
+                        #cell-13q {
+                            background-image: url("../assets/celdas/sectorizada/images/13q.gif");
+                            background-size: cover;
+                        }
+                        #cell-13r {
+                            background-image: url("../assets/celdas/sectorizada/images/13r.gif");
+                            background-size: cover;
+                        }
+                        #cell-13s {
+                            background-image: url("../assets/celdas/sectorizada/images/13s.gif");
+                            background-size: cover;
+                        }
+                        #cell-13t {
+                            background-image: url("../assets/celdas/sectorizada/images/13t.gif");
+                            background-size: cover;
+                        }
+                        #cell-13u {
+                            background-image: url("../assets/celdas/sectorizada/images/13u.gif");
+                            background-size: cover;
+                        }
+                        #cell-13v {
+                            background-image: url("../assets/celdas/sectorizada/images/13v.gif");
+                            background-size: cover;
+                        }
+                        #cell-13w {
+                            background-image: url("../assets/celdas/sectorizada/images/13w.gif");
+                            background-size: cover;
+                        }
+                        #cell-13x {
+                            background-image: url("../assets/celdas/sectorizada/images/13x.gif");
+                            background-size: cover;
+                        }
+                        #cell-14a {
+                            background-image: url("../assets/celdas/sectorizada/images/14a.gif");
+                            background-size: cover;
+                        }
+                        #cell-14b {
+                            background-image: url("../assets/celdas/sectorizada/images/14b.gif");
+                            background-size: cover;
+                        }
+                        #cell-14c {
+                            background-image: url("../assets/celdas/sectorizada/images/14c.gif");
+                            background-size: cover;
+                        }
+                        #cell-14d {
+                            background-image: url("../assets/celdas/sectorizada/images/14d.gif");
+                            background-size: cover;
+                        }
+                        #cell-14e {
+                            background-image: url("../assets/celdas/sectorizada/images/14e.gif");
+                            background-size: cover;
+                        }
+                        #cell-14f {
+                            background-image: url("../assets/celdas/sectorizada/images/14f.gif");
+                            background-size: cover;
+                        }
+                        #cell-14g {
+                            background-image: url("../assets/celdas/sectorizada/images/14g.gif");
+                            background-size: cover;
+                        }
+                        #cell-14h {
+                            background-image: url("../assets/celdas/sectorizada/images/14h.gif");
+                            background-size: cover;
+                        }
+                        #cell-14i {
+                            background-image: url("../assets/celdas/sectorizada/images/14i.gif");
+                            background-size: cover;
+                        }
+                        #cell-14j {
+                            background-image: url("../assets/celdas/sectorizada/images/14j.gif");
+                            background-size: cover;
+                        }
+                        #cell-14k {
+                            background-image: url("../assets/celdas/sectorizada/images/14k.gif");
+                            background-size: cover;
+                        }
+                        #cell-14l {
+                            background-image: url("../assets/celdas/sectorizada/images/14l.gif");
+                            background-size: cover;
+                        }
+                        #cell-14m {
+                            background-image: url("../assets/celdas/sectorizada/images/14m.gif");
+                            background-size: cover;
+                        }
+                        #cell-14n {
+                            background-image: url("../assets/celdas/sectorizada/images/14n.gif");
+                            background-size: cover;
+                        }
+                        #cell-14o {
+                            background-image: url("../assets/celdas/sectorizada/images/14o.gif");
+                            background-size: cover;
+                        }
+                        #cell-14p {
+                            background-image: url("../assets/celdas/sectorizada/images/14p.gif");
+                            background-size: cover;
+                        }
+                        #cell-14q {
+                            background-image: url("../assets/celdas/sectorizada/images/14q.gif");
+                            background-size: cover;
+                        }
+                        #cell-14r {
+                            background-image: url("../assets/celdas/sectorizada/images/14r.gif");
+                            background-size: cover;
+                        }
+                        #cell-14s {
+                            background-image: url("../assets/celdas/sectorizada/images/14s.gif");
+                            background-size: cover;
+                        }
+                        #cell-14t {
+                            background-image: url("../assets/celdas/sectorizada/images/14t.gif");
+                            background-size: cover;
+                        }
+                        #cell-14u {
+                            background-image: url("../assets/celdas/sectorizada/images/14u.gif");
+                            background-size: cover;
+                        }
+                        #cell-14v {
+                            background-image: url("../assets/celdas/sectorizada/images/14v.gif");
+                            background-size: cover;
+                        }
+                        #cell-14w {
+                            background-image: url("../assets/celdas/sectorizada/images/14w.gif");
+                            background-size: cover;
+                        }
+                        #cell-14x {
+                            background-image: url("../assets/celdas/sectorizada/images/14x.gif");
+                            background-size: cover;
+                        }
+                        #cell-15a {
+                            background-image: url("../assets/celdas/sectorizada/images/15a.gif");
+                            background-size: cover;
+                        }
+                        #cell-15b {
+                            background-image: url("../assets/celdas/sectorizada/images/15b.gif");
+                            background-size: cover;
+                        }
+                        #cell-15c {
+                            background-image: url("../assets/celdas/sectorizada/images/15c.gif");
+                            background-size: cover;
+                        }
+                        #cell-15d {
+                            background-image: url("../assets/celdas/sectorizada/images/15d.gif");
+                            background-size: cover;
+                        }
+                        #cell-15e {
+                            background-image: url("../assets/celdas/sectorizada/images/15e.gif");
+                            background-size: cover;
+                        }
+                        #cell-15f {
+                            background-image: url("../assets/celdas/sectorizada/images/15f.gif");
+                            background-size: cover;
+                        }
+                        #cell-15g {
+                            background-image: url("../assets/celdas/sectorizada/images/15g.gif");
+                            background-size: cover;
+                        }
+                        #cell-15h {
+                            background-image: url("../assets/celdas/sectorizada/images/15h.gif");
+                            background-size: cover;
+                        }
+                        #cell-15i {
+                            background-image: url("../assets/celdas/sectorizada/images/15i.gif");
+                            background-size: cover;
+                        }
+                        #cell-15j {
+                            background-image: url("../assets/celdas/sectorizada/images/15j.gif");
+                            background-size: cover;
+                        }
+                        #cell-15k {
+                            background-image: url("../assets/celdas/sectorizada/images/15k.gif");
+                            background-size: cover;
+                        }
+                        #cell-15l {
+                            background-image: url("../assets/celdas/sectorizada/images/15l.gif");
+                            background-size: cover;
+                        }
+                        #cell-15m {
+                            background-image: url("../assets/celdas/sectorizada/images/15m.gif");
+                            background-size: cover;
+                        }
+                        #cell-15n {
+                            background-image: url("../assets/celdas/sectorizada/images/15n.gif");
+                            background-size: cover;
+                        }
+                        #cell-15o {
+                            background-image: url("../assets/celdas/sectorizada/images/15o.gif");
+                            background-size: cover;
+                        }
+                        #cell-15p {
+                            background-image: url("../assets/celdas/sectorizada/images/15p.gif");
+                            background-size: cover;
+                        }
+                        #cell-15q {
+                            background-image: url("../assets/celdas/sectorizada/images/15q.gif");
+                            background-size: cover;
+                        }
+                        #cell-15r {
+                            background-image: url("../assets/celdas/sectorizada/images/15r.gif");
+                            background-size: cover;
+                        }
+                        #cell-15s {
+                            background-image: url("../assets/celdas/sectorizada/images/15s.gif");
+                            background-size: cover;
+                        }
+                        #cell-15t {
+                            background-image: url("../assets/celdas/sectorizada/images/15t.gif");
+                            background-size: cover;
+                        }
+                        #cell-15u {
+                            background-image: url("../assets/celdas/sectorizada/images/15u.gif");
+                            background-size: cover;
+                        }
+                        #cell-15v {
+                            background-image: url("../assets/celdas/sectorizada/images/15v.gif");
+                            background-size: cover;
+                        }
+                        #cell-15w {
+                            background-image: url("../assets/celdas/sectorizada/images/15w.gif");
+                            background-size: cover;
+                        }
+                        #cell-15x {
+                            background-image: url("../assets/celdas/sectorizada/images/15x.gif");
+                            background-size: cover;
+                        }
+                        #cell-16a {
+                            background-image: url("../assets/celdas/sectorizada/images/16a.gif");
+                            background-size: cover;
+                        }
+                        #cell-16b {
+                            background-image: url("../assets/celdas/sectorizada/images/16b.gif");
+                            background-size: cover;
+                        }
+                        #cell-16c {
+                            background-image: url("../assets/celdas/sectorizada/images/16c.gif");
+                            background-size: cover;
+                        }
+                        #cell-16d {
+                            background-image: url("../assets/celdas/sectorizada/images/16d.gif");
+                            background-size: cover;
+                        }
+                        #cell-16e {
+                            background-image: url("../assets/celdas/sectorizada/images/16e.gif");
+                            background-size: cover;
+                        }
+                        #cell-16f {
+                            background-image: url("../assets/celdas/sectorizada/images/16f.gif");
+                            background-size: cover;
+                        }
+                        #cell-16g {
+                            background-image: url("../assets/celdas/sectorizada/images/16g.gif");
+                            background-size: cover;
+                        }
+                        #cell-16h {
+                            background-image: url("../assets/celdas/sectorizada/images/16h.gif");
+                            background-size: cover;
+                        }
+                        #cell-16i {
+                            background-image: url("../assets/celdas/sectorizada/images/16i.gif");
+                            background-size: cover;
+                        }
+                        #cell-16j {
+                            background-image: url("../assets/celdas/sectorizada/images/16j.gif");
+                            background-size: cover;
+                        }
+                        #cell-16k {
+                            background-image: url("../assets/celdas/sectorizada/images/16k.gif");
+                            background-size: cover;
+                        }
+                        #cell-16l {
+                            background-image: url("../assets/celdas/sectorizada/images/16l.gif");
+                            background-size: cover;
+                        }
+                        #cell-16m {
+                            background-image: url("../assets/celdas/sectorizada/images/16m.gif");
+                            background-size: cover;
+                        }
+                        #cell-16n {
+                            background-image: url("../assets/celdas/sectorizada/images/16n.gif");
+                            background-size: cover;
+                        }
+                        #cell-16o {
+                            background-image: url("../assets/celdas/sectorizada/images/16o.gif");
+                            background-size: cover;
+                        }
+                        #cell-16p {
+                            background-image: url("../assets/celdas/sectorizada/images/16p.gif");
+                            background-size: cover;
+                        }
+                        #cell-16q {
+                            background-image: url("../assets/celdas/sectorizada/images/16q.gif");
+                            background-size: cover;
+                        }
+                        #cell-16r {
+                            background-image: url("../assets/celdas/sectorizada/images/16r.gif");
+                            background-size: cover;
+                        }
+                        #cell-16s {
+                            background-image: url("../assets/celdas/sectorizada/images/16s.gif");
+                            background-size: cover;
+                        }
+                        #cell-16t {
+                            background-image: url("../assets/celdas/sectorizada/images/16t.gif");
+                            background-size: cover;
+                        }
+                        #cell-16u {
+                            background-image: url("../assets/celdas/sectorizada/images/16u.gif");
+                            background-size: cover;
+                        }
+                        #cell-16v {
+                            background-image: url("../assets/celdas/sectorizada/images/16v.gif");
+                            background-size: cover;
+                        }
+                        #cell-16w {
+                            background-image: url("../assets/celdas/sectorizada/images/16w.gif");
+                            background-size: cover;
+                        }
+                        #cell-16x {
+                            background-image: url("../assets/celdas/sectorizada/images/16x.gif");
+                            background-size: cover;
+                        }
+                        #cell-17a {
+                            background-image: url("../assets/celdas/sectorizada/images/17a.gif");
+                            background-size: cover;
+                        }
+                        #cell-17b {
+                            background-image: url("../assets/celdas/sectorizada/images/17b.gif");
+                            background-size: cover;
+                        }
+                        #cell-17c {
+                            background-image: url("../assets/celdas/sectorizada/images/17c.gif");
+                            background-size: cover;
+                        }
+                        #cell-17d {
+                            background-image: url("../assets/celdas/sectorizada/images/17d.gif");
+                            background-size: cover;
+                        }
+                        #cell-17e {
+                            background-image: url("../assets/celdas/sectorizada/images/17e.gif");
+                            background-size: cover;
+                        }
+                        #cell-17f {
+                            background-image: url("../assets/celdas/sectorizada/images/17f.gif");
+                            background-size: cover;
+                        }
+                        #cell-17g {
+                            background-image: url("../assets/celdas/sectorizada/images/17g.gif");
+                            background-size: cover;
+                        }
+                        #cell-17h {
+                            background-image: url("../assets/celdas/sectorizada/images/17h.gif");
+                            background-size: cover;
+                        }
+                        #cell-17i {
+                            background-image: url("../assets/celdas/sectorizada/images/17i.gif");
+                            background-size: cover;
+                        }
+                        #cell-17j {
+                            background-image: url("../assets/celdas/sectorizada/images/17j.gif");
+                            background-size: cover;
+                        }
+                        #cell-17k {
+                            background-image: url("../assets/celdas/sectorizada/images/17k.gif");
+                            background-size: cover;
+                        }
+                        #cell-17l {
+                            background-image: url("../assets/celdas/sectorizada/images/17l.gif");
+                            background-size: cover;
+                        }
+                        #cell-17m {
+                            background-image: url("../assets/celdas/sectorizada/images/17m.gif");
+                            background-size: cover;
+                        }
+                        #cell-17n {
+                            background-image: url("../assets/celdas/sectorizada/images/17n.gif");
+                            background-size: cover;
+                        }
+                        #cell-17o {
+                            background-image: url("../assets/celdas/sectorizada/images/17o.gif");
+                            background-size: cover;
+                        }
+                        #cell-17p {
+                            background-image: url("../assets/celdas/sectorizada/images/17p.gif");
+                            background-size: cover;
+                        }
+                        #cell-17q {
+                            background-image: url("../assets/celdas/sectorizada/images/17q.gif");
+                            background-size: cover;
+                        }
+                        #cell-17r {
+                            background-image: url("../assets/celdas/sectorizada/images/17r.gif");
+                            background-size: cover;
+                        }
+                        #cell-17s {
+                            background-image: url("../assets/celdas/sectorizada/images/17s.gif");
+                            background-size: cover;
+                        }
+                        #cell-17t {
+                            background-image: url("../assets/celdas/sectorizada/images/17t.gif");
+                            background-size: cover;
+                        }
+                        #cell-17u {
+                            background-image: url("../assets/celdas/sectorizada/images/17u.gif");
+                            background-size: cover;
+                        }
+                        #cell-17v {
+                            background-image: url("../assets/celdas/sectorizada/images/17v.gif");
+                            background-size: cover;
+                        }
+                        #cell-17w {
+                            background-image: url("../assets/celdas/sectorizada/images/17w.gif");
+                            background-size: cover;
+                        }
+                        #cell-17x {
+                            background-image: url("../assets/celdas/sectorizada/images/17x.gif");
+                            background-size: cover;
+                        }
+                        #cell-18a {
+                            background-image: url("../assets/celdas/sectorizada/images/18a.gif");
+                            background-size: cover;
+                        }
+                        #cell-18b {
+                            background-image: url("../assets/celdas/sectorizada/images/18b.gif");
+                            background-size: cover;
+                        }
+                        #cell-18c {
+                            background-image: url("../assets/celdas/sectorizada/images/18c.gif");
+                            background-size: cover;
+                        }
+                        #cell-18d {
+                            background-image: url("../assets/celdas/sectorizada/images/18d.gif");
+                            background-size: cover;
+                        }
+                        #cell-18e {
+                            background-image: url("../assets/celdas/sectorizada/images/18e.gif");
+                            background-size: cover;
+                        }
+                        #cell-18f {
+                            background-image: url("../assets/celdas/sectorizada/images/18f.gif");
+                            background-size: cover;
+                        }
+                        #cell-18g {
+                            background-image: url("../assets/celdas/sectorizada/images/18g.gif");
+                            background-size: cover;
+                        }
+                        #cell-18h {
+                            background-image: url("../assets/celdas/sectorizada/images/18h.gif");
+                            background-size: cover;
+                        }
+                        #cell-18i {
+                            background-image: url("../assets/celdas/sectorizada/images/18i.gif");
+                            background-size: cover;
+                        }
+                        #cell-18j {
+                            background-image: url("../assets/celdas/sectorizada/images/18j.gif");
+                            background-size: cover;
+                        }
+                        #cell-18k {
+                            background-image: url("../assets/celdas/sectorizada/images/18k.gif");
+                            background-size: cover;
+                        }
+                        #cell-18l {
+                            background-image: url("../assets/celdas/sectorizada/images/18l.gif");
+                            background-size: cover;
+                        }
+                        #cell-18m {
+                            background-image: url("../assets/celdas/sectorizada/images/18m.gif");
+                            background-size: cover;
+                        }
+                        #cell-18n {
+                            background-image: url("../assets/celdas/sectorizada/images/18n.gif");
+                            background-size: cover;
+                        }
+                        #cell-18o {
+                            background-image: url("../assets/celdas/sectorizada/images/18o.gif");
+                            background-size: cover;
+                        }
+                        #cell-18p {
+                            background-image: url("../assets/celdas/sectorizada/images/18p.gif");
+                            background-size: cover;
+                        }
+                        #cell-18q {
+                            background-image: url("../assets/celdas/sectorizada/images/18q.gif");
+                            background-size: cover;
+                        }
+                        #cell-18r {
+                            background-image: url("../assets/celdas/sectorizada/images/18r.gif");
+                            background-size: cover;
+                        }
+                        #cell-18s {
+                            background-image: url("../assets/celdas/sectorizada/images/18s.gif");
+                            background-size: cover;
+                        }
+                        #cell-18t {
+                            background-image: url("../assets/celdas/sectorizada/images/18t.gif");
+                            background-size: cover;
+                        }
+                        #cell-18u {
+                            background-image: url("../assets/celdas/sectorizada/images/18u.gif");
+                            background-size: cover;
+                        }
+                        #cell-18v {
+                            background-image: url("../assets/celdas/sectorizada/images/18v.gif");
+                            background-size: cover;
+                        }
+                        #cell-18w {
+                            background-image: url("../assets/celdas/sectorizada/images/18w.gif");
+                            background-size: cover;
+                        }
+                        #cell-18x {
+                            background-image: url("../assets/celdas/sectorizada/images/18x.gif");
+                            background-size: cover;
+                        }
+                        #cell-19a {
+                            background-image: url("../assets/celdas/sectorizada/images/19a.gif");
+                            background-size: cover;
+                        }
+                        #cell-19b {
+                            background-image: url("../assets/celdas/sectorizada/images/19b.gif");
+                            background-size: cover;
+                        }
+                        #cell-19c {
+                            background-image: url("../assets/celdas/sectorizada/images/19c.gif");
+                            background-size: cover;
+                        }
+                        #cell-19d {
+                            background-image: url("../assets/celdas/sectorizada/images/19d.gif");
+                            background-size: cover;
+                        }
+                        #cell-19e {
+                            background-image: url("../assets/celdas/sectorizada/images/19e.gif");
+                            background-size: cover;
+                        }
+                        #cell-19f {
+                            background-image: url("../assets/celdas/sectorizada/images/19f.gif");
+                            background-size: cover;
+                        }
+                        #cell-19g {
+                            background-image: url("../assets/celdas/sectorizada/images/19g.gif");
+                            background-size: cover;
+                        }
+                        #cell-19h {
+                            background-image: url("../assets/celdas/sectorizada/images/19h.gif");
+                            background-size: cover;
+                        }
+                        #cell-19i {
+                            background-image: url("../assets/celdas/sectorizada/images/19i.gif");
+                            background-size: cover;
+                        }
+                        #cell-19j {
+                            background-image: url("../assets/celdas/sectorizada/images/19j.gif");
+                            background-size: cover;
+                        }
+                        #cell-19k {
+                            background-image: url("../assets/celdas/sectorizada/images/19k.gif");
+                            background-size: cover;
+                        }
+                        #cell-19l {
+                            background-image: url("../assets/celdas/sectorizada/images/19l.gif");
+                            background-size: cover;
+                        }
+                        #cell-19m {
+                            background-image: url("../assets/celdas/sectorizada/images/19m.gif");
+                            background-size: cover;
+                        }
+                        #cell-19n {
+                            background-image: url("../assets/celdas/sectorizada/images/19n.gif");
+                            background-size: cover;
+                        }
+                        #cell-19o {
+                            background-image: url("../assets/celdas/sectorizada/images/19o.gif");
+                            background-size: cover;
+                        }
+                        #cell-19p {
+                            background-image: url("../assets/celdas/sectorizada/images/19p.gif");
+                            background-size: cover;
+                        }
+                        #cell-19q {
+                            background-image: url("../assets/celdas/sectorizada/images/19q.gif");
+                            background-size: cover;
+                        }
+                        #cell-19r {
+                            background-image: url("../assets/celdas/sectorizada/images/19r.gif");
+                            background-size: cover;
+                        }
+                        #cell-19s {
+                            background-image: url("../assets/celdas/sectorizada/images/19s.gif");
+                            background-size: cover;
+                        }
+                        #cell-19t {
+                            background-image: url("../assets/celdas/sectorizada/images/19t.gif");
+                            background-size: cover;
+                        }
+                        #cell-19u {
+                            background-image: url("../assets/celdas/sectorizada/images/19u.gif");
+                            background-size: cover;
+                        }
+                        #cell-19v {
+                            background-image: url("../assets/celdas/sectorizada/images/19v.gif");
+                            background-size: cover;
+                        }
+                        #cell-19w {
+                            background-image: url("../assets/celdas/sectorizada/images/19w.gif");
+                            background-size: cover;
+                        }
+                        #cell-19x {
+                            background-image: url("../assets/celdas/sectorizada/images/19x.gif");
+                            background-size: cover;
+                        }
+                        #cell-20a {
+                            background-image: url("../assets/celdas/sectorizada/images/20a.gif");
+                            background-size: cover;
+                        }
+                        #cell-20b {
+                            background-image: url("../assets/celdas/sectorizada/images/20b.gif");
+                            background-size: cover;
+                        }
+                        #cell-20c {
+                            background-image: url("../assets/celdas/sectorizada/images/20c.gif");
+                            background-size: cover;
+                        }
+                        #cell-20d {
+                            background-image: url("../assets/celdas/sectorizada/images/20d.gif");
+                            background-size: cover;
+                        }
+                        #cell-20e {
+                            background-image: url("../assets/celdas/sectorizada/images/20e.gif");
+                            background-size: cover;
+                        }
+                        #cell-20f {
+                            background-image: url("../assets/celdas/sectorizada/images/20f.gif");
+                            background-size: cover;
+                        }
+                        #cell-20g {
+                            background-image: url("../assets/celdas/sectorizada/images/20g.gif");
+                            background-size: cover;
+                        }
+                        #cell-20h {
+                            background-image: url("../assets/celdas/sectorizada/images/20h.gif");
+                            background-size: cover;
+                        }
+                        #cell-20i {
+                            background-image: url("../assets/celdas/sectorizada/images/20i.gif");
+                            background-size: cover;
+                        }
+                        #cell-20j {
+                            background-image: url("../assets/celdas/sectorizada/images/20j.gif");
+                            background-size: cover;
+                        }
+                        #cell-20k {
+                            background-image: url("../assets/celdas/sectorizada/images/20k.gif");
+                            background-size: cover;
+                        }
+                        #cell-20l {
+                            background-image: url("../assets/celdas/sectorizada/images/20l.gif");
+                            background-size: cover;
+                        }
+                        #cell-20m {
+                            background-image: url("../assets/celdas/sectorizada/images/20m.gif");
+                            background-size: cover;
+                        }
+                        #cell-20n {
+                            background-image: url("../assets/celdas/sectorizada/images/20n.gif");
+                            background-size: cover;
+                        }
+                        #cell-20o {
+                            background-image: url("../assets/celdas/sectorizada/images/20o.gif");
+                            background-size: cover;
+                        }
+                        #cell-20p {
+                            background-image: url("../assets/celdas/sectorizada/images/20p.gif");
+                            background-size: cover;
+                        }
+                        #cell-20q {
+                            background-image: url("../assets/celdas/sectorizada/images/20q.gif");
+                            background-size: cover;
+                        }
+                        #cell-20r {
+                            background-image: url("../assets/celdas/sectorizada/images/20r.gif");
+                            background-size: cover;
+                        }
+                        #cell-20s {
+                            background-image: url("../assets/celdas/sectorizada/images/20s.gif");
+                            background-size: cover;
+                        }
+                        #cell-20t {
+                            background-image: url("../assets/celdas/sectorizada/images/20t.gif");
+                            background-size: cover;
+                        }
+                        #cell-20u {
+                            background-image: url("../assets/celdas/sectorizada/images/20u.gif");
+                            background-size: cover;
+                        }
+                        #cell-20v {
+                            background-image: url("../assets/celdas/sectorizada/images/20v.gif");
+                            background-size: cover;
+                        }
+                        #cell-20w {
+                            background-image: url("../assets/celdas/sectorizada/images/20w.gif");
+                            background-size: cover;
+                        }
+                        #cell-20x {
+                            background-image: url("../assets/celdas/sectorizada/images/20x.gif");
+                            background-size: cover;
+                        }
+                        #cell-21a {
+                            background-image: url("../assets/celdas/sectorizada/images/21a.gif");
+                            background-size: cover;
+                        }
+                        #cell-21b {
+                            background-image: url("../assets/celdas/sectorizada/images/21b.gif");
+                            background-size: cover;
+                        }
+                        #cell-21c {
+                            background-image: url("../assets/celdas/sectorizada/images/21c.gif");
+                            background-size: cover;
+                        }
+                        #cell-21d {
+                            background-image: url("../assets/celdas/sectorizada/images/21d.gif");
+                            background-size: cover;
+                        }
+                        #cell-21e {
+                            background-image: url("../assets/celdas/sectorizada/images/21e.gif");
+                            background-size: cover;
+                        }
+                        #cell-21f {
+                            background-image: url("../assets/celdas/sectorizada/images/21f.gif");
+                            background-size: cover;
+                        }
+                        #cell-21g {
+                            background-image: url("../assets/celdas/sectorizada/images/21g.gif");
+                            background-size: cover;
+                        }
+                        #cell-21h {
+                            background-image: url("../assets/celdas/sectorizada/images/21h.gif");
+                            background-size: cover;
+                        }
+                        #cell-21i {
+                            background-image: url("../assets/celdas/sectorizada/images/21i.gif");
+                            background-size: cover;
+                        }
+                        #cell-21j {
+                            background-image: url("../assets/celdas/sectorizada/images/21j.gif");
+                            background-size: cover;
+                        }
+                        #cell-21k {
+                            background-image: url("../assets/celdas/sectorizada/images/21k.gif");
+                            background-size: cover;
+                        }
+                        #cell-21l {
+                            background-image: url("../assets/celdas/sectorizada/images/21l.gif");
+                            background-size: cover;
+                        }
+                        #cell-21m {
+                            background-image: url("../assets/celdas/sectorizada/images/21m.gif");
+                            background-size: cover;
+                        }
+                        #cell-21n {
+                            background-image: url("../assets/celdas/sectorizada/images/21n.gif");
+                            background-size: cover;
+                        }
+                        #cell-21o {
+                            background-image: url("../assets/celdas/sectorizada/images/21o.gif");
+                            background-size: cover;
+                        }
+                        #cell-21p {
+                            background-image: url("../assets/celdas/sectorizada/images/21p.gif");
+                            background-size: cover;
+                        }
+                        #cell-21q {
+                            background-image: url("../assets/celdas/sectorizada/images/21q.gif");
+                            background-size: cover;
+                        }
+                        #cell-21r {
+                            background-image: url("../assets/celdas/sectorizada/images/21r.gif");
+                            background-size: cover;
+                        }
+                        #cell-21s {
+                            background-image: url("../assets/celdas/sectorizada/images/21s.gif");
+                            background-size: cover;
+                        }
+                        #cell-21t {
+                            background-image: url("../assets/celdas/sectorizada/images/21t.gif");
+                            background-size: cover;
+                        }
+                        #cell-21u {
+                            background-image: url("../assets/celdas/sectorizada/images/21u.gif");
+                            background-size: cover;
+                        }
+                        #cell-21v {
+                            background-image: url("../assets/celdas/sectorizada/images/21v.gif");
+                            background-size: cover;
+                        }
+                        #cell-21w {
+                            background-image: url("../assets/celdas/sectorizada/images/21w.gif");
+                            background-size: cover;
+                        }
+                        #cell-21x {
+                            background-image: url("../assets/celdas/sectorizada/images/21x.gif");
+                            background-size: cover;
+                        }
+                        #cell-22a {
+                            background-image: url("../assets/celdas/sectorizada/images/22a.gif");
+                            background-size: cover;
+                        }
+                        #cell-22b {
+                            background-image: url("../assets/celdas/sectorizada/images/22b.gif");
+                            background-size: cover;
+                        }
+                        #cell-22c {
+                            background-image: url("../assets/celdas/sectorizada/images/22c.gif");
+                            background-size: cover;
+                        }
+                        #cell-22d {
+                            background-image: url("../assets/celdas/sectorizada/images/22d.gif");
+                            background-size: cover;
+                        }
+                        #cell-22e {
+                            background-image: url("../assets/celdas/sectorizada/images/22e.gif");
+                            background-size: cover;
+                        }
+                        #cell-22f {
+                            background-image: url("../assets/celdas/sectorizada/images/22f.gif");
+                            background-size: cover;
+                        }
+                        #cell-22g {
+                            background-image: url("../assets/celdas/sectorizada/images/22g.gif");
+                            background-size: cover;
+                        }
+                        #cell-22h {
+                            background-image: url("../assets/celdas/sectorizada/images/22h.gif");
+                            background-size: cover;
+                        }
+                        #cell-22i {
+                            background-image: url("../assets/celdas/sectorizada/images/22i.gif");
+                            background-size: cover;
+                        }
+                        #cell-22j {
+                            background-image: url("../assets/celdas/sectorizada/images/22j.gif");
+                            background-size: cover;
+                        }
+                        #cell-22k {
+                            background-image: url("../assets/celdas/sectorizada/images/22k.gif");
+                            background-size: cover;
+                        }
+                        #cell-22l {
+                            background-image: url("../assets/celdas/sectorizada/images/22l.gif");
+                            background-size: cover;
+                        }
+                        #cell-22m {
+                            background-image: url("../assets/celdas/sectorizada/images/22m.gif");
+                            background-size: cover;
+                        }
+                        #cell-22n {
+                            background-image: url("../assets/celdas/sectorizada/images/22n.gif");
+                            background-size: cover;
+                        }
+                        #cell-22o {
+                            background-image: url("../assets/celdas/sectorizada/images/22o.gif");
+                            background-size: cover;
+                        }
+                        #cell-22p {
+                            background-image: url("../assets/celdas/sectorizada/images/22p.gif");
+                            background-size: cover;
+                        }
+                        #cell-22q {
+                            background-image: url("../assets/celdas/sectorizada/images/22q.gif");
+                            background-size: cover;
+                        }
+                        #cell-22r {
+                            background-image: url("../assets/celdas/sectorizada/images/22r.gif");
+                            background-size: cover;
+                        }
+                        #cell-22s {
+                            background-image: url("../assets/celdas/sectorizada/images/22s.gif");
+                            background-size: cover;
+                        }
+                        #cell-22t {
+                            background-image: url("../assets/celdas/sectorizada/images/22t.gif");
+                            background-size: cover;
+                        }
+                        #cell-22u {
+                            background-image: url("../assets/celdas/sectorizada/images/22u.gif");
+                            background-size: cover;
+                        }
+                        #cell-22v {
+                            background-image: url("../assets/celdas/sectorizada/images/22v.gif");
+                            background-size: cover;
+                        }
+                        #cell-22w {
+                            background-image: url("../assets/celdas/sectorizada/images/22w.gif");
+                            background-size: cover;
+                        }
+                        #cell-22x {
+                            background-image: url("../assets/celdas/sectorizada/images/22x.gif");
+                            background-size: cover;
+                        }
+                        #cell-23a {
+                            background-image: url("../assets/celdas/sectorizada/images/23a.gif");
+                            background-size: cover;
+                        }
+                        #cell-23b {
+                            background-image: url("../assets/celdas/sectorizada/images/23b.gif");
+                            background-size: cover;
+                        }
+                        #cell-23c {
+                            background-image: url("../assets/celdas/sectorizada/images/23c.gif");
+                            background-size: cover;
+                        }
+                        #cell-23d {
+                            background-image: url("../assets/celdas/sectorizada/images/23d.gif");
+                            background-size: cover;
+                        }
+                        #cell-23e {
+                            background-image: url("../assets/celdas/sectorizada/images/23e.gif");
+                            background-size: cover;
+                        }
+                        #cell-23f {
+                            background-image: url("../assets/celdas/sectorizada/images/23f.gif");
+                            background-size: cover;
+                        }
+                        #cell-23g {
+                            background-image: url("../assets/celdas/sectorizada/images/23g.gif");
+                            background-size: cover;
+                        }
+                        #cell-23h {
+                            background-image: url("../assets/celdas/sectorizada/images/23h.gif");
+                            background-size: cover;
+                        }
+                        #cell-23i {
+                            background-image: url("../assets/celdas/sectorizada/images/23i.gif");
+                            background-size: cover;
+                        }
+                        #cell-23j {
+                            background-image: url("../assets/celdas/sectorizada/images/23j.gif");
+                            background-size: cover;
+                        }
+                        #cell-23k {
+                            background-image: url("../assets/celdas/sectorizada/images/23k.gif");
+                            background-size: cover;
+                        }
+                        #cell-23l {
+                            background-image: url("../assets/celdas/sectorizada/images/23l.gif");
+                            background-size: cover;
+                        }
+                        #cell-23m {
+                            background-image: url("../assets/celdas/sectorizada/images/23m.gif");
+                            background-size: cover;
+                        }
+                        #cell-23n {
+                            background-image: url("../assets/celdas/sectorizada/images/23n.gif");
+                            background-size: cover;
+                        }
+                        #cell-23o {
+                            background-image: url("../assets/celdas/sectorizada/images/23o.gif");
+                            background-size: cover;
+                        }
+                        #cell-23p {
+                            background-image: url("../assets/celdas/sectorizada/images/23p.gif");
+                            background-size: cover;
+                        }
+                        #cell-23q {
+                            background-image: url("../assets/celdas/sectorizada/images/23q.gif");
+                            background-size: cover;
+                        }
+                        #cell-23r {
+                            background-image: url("../assets/celdas/sectorizada/images/23r.gif");
+                            background-size: cover;
+                        }
+                        #cell-23s {
+                            background-image: url("../assets/celdas/sectorizada/images/23s.gif");
+                            background-size: cover;
+                        }
+                        #cell-23t {
+                            background-image: url("../assets/celdas/sectorizada/images/23t.gif");
+                            background-size: cover;
+                        }
+                        #cell-23u {
+                            background-image: url("../assets/celdas/sectorizada/images/23u.gif");
+                            background-size: cover;
+                        }
+                        #cell-23v {
+                            background-image: url("../assets/celdas/sectorizada/images/23v.gif");
+                            background-size: cover;
+                        }
+                        #cell-23w {
+                            background-image: url("../assets/celdas/sectorizada/images/23w.gif");
+                            background-size: cover;
+                        }
+                        #cell-23x {
+                            background-image: url("../assets/celdas/sectorizada/images/23x.gif");
+                            background-size: cover;
+                        }
+                        #cell-24a {
+                            background-image: url("../assets/celdas/sectorizada/images/24a.gif");
+                            background-size: cover;
+                        }
+                        #cell-24b {
+                            background-image: url("../assets/celdas/sectorizada/images/24b.gif");
+                            background-size: cover;
+                        }
+                        #cell-24c {
+                            background-image: url("../assets/celdas/sectorizada/images/24c.gif");
+                            background-size: cover;
+                        }
+                        #cell-24d {
+                            background-image: url("../assets/celdas/sectorizada/images/24d.gif");
+                            background-size: cover;
+                        }
+                        #cell-24e {
+                            background-image: url("../assets/celdas/sectorizada/images/24e.gif");
+                            background-size: cover;
+                        }
+                        #cell-24f {
+                            background-image: url("../assets/celdas/sectorizada/images/24f.gif");
+                            background-size: cover;
+                        }
+                        #cell-24g {
+                            background-image: url("../assets/celdas/sectorizada/images/24g.gif");
+                            background-size: cover;
+                        }
+                        #cell-24h {
+                            background-image: url("../assets/celdas/sectorizada/images/24h.gif");
+                            background-size: cover;
+                        }
+                        #cell-24i {
+                            background-image: url("../assets/celdas/sectorizada/images/24i.gif");
+                            background-size: cover;
+                        }
+                        #cell-24j {
+                            background-image: url("../assets/celdas/sectorizada/images/24j.gif");
+                            background-size: cover;
+                        }
+                        #cell-24k {
+                            background-image: url("../assets/celdas/sectorizada/images/24k.gif");
+                            background-size: cover;
+                        }
+                        #cell-24l {
+                            background-image: url("../assets/celdas/sectorizada/images/24l.gif");
+                            background-size: cover;
+                        }
+                        #cell-24m {
+                            background-image: url("../assets/celdas/sectorizada/images/24m.gif");
+                            background-size: cover;
+                        }
+                        #cell-24n {
+                            background-image: url("../assets/celdas/sectorizada/images/24n.gif");
+                            background-size: cover;
+                        }
+                        #cell-24o {
+                            background-image: url("../assets/celdas/sectorizada/images/24o.gif");
+                            background-size: cover;
+                        }
+                        #cell-24p {
+                            background-image: url("../assets/celdas/sectorizada/images/24p.gif");
+                            background-size: cover;
+                        }
+                        #cell-24q {
+                            background-image: url("../assets/celdas/sectorizada/images/24q.gif");
+                            background-size: cover;
+                        }
+                        #cell-24r {
+                            background-image: url("../assets/celdas/sectorizada/images/24r.gif");
+                            background-size: cover;
+                        }
+                        #cell-24s {
+                            background-image: url("../assets/celdas/sectorizada/images/24s.gif");
+                            background-size: cover;
+                        }
+                        #cell-24t {
+                            background-image: url("../assets/celdas/sectorizada/images/24t.gif");
+                            background-size: cover;
+                        }
+                        #cell-24u {
+                            background-image: url("../assets/celdas/sectorizada/images/24u.gif");
+                            background-size: cover;
+                        }
+                        #cell-24v {
+                            background-image: url("../assets/celdas/sectorizada/images/24v.gif");
+                            background-size: cover;
+                        }
+                        #cell-24w {
+                            background-image: url("../assets/celdas/sectorizada/images/24w.gif");
+                            background-size: cover;
+                        }
+                        #cell-24x {
+                            background-image: url("../assets/celdas/sectorizada/images/24x.gif");
+                            background-size: cover;
+                        }
+                        #cell-25a {
+                            background-image: url("../assets/celdas/sectorizada/images/25a.gif");
+                            background-size: cover;
+                        }
+                        #cell-25b {
+                            background-image: url("../assets/celdas/sectorizada/images/25b.gif");
+                            background-size: cover;
+                        }
+                        #cell-25c {
+                            background-image: url("../assets/celdas/sectorizada/images/25c.gif");
+                            background-size: cover;
+                        }
+                        #cell-25d {
+                            background-image: url("../assets/celdas/sectorizada/images/25d.gif");
+                            background-size: cover;
+                        }
+                        #cell-25e {
+                            background-image: url("../assets/celdas/sectorizada/images/25e.gif");
+                            background-size: cover;
+                        }
+                        #cell-25f {
+                            background-image: url("../assets/celdas/sectorizada/images/25f.gif");
+                            background-size: cover;
+                        }
+                        #cell-25g {
+                            background-image: url("../assets/celdas/sectorizada/images/25g.gif");
+                            background-size: cover;
+                        }
+                        #cell-25h {
+                            background-image: url("../assets/celdas/sectorizada/images/25h.gif");
+                            background-size: cover;
+                        }
+                        #cell-25i {
+                            background-image: url("../assets/celdas/sectorizada/images/25i.gif");
+                            background-size: cover;
+                        }
+                        #cell-25j {
+                            background-image: url("../assets/celdas/sectorizada/images/25j.gif");
+                            background-size: cover;
+                        }
+                        #cell-25k {
+                            background-image: url("../assets/celdas/sectorizada/images/25k.gif");
+                            background-size: cover;
+                        }
+                        #cell-25l {
+                            background-image: url("../assets/celdas/sectorizada/images/25l.gif");
+                            background-size: cover;
+                        }
+                        #cell-25m {
+                            background-image: url("../assets/celdas/sectorizada/images/25m.gif");
+                            background-size: cover;
+                        }
+                        #cell-25n {
+                            background-image: url("../assets/celdas/sectorizada/images/25n.gif");
+                            background-size: cover;
+                        }
+                        #cell-25o {
+                            background-image: url("../assets/celdas/sectorizada/images/25o.gif");
+                            background-size: cover;
+                        }
+                        #cell-25p {
+                            background-image: url("../assets/celdas/sectorizada/images/25p.gif");
+                            background-size: cover;
+                        }
+                        #cell-25q {
+                            background-image: url("../assets/celdas/sectorizada/images/25q.gif");
+                            background-size: cover;
+                        }
+                        #cell-25r {
+                            background-image: url("../assets/celdas/sectorizada/images/25r.gif");
+                            background-size: cover;
+                        }
+                        #cell-25s {
+                            background-image: url("../assets/celdas/sectorizada/images/25s.gif");
+                            background-size: cover;
+                        }
+                        #cell-25t {
+                            background-image: url("../assets/celdas/sectorizada/images/25t.gif");
+                            background-size: cover;
+                        }
+                        #cell-25u {
+                            background-image: url("../assets/celdas/sectorizada/images/25u.gif");
+                            background-size: cover;
+                        }
+                        #cell-25v {
+                            background-image: url("../assets/celdas/sectorizada/images/25v.gif");
+                            background-size: cover;
+                        }
+                        #cell-25w {
+                            background-image: url("../assets/celdas/sectorizada/images/25w.gif");
+                            background-size: cover;
+                        }
+                        #cell-25x {
+                            background-image: url("../assets/celdas/sectorizada/images/25x.gif");
+                            background-size: cover;
+                        }
                     }
                 }
             }
@@ -474,11 +2944,11 @@
         }
         .offcanvas-btn {
             position: absolute;
-            top: 27.5vh;
+            top: 60vh;
             left: -10vw;
             transition: all 150ms ease;
             min-width: 13vw;
-            @media (min-width: 992px) {
+            @media (min-width: 922px) {
                 position: absolute;
                 left: -7vw;
                 top: 20vh;
