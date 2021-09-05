@@ -4,6 +4,9 @@ let actualPlayer = 0;
 let playerNumber;
 let respuesta1;
 let manoRepartida;
+let movingPlayer;
+let movingPlayerIndex;
+let movingPlayerRow;
 // creación objeto literal que contendrá la clave de cada jugador y el sub-array asignado
 const manosArmadas = {};
 let manoMezclada;
@@ -19,6 +22,11 @@ let playerHand1,
     playerHand4,
     playerHand5,
     playerHand6;
+
+let antesala;
+let playerMovingPiece, positioningInBoard, targetedCell;
+let accusePosition;
+let newCoordenates;
 
 const totalPlayers = [];
 
@@ -131,6 +139,26 @@ const accusationTotalCards = document.querySelectorAll(`.accusation-card-item`);
 const offCanvasBtn = document.querySelector(`.offcanvas-btn`);
 const movementBoardTable =
     document.querySelectorAll(`.game-board-table`)[0].childNodes[1];
+const movementAbleCells = document.querySelectorAll(`.able`);
+
+// CASILLEROS DE LAS ENTRADAS HABITACIONES
+const salaDoor = document.querySelector(`#cell-6r`);
+const vestibuloDoor1 = document.querySelector(`#cell-5j`);
+const vestibuloDoor2 = document.querySelector(`#cell-7l`);
+const vestibuloDoor3 = document.querySelector(`#cell-7m`);
+const estudioDoor = document.querySelector(`#cell-4g`);
+const bibliotecaDoor1 = document.querySelector(`#cell-9g`);
+const bibliotecaDoor2 = document.querySelector(`#cell-11d`);
+const comedorDoor1 = document.querySelector(`#cell-10r`);
+const comedorDoor2 = document.querySelector(`#cell-13q`);
+const billarDoor1 = document.querySelector(`#cell-13b`);
+const billarDoor2 = document.querySelector(`#cell-16f`);
+const baileDoor1 = document.querySelector(`#cell-20i`);
+const baileDoor2 = document.querySelector(`#cell-18j`);
+const baileDoor3 = document.querySelector(`#cell-18o`);
+const baileDoor4 = document.querySelector(`#cell-20p`);
+const invernaderoDoor = document.querySelector(`#cell-20e`);
+const cocinaDoor = document.querySelector(`#cell-19t`);
 
 // AJUSTE DEL CÓDIGO DEL NAVBAR PARA QUE SE VEA EL HAMBURGUER MENU
 const navBarToggler = (e) => {
@@ -793,19 +821,439 @@ const turnDynamic = (playerNumber) => {
 
 const accusation = () => {};
 
+const enoughToAccuse = (newCell, position) => {
+    console.log("ejecutando enoughToAccuse");
+    accusePosition = position;
+    if (
+        newCell !== 1 &&
+        newCell !== 2 &&
+        newCell !== 3 &&
+        newCell !== 4 &&
+        newCell !== 5 &&
+        newCell !== 6
+    ) {
+        dialogInterface.addEventListener("submit", (evt) => {
+            evt.preventDefault();
+            evt.target[0].value = "";
+            console.log(evt.target[0].value);
+        });
+        console.log(`puedes acusar`);
+        setTimeout(() => {
+            showMessage(`El Jugador ${actualPlayer + 1} puede acusar:`);
+        }, 2000);
+        showAccBtn();
+        hideDiceBtn();
+        accusationDynamic();
+    } else {
+        hideDiceBtn();
+        setTimeout(() => {
+            setTimeout(() => {
+                showMessage(
+                    `No ingresaste a ninguna habitación, no puedes acusar.`
+                );
+            }, 100);
+            if (actualPlayer < playerNumber - 1) {
+                console.log("pasando al siguiente turno");
+                actualPlayer += 1;
+                console.log(`ActualPlayer es: ${actualPlayer}`);
+            } else {
+                console.log("reiniciando la ronda");
+                actualPlayer = 0;
+                console.log(`ActualPlayer es: ${actualPlayer}`);
+            }
+            turnDynamic(playerNumber);
+        }, 2000);
+    }
+
+    console.log(movingPlayer);
+    movingPlayer = undefined;
+    movement = undefined;
+    movingPlayerIndex = undefined;
+    movingPlayerRow = undefined;
+    possibleMovementRow = undefined;
+    possibleMovementCell = undefined;
+    materializedCell = undefined;
+    i = 0;
+    rowCounter = 0;
+    positioningInBoard = [undefined, undefined];
+    newCoordenates = [undefined, undefined];
+};
+
+const movingPlayerToCell = (
+    actualPlayer,
+    movingPlayerRow,
+    movingPlayerIndex,
+    actualTargetedCell
+) => {
+    console.log(
+        `El actualplayer que está llegando a movinPlayerToCell es ${actualPlayer}`
+    );
+    console.log(`Ejecutando moving player`);
+    pointedCell = actualTargetedCell;
+    let newRow, newIndex;
+    let y = 0;
+    let z = 0;
+    let newCell;
+    switch (actualPlayer) {
+        case 1:
+            console.log(`El jugador a mover es ${actualPlayer}`);
+            playerMovingPiece = document.querySelector(`#escarlata-ficha`);
+            positioningInBoard = [movingPlayerRow, movingPlayerIndex];
+            for (let cell of movementAbleCells) {
+                console.dir(cell);
+                if (cell.childNodes[0] === playerMovingPiece) {
+                    console.log(
+                        `Se encontró la ficha del jugador, y se quitó de su lugar`
+                    );
+                    cell.removeChild(playerMovingPiece);
+                }
+                cell.classList.remove(`movement-in-cell`);
+            }
+            for (let row of movementBoardTable.children) {
+                for (let cell of row.children) {
+                    if (cell === pointedCell) {
+                        newIndex = z;
+                        newRow = y;
+                    }
+                    if (z < 23) {
+                        z += 1;
+                    } else {
+                        z = 0;
+                    }
+                }
+                if (y < 24) {
+                    y += 1;
+                } else {
+                    y = 0;
+                }
+            }
+            if (
+                movementBoard[positioningInBoard[0]][positioningInBoard[1]] ===
+                1
+            ) {
+                movementBoard[positioningInBoard[0]][positioningInBoard[1]] = 0;
+            } else {
+                movementBoard[positioningInBoard[0]][positioningInBoard[1]] =
+                    +String(
+                        movementBoard[positioningInBoard[0]][
+                            positioningInBoard[1]
+                        ]
+                    ).slice(0, -1);
+            }
+            console.log(`La ficha del jugador se movió correctamente`);
+            console.log(
+                `El nuevo index de la ficha es ${newIndex} y la nueva row es ${newRow}`
+            );
+            if (movementBoard[newRow][newIndex] === 0) {
+                movementBoard[newRow][newIndex] = actualPlayer;
+            } else {
+                movementBoard[newRow][newIndex] = +(
+                    String(movementBoard[newRow][newIndex]) +
+                    String(actualPlayer)
+                );
+            }
+            newCoordenates = [newRow, newIndex];
+            newCell = movementBoard[newRow][newIndex];
+            pointedCell.appendChild(playerMovingPiece);
+            newRow = undefined;
+            newIndex = undefined;
+            y = 0;
+            z = 0;
+            playerMovingPiece = undefined;
+            enoughToAccuse(newCell, newCoordenates);
+            break;
+        case 2:
+            console.log(`=========== entrando en el case 2 ===========`);
+            console.log(
+                `=========== estamos recibiendo el index ${movingPlayerIndex} y el row ${movingPlayerRow} en el case 2 ===========`
+            );
+
+            console.log(`El jugador a mover es ${actualPlayer}`);
+            playerMovingPiece = document.querySelector(`#mostaza-ficha`);
+            positioningInBoard = [movingPlayerRow, movingPlayerIndex];
+            console.log(`=========== ${positioningInBoard} ===========`);
+            for (let cell of movementAbleCells) {
+                console.dir(cell);
+                if (cell.childNodes[0] === playerMovingPiece) {
+                    console.log(
+                        `Se encontró la ficha del jugador, y se quitó de su lugar`
+                    );
+                    cell.removeChild(playerMovingPiece);
+                }
+                cell.classList.remove(`movement-in-cell`);
+            }
+            for (let row of movementBoardTable.children) {
+                for (let cell of row.children) {
+                    if (cell === pointedCell) {
+                        newIndex = z;
+                        newRow = y;
+                    }
+                    if (z < 23) {
+                        z += 1;
+                    } else {
+                        z = 0;
+                    }
+                }
+                if (y < 24) {
+                    y += 1;
+                } else {
+                    y = 0;
+                }
+            }
+            console.log(
+                `=========== el valor del lugar de donde se mueve es ${
+                    movementBoard[positioningInBoard[0]][positioningInBoard[1]]
+                } ===========`
+            );
+            if (
+                movementBoard[positioningInBoard[0]][positioningInBoard[1]] ===
+                2
+            ) {
+                console.log(
+                    `=========== reiniciando valor de celda ===========`
+                );
+                movementBoard[positioningInBoard[0]][positioningInBoard[1]] = 0;
+            } else {
+                console.log(
+                    `=========== no se reinició valor de celda ===========`
+                );
+                movementBoard[positioningInBoard[0]][positioningInBoard[1]] =
+                    +String(
+                        movementBoard[positioningInBoard[0]][
+                            positioningInBoard[1]
+                        ]
+                    ).slice(0, -1);
+            }
+            console.log(`La ficha del jugador se movió correctamente`);
+            console.log(
+                `El nuevo index de la ficha es ${newIndex} y la nueva row es ${newRow}`
+            );
+            if (movementBoard[newRow][newIndex] === 0) {
+                movementBoard[newRow][newIndex] = actualPlayer;
+            } else {
+                movementBoard[newRow][newIndex] = +(
+                    String(movementBoard[newRow][newIndex]) +
+                    String(actualPlayer)
+                );
+            }
+            newCell = movementBoard[newRow][newIndex];
+            pointedCell.appendChild(playerMovingPiece);
+            newRow = undefined;
+            newIndex = undefined;
+            y = 0;
+            z = 0;
+            playerMovingPiece = undefined;
+            enoughToAccuse(newCell);
+            break;
+            break;
+        case 3:
+            break;
+        case 3:
+            break;
+        case 4:
+            break;
+        case 5:
+            break;
+    }
+};
+
+const isRoomDoor = () => {
+    console.log(`========= Ejecutando isRoomDoor =========`);
+    let antesala, sala;
+    for (let i = 0; i <= 17; i += 1) {
+        switch (i) {
+            case 0:
+                antesala = document.querySelector(`#cell-5g`);
+                sala = document.querySelector(`#cell-4g`);
+                if (!antesala.classList.contains(`movement-in-cell`)) {
+                    sala.classList.remove(`movement-in-cell`);
+                }
+                break;
+            case 1:
+                antesala = document.querySelector(`#cell-5i`);
+                sala = document.querySelector(`#cell-5j`);
+                if (!antesala.classList.contains(`movement-in-cell`)) {
+                    sala.classList.remove(`movement-in-cell`);
+                }
+                break;
+            case 2:
+                antesala = document.querySelector(`#cell-8l`);
+                sala = document.querySelector(`#cell-7l`);
+                if (!antesala.classList.contains(`movement-in-cell`)) {
+                    sala.classList.remove(`movement-in-cell`);
+                }
+                break;
+            case 3:
+                antesala = document.querySelector(`#cell-8m`);
+                sala = document.querySelector(`#cell-7m`);
+                if (!antesala.classList.contains(`movement-in-cell`)) {
+                    sala.classList.remove(`movement-in-cell`);
+                }
+                break;
+            case 4:
+                antesala = document.querySelector(`#cell-7r`);
+                sala = document.querySelector(`#cell-6r`);
+                if (!antesala.classList.contains(`movement-in-cell`)) {
+                    sala.classList.remove(`movement-in-cell`);
+                }
+                break;
+            case 5:
+                antesala = document.querySelector(`#cell-9h`);
+                sala = document.querySelector(`#cell-9g`);
+                if (!antesala.classList.contains(`movement-in-cell`)) {
+                    sala.classList.remove(`movement-in-cell`);
+                }
+                break;
+            case 6:
+                antesala = document.querySelector(`#cell-12d`);
+                sala = document.querySelector(`#cell-11d`);
+                if (!antesala.classList.contains(`movement-in-cell`)) {
+                    sala.classList.remove(`movement-in-cell`);
+                }
+                break;
+            case 7:
+                antesala = document.querySelector(`#cell-9r`);
+                sala = document.querySelector(`#cell-10r`);
+                if (!antesala.classList.contains(`movement-in-cell`)) {
+                    sala.classList.remove(`movement-in-cell`);
+                }
+                break;
+            case 8:
+                antesala = document.querySelector(`#cell-13p`);
+                sala = document.querySelector(`#cell-13q`);
+                if (!antesala.classList.contains(`movement-in-cell`)) {
+                    sala.classList.remove(`movement-in-cell`);
+                }
+                break;
+            case 9:
+                antesala = document.querySelector(`#cell-12b`);
+                sala = document.querySelector(`#cell-13b`);
+                if (!antesala.classList.contains(`movement-in-cell`)) {
+                    sala.classList.remove(`movement-in-cell`);
+                }
+                break;
+            case 10:
+                antesala = document.querySelector(`#cell-16g`);
+                sala = document.querySelector(`#cell-16f`);
+                if (!antesala.classList.contains(`movement-in-cell`)) {
+                    sala.classList.remove(`movement-in-cell`);
+                }
+                break;
+            case 11:
+                antesala = document.querySelector(`#cell-20f`);
+                sala = document.querySelector(`#cell-20e`);
+                if (!antesala.classList.contains(`movement-in-cell`)) {
+                    sala.classList.remove(`movement-in-cell`);
+                }
+                break;
+            case 12:
+                antesala = document.querySelector(`#cell-20h`);
+                sala = document.querySelector(`#cell-20i`);
+                if (!antesala.classList.contains(`movement-in-cell`)) {
+                    sala.classList.remove(`movement-in-cell`);
+                }
+                break;
+            case 13:
+                antesala = document.querySelector(`#cell-17j`);
+                sala = document.querySelector(`#cell-18j`);
+                if (!antesala.classList.contains(`movement-in-cell`)) {
+                    sala.classList.remove(`movement-in-cell`);
+                }
+                break;
+            case 14:
+                antesala = document.querySelector(`#cell-17o`);
+                sala = document.querySelector(`#cell-18o`);
+                if (!antesala.classList.contains(`movement-in-cell`)) {
+                    sala.classList.remove(`movement-in-cell`);
+                }
+                break;
+            case 15:
+                antesala = document.querySelector(`#cell-20q`);
+                sala = document.querySelector(`#cell-20p`);
+                if (!antesala.classList.contains(`movement-in-cell`)) {
+                    sala.classList.remove(`movement-in-cell`);
+                }
+                break;
+            case 16:
+                antesala = document.querySelector(`#cell-18t`);
+                sala = document.querySelector(`#cell-19t`);
+                if (!antesala.classList.contains(`movement-in-cell`)) {
+                    sala.classList.remove(`movement-in-cell`);
+                }
+                break;
+        }
+    }
+    console.log(`Total de puertas corregidas`);
+
+    /* if (rowCounter === 5 && i === 17) {
+        antesala = document.querySelector(`#cell-7r`);
+        sala = document.querySelector(`#cell-6r`);
+        if (antesala.classList.contains(`movement-in-cell`)) {
+            return false;
+        } else {
+            console.log(`La antesala no está pintada y nunca se va a pintar`);
+            return sala;
+        }
+    } else if (rowCounter === 4 && i === 6) {
+        antesala = document.querySelector(`#cell-5g`);
+        if (antesala.classList.contains(`movement-in-cell`)) {
+            return true;
+        } else {
+            return false;
+        }
+    } else {
+        return false;
+    } */
+};
+
+const isAbleCell = (cell) => {
+    if (
+        cell === 0 ||
+        cell === 8 ||
+        cell === 9 ||
+        cell === 10 ||
+        cell === 11 ||
+        cell === 12 ||
+        cell === 13 ||
+        cell === 14 ||
+        cell === 15 ||
+        cell === 16
+    ) {
+        return true;
+    }
+};
+
+const playerAccused = (player, cell) => {
+    if (
+        cell === +(String(8) + String(player)) ||
+        cell === +(String(9) + String(player)) ||
+        cell === +(String(10) + String(player)) ||
+        cell === +(String(11) + String(player)) ||
+        cell === +(String(12) + String(player)) ||
+        cell === +(String(13) + String(player)) ||
+        cell === +(String(14) + String(player)) ||
+        cell === +(String(15) + String(player)) ||
+        cell === +(String(16) + String(player))
+    ) {
+        return true;
+    } else {
+        return false;
+    }
+};
+
 const playerMovement = (diceNumber, actualPlayer) => {
     console.log(`ejecutando player movement`);
     /* console.log(actualPlayer);
     console.log(diceNumber); */
     movement = diceNumber;
-    let movingPlayerIndex;
-    let movingPlayerRow;
+    let sala;
     let possibleMovementRow;
     let possibleMovementCell;
     let materializedCell;
     let i = 0;
+    let limitedMovement;
     let rowCounter = 0;
-    let movingPlayer = actualPlayer + 1;
+    movingPlayer = actualPlayer + 1;
     /* console.log(movingPlayer); */
     for (let row of movementBoard) {
         /* console.log(row); */
@@ -821,63 +1269,199 @@ const playerMovement = (diceNumber, actualPlayer) => {
                         row
                     )}, celda ${movingPlayerIndex}`
                 );
+                console.log(
+                    `La ubicación del jugador es en fila ${movingPlayerRow}, celda ${movingPlayerIndex}`
+                );
                 possibleMovementCell = i;
                 possibleMovementRow = movementBoard.indexOf(row);
+                break;
+            } else if (playerAccused(movingPlayer, cell)) {
+                console.log(`El Jugador estaba acusando`);
+                movingPlayerIndex = row.indexOf(cell);
+                movingPlayerRow = movementBoard.indexOf(row);
+                console.log(
+                    `La ubicación del jugador es en fila ${movementBoard.indexOf(
+                        row
+                    )}, celda ${movingPlayerIndex}`
+                );
+                console.log(
+                    `La ubicación del jugador es en fila ${movingPlayerRow}, celda ${movingPlayerIndex}`
+                );
+                possibleMovementCell = i;
+                possibleMovementRow = movementBoard.indexOf(row);
+                break;
             }
-            /* console.log(`El valor del rowcounter es ${rowCounter}`);
-            console.log(`El valor del i es ${i}`);
-            console.log(
-                `El valor de la celda es ${movementBoard[rowCounter][i]}`
-            ); */
+            if (i < 23) {
+                i += 1;
+            } else {
+                i = 0;
+            }
+        }
+        if (rowCounter < 24) {
+            rowCounter += 1;
+        } else {
+            rowCounter = 0;
+        }
+    }
+    rowCounter = 0;
+    i = 0;
+    for (let row of movementBoard) {
+        for (let cell of row) {
             if (movementBoard[rowCounter][i] !== 7) {
                 /* console.log(rowCounter);
                 console.log(possibleMovementRow + movement); */
                 let cellDifference = Math.abs(i - movingPlayerIndex);
                 let rowDifference = Math.abs(rowCounter - movingPlayerRow);
-                if (
-                    rowCounter <= possibleMovementRow + movement &&
-                    (i <= possibleMovementCell + movement ||
-                        i <= possibleMovementCell - movement) &&
-                    cellDifference <= movement &&
-                    rowDifference <= movement
-                ) {
+                console.log(
+                    `El valor de la celda es ${movementBoard[rowCounter][i]}`
+                );
+                console.log(
+                    `El rowcounter es ${rowCounter} y el index es ${i}`
+                );
+                /* console.log(
+                    `isRoomDoor da : ${isRoomDoor(
+                        movementBoard,
+                        rowCounter,
+                        i
+                    )}`
+                ); */
+                if (isAbleCell(movementBoard[rowCounter][i])) {
                     if (
                         rowCounter === movingPlayerRow ||
                         i === movingPlayerIndex
                     ) {
                         console.log(
-                            `se encontraron los siguientes movimientos posibles`
+                            `Entró por estar en el mismo index o en el mismo row`
                         );
-                        materializedCell =
-                            movementBoardTable.children[rowCounter].children[i];
-                        console.log(materializedCell);
-                        if (materializedCell) {
-                            if (
-                                !materializedCell.classList.contains(`unable`)
-                            ) {
-                                materializedCell.classList.add(
-                                    `movement-in-cell`
+                        if (
+                            /* rowCounter <= possibleMovementRow + movement &&
+                        (i <= possibleMovementCell + movement ||
+                            i <= possibleMovementCell - movement) && */
+                            cellDifference <= movement &&
+                            rowDifference <= movement
+                        ) {
+                            console.log(
+                                `Entró por ser el valor ${movementBoard[rowCounter][i]}`
+                            );
+                            if (isAbleCell(movementBoard[rowCounter][i])) {
+                                console.log(
+                                    `se encontraron los siguientes movimientos posibles`
                                 );
+                                materializedCell =
+                                    movementBoardTable.children[rowCounter]
+                                        .children[i];
+                                console.log(materializedCell);
+                                if (materializedCell) {
+                                    if (
+                                        !materializedCell.classList.contains(
+                                            `unable`
+                                        )
+                                    ) {
+                                        materializedCell.classList.add(
+                                            `movement-in-cell`
+                                        );
+                                    }
+                                }
+                                /* correctMovements(movementBoard[rowCounter][i]); */
                             }
                         }
-                    } else {
+                    } else if (
+                        Math.abs(rowCounter - movingPlayerRow) === 1 ||
+                        Math.abs(i - movingPlayerIndex) === 1
+                    ) {
                         console.log(
-                            `se encontraron los siguientes movimientos posibles`
+                            `Entró por estar a 1  index o row de diferencia`
                         );
-                        materializedCell =
-                            movementBoardTable.children[rowCounter - 1]
-                                .children[i];
-                        console.log(materializedCell);
-                        if (materializedCell) {
-                            if (
-                                !materializedCell.classList.contains(`unable`)
-                            ) {
-                                materializedCell.classList.add(
-                                    `movement-in-cell`
+                        movement -= 1;
+                        console.log(
+                            `El movement es ${movement}; el cellDifference es ${cellDifference}; el rowDifference es ${rowDifference}.`
+                        );
+                        if (
+                            /* rowCounter <= possibleMovementRow + movement &&
+                        (i <= possibleMovementCell + movement ||
+                            i <= possibleMovementCell - movement) && */
+                            cellDifference <= movement &&
+                            rowDifference <= movement
+                        ) {
+                            console.log(
+                                `Entró por ser el valor ${movementBoard[rowCounter][i]}`
+                            );
+                            if (isAbleCell(movementBoard[rowCounter][i])) {
+                                console.log(
+                                    `se encontraron los siguientes movimientos posibles`
                                 );
+                                materializedCell =
+                                    movementBoardTable.children[rowCounter]
+                                        .children[i];
+                                console.log(materializedCell);
+                                if (materializedCell) {
+                                    if (
+                                        !materializedCell.classList.contains(
+                                            `unable`
+                                        )
+                                    ) {
+                                        materializedCell.classList.add(
+                                            `movement-in-cell`
+                                        );
+                                    }
+                                }
+                                /* correctMovements(movementBoard[rowCounter][i]); */
                             }
                         }
+                        movement += 1;
+                    } else if (
+                        Math.abs(rowCounter - movingPlayerRow) === 2 ||
+                        Math.abs(i - movingPlayerIndex) === 2
+                    ) {
+                        console.log(
+                            `Entró por estar a 2 index o row de diferencia`
+                        );
+                        movement -= 2;
+                        if (
+                            /* rowCounter <= possibleMovementRow + movement &&
+                        (i <= possibleMovementCell + movement ||
+                            i <= possibleMovementCell - movement) && */
+                            cellDifference <= movement &&
+                            rowDifference <= movement
+                        ) {
+                            console.log(
+                                `Entró por ser el valor ${movementBoard[rowCounter][i]}`
+                            );
+                            if (isAbleCell(movementBoard[rowCounter][i])) {
+                                console.log(
+                                    `se encontraron los siguientes movimientos posibles`
+                                );
+                                materializedCell =
+                                    movementBoardTable.children[rowCounter]
+                                        .children[i];
+                                console.log(materializedCell);
+                                if (materializedCell) {
+                                    if (
+                                        !materializedCell.classList.contains(
+                                            `unable`
+                                        )
+                                    ) {
+                                        materializedCell.classList.add(
+                                            `movement-in-cell`
+                                        );
+                                    }
+                                }
+                                /* correctMovements(movementBoard[rowCounter][i]); */
+                            }
+                        }
+                        movement += 2;
                     }
+                    /* sala = isRoomDoor(rowCounter, i);
+                    console.log(`La Sala es ${sala}`);
+                    console.dir(sala);
+                    if (sala) {
+                        console.log(
+                            `Como la antesala no está habilitada, se despinta la sala.`
+                        );
+                        sala.classList.remove(`movement-in-cell`);
+                    }
+                    sala = false; */
+                } else {
                 }
             }
             if (i < 23) {
@@ -892,10 +1476,39 @@ const playerMovement = (diceNumber, actualPlayer) => {
             rowCounter = 0;
         }
     }
+    isRoomDoor();
+    for (let cell of movementAbleCells) {
+        cell.addEventListener("click", (evt) => {
+            console.log(evt);
+            targetedCell = evt.path[0];
+            if (targetedCell.classList.contains(`movement-in-cell`)) {
+                console.log(
+                    `Le estoy pasando al a función para mover el index ${movingPlayerIndex} y el row ${movingPlayerRow}`
+                );
+                movingPlayerToCell(
+                    movingPlayer,
+                    movingPlayerRow,
+                    movingPlayerIndex,
+                    targetedCell
+                );
+            } else {
+                console.log(
+                    `El casillero seleccionado está fuera de su alcance`
+                );
+                for (let cell of movementAbleCells) {
+                    cell.addEventListener("click", (evt) => {
+                        console.log(evt);
+                        targetedCell = evt.path[0];
+                    });
+                }
+            }
+        });
+    }
 };
 
 // FUNCIÓN QUE DETERMINA SI EL MOVIMIENTO OBTENIDO ES SUFICIENTE PARA ACUSAR (En un futuro va a ser modificada, dado que lo que permite la oportunidad de acusar va a ser un evento desencadenado por la pieza ingresando a una habitación en el tablero)
-const enoughToAccuse = (diceNumber) => {
+// Función vieja para acusar con números de dados
+/* const enoughToAccuse = (diceNumber) => {
     console.log("ejecutando enoughToAccuse");
     if (diceNumber >= 5) {
         dialogInterface.addEventListener("submit", (evt) => {
@@ -928,7 +1541,7 @@ const enoughToAccuse = (diceNumber) => {
             turnDynamic(playerNumber);
         }, 2000);
     }
-};
+}; */
 
 // Función auxiliar que permite que al seleccionar las cartas de sospechoso, arma y lugar, vaya haciendo un checkmark y no se repitan en la tríada
 const isInTriad = () => {
@@ -947,6 +1560,18 @@ const isInTriad = () => {
         }
     }
 };
+
+/* const resetRoomMatrix = () => {
+    console.log(`Ejecutando reset room matrix`);
+    movementBoard[accusePosition[0]][accusePosition[1]] = +String(
+        movementBoard[accusePosition[0]][accusePosition[1]]
+    ).slice(0, -1);
+    console.log(movementBoard[accusePosition[0]][accusePosition[1]]);
+    console.log(`Accuse Position es:`);
+    console.dir(`${accusePosition}`);
+    accusePosition = [[], []];
+    console.log(`Se reinició Accuse Position ${accusePosition}`);
+}; */
 
 // FUNCIÓN QUE UNA VEZ CONFIRMADA LA ACUSACIÓN CHEQUEA SI CORRESPONDE DECLARAR UN GANADOR, O SI POR EL CONTRARIO, CORRESPONDE DAR CURSO AL SIGUIENTE TURNO
 const confirmAccusation = (evt) => {
@@ -981,6 +1606,7 @@ const confirmAccusation = (evt) => {
             console.log(`ActualPlayer es: ${actualPlayer}`);
         }
         accusationCloseBtn.click();
+        /* resetRoomMatrix(); */
         hideDiceBtn();
         hideAccBtn();
         resetAccusation();
