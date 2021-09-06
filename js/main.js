@@ -58,23 +58,123 @@ const movementBoard = [
     [7, 7, 7, 7, 7, 7, 7, 0, 7, 7, 7, 7, 7, 7, 7, 7, 1, 7, 7, 7, 7, 7, 7, 7],
     [7, 7, 7, 7, 7, 7, 7, 0, 0, 7, 7, 7, 7, 7, 7, 0, 0, 7, 7, 7, 7, 7, 7, 7],
     [7, 7, 7, 7, 7, 7, 7, 0, 0, 7, 7, 7, 7, 7, 7, 0, 0, 7, 7, 7, 7, 7, 7, 7],
-    [7, 7, 7, 7, 7, 7, 8, 0, 0, 7, 7, 7, 7, 7, 7, 0, 0, 7, 7, 7, 7, 7, 7, 7],
-    [7, 0, 0, 0, 0, 0, 0, 0, 0, 9, 7, 7, 7, 7, 7, 0, 0, 7, 7, 7, 7, 7, 7, 7],
-    [6, 0, 0, 0, 0, 0, 0, 0, 0, 7, 7, 7, 7, 7, 7, 0, 0, 10, 7, 7, 7, 7, 7, 7],
-    [7, 7, 7, 7, 7, 7, 0, 0, 0, 7, 7, 9, 9, 7, 7, 0, 0, 0, 0, 0, 0, 0, 0, 7],
+    [7, 7, 7, 7, 7, 7, [8], 0, 0, 7, 7, 7, 7, 7, 7, 0, 0, 7, 7, 7, 7, 7, 7, 7],
+    [7, 0, 0, 0, 0, 0, 0, 0, 0, [9], 7, 7, 7, 7, 7, 0, 0, 7, 7, 7, 7, 7, 7, 7],
+    [6, 0, 0, 0, 0, 0, 0, 0, 0, 7, 7, 7, 7, 7, 7, 0, 0, [10], 7, 7, 7, 7, 7, 7],
+    [
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        0,
+        0,
+        0,
+        7,
+        7,
+        [9],
+        [9],
+        7,
+        7,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        7,
+    ],
     [7, 7, 7, 7, 7, 7, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2],
-    [7, 7, 7, 7, 7, 7, 11, 0, 0, 7, 7, 7, 7, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7],
-    [7, 7, 7, 7, 7, 7, 7, 0, 0, 7, 7, 7, 7, 7, 0, 0, 7, 12, 7, 7, 7, 7, 7, 7],
-    [7, 7, 7, 11, 7, 7, 0, 0, 0, 7, 7, 7, 7, 7, 0, 0, 7, 7, 7, 7, 7, 7, 7, 7],
+    [7, 7, 7, 7, 7, 7, [11], 0, 0, 7, 7, 7, 7, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7],
+    [7, 7, 7, 7, 7, 7, 7, 0, 0, 7, 7, 7, 7, 7, 0, 0, 7, [12], 7, 7, 7, 7, 7, 7],
+    [7, 7, 7, [11], 7, 7, 0, 0, 0, 7, 7, 7, 7, 7, 0, 0, 7, 7, 7, 7, 7, 7, 7, 7],
     [7, 0, 0, 0, 0, 0, 0, 0, 0, 7, 7, 7, 7, 7, 0, 0, 7, 7, 7, 7, 7, 7, 7, 7],
-    [7, 13, 7, 7, 7, 7, 0, 0, 0, 7, 7, 7, 7, 7, 0, 0, 12, 7, 7, 7, 7, 7, 7, 7],
+    [
+        7,
+        [13],
+        7,
+        7,
+        7,
+        7,
+        0,
+        0,
+        0,
+        7,
+        7,
+        7,
+        7,
+        7,
+        0,
+        0,
+        [12],
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+    ],
     [7, 7, 7, 7, 7, 7, 0, 0, 0, 7, 7, 7, 7, 7, 0, 0, 7, 7, 7, 7, 7, 7, 7, 7],
     [7, 7, 7, 7, 7, 7, 0, 0, 0, 7, 7, 7, 7, 7, 0, 0, 7, 7, 7, 7, 7, 7, 7, 7],
-    [7, 7, 7, 7, 7, 13, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 7, 7, 7, 7],
+    [7, 7, 7, 7, 7, [13], 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 7, 7, 7, 7],
     [7, 7, 7, 7, 7, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7],
-    [7, 0, 0, 0, 0, 0, 0, 0, 7, 15, 7, 7, 7, 7, 15, 7, 0, 0, 0, 0, 0, 0, 0, 0],
-    [5, 0, 0, 0, 0, 0, 0, 0, 7, 7, 7, 7, 7, 7, 7, 7, 0, 0, 7, 16, 7, 7, 7, 7],
-    [7, 7, 7, 7, 14, 0, 0, 0, 15, 7, 7, 7, 7, 7, 7, 15, 0, 0, 7, 7, 7, 7, 7, 7],
+    [
+        7,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        7,
+        [15],
+        7,
+        7,
+        7,
+        7,
+        [15],
+        7,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+    ],
+    [5, 0, 0, 0, 0, 0, 0, 0, 7, 7, 7, 7, 7, 7, 7, 7, 0, 0, 7, [16], 7, 7, 7, 7],
+    [
+        7,
+        7,
+        7,
+        7,
+        [14],
+        0,
+        0,
+        0,
+        [15],
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        [15],
+        0,
+        0,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+    ],
     [7, 7, 7, 7, 7, 7, 0, 0, 7, 7, 7, 7, 7, 7, 7, 7, 0, 0, 7, 7, 7, 7, 7, 7],
     [7, 7, 7, 7, 7, 7, 0, 0, 7, 7, 7, 7, 7, 7, 7, 7, 0, 0, 7, 7, 7, 7, 7, 7],
     [7, 7, 7, 7, 7, 7, 0, 0, 7, 7, 7, 7, 7, 7, 7, 7, 0, 0, 7, 7, 7, 7, 7, 7],
@@ -928,29 +1028,46 @@ const movingPlayerToCell = (
                 }
             }
             if (
-                movementBoard[positioningInBoard[0]][positioningInBoard[1]] ===
-                1
+                typeof movementBoard[positioningInBoard[0]][
+                    positioningInBoard[1]
+                ] === "number"
             ) {
-                movementBoard[positioningInBoard[0]][positioningInBoard[1]] = 0;
+                if (
+                    movementBoard[positioningInBoard[0]][
+                        positioningInBoard[1]
+                    ] === actualPlayer
+                ) {
+                    movementBoard[positioningInBoard[0]][
+                        positioningInBoard[1]
+                    ] = 0;
+                }
             } else {
+                console.log(`Logueando el valor del casillero de destino`);
+                console.log(
+                    typeof movementBoard[positioningInBoard[0]][
+                        positioningInBoard[1]
+                    ]
+                );
+                console.log(
+                    movementBoard[positioningInBoard[0]][positioningInBoard[1]]
+                );
                 movementBoard[positioningInBoard[0]][positioningInBoard[1]] =
-                    +String(
-                        movementBoard[positioningInBoard[0]][
-                            positioningInBoard[1]
-                        ]
-                    ).slice(0, -1);
+                    movementBoard[positioningInBoard[0]][
+                        positioningInBoard[1]
+                    ].filter((value) => {
+                        return value !== actualPlayer;
+                    });
             }
             console.log(`La ficha del jugador se movió correctamente`);
             console.log(
                 `El nuevo index de la ficha es ${newIndex} y la nueva row es ${newRow}`
             );
-            if (movementBoard[newRow][newIndex] === 0) {
-                movementBoard[newRow][newIndex] = actualPlayer;
+            if (typeof movementBoard[newRow][newIndex] === "number") {
+                if (movementBoard[newRow][newIndex] === 0) {
+                    movementBoard[newRow][newIndex] = actualPlayer;
+                }
             } else {
-                movementBoard[newRow][newIndex] = +(
-                    String(movementBoard[newRow][newIndex]) +
-                    String(actualPlayer)
-                );
+                movementBoard[newRow][newIndex].push(actualPlayer);
             }
             newCoordenates = [newRow, newIndex];
             newCell = movementBoard[newRow][newIndex];
@@ -964,14 +1081,9 @@ const movingPlayerToCell = (
             break;
         case 2:
             console.log(`=========== entrando en el case 2 ===========`);
-            console.log(
-                `=========== estamos recibiendo el index ${movingPlayerIndex} y el row ${movingPlayerRow} en el case 2 ===========`
-            );
-
             console.log(`El jugador a mover es ${actualPlayer}`);
             playerMovingPiece = document.querySelector(`#mostaza-ficha`);
             positioningInBoard = [movingPlayerRow, movingPlayerIndex];
-            console.log(`=========== ${positioningInBoard} ===========`);
             for (let cell of movementAbleCells) {
                 console.dir(cell);
                 if (cell.childNodes[0] === playerMovingPiece) {
@@ -1000,42 +1112,49 @@ const movingPlayerToCell = (
                     y = 0;
                 }
             }
-            console.log(
-                `=========== el valor del lugar de donde se mueve es ${
-                    movementBoard[positioningInBoard[0]][positioningInBoard[1]]
-                } ===========`
-            );
             if (
-                movementBoard[positioningInBoard[0]][positioningInBoard[1]] ===
-                2
+                typeof movementBoard[positioningInBoard[0]][
+                    positioningInBoard[1]
+                ] === "number"
             ) {
-                console.log(
-                    `=========== reiniciando valor de celda ===========`
-                );
-                movementBoard[positioningInBoard[0]][positioningInBoard[1]] = 0;
+                if (
+                    movementBoard[positioningInBoard[0]][
+                        positioningInBoard[1]
+                    ] === actualPlayer
+                ) {
+                    movementBoard[positioningInBoard[0]][
+                        positioningInBoard[1]
+                    ] = 0;
+                }
             } else {
+                console.log(`Logueando el valor del casillero de destino`);
                 console.log(
-                    `=========== no se reinició valor de celda ===========`
+                    typeof movementBoard[positioningInBoard[0]][
+                        positioningInBoard[1]
+                    ]
+                );
+                console.log(
+                    movementBoard[positioningInBoard[0]][positioningInBoard[1]]
                 );
                 movementBoard[positioningInBoard[0]][positioningInBoard[1]] =
-                    +String(
-                        movementBoard[positioningInBoard[0]][
-                            positioningInBoard[1]
-                        ]
-                    ).slice(0, -1);
+                    movementBoard[positioningInBoard[0]][
+                        positioningInBoard[1]
+                    ].filter((value) => {
+                        return value !== actualPlayer;
+                    });
             }
             console.log(`La ficha del jugador se movió correctamente`);
             console.log(
                 `El nuevo index de la ficha es ${newIndex} y la nueva row es ${newRow}`
             );
-            if (movementBoard[newRow][newIndex] === 0) {
-                movementBoard[newRow][newIndex] = actualPlayer;
+            if (typeof movementBoard[newRow][newIndex] === "number") {
+                if (movementBoard[newRow][newIndex] === 0) {
+                    movementBoard[newRow][newIndex] = actualPlayer;
+                }
             } else {
-                movementBoard[newRow][newIndex] = +(
-                    String(movementBoard[newRow][newIndex]) +
-                    String(actualPlayer)
-                );
+                movementBoard[newRow][newIndex].push(actualPlayer);
             }
+            newCoordenates = [newRow, newIndex];
             newCell = movementBoard[newRow][newIndex];
             pointedCell.appendChild(playerMovingPiece);
             newRow = undefined;
@@ -1043,16 +1162,347 @@ const movingPlayerToCell = (
             y = 0;
             z = 0;
             playerMovingPiece = undefined;
-            enoughToAccuse(newCell);
-            break;
-            break;
-        case 3:
+            enoughToAccuse(newCell, newCoordenates);
             break;
         case 3:
+            console.log(`=========== entrando en el case 3 ===========`);
+            console.log(`El jugador a mover es ${actualPlayer}`);
+            playerMovingPiece = document.querySelector(`#blanco-ficha`);
+            positioningInBoard = [movingPlayerRow, movingPlayerIndex];
+            for (let cell of movementAbleCells) {
+                console.dir(cell);
+                if (cell.childNodes[0] === playerMovingPiece) {
+                    console.log(
+                        `Se encontró la ficha del jugador, y se quitó de su lugar`
+                    );
+                    cell.removeChild(playerMovingPiece);
+                }
+                cell.classList.remove(`movement-in-cell`);
+            }
+            for (let row of movementBoardTable.children) {
+                for (let cell of row.children) {
+                    if (cell === pointedCell) {
+                        newIndex = z;
+                        newRow = y;
+                    }
+                    if (z < 23) {
+                        z += 1;
+                    } else {
+                        z = 0;
+                    }
+                }
+                if (y < 24) {
+                    y += 1;
+                } else {
+                    y = 0;
+                }
+            }
+            if (
+                typeof movementBoard[positioningInBoard[0]][
+                    positioningInBoard[1]
+                ] === "number"
+            ) {
+                if (
+                    movementBoard[positioningInBoard[0]][
+                        positioningInBoard[1]
+                    ] === actualPlayer
+                ) {
+                    movementBoard[positioningInBoard[0]][
+                        positioningInBoard[1]
+                    ] = 0;
+                }
+            } else {
+                console.log(`Logueando el valor del casillero de destino`);
+                console.log(
+                    typeof movementBoard[positioningInBoard[0]][
+                        positioningInBoard[1]
+                    ]
+                );
+                console.log(
+                    movementBoard[positioningInBoard[0]][positioningInBoard[1]]
+                );
+                movementBoard[positioningInBoard[0]][positioningInBoard[1]] =
+                    movementBoard[positioningInBoard[0]][
+                        positioningInBoard[1]
+                    ].filter((value) => {
+                        return value !== actualPlayer;
+                    });
+            }
+            console.log(`La ficha del jugador se movió correctamente`);
+            console.log(
+                `El nuevo index de la ficha es ${newIndex} y la nueva row es ${newRow}`
+            );
+            if (typeof movementBoard[newRow][newIndex] === "number") {
+                if (movementBoard[newRow][newIndex] === 0) {
+                    movementBoard[newRow][newIndex] = actualPlayer;
+                }
+            } else {
+                movementBoard[newRow][newIndex].push(actualPlayer);
+            }
+            newCoordenates = [newRow, newIndex];
+            newCell = movementBoard[newRow][newIndex];
+            pointedCell.appendChild(playerMovingPiece);
+            newRow = undefined;
+            newIndex = undefined;
+            y = 0;
+            z = 0;
+            playerMovingPiece = undefined;
+            enoughToAccuse(newCell, newCoordenates);
             break;
         case 4:
+            console.log(`=========== entrando en el case 4 ===========`);
+            console.log(`El jugador a mover es ${actualPlayer}`);
+            playerMovingPiece = document.querySelector(`#verdi-ficha`);
+            positioningInBoard = [movingPlayerRow, movingPlayerIndex];
+            for (let cell of movementAbleCells) {
+                console.dir(cell);
+                if (cell.childNodes[0] === playerMovingPiece) {
+                    console.log(
+                        `Se encontró la ficha del jugador, y se quitó de su lugar`
+                    );
+                    cell.removeChild(playerMovingPiece);
+                }
+                cell.classList.remove(`movement-in-cell`);
+            }
+            for (let row of movementBoardTable.children) {
+                for (let cell of row.children) {
+                    if (cell === pointedCell) {
+                        newIndex = z;
+                        newRow = y;
+                    }
+                    if (z < 23) {
+                        z += 1;
+                    } else {
+                        z = 0;
+                    }
+                }
+                if (y < 24) {
+                    y += 1;
+                } else {
+                    y = 0;
+                }
+            }
+            if (
+                typeof movementBoard[positioningInBoard[0]][
+                    positioningInBoard[1]
+                ] === "number"
+            ) {
+                if (
+                    movementBoard[positioningInBoard[0]][
+                        positioningInBoard[1]
+                    ] === actualPlayer
+                ) {
+                    movementBoard[positioningInBoard[0]][
+                        positioningInBoard[1]
+                    ] = 0;
+                }
+            } else {
+                console.log(`Logueando el valor del casillero de destino`);
+                console.log(
+                    typeof movementBoard[positioningInBoard[0]][
+                        positioningInBoard[1]
+                    ]
+                );
+                console.log(
+                    movementBoard[positioningInBoard[0]][positioningInBoard[1]]
+                );
+                movementBoard[positioningInBoard[0]][positioningInBoard[1]] =
+                    movementBoard[positioningInBoard[0]][
+                        positioningInBoard[1]
+                    ].filter((value) => {
+                        return value !== actualPlayer;
+                    });
+            }
+            console.log(`La ficha del jugador se movió correctamente`);
+            console.log(
+                `El nuevo index de la ficha es ${newIndex} y la nueva row es ${newRow}`
+            );
+            if (typeof movementBoard[newRow][newIndex] === "number") {
+                if (movementBoard[newRow][newIndex] === 0) {
+                    movementBoard[newRow][newIndex] = actualPlayer;
+                }
+            } else {
+                movementBoard[newRow][newIndex].push(actualPlayer);
+            }
+            newCoordenates = [newRow, newIndex];
+            newCell = movementBoard[newRow][newIndex];
+            pointedCell.appendChild(playerMovingPiece);
+            newRow = undefined;
+            newIndex = undefined;
+            y = 0;
+            z = 0;
+            playerMovingPiece = undefined;
+            enoughToAccuse(newCell, newCoordenates);
             break;
         case 5:
+            console.log(`=========== entrando en el case 5 ===========`);
+            console.log(`El jugador a mover es ${actualPlayer}`);
+            playerMovingPiece = document.querySelector(`#azulino-ficha`);
+            positioningInBoard = [movingPlayerRow, movingPlayerIndex];
+            for (let cell of movementAbleCells) {
+                console.dir(cell);
+                if (cell.childNodes[0] === playerMovingPiece) {
+                    console.log(
+                        `Se encontró la ficha del jugador, y se quitó de su lugar`
+                    );
+                    cell.removeChild(playerMovingPiece);
+                }
+                cell.classList.remove(`movement-in-cell`);
+            }
+            for (let row of movementBoardTable.children) {
+                for (let cell of row.children) {
+                    if (cell === pointedCell) {
+                        newIndex = z;
+                        newRow = y;
+                    }
+                    if (z < 23) {
+                        z += 1;
+                    } else {
+                        z = 0;
+                    }
+                }
+                if (y < 24) {
+                    y += 1;
+                } else {
+                    y = 0;
+                }
+            }
+            if (
+                typeof movementBoard[positioningInBoard[0]][
+                    positioningInBoard[1]
+                ] === "number"
+            ) {
+                if (
+                    movementBoard[positioningInBoard[0]][
+                        positioningInBoard[1]
+                    ] === actualPlayer
+                ) {
+                    movementBoard[positioningInBoard[0]][
+                        positioningInBoard[1]
+                    ] = 0;
+                }
+            } else {
+                console.log(`Logueando el valor del casillero de destino`);
+                console.log(
+                    typeof movementBoard[positioningInBoard[0]][
+                        positioningInBoard[1]
+                    ]
+                );
+                console.log(
+                    movementBoard[positioningInBoard[0]][positioningInBoard[1]]
+                );
+                movementBoard[positioningInBoard[0]][positioningInBoard[1]] =
+                    movementBoard[positioningInBoard[0]][
+                        positioningInBoard[1]
+                    ].filter((value) => {
+                        return value !== actualPlayer;
+                    });
+            }
+            console.log(`La ficha del jugador se movió correctamente`);
+            console.log(
+                `El nuevo index de la ficha es ${newIndex} y la nueva row es ${newRow}`
+            );
+            if (typeof movementBoard[newRow][newIndex] === "number") {
+                if (movementBoard[newRow][newIndex] === 0) {
+                    movementBoard[newRow][newIndex] = actualPlayer;
+                }
+            } else {
+                movementBoard[newRow][newIndex].push(actualPlayer);
+            }
+            newCoordenates = [newRow, newIndex];
+            newCell = movementBoard[newRow][newIndex];
+            pointedCell.appendChild(playerMovingPiece);
+            newRow = undefined;
+            newIndex = undefined;
+            y = 0;
+            z = 0;
+            playerMovingPiece = undefined;
+            enoughToAccuse(newCell, newCoordenates);
+            break;
+        case 6:
+            console.log(`=========== entrando en el case 6 ===========`);
+            console.log(`El jugador a mover es ${actualPlayer}`);
+            playerMovingPiece = document.querySelector(`#moradillo-ficha`);
+            positioningInBoard = [movingPlayerRow, movingPlayerIndex];
+            for (let cell of movementAbleCells) {
+                console.dir(cell);
+                if (cell.childNodes[0] === playerMovingPiece) {
+                    console.log(
+                        `Se encontró la ficha del jugador, y se quitó de su lugar`
+                    );
+                    cell.removeChild(playerMovingPiece);
+                }
+                cell.classList.remove(`movement-in-cell`);
+            }
+            for (let row of movementBoardTable.children) {
+                for (let cell of row.children) {
+                    if (cell === pointedCell) {
+                        newIndex = z;
+                        newRow = y;
+                    }
+                    if (z < 23) {
+                        z += 1;
+                    } else {
+                        z = 0;
+                    }
+                }
+                if (y < 24) {
+                    y += 1;
+                } else {
+                    y = 0;
+                }
+            }
+            if (
+                typeof movementBoard[positioningInBoard[0]][
+                    positioningInBoard[1]
+                ] === "number"
+            ) {
+                if (
+                    movementBoard[positioningInBoard[0]][
+                        positioningInBoard[1]
+                    ] === actualPlayer
+                ) {
+                    movementBoard[positioningInBoard[0]][
+                        positioningInBoard[1]
+                    ] = 0;
+                }
+            } else {
+                console.log(`Logueando el valor del casillero de destino`);
+                console.log(
+                    typeof movementBoard[positioningInBoard[0]][
+                        positioningInBoard[1]
+                    ]
+                );
+                console.log(
+                    movementBoard[positioningInBoard[0]][positioningInBoard[1]]
+                );
+                movementBoard[positioningInBoard[0]][positioningInBoard[1]] =
+                    movementBoard[positioningInBoard[0]][
+                        positioningInBoard[1]
+                    ].filter((value) => {
+                        return value !== actualPlayer;
+                    });
+            }
+            console.log(`La ficha del jugador se movió correctamente`);
+            console.log(
+                `El nuevo index de la ficha es ${newIndex} y la nueva row es ${newRow}`
+            );
+            if (typeof movementBoard[newRow][newIndex] === "number") {
+                if (movementBoard[newRow][newIndex] === 0) {
+                    movementBoard[newRow][newIndex] = actualPlayer;
+                }
+            } else {
+                movementBoard[newRow][newIndex].push(actualPlayer);
+            }
+            newCoordenates = [newRow, newIndex];
+            newCell = movementBoard[newRow][newIndex];
+            pointedCell.appendChild(playerMovingPiece);
+            newRow = undefined;
+            newIndex = undefined;
+            y = 0;
+            z = 0;
+            playerMovingPiece = undefined;
+            enoughToAccuse(newCell, newCoordenates);
             break;
     }
 };
@@ -1207,19 +1657,39 @@ const isRoomDoor = () => {
 };
 
 const isAbleCell = (cell) => {
-    if (
-        cell === 0 ||
-        cell === 8 ||
-        cell === 9 ||
-        cell === 10 ||
-        cell === 11 ||
-        cell === 12 ||
-        cell === 13 ||
-        cell === 14 ||
-        cell === 15 ||
-        cell === 16
-    ) {
-        return true;
+    if (typeof cell === "number") {
+        if (
+            cell === 0 ||
+            cell === 8 ||
+            cell === 9 ||
+            cell === 10 ||
+            cell === 11 ||
+            cell === 12 ||
+            cell === 13 ||
+            cell === 14 ||
+            cell === 15 ||
+            cell === 16
+        ) {
+            console.log(`La validación is ablecell dio positiva`);
+            return true;
+        }
+    } else {
+        if (
+            +cell[0] === 0 ||
+            +cell[0] === 8 ||
+            +cell[0] === 9 ||
+            +cell[0] === 10 ||
+            +cell[0] === 11 ||
+            +cell[0] === 12 ||
+            +cell[0] === 13 ||
+            +cell[0] === 14 ||
+            +cell[0] === 15 ||
+            +cell[0] === 16
+        ) {
+            console.log(`Se parseó ${+cell} a ${typeof +cell}`);
+            console.log(`La validación is ablecell dio positiva`);
+            return true;
+        }
     }
 };
 
@@ -1258,45 +1728,84 @@ const playerMovement = (diceNumber, actualPlayer) => {
     for (let row of movementBoard) {
         /* console.log(row); */
         for (let cell of row) {
-            /* console.log(cell);
-            console.log(`Analizando el index ${i} del array ${row}`);
-            console.log(movementBoard[movementBoard.indexOf(row)][i]); */
-            if (movingPlayer === cell) {
-                movingPlayerIndex = row.indexOf(cell);
-                movingPlayerRow = movementBoard.indexOf(row);
-                console.log(
-                    `La ubicación del jugador es en fila ${movementBoard.indexOf(
-                        row
-                    )}, celda ${movingPlayerIndex}`
-                );
-                console.log(
-                    `La ubicación del jugador es en fila ${movingPlayerRow}, celda ${movingPlayerIndex}`
-                );
-                possibleMovementCell = i;
-                possibleMovementRow = movementBoard.indexOf(row);
-                break;
-            } else if (playerAccused(movingPlayer, cell)) {
-                console.log(`El Jugador estaba acusando`);
-                movingPlayerIndex = row.indexOf(cell);
-                movingPlayerRow = movementBoard.indexOf(row);
-                console.log(
-                    `La ubicación del jugador es en fila ${movementBoard.indexOf(
-                        row
-                    )}, celda ${movingPlayerIndex}`
-                );
-                console.log(
-                    `La ubicación del jugador es en fila ${movingPlayerRow}, celda ${movingPlayerIndex}`
-                );
-                possibleMovementCell = i;
-                possibleMovementRow = movementBoard.indexOf(row);
-                break;
-            }
-            if (i < 23) {
-                i += 1;
+            /* console.log(`Chequeando ${cell}`);
+            console.log(`${typeof cell}`); */
+            if (typeof cell === "number") {
+                /* console.log(`Entró acá`); */
+                if (movingPlayer === cell) {
+                    movingPlayerIndex = row.indexOf(cell);
+                    movingPlayerRow = movementBoard.indexOf(row);
+                    console.log(
+                        `La ubicación del jugador es en fila ${movementBoard.indexOf(
+                            row
+                        )}, celda ${movingPlayerIndex}`
+                    );
+                    console.log(
+                        `La ubicación del jugador es en fila ${movingPlayerRow}, celda ${movingPlayerIndex}`
+                    );
+                    possibleMovementCell = i;
+                    possibleMovementRow = movementBoard.indexOf(row);
+                    break;
+                } /* else if (playerAccused(movingPlayer, cell)) {
+                    console.log(`El Jugador estaba acusando`);
+                    movingPlayerIndex = row.indexOf(cell);
+                    movingPlayerRow = movementBoard.indexOf(row);
+                    console.log(
+                        `La ubicación del jugador es en fila ${movementBoard.indexOf(
+                            row
+                        )}, celda ${movingPlayerIndex}`
+                    );
+                    console.log(
+                        `La ubicación del jugador es en fila ${movingPlayerRow}, celda ${movingPlayerIndex}`
+                    );
+                    possibleMovementCell = i;
+                    possibleMovementRow = movementBoard.indexOf(row);
+                    break;
+                } */
+                if (i < 23) {
+                    i += 1;
+                } else {
+                    i = 0;
+                }
             } else {
-                i = 0;
+                if (cell.includes(movingPlayer)) {
+                    movingPlayerIndex = row.indexOf(cell);
+                    movingPlayerRow = movementBoard.indexOf(row);
+                    console.log(
+                        `La ubicación del jugador es en fila ${movementBoard.indexOf(
+                            row
+                        )}, celda ${movingPlayerIndex}`
+                    );
+                    console.log(
+                        `La ubicación del jugador es en fila ${movingPlayerRow}, celda ${movingPlayerIndex}`
+                    );
+                    possibleMovementCell = i;
+                    possibleMovementRow = movementBoard.indexOf(row);
+                    break;
+                } /* else if (playerAccused(movingPlayer, cell)) {
+                    console.log(`El Jugador estaba acusando`);
+                    movingPlayerIndex = row.indexOf(cell);
+                    movingPlayerRow = movementBoard.indexOf(row);
+                    console.log(
+                        `La ubicación del jugador es en fila ${movementBoard.indexOf(
+                            row
+                        )}, celda ${movingPlayerIndex}`
+                    );
+                    console.log(
+                        `La ubicación del jugador es en fila ${movingPlayerRow}, celda ${movingPlayerIndex}`
+                    );
+                    possibleMovementCell = i;
+                    possibleMovementRow = movementBoard.indexOf(row);
+                    break;
+                } */
+                if (i < 23) {
+                    i += 1;
+                } else {
+                    i = 0;
+                }
             }
         }
+
         if (rowCounter < 24) {
             rowCounter += 1;
         } else {
@@ -1314,6 +1823,11 @@ const playerMovement = (diceNumber, actualPlayer) => {
                 let rowDifference = Math.abs(rowCounter - movingPlayerRow);
                 console.log(
                     `El valor de la celda es ${movementBoard[rowCounter][i]}`
+                );
+                console.log(
+                    `El typeof de la celda es ${typeof movementBoard[
+                        rowCounter
+                    ][i]}`
                 );
                 console.log(
                     `El rowcounter es ${rowCounter} y el index es ${i}`
@@ -1745,7 +2259,7 @@ const greyscaleCards = (jugador) => {
                     /* console.log(card);
                     console.log(`./${card}`); */
                     for (let screenCard of accusationTotalCards) {
-                        console.log(counter);
+                        /* console.log(counter); */
                         if (
                             accusationTotalCards[counter].childNodes[0]
                                 .attributes[0].value === `./${card}`
