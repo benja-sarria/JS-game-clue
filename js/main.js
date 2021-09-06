@@ -28,6 +28,8 @@ let playerMovingPiece, positioningInBoard, targetedCell;
 let accusePosition;
 let newCoordenates;
 
+let activePlayerPiece;
+
 const totalPlayers = [];
 
 const manosClasificadas = [];
@@ -259,6 +261,14 @@ const baileDoor3 = document.querySelector(`#cell-18o`);
 const baileDoor4 = document.querySelector(`#cell-20p`);
 const invernaderoDoor = document.querySelector(`#cell-20e`);
 const cocinaDoor = document.querySelector(`#cell-19t`);
+
+// FICHAS DE JUGADORES
+const fichaJugadorEscarlata = document.querySelector(`#escarlata-ficha`);
+const fichaJugadorMostaza = document.querySelector(`#mostaza-ficha`);
+const fichaJugadorBlanco = document.querySelector(`#blanco-ficha`);
+const fichaJugadorVerdi = document.querySelector(`#verdi-ficha`);
+const fichaJugadorAzulino = document.querySelector(`#azulino-ficha`);
+const fichaJugadorMoradillo = document.querySelector(`#moradillo-ficha`);
 
 // AJUSTE DEL CÓDIGO DEL NAVBAR PARA QUE SE VEA EL HAMBURGUER MENU
 const navBarToggler = (e) => {
@@ -522,6 +532,7 @@ const turnDynamic = (playerNumber) => {
                 } else {
                     console.log(`Playerhand 1 ya fue creada`);
                 }
+                activePlayerPiece = fichaJugadorEscarlata;
                 personalizePlayerOffcanvas(actualPlayer);
                 printCards(actualPlayer);
                 greyscaleCards(actualPlayer);
@@ -540,6 +551,7 @@ const turnDynamic = (playerNumber) => {
                 } else {
                     console.log(`Playerhand 1 ya fue creada`);
                 }
+                activePlayerPiece = fichaJugadorMostaza;
                 personalizePlayerOffcanvas(actualPlayer);
                 printCards(actualPlayer);
                 greyscaleCards(actualPlayer);
@@ -570,6 +582,7 @@ const turnDynamic = (playerNumber) => {
                 } else {
                     console.log(`Playerhand 1 ya fue creada`);
                 }
+                activePlayerPiece = fichaJugadorEscarlata;
                 personalizePlayerOffcanvas(actualPlayer);
                 printCards(actualPlayer);
                 greyscaleCards(actualPlayer);
@@ -588,6 +601,7 @@ const turnDynamic = (playerNumber) => {
                 } else {
                     console.log(`Playerhand 2 ya fue creada`);
                 }
+                activePlayerPiece = fichaJugadorMostaza;
                 personalizePlayerOffcanvas(actualPlayer);
                 printCards(actualPlayer);
                 greyscaleCards(actualPlayer);
@@ -606,6 +620,7 @@ const turnDynamic = (playerNumber) => {
                 } else {
                     console.log(`Playerhand 3 ya fue creada`);
                 }
+                activePlayerPiece = fichaJugadorBlanco;
                 personalizePlayerOffcanvas(actualPlayer);
                 printCards(actualPlayer);
                 greyscaleCards(actualPlayer);
@@ -635,6 +650,7 @@ const turnDynamic = (playerNumber) => {
                 } else {
                     console.log(`Playerhand 1 ya fue creada`);
                 }
+                activePlayerPiece = fichaJugadorEscarlata;
                 personalizePlayerOffcanvas(actualPlayer);
                 printCards(actualPlayer);
                 greyscaleCards(actualPlayer);
@@ -653,6 +669,7 @@ const turnDynamic = (playerNumber) => {
                 } else {
                     console.log(`Playerhand 2 ya fue creada`);
                 }
+                activePlayerPiece = fichaJugadorMostaza;
                 personalizePlayerOffcanvas(actualPlayer);
                 printCards(actualPlayer);
                 greyscaleCards(actualPlayer);
@@ -671,6 +688,7 @@ const turnDynamic = (playerNumber) => {
                 } else {
                     console.log(`Playerhand 3 ya fue creada`);
                 }
+                activePlayerPiece = fichaJugadorBlanco;
                 personalizePlayerOffcanvas(actualPlayer);
                 printCards(actualPlayer);
                 greyscaleCards(actualPlayer);
@@ -689,6 +707,7 @@ const turnDynamic = (playerNumber) => {
                 } else {
                     console.log(`Playerhand 4 ya fue creada`);
                 }
+                activePlayerPiece = fichaJugadorVerdi;
                 personalizePlayerOffcanvas(actualPlayer);
                 printCards(actualPlayer);
                 greyscaleCards(actualPlayer);
@@ -718,6 +737,7 @@ const turnDynamic = (playerNumber) => {
                 } else {
                     console.log(`Playerhand 1 ya fue creada`);
                 }
+                activePlayerPiece = fichaJugadorEscarlata;
                 personalizePlayerOffcanvas(actualPlayer);
                 printCards(actualPlayer);
                 greyscaleCards(actualPlayer);
@@ -736,6 +756,7 @@ const turnDynamic = (playerNumber) => {
                 } else {
                     console.log(`Playerhand 2 ya fue creada`);
                 }
+                activePlayerPiece = fichaJugadorMostaza;
                 personalizePlayerOffcanvas(actualPlayer);
                 printCards(actualPlayer);
                 greyscaleCards(actualPlayer);
@@ -754,6 +775,7 @@ const turnDynamic = (playerNumber) => {
                 } else {
                     console.log(`Playerhand 3 ya fue creada`);
                 }
+                activePlayerPiece = fichaJugadorBlanco;
                 personalizePlayerOffcanvas(actualPlayer);
                 printCards(actualPlayer);
                 greyscaleCards(actualPlayer);
@@ -772,6 +794,7 @@ const turnDynamic = (playerNumber) => {
                 } else {
                     console.log(`Playerhand 4 ya fue creada`);
                 }
+                activePlayerPiece = fichaJugadorVerdi;
                 personalizePlayerOffcanvas(actualPlayer);
                 printCards(actualPlayer);
                 greyscaleCards(actualPlayer);
@@ -790,6 +813,7 @@ const turnDynamic = (playerNumber) => {
                 } else {
                     console.log(`Playerhand 5 ya fue creada`);
                 }
+                activePlayerPiece = fichaJugadorAzulino;
                 personalizePlayerOffcanvas(actualPlayer);
                 printCards(actualPlayer);
                 greyscaleCards(actualPlayer);
@@ -819,6 +843,7 @@ const turnDynamic = (playerNumber) => {
                 } else {
                     console.log(`Playerhand 1 ya fue creada`);
                 }
+                activePlayerPiece = fichaJugadorEscarlata;
                 personalizePlayerOffcanvas(actualPlayer);
                 printCards(actualPlayer);
                 greyscaleCards(actualPlayer);
@@ -837,6 +862,7 @@ const turnDynamic = (playerNumber) => {
                 } else {
                     console.log(`Playerhand 2 ya fue creada`);
                 }
+                activePlayerPiece = fichaJugadorMostaza;
                 personalizePlayerOffcanvas(actualPlayer);
                 printCards(actualPlayer);
                 greyscaleCards(actualPlayer);
@@ -855,6 +881,7 @@ const turnDynamic = (playerNumber) => {
                 } else {
                     console.log(`Playerhand 3 ya fue creada`);
                 }
+                activePlayerPiece = fichaJugadorBlanco;
                 personalizePlayerOffcanvas(actualPlayer);
                 printCards(actualPlayer);
                 greyscaleCards(actualPlayer);
@@ -873,6 +900,7 @@ const turnDynamic = (playerNumber) => {
                 } else {
                     console.log(`Playerhand 4 ya fue creada`);
                 }
+                activePlayerPiece = fichaJugadorVerdi;
                 personalizePlayerOffcanvas(actualPlayer);
                 printCards(actualPlayer);
                 greyscaleCards(actualPlayer);
@@ -891,6 +919,7 @@ const turnDynamic = (playerNumber) => {
                 } else {
                     console.log(`Playerhand 5 ya fue creada`);
                 }
+                activePlayerPiece = fichaJugadorAzulino;
                 personalizePlayerOffcanvas(actualPlayer);
                 printCards(actualPlayer);
                 greyscaleCards(actualPlayer);
@@ -909,6 +938,7 @@ const turnDynamic = (playerNumber) => {
                 } else {
                     console.log(`Playerhand 6 ya fue creada`);
                 }
+                activePlayerPiece = fichaJugadorMoradillo;
                 personalizePlayerOffcanvas(actualPlayer);
                 printCards(actualPlayer);
                 greyscaleCards(actualPlayer);
@@ -977,6 +1007,7 @@ const enoughToAccuse = (newCell, position) => {
     rowCounter = 0;
     positioningInBoard = [undefined, undefined];
     newCoordenates = [undefined, undefined];
+    activePlayerPiece = undefined;
 };
 
 const movingPlayerToCell = (
@@ -1510,124 +1541,177 @@ const movingPlayerToCell = (
 const isRoomDoor = () => {
     console.log(`========= Ejecutando isRoomDoor =========`);
     let antesala, sala;
+    console.log(`El jugador que se está evaluando en isRoomDoor es:`);
+    console.log(activePlayerPiece);
     for (let i = 0; i <= 17; i += 1) {
         switch (i) {
             case 0:
                 antesala = document.querySelector(`#cell-5g`);
                 sala = document.querySelector(`#cell-4g`);
-                if (!antesala.classList.contains(`movement-in-cell`)) {
+                if (
+                    !antesala.classList.contains(`movement-in-cell`) &&
+                    antesala.childNodes[0] !== activePlayerPiece
+                ) {
                     sala.classList.remove(`movement-in-cell`);
                 }
                 break;
             case 1:
                 antesala = document.querySelector(`#cell-5i`);
                 sala = document.querySelector(`#cell-5j`);
-                if (!antesala.classList.contains(`movement-in-cell`)) {
+                if (
+                    !antesala.classList.contains(`movement-in-cell`) &&
+                    antesala.childNodes[0] !== activePlayerPiece
+                ) {
                     sala.classList.remove(`movement-in-cell`);
                 }
                 break;
             case 2:
                 antesala = document.querySelector(`#cell-8l`);
                 sala = document.querySelector(`#cell-7l`);
-                if (!antesala.classList.contains(`movement-in-cell`)) {
+                if (
+                    !antesala.classList.contains(`movement-in-cell`) &&
+                    antesala.childNodes[0] !== activePlayerPiece
+                ) {
                     sala.classList.remove(`movement-in-cell`);
                 }
                 break;
             case 3:
                 antesala = document.querySelector(`#cell-8m`);
                 sala = document.querySelector(`#cell-7m`);
-                if (!antesala.classList.contains(`movement-in-cell`)) {
+                if (
+                    !antesala.classList.contains(`movement-in-cell`) &&
+                    antesala.childNodes[0] !== activePlayerPiece
+                ) {
                     sala.classList.remove(`movement-in-cell`);
                 }
                 break;
             case 4:
                 antesala = document.querySelector(`#cell-7r`);
                 sala = document.querySelector(`#cell-6r`);
-                if (!antesala.classList.contains(`movement-in-cell`)) {
+                if (
+                    !antesala.classList.contains(`movement-in-cell`) &&
+                    antesala.childNodes[0] !== activePlayerPiece
+                ) {
                     sala.classList.remove(`movement-in-cell`);
                 }
                 break;
             case 5:
                 antesala = document.querySelector(`#cell-9h`);
                 sala = document.querySelector(`#cell-9g`);
-                if (!antesala.classList.contains(`movement-in-cell`)) {
+                if (
+                    !antesala.classList.contains(`movement-in-cell`) &&
+                    antesala.childNodes[0] !== activePlayerPiece
+                ) {
                     sala.classList.remove(`movement-in-cell`);
                 }
                 break;
             case 6:
                 antesala = document.querySelector(`#cell-12d`);
                 sala = document.querySelector(`#cell-11d`);
-                if (!antesala.classList.contains(`movement-in-cell`)) {
+                if (
+                    !antesala.classList.contains(`movement-in-cell`) &&
+                    antesala.childNodes[0] !== activePlayerPiece
+                ) {
                     sala.classList.remove(`movement-in-cell`);
                 }
                 break;
             case 7:
                 antesala = document.querySelector(`#cell-9r`);
                 sala = document.querySelector(`#cell-10r`);
-                if (!antesala.classList.contains(`movement-in-cell`)) {
+                if (
+                    !antesala.classList.contains(`movement-in-cell`) &&
+                    antesala.childNodes[0] !== activePlayerPiece
+                ) {
                     sala.classList.remove(`movement-in-cell`);
                 }
                 break;
             case 8:
                 antesala = document.querySelector(`#cell-13p`);
                 sala = document.querySelector(`#cell-13q`);
-                if (!antesala.classList.contains(`movement-in-cell`)) {
+                if (
+                    !antesala.classList.contains(`movement-in-cell`) &&
+                    antesala.childNodes[0] !== activePlayerPiece
+                ) {
                     sala.classList.remove(`movement-in-cell`);
                 }
                 break;
             case 9:
                 antesala = document.querySelector(`#cell-12b`);
                 sala = document.querySelector(`#cell-13b`);
-                if (!antesala.classList.contains(`movement-in-cell`)) {
+                if (
+                    !antesala.classList.contains(`movement-in-cell`) &&
+                    antesala.childNodes[0] !== activePlayerPiece
+                ) {
                     sala.classList.remove(`movement-in-cell`);
                 }
                 break;
             case 10:
                 antesala = document.querySelector(`#cell-16g`);
                 sala = document.querySelector(`#cell-16f`);
-                if (!antesala.classList.contains(`movement-in-cell`)) {
+                if (
+                    !antesala.classList.contains(`movement-in-cell`) &&
+                    antesala.childNodes[0] !== activePlayerPiece
+                ) {
                     sala.classList.remove(`movement-in-cell`);
                 }
                 break;
             case 11:
                 antesala = document.querySelector(`#cell-20f`);
                 sala = document.querySelector(`#cell-20e`);
-                if (!antesala.classList.contains(`movement-in-cell`)) {
+                if (
+                    !antesala.classList.contains(`movement-in-cell`) &&
+                    antesala.childNodes[0] !== activePlayerPiece
+                ) {
                     sala.classList.remove(`movement-in-cell`);
                 }
                 break;
             case 12:
                 antesala = document.querySelector(`#cell-20h`);
                 sala = document.querySelector(`#cell-20i`);
-                if (!antesala.classList.contains(`movement-in-cell`)) {
+                if (
+                    !antesala.classList.contains(`movement-in-cell`) &&
+                    antesala.childNodes[0] !== activePlayerPiece
+                ) {
                     sala.classList.remove(`movement-in-cell`);
                 }
                 break;
             case 13:
                 antesala = document.querySelector(`#cell-17j`);
                 sala = document.querySelector(`#cell-18j`);
-                if (!antesala.classList.contains(`movement-in-cell`)) {
+                if (
+                    !antesala.classList.contains(`movement-in-cell`) &&
+                    antesala.childNodes[0] !== activePlayerPiece
+                ) {
                     sala.classList.remove(`movement-in-cell`);
                 }
                 break;
             case 14:
                 antesala = document.querySelector(`#cell-17o`);
                 sala = document.querySelector(`#cell-18o`);
-                if (!antesala.classList.contains(`movement-in-cell`)) {
+                if (
+                    !antesala.classList.contains(`movement-in-cell`) &&
+                    antesala.childNodes[0] !== activePlayerPiece
+                ) {
                     sala.classList.remove(`movement-in-cell`);
                 }
                 break;
             case 15:
                 antesala = document.querySelector(`#cell-20q`);
                 sala = document.querySelector(`#cell-20p`);
-                if (!antesala.classList.contains(`movement-in-cell`)) {
+                if (
+                    !antesala.classList.contains(`movement-in-cell`) &&
+                    antesala.childNodes[0] !== activePlayerPiece
+                ) {
                     sala.classList.remove(`movement-in-cell`);
                 }
                 break;
             case 16:
                 antesala = document.querySelector(`#cell-18t`);
                 sala = document.querySelector(`#cell-19t`);
-                if (!antesala.classList.contains(`movement-in-cell`)) {
+                if (
+                    !antesala.classList.contains(`movement-in-cell`) &&
+                    antesala.childNodes[0] !== activePlayerPiece
+                ) {
                     sala.classList.remove(`movement-in-cell`);
                 }
                 break;
