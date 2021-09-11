@@ -1096,135 +1096,6 @@ const movingPlayerToCell = (
                         return value !== actualPlayer;
                     });
                 }
-                /* Acá tengo que modificar los positioning por las cordenadas: hacer un for y eliminar la coordenada por cada una */
-                // console.log(`Logueando el valor del casillero de destino`);
-                // console.log(
-                //     typeof movementBoard[positioningInBoard[0]][
-                //         positioningInBoard[1]
-                //     ]
-                // );
-                // console.log(
-                //     movementBoard[positioningInBoard[0]][positioningInBoard[1]]
-                // );
-                // movementBoard[positioningInBoard[0]][positioningInBoard[1]] =
-                //     movementBoard[positioningInBoard[0]][
-                //         positioningInBoard[1]
-                //     ].filter((value) => {
-                //         return value !== actualPlayer;
-                //     });
-                // let a = positioningInBoard[0];
-                // let b = positioningInBoard[1];
-                // switch (
-                //     movementBoard[positioningInBoard[0]][
-                //         positioningInBoard[1]
-                //     ][0]
-                // ) {
-                //     /*Vestíbulo: 9
-                //         Biblioteca: 11
-                //         Comedor: 12
-                //         Billar: 13
-                //         Salón de Baile: 15 */
-                //     case 9:
-                //         if (a === 4) {
-                //             movementBoard[6][11].filter((value) => {
-                //                 return value !== actualPlayer;
-                //             });
-                //             movementBoard[6][12].filter((value) => {
-                //                 return value !== actualPlayer;
-                //             });
-                //         } else if (b === 11) {
-                //             movementBoard[4][9].filter((value) => {
-                //                 return value !== actualPlayer;
-                //             });
-                //             movementBoard[6][12].filter((value) => {
-                //                 return value !== actualPlayer;
-                //             });
-                //         } else if (b === 12) {
-                //             movementBoard[4][9].filter((value) => {
-                //                 return value !== actualPlayer;
-                //             });
-                //             movementBoard[6][11].filter((value) => {
-                //                 return value !== actualPlayer;
-                //             });
-                //         }
-                //         break;
-                //     case 11:
-                //         if (a === 8) {
-                //             movementBoard[10][3].filter((value) => {
-                //                 return value !== actualPlayer;
-                //             });
-                //         } else if (a === 10) {
-                //             movementBoard[8][6].filter((value) => {
-                //                 return value !== actualPlayer;
-                //             });
-                //         }
-                //         break;
-                //     case 12:
-                //         if (a === 9) {
-                //             movementBoard[12][16].filter((value) => {
-                //                 return value !== actualPlayer;
-                //             });
-                //         } else if (a === 12) {
-                //             movementBoard[9][17].filter((value) => {
-                //                 return value !== actualPlayer;
-                //             });
-                //         }
-                //         break;
-                //     case 13:
-                //         if (a === 12) {
-                //             movementBoard[15][5].filter((value) => {
-                //                 return value !== actualPlayer;
-                //             });
-                //         } else if (a === 15) {
-                //             movementBoard[12][1].filter((value) => {
-                //                 return value !== actualPlayer;
-                //             });
-                //         }
-                //         break;
-                //     case 15:
-                //         if (b === 8) {
-                //             movementBoard[17][9].filter((value) => {
-                //                 return value !== actualPlayer;
-                //             });
-                //             movementBoard[17][14].filter((value) => {
-                //                 return value !== actualPlayer;
-                //             });
-                //             movementBoard[19][15].filter((value) => {
-                //                 return value !== actualPlayer;
-                //             });
-                //         } else if (b === 9) {
-                //             movementBoard[19][8].filter((value) => {
-                //                 return value !== actualPlayer;
-                //             });
-                //             movementBoard[17][14].filter((value) => {
-                //                 return value !== actualPlayer;
-                //             });
-                //             movementBoard[19][15].filter((value) => {
-                //                 return value !== actualPlayer;
-                //             });
-                //         } else if (b === 14) {
-                //             movementBoard[19][8].filter((value) => {
-                //                 return value !== actualPlayer;
-                //             });
-                //             movementBoard[17][9].filter((value) => {
-                //                 return value !== actualPlayer;
-                //             });
-                //             movementBoard[19][15].filter((value) => {
-                //                 return value !== actualPlayer;
-                //             });
-                //         } else if (b === 15) {
-                //             movementBoard[19][8].filter((value) => {
-                //                 return value !== actualPlayer;
-                //             });
-                //             movementBoard[17][9].filter((value) => {
-                //                 return value !== actualPlayer;
-                //             });
-                //             movementBoard[17][14].filter((value) => {
-                //                 return value !== actualPlayer;
-                //             });
-                //         }
-                //         break;
-                // }
             }
             console.log(`La ficha del jugador se movió correctamente`);
             console.log(
@@ -1298,7 +1169,97 @@ const movingPlayerToCell = (
             }
             newCoordenates = [newRow, newIndex];
             newCell = movementBoard[newRow][newIndex];
-            pointedCell.appendChild(playerMovingPiece);
+            switch (pointedCell) {
+                case salaDoor:
+                    document
+                        .querySelector(`#cell-3v`)
+                        .appendChild(playerMovingPiece);
+                    break;
+                case vestibuloDoor1:
+                    document
+                        .querySelector(`#cell-3n`)
+                        .appendChild(playerMovingPiece);
+                    break;
+                case vestibuloDoor2:
+                    document
+                        .querySelector(`#cell-3n`)
+                        .appendChild(playerMovingPiece);
+                    break;
+                case vestibuloDoor3:
+                    document
+                        .querySelector(`#cell-3n`)
+                        .appendChild(playerMovingPiece);
+                    break;
+                case estudioDoor:
+                    document
+                        .querySelector(`#cell-2c`)
+                        .appendChild(playerMovingPiece);
+                    break;
+                case bibliotecaDoor1:
+                    document
+                        .querySelector(`#cell-8c`)
+                        .appendChild(playerMovingPiece);
+                    break;
+                case bibliotecaDoor2:
+                    document
+                        .querySelector(`#cell-8c`)
+                        .appendChild(playerMovingPiece);
+                    break;
+                case comedorDoor1:
+                    document
+                        .querySelector(`#cell-11v`)
+                        .appendChild(playerMovingPiece);
+                    break;
+                case comedorDoor2:
+                    document
+                        .querySelector(`#cell-11v`)
+                        .appendChild(playerMovingPiece);
+                    break;
+                case billarDoor1:
+                    document
+                        .querySelector(`#cell-14d`)
+                        .appendChild(playerMovingPiece);
+                    break;
+                case billarDoor2:
+                    document
+                        .querySelector(`#cell-14d`)
+                        .appendChild(playerMovingPiece);
+                    break;
+                case baileDoor1:
+                    document
+                        .querySelector(`#cell-19o`)
+                        .appendChild(playerMovingPiece);
+                    break;
+                case baileDoor2:
+                    document
+                        .querySelector(`#cell-19o`)
+                        .appendChild(playerMovingPiece);
+                    break;
+                case baileDoor3:
+                    document
+                        .querySelector(`#cell-19o`)
+                        .appendChild(playerMovingPiece);
+                    break;
+                case baileDoor4:
+                    document
+                        .querySelector(`#cell-19o`)
+                        .appendChild(playerMovingPiece);
+                    break;
+                case invernaderoDoor:
+                    document
+                        .querySelector(`#cell-23b`)
+                        .appendChild(playerMovingPiece);
+                    break;
+                case cocinaDoor:
+                    document
+                        .querySelector(`#cell-21w`)
+                        .appendChild(playerMovingPiece);
+                    break;
+
+                default:
+                    pointedCell.appendChild(playerMovingPiece);
+                    break;
+            }
             newRow = undefined;
             newIndex = undefined;
             y = 0;
@@ -1366,135 +1327,6 @@ const movingPlayerToCell = (
                         return value !== actualPlayer;
                     });
                 }
-                /* Acá tengo que modificar los positioning por las cordenadas: hacer un for y eliminar la coordenada por cada una */
-                // console.log(`Logueando el valor del casillero de destino`);
-                // console.log(
-                //     typeof movementBoard[positioningInBoard[0]][
-                //         positioningInBoard[1]
-                //     ]
-                // );
-                // console.log(
-                //     movementBoard[positioningInBoard[0]][positioningInBoard[1]]
-                // );
-                // movementBoard[positioningInBoard[0]][positioningInBoard[1]] =
-                //     movementBoard[positioningInBoard[0]][
-                //         positioningInBoard[1]
-                //     ].filter((value) => {
-                //         return value !== actualPlayer;
-                //     });
-                // let a = positioningInBoard[0];
-                // let b = positioningInBoard[1];
-                // switch (
-                //     movementBoard[positioningInBoard[0]][
-                //         positioningInBoard[1]
-                //     ][0]
-                // ) {
-                //     /*Vestíbulo: 9
-                //         Biblioteca: 11
-                //         Comedor: 12
-                //         Billar: 13
-                //         Salón de Baile: 15 */
-                //     case 9:
-                //         if (a === 4) {
-                //             movementBoard[6][11].filter((value) => {
-                //                 return value !== actualPlayer;
-                //             });
-                //             movementBoard[6][12].filter((value) => {
-                //                 return value !== actualPlayer;
-                //             });
-                //         } else if (b === 11) {
-                //             movementBoard[4][9].filter((value) => {
-                //                 return value !== actualPlayer;
-                //             });
-                //             movementBoard[6][12].filter((value) => {
-                //                 return value !== actualPlayer;
-                //             });
-                //         } else if (b === 12) {
-                //             movementBoard[4][9].filter((value) => {
-                //                 return value !== actualPlayer;
-                //             });
-                //             movementBoard[6][11].filter((value) => {
-                //                 return value !== actualPlayer;
-                //             });
-                //         }
-                //         break;
-                //     case 11:
-                //         if (a === 8) {
-                //             movementBoard[10][3].filter((value) => {
-                //                 return value !== actualPlayer;
-                //             });
-                //         } else if (a === 10) {
-                //             movementBoard[8][6].filter((value) => {
-                //                 return value !== actualPlayer;
-                //             });
-                //         }
-                //         break;
-                //     case 12:
-                //         if (a === 9) {
-                //             movementBoard[12][16].filter((value) => {
-                //                 return value !== actualPlayer;
-                //             });
-                //         } else if (a === 12) {
-                //             movementBoard[9][17].filter((value) => {
-                //                 return value !== actualPlayer;
-                //             });
-                //         }
-                //         break;
-                //     case 13:
-                //         if (a === 12) {
-                //             movementBoard[15][5].filter((value) => {
-                //                 return value !== actualPlayer;
-                //             });
-                //         } else if (a === 15) {
-                //             movementBoard[12][1].filter((value) => {
-                //                 return value !== actualPlayer;
-                //             });
-                //         }
-                //         break;
-                //     case 15:
-                //         if (b === 8) {
-                //             movementBoard[17][9].filter((value) => {
-                //                 return value !== actualPlayer;
-                //             });
-                //             movementBoard[17][14].filter((value) => {
-                //                 return value !== actualPlayer;
-                //             });
-                //             movementBoard[19][15].filter((value) => {
-                //                 return value !== actualPlayer;
-                //             });
-                //         } else if (b === 9) {
-                //             movementBoard[19][8].filter((value) => {
-                //                 return value !== actualPlayer;
-                //             });
-                //             movementBoard[17][14].filter((value) => {
-                //                 return value !== actualPlayer;
-                //             });
-                //             movementBoard[19][15].filter((value) => {
-                //                 return value !== actualPlayer;
-                //             });
-                //         } else if (b === 14) {
-                //             movementBoard[19][8].filter((value) => {
-                //                 return value !== actualPlayer;
-                //             });
-                //             movementBoard[17][9].filter((value) => {
-                //                 return value !== actualPlayer;
-                //             });
-                //             movementBoard[19][15].filter((value) => {
-                //                 return value !== actualPlayer;
-                //             });
-                //         } else if (b === 15) {
-                //             movementBoard[19][8].filter((value) => {
-                //                 return value !== actualPlayer;
-                //             });
-                //             movementBoard[17][9].filter((value) => {
-                //                 return value !== actualPlayer;
-                //             });
-                //             movementBoard[17][14].filter((value) => {
-                //                 return value !== actualPlayer;
-                //             });
-                //         }
-                //         break;
-                // }
             }
             console.log(`La ficha del jugador se movió correctamente`);
             console.log(
@@ -1568,7 +1400,97 @@ const movingPlayerToCell = (
             }
             newCoordenates = [newRow, newIndex];
             newCell = movementBoard[newRow][newIndex];
-            pointedCell.appendChild(playerMovingPiece);
+            switch (pointedCell) {
+                case salaDoor:
+                    document
+                        .querySelector(`#cell-4t`)
+                        .appendChild(playerMovingPiece);
+                    break;
+                case vestibuloDoor1:
+                    document
+                        .querySelector(`#cell-5k`)
+                        .appendChild(playerMovingPiece);
+                    break;
+                case vestibuloDoor2:
+                    document
+                        .querySelector(`#cell-5k`)
+                        .appendChild(playerMovingPiece);
+                    break;
+                case vestibuloDoor3:
+                    document
+                        .querySelector(`#cell-5k`)
+                        .appendChild(playerMovingPiece);
+                    break;
+                case estudioDoor:
+                    document
+                        .querySelector(`#cell-2e`)
+                        .appendChild(playerMovingPiece);
+                    break;
+                case bibliotecaDoor1:
+                    document
+                        .querySelector(`#cell-10c`)
+                        .appendChild(playerMovingPiece);
+                    break;
+                case bibliotecaDoor2:
+                    document
+                        .querySelector(`#cell-10c`)
+                        .appendChild(playerMovingPiece);
+                    break;
+                case comedorDoor1:
+                    document
+                        .querySelector(`#cell-14u`)
+                        .appendChild(playerMovingPiece);
+                    break;
+                case comedorDoor2:
+                    document
+                        .querySelector(`#cell-14u`)
+                        .appendChild(playerMovingPiece);
+                    break;
+                case billarDoor1:
+                    document
+                        .querySelector(`#cell-16d`)
+                        .appendChild(playerMovingPiece);
+                    break;
+                case billarDoor2:
+                    document
+                        .querySelector(`#cell-16d`)
+                        .appendChild(playerMovingPiece);
+                    break;
+                case baileDoor1:
+                    document
+                        .querySelector(`#cell-19l`)
+                        .appendChild(playerMovingPiece);
+                    break;
+                case baileDoor2:
+                    document
+                        .querySelector(`#cell-19l`)
+                        .appendChild(playerMovingPiece);
+                    break;
+                case baileDoor3:
+                    document
+                        .querySelector(`#cell-19l`)
+                        .appendChild(playerMovingPiece);
+                    break;
+                case baileDoor4:
+                    document
+                        .querySelector(`#cell-19l`)
+                        .appendChild(playerMovingPiece);
+                    break;
+                case invernaderoDoor:
+                    document
+                        .querySelector(`#cell-22d`)
+                        .appendChild(playerMovingPiece);
+                    break;
+                case cocinaDoor:
+                    document
+                        .querySelector(`#cell-23w`)
+                        .appendChild(playerMovingPiece);
+                    break;
+
+                default:
+                    pointedCell.appendChild(playerMovingPiece);
+                    break;
+            }
             newRow = undefined;
             newIndex = undefined;
             y = 0;
@@ -1636,135 +1558,6 @@ const movingPlayerToCell = (
                         return value !== actualPlayer;
                     });
                 }
-                /* Acá tengo que modificar los positioning por las cordenadas: hacer un for y eliminar la coordenada por cada una */
-                // console.log(`Logueando el valor del casillero de destino`);
-                // console.log(
-                //     typeof movementBoard[positioningInBoard[0]][
-                //         positioningInBoard[1]
-                //     ]
-                // );
-                // console.log(
-                //     movementBoard[positioningInBoard[0]][positioningInBoard[1]]
-                // );
-                // movementBoard[positioningInBoard[0]][positioningInBoard[1]] =
-                //     movementBoard[positioningInBoard[0]][
-                //         positioningInBoard[1]
-                //     ].filter((value) => {
-                //         return value !== actualPlayer;
-                //     });
-                // let a = positioningInBoard[0];
-                // let b = positioningInBoard[1];
-                // switch (
-                //     movementBoard[positioningInBoard[0]][
-                //         positioningInBoard[1]
-                //     ][0]
-                // ) {
-                //     /*Vestíbulo: 9
-                //         Biblioteca: 11
-                //         Comedor: 12
-                //         Billar: 13
-                //         Salón de Baile: 15 */
-                //     case 9:
-                //         if (a === 4) {
-                //             movementBoard[6][11].filter((value) => {
-                //                 return value !== actualPlayer;
-                //             });
-                //             movementBoard[6][12].filter((value) => {
-                //                 return value !== actualPlayer;
-                //             });
-                //         } else if (b === 11) {
-                //             movementBoard[4][9].filter((value) => {
-                //                 return value !== actualPlayer;
-                //             });
-                //             movementBoard[6][12].filter((value) => {
-                //                 return value !== actualPlayer;
-                //             });
-                //         } else if (b === 12) {
-                //             movementBoard[4][9].filter((value) => {
-                //                 return value !== actualPlayer;
-                //             });
-                //             movementBoard[6][11].filter((value) => {
-                //                 return value !== actualPlayer;
-                //             });
-                //         }
-                //         break;
-                //     case 11:
-                //         if (a === 8) {
-                //             movementBoard[10][3].filter((value) => {
-                //                 return value !== actualPlayer;
-                //             });
-                //         } else if (a === 10) {
-                //             movementBoard[8][6].filter((value) => {
-                //                 return value !== actualPlayer;
-                //             });
-                //         }
-                //         break;
-                //     case 12:
-                //         if (a === 9) {
-                //             movementBoard[12][16].filter((value) => {
-                //                 return value !== actualPlayer;
-                //             });
-                //         } else if (a === 12) {
-                //             movementBoard[9][17].filter((value) => {
-                //                 return value !== actualPlayer;
-                //             });
-                //         }
-                //         break;
-                //     case 13:
-                //         if (a === 12) {
-                //             movementBoard[15][5].filter((value) => {
-                //                 return value !== actualPlayer;
-                //             });
-                //         } else if (a === 15) {
-                //             movementBoard[12][1].filter((value) => {
-                //                 return value !== actualPlayer;
-                //             });
-                //         }
-                //         break;
-                //     case 15:
-                //         if (b === 8) {
-                //             movementBoard[17][9].filter((value) => {
-                //                 return value !== actualPlayer;
-                //             });
-                //             movementBoard[17][14].filter((value) => {
-                //                 return value !== actualPlayer;
-                //             });
-                //             movementBoard[19][15].filter((value) => {
-                //                 return value !== actualPlayer;
-                //             });
-                //         } else if (b === 9) {
-                //             movementBoard[19][8].filter((value) => {
-                //                 return value !== actualPlayer;
-                //             });
-                //             movementBoard[17][14].filter((value) => {
-                //                 return value !== actualPlayer;
-                //             });
-                //             movementBoard[19][15].filter((value) => {
-                //                 return value !== actualPlayer;
-                //             });
-                //         } else if (b === 14) {
-                //             movementBoard[19][8].filter((value) => {
-                //                 return value !== actualPlayer;
-                //             });
-                //             movementBoard[17][9].filter((value) => {
-                //                 return value !== actualPlayer;
-                //             });
-                //             movementBoard[19][15].filter((value) => {
-                //                 return value !== actualPlayer;
-                //             });
-                //         } else if (b === 15) {
-                //             movementBoard[19][8].filter((value) => {
-                //                 return value !== actualPlayer;
-                //             });
-                //             movementBoard[17][9].filter((value) => {
-                //                 return value !== actualPlayer;
-                //             });
-                //             movementBoard[17][14].filter((value) => {
-                //                 return value !== actualPlayer;
-                //             });
-                //         }
-                //         break;
-                // }
             }
             console.log(`La ficha del jugador se movió correctamente`);
             console.log(
@@ -1838,7 +1631,97 @@ const movingPlayerToCell = (
             }
             newCoordenates = [newRow, newIndex];
             newCell = movementBoard[newRow][newIndex];
-            pointedCell.appendChild(playerMovingPiece);
+            switch (pointedCell) {
+                case salaDoor:
+                    document
+                        .querySelector(`#cell-3t`)
+                        .appendChild(playerMovingPiece);
+                    break;
+                case vestibuloDoor1:
+                    document
+                        .querySelector(`#cell-4n`)
+                        .appendChild(playerMovingPiece);
+                    break;
+                case vestibuloDoor2:
+                    document
+                        .querySelector(`#cell-4n`)
+                        .appendChild(playerMovingPiece);
+                    break;
+                case vestibuloDoor3:
+                    document
+                        .querySelector(`#cell-4n`)
+                        .appendChild(playerMovingPiece);
+                    break;
+                case estudioDoor:
+                    document
+                        .querySelector(`#cell-2d`)
+                        .appendChild(playerMovingPiece);
+                    break;
+                case bibliotecaDoor1:
+                    document
+                        .querySelector(`#cell-10e`)
+                        .appendChild(playerMovingPiece);
+                    break;
+                case bibliotecaDoor2:
+                    document
+                        .querySelector(`#cell-10e`)
+                        .appendChild(playerMovingPiece);
+                    break;
+                case comedorDoor1:
+                    document
+                        .querySelector(`#cell-14v`)
+                        .appendChild(playerMovingPiece);
+                    break;
+                case comedorDoor2:
+                    document
+                        .querySelector(`#cell-14v`)
+                        .appendChild(playerMovingPiece);
+                    break;
+                case billarDoor1:
+                    document
+                        .querySelector(`#cell-14e`)
+                        .appendChild(playerMovingPiece);
+                    break;
+                case billarDoor2:
+                    document
+                        .querySelector(`#cell-14e`)
+                        .appendChild(playerMovingPiece);
+                    break;
+                case baileDoor1:
+                    document
+                        .querySelector(`#cell-22m`)
+                        .appendChild(playerMovingPiece);
+                    break;
+                case baileDoor2:
+                    document
+                        .querySelector(`#cell-22m`)
+                        .appendChild(playerMovingPiece);
+                    break;
+                case baileDoor3:
+                    document
+                        .querySelector(`#cell-22m`)
+                        .appendChild(playerMovingPiece);
+                    break;
+                case baileDoor4:
+                    document
+                        .querySelector(`#cell-22m`)
+                        .appendChild(playerMovingPiece);
+                    break;
+                case invernaderoDoor:
+                    document
+                        .querySelector(`#cell-23c`)
+                        .appendChild(playerMovingPiece);
+                    break;
+                case cocinaDoor:
+                    document
+                        .querySelector(`#cell-23u`)
+                        .appendChild(playerMovingPiece);
+                    break;
+
+                default:
+                    pointedCell.appendChild(playerMovingPiece);
+                    break;
+            }
             newRow = undefined;
             newIndex = undefined;
             y = 0;
@@ -1906,135 +1789,6 @@ const movingPlayerToCell = (
                         return value !== actualPlayer;
                     });
                 }
-                /* Acá tengo que modificar los positioning por las cordenadas: hacer un for y eliminar la coordenada por cada una */
-                // console.log(`Logueando el valor del casillero de destino`);
-                // console.log(
-                //     typeof movementBoard[positioningInBoard[0]][
-                //         positioningInBoard[1]
-                //     ]
-                // );
-                // console.log(
-                //     movementBoard[positioningInBoard[0]][positioningInBoard[1]]
-                // );
-                // movementBoard[positioningInBoard[0]][positioningInBoard[1]] =
-                //     movementBoard[positioningInBoard[0]][
-                //         positioningInBoard[1]
-                //     ].filter((value) => {
-                //         return value !== actualPlayer;
-                //     });
-                // let a = positioningInBoard[0];
-                // let b = positioningInBoard[1];
-                // switch (
-                //     movementBoard[positioningInBoard[0]][
-                //         positioningInBoard[1]
-                //     ][0]
-                // ) {
-                //     /*Vestíbulo: 9
-                //         Biblioteca: 11
-                //         Comedor: 12
-                //         Billar: 13
-                //         Salón de Baile: 15 */
-                //     case 9:
-                //         if (a === 4) {
-                //             movementBoard[6][11].filter((value) => {
-                //                 return value !== actualPlayer;
-                //             });
-                //             movementBoard[6][12].filter((value) => {
-                //                 return value !== actualPlayer;
-                //             });
-                //         } else if (b === 11) {
-                //             movementBoard[4][9].filter((value) => {
-                //                 return value !== actualPlayer;
-                //             });
-                //             movementBoard[6][12].filter((value) => {
-                //                 return value !== actualPlayer;
-                //             });
-                //         } else if (b === 12) {
-                //             movementBoard[4][9].filter((value) => {
-                //                 return value !== actualPlayer;
-                //             });
-                //             movementBoard[6][11].filter((value) => {
-                //                 return value !== actualPlayer;
-                //             });
-                //         }
-                //         break;
-                //     case 11:
-                //         if (a === 8) {
-                //             movementBoard[10][3].filter((value) => {
-                //                 return value !== actualPlayer;
-                //             });
-                //         } else if (a === 10) {
-                //             movementBoard[8][6].filter((value) => {
-                //                 return value !== actualPlayer;
-                //             });
-                //         }
-                //         break;
-                //     case 12:
-                //         if (a === 9) {
-                //             movementBoard[12][16].filter((value) => {
-                //                 return value !== actualPlayer;
-                //             });
-                //         } else if (a === 12) {
-                //             movementBoard[9][17].filter((value) => {
-                //                 return value !== actualPlayer;
-                //             });
-                //         }
-                //         break;
-                //     case 13:
-                //         if (a === 12) {
-                //             movementBoard[15][5].filter((value) => {
-                //                 return value !== actualPlayer;
-                //             });
-                //         } else if (a === 15) {
-                //             movementBoard[12][1].filter((value) => {
-                //                 return value !== actualPlayer;
-                //             });
-                //         }
-                //         break;
-                //     case 15:
-                //         if (b === 8) {
-                //             movementBoard[17][9].filter((value) => {
-                //                 return value !== actualPlayer;
-                //             });
-                //             movementBoard[17][14].filter((value) => {
-                //                 return value !== actualPlayer;
-                //             });
-                //             movementBoard[19][15].filter((value) => {
-                //                 return value !== actualPlayer;
-                //             });
-                //         } else if (b === 9) {
-                //             movementBoard[19][8].filter((value) => {
-                //                 return value !== actualPlayer;
-                //             });
-                //             movementBoard[17][14].filter((value) => {
-                //                 return value !== actualPlayer;
-                //             });
-                //             movementBoard[19][15].filter((value) => {
-                //                 return value !== actualPlayer;
-                //             });
-                //         } else if (b === 14) {
-                //             movementBoard[19][8].filter((value) => {
-                //                 return value !== actualPlayer;
-                //             });
-                //             movementBoard[17][9].filter((value) => {
-                //                 return value !== actualPlayer;
-                //             });
-                //             movementBoard[19][15].filter((value) => {
-                //                 return value !== actualPlayer;
-                //             });
-                //         } else if (b === 15) {
-                //             movementBoard[19][8].filter((value) => {
-                //                 return value !== actualPlayer;
-                //             });
-                //             movementBoard[17][9].filter((value) => {
-                //                 return value !== actualPlayer;
-                //             });
-                //             movementBoard[17][14].filter((value) => {
-                //                 return value !== actualPlayer;
-                //             });
-                //         }
-                //         break;
-                // }
             }
             console.log(`La ficha del jugador se movió correctamente`);
             console.log(
@@ -2108,7 +1862,97 @@ const movingPlayerToCell = (
             }
             newCoordenates = [newRow, newIndex];
             newCell = movementBoard[newRow][newIndex];
-            pointedCell.appendChild(playerMovingPiece);
+            switch (pointedCell) {
+                case salaDoor:
+                    document
+                        .querySelector(`#cell-4u`)
+                        .appendChild(playerMovingPiece);
+                    break;
+                case vestibuloDoor1:
+                    document
+                        .querySelector(`#cell-4k`)
+                        .appendChild(playerMovingPiece);
+                    break;
+                case vestibuloDoor2:
+                    document
+                        .querySelector(`#cell-4k`)
+                        .appendChild(playerMovingPiece);
+                    break;
+                case vestibuloDoor3:
+                    document
+                        .querySelector(`#cell-4k`)
+                        .appendChild(playerMovingPiece);
+                    break;
+                case estudioDoor:
+                    document
+                        .querySelector(`#cell-3e`)
+                        .appendChild(playerMovingPiece);
+                    break;
+                case bibliotecaDoor1:
+                    document
+                        .querySelector(`#cell-8d`)
+                        .appendChild(playerMovingPiece);
+                    break;
+                case bibliotecaDoor2:
+                    document
+                        .querySelector(`#cell-8d`)
+                        .appendChild(playerMovingPiece);
+                    break;
+                case comedorDoor1:
+                    document
+                        .querySelector(`#cell-11t`)
+                        .appendChild(playerMovingPiece);
+                    break;
+                case comedorDoor2:
+                    document
+                        .querySelector(`#cell-11t`)
+                        .appendChild(playerMovingPiece);
+                    break;
+                case billarDoor1:
+                    document
+                        .querySelector(`#cell-15d`)
+                        .appendChild(playerMovingPiece);
+                    break;
+                case billarDoor2:
+                    document
+                        .querySelector(`#cell-15d`)
+                        .appendChild(playerMovingPiece);
+                    break;
+                case baileDoor1:
+                    document
+                        .querySelector(`#cell-21k`)
+                        .appendChild(playerMovingPiece);
+                    break;
+                case baileDoor2:
+                    document
+                        .querySelector(`#cell-21k`)
+                        .appendChild(playerMovingPiece);
+                    break;
+                case baileDoor3:
+                    document
+                        .querySelector(`#cell-21k`)
+                        .appendChild(playerMovingPiece);
+                    break;
+                case baileDoor4:
+                    document
+                        .querySelector(`#cell-21k`)
+                        .appendChild(playerMovingPiece);
+                    break;
+                case invernaderoDoor:
+                    document
+                        .querySelector(`#cell-22c`)
+                        .appendChild(playerMovingPiece);
+                    break;
+                case cocinaDoor:
+                    document
+                        .querySelector(`#cell-23v`)
+                        .appendChild(playerMovingPiece);
+                    break;
+
+                default:
+                    pointedCell.appendChild(playerMovingPiece);
+                    break;
+            }
             newRow = undefined;
             newIndex = undefined;
             y = 0;
@@ -2176,135 +2020,6 @@ const movingPlayerToCell = (
                         return value !== actualPlayer;
                     });
                 }
-                /* Acá tengo que modificar los positioning por las cordenadas: hacer un for y eliminar la coordenada por cada una */
-                // console.log(`Logueando el valor del casillero de destino`);
-                // console.log(
-                //     typeof movementBoard[positioningInBoard[0]][
-                //         positioningInBoard[1]
-                //     ]
-                // );
-                // console.log(
-                //     movementBoard[positioningInBoard[0]][positioningInBoard[1]]
-                // );
-                // movementBoard[positioningInBoard[0]][positioningInBoard[1]] =
-                //     movementBoard[positioningInBoard[0]][
-                //         positioningInBoard[1]
-                //     ].filter((value) => {
-                //         return value !== actualPlayer;
-                //     });
-                // let a = positioningInBoard[0];
-                // let b = positioningInBoard[1];
-                // switch (
-                //     movementBoard[positioningInBoard[0]][
-                //         positioningInBoard[1]
-                //     ][0]
-                // ) {
-                //     /*Vestíbulo: 9
-                //         Biblioteca: 11
-                //         Comedor: 12
-                //         Billar: 13
-                //         Salón de Baile: 15 */
-                //     case 9:
-                //         if (a === 4) {
-                //             movementBoard[6][11].filter((value) => {
-                //                 return value !== actualPlayer;
-                //             });
-                //             movementBoard[6][12].filter((value) => {
-                //                 return value !== actualPlayer;
-                //             });
-                //         } else if (b === 11) {
-                //             movementBoard[4][9].filter((value) => {
-                //                 return value !== actualPlayer;
-                //             });
-                //             movementBoard[6][12].filter((value) => {
-                //                 return value !== actualPlayer;
-                //             });
-                //         } else if (b === 12) {
-                //             movementBoard[4][9].filter((value) => {
-                //                 return value !== actualPlayer;
-                //             });
-                //             movementBoard[6][11].filter((value) => {
-                //                 return value !== actualPlayer;
-                //             });
-                //         }
-                //         break;
-                //     case 11:
-                //         if (a === 8) {
-                //             movementBoard[10][3].filter((value) => {
-                //                 return value !== actualPlayer;
-                //             });
-                //         } else if (a === 10) {
-                //             movementBoard[8][6].filter((value) => {
-                //                 return value !== actualPlayer;
-                //             });
-                //         }
-                //         break;
-                //     case 12:
-                //         if (a === 9) {
-                //             movementBoard[12][16].filter((value) => {
-                //                 return value !== actualPlayer;
-                //             });
-                //         } else if (a === 12) {
-                //             movementBoard[9][17].filter((value) => {
-                //                 return value !== actualPlayer;
-                //             });
-                //         }
-                //         break;
-                //     case 13:
-                //         if (a === 12) {
-                //             movementBoard[15][5].filter((value) => {
-                //                 return value !== actualPlayer;
-                //             });
-                //         } else if (a === 15) {
-                //             movementBoard[12][1].filter((value) => {
-                //                 return value !== actualPlayer;
-                //             });
-                //         }
-                //         break;
-                //     case 15:
-                //         if (b === 8) {
-                //             movementBoard[17][9].filter((value) => {
-                //                 return value !== actualPlayer;
-                //             });
-                //             movementBoard[17][14].filter((value) => {
-                //                 return value !== actualPlayer;
-                //             });
-                //             movementBoard[19][15].filter((value) => {
-                //                 return value !== actualPlayer;
-                //             });
-                //         } else if (b === 9) {
-                //             movementBoard[19][8].filter((value) => {
-                //                 return value !== actualPlayer;
-                //             });
-                //             movementBoard[17][14].filter((value) => {
-                //                 return value !== actualPlayer;
-                //             });
-                //             movementBoard[19][15].filter((value) => {
-                //                 return value !== actualPlayer;
-                //             });
-                //         } else if (b === 14) {
-                //             movementBoard[19][8].filter((value) => {
-                //                 return value !== actualPlayer;
-                //             });
-                //             movementBoard[17][9].filter((value) => {
-                //                 return value !== actualPlayer;
-                //             });
-                //             movementBoard[19][15].filter((value) => {
-                //                 return value !== actualPlayer;
-                //             });
-                //         } else if (b === 15) {
-                //             movementBoard[19][8].filter((value) => {
-                //                 return value !== actualPlayer;
-                //             });
-                //             movementBoard[17][9].filter((value) => {
-                //                 return value !== actualPlayer;
-                //             });
-                //             movementBoard[17][14].filter((value) => {
-                //                 return value !== actualPlayer;
-                //             });
-                //         }
-                //         break;
-                // }
             }
             console.log(`La ficha del jugador se movió correctamente`);
             console.log(
@@ -2378,7 +2093,97 @@ const movingPlayerToCell = (
             }
             newCoordenates = [newRow, newIndex];
             newCell = movementBoard[newRow][newIndex];
-            pointedCell.appendChild(playerMovingPiece);
+            switch (pointedCell) {
+                case salaDoor:
+                    document
+                        .querySelector(`#cell-3u`)
+                        .appendChild(playerMovingPiece);
+                    break;
+                case vestibuloDoor1:
+                    document
+                        .querySelector(`#cell-3k`)
+                        .appendChild(playerMovingPiece);
+                    break;
+                case vestibuloDoor2:
+                    document
+                        .querySelector(`#cell-3k`)
+                        .appendChild(playerMovingPiece);
+                    break;
+                case vestibuloDoor3:
+                    document
+                        .querySelector(`#cell-3k`)
+                        .appendChild(playerMovingPiece);
+                    break;
+                case estudioDoor:
+                    document
+                        .querySelector(`#cell-3c`)
+                        .appendChild(playerMovingPiece);
+                    break;
+                case bibliotecaDoor1:
+                    document
+                        .querySelector(`#cell-10d`)
+                        .appendChild(playerMovingPiece);
+                    break;
+                case bibliotecaDoor2:
+                    document
+                        .querySelector(`#cell-10d`)
+                        .appendChild(playerMovingPiece);
+                    break;
+                case comedorDoor1:
+                    document
+                        .querySelector(`#cell-11u`)
+                        .appendChild(playerMovingPiece);
+                    break;
+                case comedorDoor2:
+                    document
+                        .querySelector(`#cell-11u`)
+                        .appendChild(playerMovingPiece);
+                    break;
+                case billarDoor1:
+                    document
+                        .querySelector(`#cell-15e`)
+                        .appendChild(playerMovingPiece);
+                    break;
+                case billarDoor2:
+                    document
+                        .querySelector(`#cell-15e`)
+                        .appendChild(playerMovingPiece);
+                    break;
+                case baileDoor1:
+                    document
+                        .querySelector(`#cell-19j`)
+                        .appendChild(playerMovingPiece);
+                    break;
+                case baileDoor2:
+                    document
+                        .querySelector(`#cell-19j`)
+                        .appendChild(playerMovingPiece);
+                    break;
+                case baileDoor3:
+                    document
+                        .querySelector(`#cell-19j`)
+                        .appendChild(playerMovingPiece);
+                    break;
+                case baileDoor4:
+                    document
+                        .querySelector(`#cell-19j`)
+                        .appendChild(playerMovingPiece);
+                    break;
+                case invernaderoDoor:
+                    document
+                        .querySelector(`#cell-23d`)
+                        .appendChild(playerMovingPiece);
+                    break;
+                case cocinaDoor:
+                    document
+                        .querySelector(`#cell-21v`)
+                        .appendChild(playerMovingPiece);
+                    break;
+
+                default:
+                    pointedCell.appendChild(playerMovingPiece);
+                    break;
+            }
             newRow = undefined;
             newIndex = undefined;
             y = 0;
@@ -2446,135 +2251,6 @@ const movingPlayerToCell = (
                         return value !== actualPlayer;
                     });
                 }
-                /* Acá tengo que modificar los positioning por las cordenadas: hacer un for y eliminar la coordenada por cada una */
-                // console.log(`Logueando el valor del casillero de destino`);
-                // console.log(
-                //     typeof movementBoard[positioningInBoard[0]][
-                //         positioningInBoard[1]
-                //     ]
-                // );
-                // console.log(
-                //     movementBoard[positioningInBoard[0]][positioningInBoard[1]]
-                // );
-                // movementBoard[positioningInBoard[0]][positioningInBoard[1]] =
-                //     movementBoard[positioningInBoard[0]][
-                //         positioningInBoard[1]
-                //     ].filter((value) => {
-                //         return value !== actualPlayer;
-                //     });
-                // let a = positioningInBoard[0];
-                // let b = positioningInBoard[1];
-                // switch (
-                //     movementBoard[positioningInBoard[0]][
-                //         positioningInBoard[1]
-                //     ][0]
-                // ) {
-                //     /*Vestíbulo: 9
-                //         Biblioteca: 11
-                //         Comedor: 12
-                //         Billar: 13
-                //         Salón de Baile: 15 */
-                //     case 9:
-                //         if (a === 4) {
-                //             movementBoard[6][11].filter((value) => {
-                //                 return value !== actualPlayer;
-                //             });
-                //             movementBoard[6][12].filter((value) => {
-                //                 return value !== actualPlayer;
-                //             });
-                //         } else if (b === 11) {
-                //             movementBoard[4][9].filter((value) => {
-                //                 return value !== actualPlayer;
-                //             });
-                //             movementBoard[6][12].filter((value) => {
-                //                 return value !== actualPlayer;
-                //             });
-                //         } else if (b === 12) {
-                //             movementBoard[4][9].filter((value) => {
-                //                 return value !== actualPlayer;
-                //             });
-                //             movementBoard[6][11].filter((value) => {
-                //                 return value !== actualPlayer;
-                //             });
-                //         }
-                //         break;
-                //     case 11:
-                //         if (a === 8) {
-                //             movementBoard[10][3].filter((value) => {
-                //                 return value !== actualPlayer;
-                //             });
-                //         } else if (a === 10) {
-                //             movementBoard[8][6].filter((value) => {
-                //                 return value !== actualPlayer;
-                //             });
-                //         }
-                //         break;
-                //     case 12:
-                //         if (a === 9) {
-                //             movementBoard[12][16].filter((value) => {
-                //                 return value !== actualPlayer;
-                //             });
-                //         } else if (a === 12) {
-                //             movementBoard[9][17].filter((value) => {
-                //                 return value !== actualPlayer;
-                //             });
-                //         }
-                //         break;
-                //     case 13:
-                //         if (a === 12) {
-                //             movementBoard[15][5].filter((value) => {
-                //                 return value !== actualPlayer;
-                //             });
-                //         } else if (a === 15) {
-                //             movementBoard[12][1].filter((value) => {
-                //                 return value !== actualPlayer;
-                //             });
-                //         }
-                //         break;
-                //     case 15:
-                //         if (b === 8) {
-                //             movementBoard[17][9].filter((value) => {
-                //                 return value !== actualPlayer;
-                //             });
-                //             movementBoard[17][14].filter((value) => {
-                //                 return value !== actualPlayer;
-                //             });
-                //             movementBoard[19][15].filter((value) => {
-                //                 return value !== actualPlayer;
-                //             });
-                //         } else if (b === 9) {
-                //             movementBoard[19][8].filter((value) => {
-                //                 return value !== actualPlayer;
-                //             });
-                //             movementBoard[17][14].filter((value) => {
-                //                 return value !== actualPlayer;
-                //             });
-                //             movementBoard[19][15].filter((value) => {
-                //                 return value !== actualPlayer;
-                //             });
-                //         } else if (b === 14) {
-                //             movementBoard[19][8].filter((value) => {
-                //                 return value !== actualPlayer;
-                //             });
-                //             movementBoard[17][9].filter((value) => {
-                //                 return value !== actualPlayer;
-                //             });
-                //             movementBoard[19][15].filter((value) => {
-                //                 return value !== actualPlayer;
-                //             });
-                //         } else if (b === 15) {
-                //             movementBoard[19][8].filter((value) => {
-                //                 return value !== actualPlayer;
-                //             });
-                //             movementBoard[17][9].filter((value) => {
-                //                 return value !== actualPlayer;
-                //             });
-                //             movementBoard[17][14].filter((value) => {
-                //                 return value !== actualPlayer;
-                //             });
-                //         }
-                //         break;
-                // }
             }
             console.log(`La ficha del jugador se movió correctamente`);
             console.log(
@@ -2648,7 +2324,97 @@ const movingPlayerToCell = (
             }
             newCoordenates = [newRow, newIndex];
             newCell = movementBoard[newRow][newIndex];
-            pointedCell.appendChild(playerMovingPiece);
+            switch (pointedCell) {
+                case salaDoor:
+                    document
+                        .querySelector(`#cell-4v`)
+                        .appendChild(playerMovingPiece);
+                    break;
+                case vestibuloDoor1:
+                    document
+                        .querySelector(`#cell-5n`)
+                        .appendChild(playerMovingPiece);
+                    break;
+                case vestibuloDoor2:
+                    document
+                        .querySelector(`#cell-5n`)
+                        .appendChild(playerMovingPiece);
+                    break;
+                case vestibuloDoor3:
+                    document
+                        .querySelector(`#cell-5n`)
+                        .appendChild(playerMovingPiece);
+                    break;
+                case estudioDoor:
+                    document
+                        .querySelector(`#cell-3d`)
+                        .appendChild(playerMovingPiece);
+                    break;
+                case bibliotecaDoor1:
+                    document
+                        .querySelector(`#cell-8e`)
+                        .appendChild(playerMovingPiece);
+                    break;
+                case bibliotecaDoor2:
+                    document
+                        .querySelector(`#cell-8e`)
+                        .appendChild(playerMovingPiece);
+                    break;
+                case comedorDoor1:
+                    document
+                        .querySelector(`#cell-14t`)
+                        .appendChild(playerMovingPiece);
+                    break;
+                case comedorDoor2:
+                    document
+                        .querySelector(`#cell-14t`)
+                        .appendChild(playerMovingPiece);
+                    break;
+                case billarDoor1:
+                    document
+                        .querySelector(`#cell-16e`)
+                        .appendChild(playerMovingPiece);
+                    break;
+                case billarDoor2:
+                    document
+                        .querySelector(`#cell-16e`)
+                        .appendChild(playerMovingPiece);
+                    break;
+                case baileDoor1:
+                    document
+                        .querySelector(`#cell-19m`)
+                        .appendChild(playerMovingPiece);
+                    break;
+                case baileDoor2:
+                    document
+                        .querySelector(`#cell-19m`)
+                        .appendChild(playerMovingPiece);
+                    break;
+                case baileDoor3:
+                    document
+                        .querySelector(`#cell-19m`)
+                        .appendChild(playerMovingPiece);
+                    break;
+                case baileDoor4:
+                    document
+                        .querySelector(`#cell-19m`)
+                        .appendChild(playerMovingPiece);
+                    break;
+                case invernaderoDoor:
+                    document
+                        .querySelector(`#cell-22b`)
+                        .appendChild(playerMovingPiece);
+                    break;
+                case cocinaDoor:
+                    document
+                        .querySelector(`#cell-21u`)
+                        .appendChild(playerMovingPiece);
+                    break;
+
+                default:
+                    pointedCell.appendChild(playerMovingPiece);
+                    break;
+            }
             newRow = undefined;
             newIndex = undefined;
             y = 0;
