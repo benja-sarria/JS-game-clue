@@ -27,6 +27,10 @@ let antesala;
 let playerMovingPiece, positioningInBoard, targetedCell;
 let accusePosition;
 let newCoordenates;
+let neighborCells = [];
+let movementCount;
+let accuseChecker;
+let multipleCoordenates;
 
 let activePlayerPiece;
 
@@ -1010,26 +1014,35 @@ const enoughToAccuse = (newCell, position) => {
     activePlayerPiece = undefined;
 };
 
+const checkingIfMultipleDoors = () => {};
+
 const movingPlayerToCell = (
     actualPlayer,
     movingPlayerRow,
     movingPlayerIndex,
-    actualTargetedCell
+    actualTargetedCell,
+    accused,
+    coordinates
 ) => {
     console.log(
         `El actualplayer que está llegando a movinPlayerToCell es ${actualPlayer}`
     );
     console.log(`Ejecutando moving player`);
+    console.log(`Logueando el accuseChecker recibido ${accused}`);
     pointedCell = actualTargetedCell;
     let newRow, newIndex;
     let y = 0;
     let z = 0;
     let newCell;
+    let playerCoordinates = coordinates;
+    let inRoomChecker;
     switch (actualPlayer) {
         case 1:
             console.log(`El jugador a mover es ${actualPlayer}`);
             playerMovingPiece = document.querySelector(`#escarlata-ficha`);
             positioningInBoard = [movingPlayerRow, movingPlayerIndex];
+            inRoomChecker = accused;
+            console.log(inRoomChecker);
             for (let cell of movementAbleCells) {
                 console.dir(cell);
                 if (cell.childNodes[0] === playerMovingPiece) {
@@ -1058,11 +1071,7 @@ const movingPlayerToCell = (
                     y = 0;
                 }
             }
-            if (
-                typeof movementBoard[positioningInBoard[0]][
-                    positioningInBoard[1]
-                ] === "number"
-            ) {
+            if (!inRoomChecker) {
                 if (
                     movementBoard[positioningInBoard[0]][
                         positioningInBoard[1]
@@ -1073,21 +1082,149 @@ const movingPlayerToCell = (
                     ] = 0;
                 }
             } else {
-                console.log(`Logueando el valor del casillero de destino`);
-                console.log(
-                    typeof movementBoard[positioningInBoard[0]][
-                        positioningInBoard[1]
-                    ]
-                );
-                console.log(
-                    movementBoard[positioningInBoard[0]][positioningInBoard[1]]
-                );
-                movementBoard[positioningInBoard[0]][positioningInBoard[1]] =
-                    movementBoard[positioningInBoard[0]][
-                        positioningInBoard[1]
-                    ].filter((value) => {
+                for (let coordinate of playerCoordinates) {
+                    let positionRow = coordinate[0];
+                    let positionIndex = coordinate[1];
+                    console.log(`Logueando el valor del casillero de destino`);
+                    console.log(
+                        typeof movementBoard[positionRow][positionIndex]
+                    );
+                    console.log(movementBoard[positionRow][positionIndex]);
+                    movementBoard[positionRow][positionIndex] = movementBoard[
+                        positionRow
+                    ][positionIndex].filter((value) => {
                         return value !== actualPlayer;
                     });
+                }
+                /* Acá tengo que modificar los positioning por las cordenadas: hacer un for y eliminar la coordenada por cada una */
+                // console.log(`Logueando el valor del casillero de destino`);
+                // console.log(
+                //     typeof movementBoard[positioningInBoard[0]][
+                //         positioningInBoard[1]
+                //     ]
+                // );
+                // console.log(
+                //     movementBoard[positioningInBoard[0]][positioningInBoard[1]]
+                // );
+                // movementBoard[positioningInBoard[0]][positioningInBoard[1]] =
+                //     movementBoard[positioningInBoard[0]][
+                //         positioningInBoard[1]
+                //     ].filter((value) => {
+                //         return value !== actualPlayer;
+                //     });
+                // let a = positioningInBoard[0];
+                // let b = positioningInBoard[1];
+                // switch (
+                //     movementBoard[positioningInBoard[0]][
+                //         positioningInBoard[1]
+                //     ][0]
+                // ) {
+                //     /*Vestíbulo: 9
+                //         Biblioteca: 11
+                //         Comedor: 12
+                //         Billar: 13
+                //         Salón de Baile: 15 */
+                //     case 9:
+                //         if (a === 4) {
+                //             movementBoard[6][11].filter((value) => {
+                //                 return value !== actualPlayer;
+                //             });
+                //             movementBoard[6][12].filter((value) => {
+                //                 return value !== actualPlayer;
+                //             });
+                //         } else if (b === 11) {
+                //             movementBoard[4][9].filter((value) => {
+                //                 return value !== actualPlayer;
+                //             });
+                //             movementBoard[6][12].filter((value) => {
+                //                 return value !== actualPlayer;
+                //             });
+                //         } else if (b === 12) {
+                //             movementBoard[4][9].filter((value) => {
+                //                 return value !== actualPlayer;
+                //             });
+                //             movementBoard[6][11].filter((value) => {
+                //                 return value !== actualPlayer;
+                //             });
+                //         }
+                //         break;
+                //     case 11:
+                //         if (a === 8) {
+                //             movementBoard[10][3].filter((value) => {
+                //                 return value !== actualPlayer;
+                //             });
+                //         } else if (a === 10) {
+                //             movementBoard[8][6].filter((value) => {
+                //                 return value !== actualPlayer;
+                //             });
+                //         }
+                //         break;
+                //     case 12:
+                //         if (a === 9) {
+                //             movementBoard[12][16].filter((value) => {
+                //                 return value !== actualPlayer;
+                //             });
+                //         } else if (a === 12) {
+                //             movementBoard[9][17].filter((value) => {
+                //                 return value !== actualPlayer;
+                //             });
+                //         }
+                //         break;
+                //     case 13:
+                //         if (a === 12) {
+                //             movementBoard[15][5].filter((value) => {
+                //                 return value !== actualPlayer;
+                //             });
+                //         } else if (a === 15) {
+                //             movementBoard[12][1].filter((value) => {
+                //                 return value !== actualPlayer;
+                //             });
+                //         }
+                //         break;
+                //     case 15:
+                //         if (b === 8) {
+                //             movementBoard[17][9].filter((value) => {
+                //                 return value !== actualPlayer;
+                //             });
+                //             movementBoard[17][14].filter((value) => {
+                //                 return value !== actualPlayer;
+                //             });
+                //             movementBoard[19][15].filter((value) => {
+                //                 return value !== actualPlayer;
+                //             });
+                //         } else if (b === 9) {
+                //             movementBoard[19][8].filter((value) => {
+                //                 return value !== actualPlayer;
+                //             });
+                //             movementBoard[17][14].filter((value) => {
+                //                 return value !== actualPlayer;
+                //             });
+                //             movementBoard[19][15].filter((value) => {
+                //                 return value !== actualPlayer;
+                //             });
+                //         } else if (b === 14) {
+                //             movementBoard[19][8].filter((value) => {
+                //                 return value !== actualPlayer;
+                //             });
+                //             movementBoard[17][9].filter((value) => {
+                //                 return value !== actualPlayer;
+                //             });
+                //             movementBoard[19][15].filter((value) => {
+                //                 return value !== actualPlayer;
+                //             });
+                //         } else if (b === 15) {
+                //             movementBoard[19][8].filter((value) => {
+                //                 return value !== actualPlayer;
+                //             });
+                //             movementBoard[17][9].filter((value) => {
+                //                 return value !== actualPlayer;
+                //             });
+                //             movementBoard[17][14].filter((value) => {
+                //                 return value !== actualPlayer;
+                //             });
+                //         }
+                //         break;
+                // }
             }
             console.log(`La ficha del jugador se movió correctamente`);
             console.log(
@@ -1099,6 +1236,65 @@ const movingPlayerToCell = (
                 }
             } else {
                 movementBoard[newRow][newIndex].push(actualPlayer);
+                switch (movementBoard[newRow][newIndex][0]) {
+                    /*Vestíbulo: 9
+                    Biblioteca: 11
+                    Comedor: 12
+                    Billar: 13
+                    Salón de Baile: 15 */
+                    case 9:
+                        if (newRow === 4) {
+                            movementBoard[6][11].push(actualPlayer);
+                            movementBoard[6][12].push(actualPlayer);
+                        } else if (newIndex === 11) {
+                            movementBoard[4][9].push(actualPlayer);
+                            movementBoard[6][12].push(actualPlayer);
+                        } else if (newIndex === 12) {
+                            movementBoard[4][9].push(actualPlayer);
+                            movementBoard[6][11].push(actualPlayer);
+                        }
+                        break;
+                    case 11:
+                        if (newRow === 8) {
+                            movementBoard[10][3].push(actualPlayer);
+                        } else if (newRow === 10) {
+                            movementBoard[8][6].push(actualPlayer);
+                        }
+                        break;
+                    case 12:
+                        if (newRow === 9) {
+                            movementBoard[12][16].push(actualPlayer);
+                        } else if (newRow === 12) {
+                            movementBoard[9][17].push(actualPlayer);
+                        }
+                        break;
+                    case 13:
+                        if (newRow === 12) {
+                            movementBoard[15][5].push(actualPlayer);
+                        } else if (newRow === 15) {
+                            movementBoard[12][1].push(actualPlayer);
+                        }
+                        break;
+                    case 15:
+                        if (newIndex === 8) {
+                            movementBoard[17][9].push(actualPlayer);
+                            movementBoard[17][14].push(actualPlayer);
+                            movementBoard[19][15].push(actualPlayer);
+                        } else if (newIndex === 9) {
+                            movementBoard[19][8].push(actualPlayer);
+                            movementBoard[17][14].push(actualPlayer);
+                            movementBoard[19][15].push(actualPlayer);
+                        } else if (newIndex === 14) {
+                            movementBoard[19][8].push(actualPlayer);
+                            movementBoard[17][9].push(actualPlayer);
+                            movementBoard[19][15].push(actualPlayer);
+                        } else if (newIndex === 15) {
+                            movementBoard[19][8].push(actualPlayer);
+                            movementBoard[17][9].push(actualPlayer);
+                            movementBoard[17][14].push(actualPlayer);
+                        }
+                        break;
+                }
             }
             newCoordenates = [newRow, newIndex];
             newCell = movementBoard[newRow][newIndex];
@@ -1115,6 +1311,8 @@ const movingPlayerToCell = (
             console.log(`El jugador a mover es ${actualPlayer}`);
             playerMovingPiece = document.querySelector(`#mostaza-ficha`);
             positioningInBoard = [movingPlayerRow, movingPlayerIndex];
+            inRoomChecker = accused;
+            console.log(inRoomChecker);
             for (let cell of movementAbleCells) {
                 console.dir(cell);
                 if (cell.childNodes[0] === playerMovingPiece) {
@@ -1143,11 +1341,7 @@ const movingPlayerToCell = (
                     y = 0;
                 }
             }
-            if (
-                typeof movementBoard[positioningInBoard[0]][
-                    positioningInBoard[1]
-                ] === "number"
-            ) {
+            if (!inRoomChecker) {
                 if (
                     movementBoard[positioningInBoard[0]][
                         positioningInBoard[1]
@@ -1158,21 +1352,149 @@ const movingPlayerToCell = (
                     ] = 0;
                 }
             } else {
-                console.log(`Logueando el valor del casillero de destino`);
-                console.log(
-                    typeof movementBoard[positioningInBoard[0]][
-                        positioningInBoard[1]
-                    ]
-                );
-                console.log(
-                    movementBoard[positioningInBoard[0]][positioningInBoard[1]]
-                );
-                movementBoard[positioningInBoard[0]][positioningInBoard[1]] =
-                    movementBoard[positioningInBoard[0]][
-                        positioningInBoard[1]
-                    ].filter((value) => {
+                for (let coordinate of playerCoordinates) {
+                    let positionRow = coordinate[0];
+                    let positionIndex = coordinate[1];
+                    console.log(`Logueando el valor del casillero de destino`);
+                    console.log(
+                        typeof movementBoard[positionRow][positionIndex]
+                    );
+                    console.log(movementBoard[positionRow][positionIndex]);
+                    movementBoard[positionRow][positionIndex] = movementBoard[
+                        positionRow
+                    ][positionIndex].filter((value) => {
                         return value !== actualPlayer;
                     });
+                }
+                /* Acá tengo que modificar los positioning por las cordenadas: hacer un for y eliminar la coordenada por cada una */
+                // console.log(`Logueando el valor del casillero de destino`);
+                // console.log(
+                //     typeof movementBoard[positioningInBoard[0]][
+                //         positioningInBoard[1]
+                //     ]
+                // );
+                // console.log(
+                //     movementBoard[positioningInBoard[0]][positioningInBoard[1]]
+                // );
+                // movementBoard[positioningInBoard[0]][positioningInBoard[1]] =
+                //     movementBoard[positioningInBoard[0]][
+                //         positioningInBoard[1]
+                //     ].filter((value) => {
+                //         return value !== actualPlayer;
+                //     });
+                // let a = positioningInBoard[0];
+                // let b = positioningInBoard[1];
+                // switch (
+                //     movementBoard[positioningInBoard[0]][
+                //         positioningInBoard[1]
+                //     ][0]
+                // ) {
+                //     /*Vestíbulo: 9
+                //         Biblioteca: 11
+                //         Comedor: 12
+                //         Billar: 13
+                //         Salón de Baile: 15 */
+                //     case 9:
+                //         if (a === 4) {
+                //             movementBoard[6][11].filter((value) => {
+                //                 return value !== actualPlayer;
+                //             });
+                //             movementBoard[6][12].filter((value) => {
+                //                 return value !== actualPlayer;
+                //             });
+                //         } else if (b === 11) {
+                //             movementBoard[4][9].filter((value) => {
+                //                 return value !== actualPlayer;
+                //             });
+                //             movementBoard[6][12].filter((value) => {
+                //                 return value !== actualPlayer;
+                //             });
+                //         } else if (b === 12) {
+                //             movementBoard[4][9].filter((value) => {
+                //                 return value !== actualPlayer;
+                //             });
+                //             movementBoard[6][11].filter((value) => {
+                //                 return value !== actualPlayer;
+                //             });
+                //         }
+                //         break;
+                //     case 11:
+                //         if (a === 8) {
+                //             movementBoard[10][3].filter((value) => {
+                //                 return value !== actualPlayer;
+                //             });
+                //         } else if (a === 10) {
+                //             movementBoard[8][6].filter((value) => {
+                //                 return value !== actualPlayer;
+                //             });
+                //         }
+                //         break;
+                //     case 12:
+                //         if (a === 9) {
+                //             movementBoard[12][16].filter((value) => {
+                //                 return value !== actualPlayer;
+                //             });
+                //         } else if (a === 12) {
+                //             movementBoard[9][17].filter((value) => {
+                //                 return value !== actualPlayer;
+                //             });
+                //         }
+                //         break;
+                //     case 13:
+                //         if (a === 12) {
+                //             movementBoard[15][5].filter((value) => {
+                //                 return value !== actualPlayer;
+                //             });
+                //         } else if (a === 15) {
+                //             movementBoard[12][1].filter((value) => {
+                //                 return value !== actualPlayer;
+                //             });
+                //         }
+                //         break;
+                //     case 15:
+                //         if (b === 8) {
+                //             movementBoard[17][9].filter((value) => {
+                //                 return value !== actualPlayer;
+                //             });
+                //             movementBoard[17][14].filter((value) => {
+                //                 return value !== actualPlayer;
+                //             });
+                //             movementBoard[19][15].filter((value) => {
+                //                 return value !== actualPlayer;
+                //             });
+                //         } else if (b === 9) {
+                //             movementBoard[19][8].filter((value) => {
+                //                 return value !== actualPlayer;
+                //             });
+                //             movementBoard[17][14].filter((value) => {
+                //                 return value !== actualPlayer;
+                //             });
+                //             movementBoard[19][15].filter((value) => {
+                //                 return value !== actualPlayer;
+                //             });
+                //         } else if (b === 14) {
+                //             movementBoard[19][8].filter((value) => {
+                //                 return value !== actualPlayer;
+                //             });
+                //             movementBoard[17][9].filter((value) => {
+                //                 return value !== actualPlayer;
+                //             });
+                //             movementBoard[19][15].filter((value) => {
+                //                 return value !== actualPlayer;
+                //             });
+                //         } else if (b === 15) {
+                //             movementBoard[19][8].filter((value) => {
+                //                 return value !== actualPlayer;
+                //             });
+                //             movementBoard[17][9].filter((value) => {
+                //                 return value !== actualPlayer;
+                //             });
+                //             movementBoard[17][14].filter((value) => {
+                //                 return value !== actualPlayer;
+                //             });
+                //         }
+                //         break;
+                // }
             }
             console.log(`La ficha del jugador se movió correctamente`);
             console.log(
@@ -1184,6 +1506,65 @@ const movingPlayerToCell = (
                 }
             } else {
                 movementBoard[newRow][newIndex].push(actualPlayer);
+                switch (movementBoard[newRow][newIndex][0]) {
+                    /*Vestíbulo: 9
+                    Biblioteca: 11
+                    Comedor: 12
+                    Billar: 13
+                    Salón de Baile: 15 */
+                    case 9:
+                        if (newRow === 4) {
+                            movementBoard[6][11].push(actualPlayer);
+                            movementBoard[6][12].push(actualPlayer);
+                        } else if (newIndex === 11) {
+                            movementBoard[4][9].push(actualPlayer);
+                            movementBoard[6][12].push(actualPlayer);
+                        } else if (newIndex === 12) {
+                            movementBoard[4][9].push(actualPlayer);
+                            movementBoard[6][11].push(actualPlayer);
+                        }
+                        break;
+                    case 11:
+                        if (newRow === 8) {
+                            movementBoard[10][3].push(actualPlayer);
+                        } else if (newRow === 10) {
+                            movementBoard[8][6].push(actualPlayer);
+                        }
+                        break;
+                    case 12:
+                        if (newRow === 9) {
+                            movementBoard[12][16].push(actualPlayer);
+                        } else if (newRow === 12) {
+                            movementBoard[9][17].push(actualPlayer);
+                        }
+                        break;
+                    case 13:
+                        if (newRow === 12) {
+                            movementBoard[15][5].push(actualPlayer);
+                        } else if (newRow === 15) {
+                            movementBoard[12][1].push(actualPlayer);
+                        }
+                        break;
+                    case 15:
+                        if (newIndex === 8) {
+                            movementBoard[17][9].push(actualPlayer);
+                            movementBoard[17][14].push(actualPlayer);
+                            movementBoard[19][15].push(actualPlayer);
+                        } else if (newIndex === 9) {
+                            movementBoard[19][8].push(actualPlayer);
+                            movementBoard[17][14].push(actualPlayer);
+                            movementBoard[19][15].push(actualPlayer);
+                        } else if (newIndex === 14) {
+                            movementBoard[19][8].push(actualPlayer);
+                            movementBoard[17][9].push(actualPlayer);
+                            movementBoard[19][15].push(actualPlayer);
+                        } else if (newIndex === 15) {
+                            movementBoard[19][8].push(actualPlayer);
+                            movementBoard[17][9].push(actualPlayer);
+                            movementBoard[17][14].push(actualPlayer);
+                        }
+                        break;
+                }
             }
             newCoordenates = [newRow, newIndex];
             newCell = movementBoard[newRow][newIndex];
@@ -1200,6 +1581,8 @@ const movingPlayerToCell = (
             console.log(`El jugador a mover es ${actualPlayer}`);
             playerMovingPiece = document.querySelector(`#blanco-ficha`);
             positioningInBoard = [movingPlayerRow, movingPlayerIndex];
+            inRoomChecker = accused;
+            console.log(inRoomChecker);
             for (let cell of movementAbleCells) {
                 console.dir(cell);
                 if (cell.childNodes[0] === playerMovingPiece) {
@@ -1228,11 +1611,7 @@ const movingPlayerToCell = (
                     y = 0;
                 }
             }
-            if (
-                typeof movementBoard[positioningInBoard[0]][
-                    positioningInBoard[1]
-                ] === "number"
-            ) {
+            if (!inRoomChecker) {
                 if (
                     movementBoard[positioningInBoard[0]][
                         positioningInBoard[1]
@@ -1243,21 +1622,149 @@ const movingPlayerToCell = (
                     ] = 0;
                 }
             } else {
-                console.log(`Logueando el valor del casillero de destino`);
-                console.log(
-                    typeof movementBoard[positioningInBoard[0]][
-                        positioningInBoard[1]
-                    ]
-                );
-                console.log(
-                    movementBoard[positioningInBoard[0]][positioningInBoard[1]]
-                );
-                movementBoard[positioningInBoard[0]][positioningInBoard[1]] =
-                    movementBoard[positioningInBoard[0]][
-                        positioningInBoard[1]
-                    ].filter((value) => {
+                for (let coordinate of playerCoordinates) {
+                    let positionRow = coordinate[0];
+                    let positionIndex = coordinate[1];
+                    console.log(`Logueando el valor del casillero de destino`);
+                    console.log(
+                        typeof movementBoard[positionRow][positionIndex]
+                    );
+                    console.log(movementBoard[positionRow][positionIndex]);
+                    movementBoard[positionRow][positionIndex] = movementBoard[
+                        positionRow
+                    ][positionIndex].filter((value) => {
                         return value !== actualPlayer;
                     });
+                }
+                /* Acá tengo que modificar los positioning por las cordenadas: hacer un for y eliminar la coordenada por cada una */
+                // console.log(`Logueando el valor del casillero de destino`);
+                // console.log(
+                //     typeof movementBoard[positioningInBoard[0]][
+                //         positioningInBoard[1]
+                //     ]
+                // );
+                // console.log(
+                //     movementBoard[positioningInBoard[0]][positioningInBoard[1]]
+                // );
+                // movementBoard[positioningInBoard[0]][positioningInBoard[1]] =
+                //     movementBoard[positioningInBoard[0]][
+                //         positioningInBoard[1]
+                //     ].filter((value) => {
+                //         return value !== actualPlayer;
+                //     });
+                // let a = positioningInBoard[0];
+                // let b = positioningInBoard[1];
+                // switch (
+                //     movementBoard[positioningInBoard[0]][
+                //         positioningInBoard[1]
+                //     ][0]
+                // ) {
+                //     /*Vestíbulo: 9
+                //         Biblioteca: 11
+                //         Comedor: 12
+                //         Billar: 13
+                //         Salón de Baile: 15 */
+                //     case 9:
+                //         if (a === 4) {
+                //             movementBoard[6][11].filter((value) => {
+                //                 return value !== actualPlayer;
+                //             });
+                //             movementBoard[6][12].filter((value) => {
+                //                 return value !== actualPlayer;
+                //             });
+                //         } else if (b === 11) {
+                //             movementBoard[4][9].filter((value) => {
+                //                 return value !== actualPlayer;
+                //             });
+                //             movementBoard[6][12].filter((value) => {
+                //                 return value !== actualPlayer;
+                //             });
+                //         } else if (b === 12) {
+                //             movementBoard[4][9].filter((value) => {
+                //                 return value !== actualPlayer;
+                //             });
+                //             movementBoard[6][11].filter((value) => {
+                //                 return value !== actualPlayer;
+                //             });
+                //         }
+                //         break;
+                //     case 11:
+                //         if (a === 8) {
+                //             movementBoard[10][3].filter((value) => {
+                //                 return value !== actualPlayer;
+                //             });
+                //         } else if (a === 10) {
+                //             movementBoard[8][6].filter((value) => {
+                //                 return value !== actualPlayer;
+                //             });
+                //         }
+                //         break;
+                //     case 12:
+                //         if (a === 9) {
+                //             movementBoard[12][16].filter((value) => {
+                //                 return value !== actualPlayer;
+                //             });
+                //         } else if (a === 12) {
+                //             movementBoard[9][17].filter((value) => {
+                //                 return value !== actualPlayer;
+                //             });
+                //         }
+                //         break;
+                //     case 13:
+                //         if (a === 12) {
+                //             movementBoard[15][5].filter((value) => {
+                //                 return value !== actualPlayer;
+                //             });
+                //         } else if (a === 15) {
+                //             movementBoard[12][1].filter((value) => {
+                //                 return value !== actualPlayer;
+                //             });
+                //         }
+                //         break;
+                //     case 15:
+                //         if (b === 8) {
+                //             movementBoard[17][9].filter((value) => {
+                //                 return value !== actualPlayer;
+                //             });
+                //             movementBoard[17][14].filter((value) => {
+                //                 return value !== actualPlayer;
+                //             });
+                //             movementBoard[19][15].filter((value) => {
+                //                 return value !== actualPlayer;
+                //             });
+                //         } else if (b === 9) {
+                //             movementBoard[19][8].filter((value) => {
+                //                 return value !== actualPlayer;
+                //             });
+                //             movementBoard[17][14].filter((value) => {
+                //                 return value !== actualPlayer;
+                //             });
+                //             movementBoard[19][15].filter((value) => {
+                //                 return value !== actualPlayer;
+                //             });
+                //         } else if (b === 14) {
+                //             movementBoard[19][8].filter((value) => {
+                //                 return value !== actualPlayer;
+                //             });
+                //             movementBoard[17][9].filter((value) => {
+                //                 return value !== actualPlayer;
+                //             });
+                //             movementBoard[19][15].filter((value) => {
+                //                 return value !== actualPlayer;
+                //             });
+                //         } else if (b === 15) {
+                //             movementBoard[19][8].filter((value) => {
+                //                 return value !== actualPlayer;
+                //             });
+                //             movementBoard[17][9].filter((value) => {
+                //                 return value !== actualPlayer;
+                //             });
+                //             movementBoard[17][14].filter((value) => {
+                //                 return value !== actualPlayer;
+                //             });
+                //         }
+                //         break;
+                // }
             }
             console.log(`La ficha del jugador se movió correctamente`);
             console.log(
@@ -1269,6 +1776,65 @@ const movingPlayerToCell = (
                 }
             } else {
                 movementBoard[newRow][newIndex].push(actualPlayer);
+                switch (movementBoard[newRow][newIndex][0]) {
+                    /*Vestíbulo: 9
+                    Biblioteca: 11
+                    Comedor: 12
+                    Billar: 13
+                    Salón de Baile: 15 */
+                    case 9:
+                        if (newRow === 4) {
+                            movementBoard[6][11].push(actualPlayer);
+                            movementBoard[6][12].push(actualPlayer);
+                        } else if (newIndex === 11) {
+                            movementBoard[4][9].push(actualPlayer);
+                            movementBoard[6][12].push(actualPlayer);
+                        } else if (newIndex === 12) {
+                            movementBoard[4][9].push(actualPlayer);
+                            movementBoard[6][11].push(actualPlayer);
+                        }
+                        break;
+                    case 11:
+                        if (newRow === 8) {
+                            movementBoard[10][3].push(actualPlayer);
+                        } else if (newRow === 10) {
+                            movementBoard[8][6].push(actualPlayer);
+                        }
+                        break;
+                    case 12:
+                        if (newRow === 9) {
+                            movementBoard[12][16].push(actualPlayer);
+                        } else if (newRow === 12) {
+                            movementBoard[9][17].push(actualPlayer);
+                        }
+                        break;
+                    case 13:
+                        if (newRow === 12) {
+                            movementBoard[15][5].push(actualPlayer);
+                        } else if (newRow === 15) {
+                            movementBoard[12][1].push(actualPlayer);
+                        }
+                        break;
+                    case 15:
+                        if (newIndex === 8) {
+                            movementBoard[17][9].push(actualPlayer);
+                            movementBoard[17][14].push(actualPlayer);
+                            movementBoard[19][15].push(actualPlayer);
+                        } else if (newIndex === 9) {
+                            movementBoard[19][8].push(actualPlayer);
+                            movementBoard[17][14].push(actualPlayer);
+                            movementBoard[19][15].push(actualPlayer);
+                        } else if (newIndex === 14) {
+                            movementBoard[19][8].push(actualPlayer);
+                            movementBoard[17][9].push(actualPlayer);
+                            movementBoard[19][15].push(actualPlayer);
+                        } else if (newIndex === 15) {
+                            movementBoard[19][8].push(actualPlayer);
+                            movementBoard[17][9].push(actualPlayer);
+                            movementBoard[17][14].push(actualPlayer);
+                        }
+                        break;
+                }
             }
             newCoordenates = [newRow, newIndex];
             newCell = movementBoard[newRow][newIndex];
@@ -1285,6 +1851,8 @@ const movingPlayerToCell = (
             console.log(`El jugador a mover es ${actualPlayer}`);
             playerMovingPiece = document.querySelector(`#verdi-ficha`);
             positioningInBoard = [movingPlayerRow, movingPlayerIndex];
+            inRoomChecker = accused;
+            console.log(inRoomChecker);
             for (let cell of movementAbleCells) {
                 console.dir(cell);
                 if (cell.childNodes[0] === playerMovingPiece) {
@@ -1313,11 +1881,7 @@ const movingPlayerToCell = (
                     y = 0;
                 }
             }
-            if (
-                typeof movementBoard[positioningInBoard[0]][
-                    positioningInBoard[1]
-                ] === "number"
-            ) {
+            if (!inRoomChecker) {
                 if (
                     movementBoard[positioningInBoard[0]][
                         positioningInBoard[1]
@@ -1328,21 +1892,149 @@ const movingPlayerToCell = (
                     ] = 0;
                 }
             } else {
-                console.log(`Logueando el valor del casillero de destino`);
-                console.log(
-                    typeof movementBoard[positioningInBoard[0]][
-                        positioningInBoard[1]
-                    ]
-                );
-                console.log(
-                    movementBoard[positioningInBoard[0]][positioningInBoard[1]]
-                );
-                movementBoard[positioningInBoard[0]][positioningInBoard[1]] =
-                    movementBoard[positioningInBoard[0]][
-                        positioningInBoard[1]
-                    ].filter((value) => {
+                for (let coordinate of playerCoordinates) {
+                    let positionRow = coordinate[0];
+                    let positionIndex = coordinate[1];
+                    console.log(`Logueando el valor del casillero de destino`);
+                    console.log(
+                        typeof movementBoard[positionRow][positionIndex]
+                    );
+                    console.log(movementBoard[positionRow][positionIndex]);
+                    movementBoard[positionRow][positionIndex] = movementBoard[
+                        positionRow
+                    ][positionIndex].filter((value) => {
                         return value !== actualPlayer;
                     });
+                }
+                /* Acá tengo que modificar los positioning por las cordenadas: hacer un for y eliminar la coordenada por cada una */
+                // console.log(`Logueando el valor del casillero de destino`);
+                // console.log(
+                //     typeof movementBoard[positioningInBoard[0]][
+                //         positioningInBoard[1]
+                //     ]
+                // );
+                // console.log(
+                //     movementBoard[positioningInBoard[0]][positioningInBoard[1]]
+                // );
+                // movementBoard[positioningInBoard[0]][positioningInBoard[1]] =
+                //     movementBoard[positioningInBoard[0]][
+                //         positioningInBoard[1]
+                //     ].filter((value) => {
+                //         return value !== actualPlayer;
+                //     });
+                // let a = positioningInBoard[0];
+                // let b = positioningInBoard[1];
+                // switch (
+                //     movementBoard[positioningInBoard[0]][
+                //         positioningInBoard[1]
+                //     ][0]
+                // ) {
+                //     /*Vestíbulo: 9
+                //         Biblioteca: 11
+                //         Comedor: 12
+                //         Billar: 13
+                //         Salón de Baile: 15 */
+                //     case 9:
+                //         if (a === 4) {
+                //             movementBoard[6][11].filter((value) => {
+                //                 return value !== actualPlayer;
+                //             });
+                //             movementBoard[6][12].filter((value) => {
+                //                 return value !== actualPlayer;
+                //             });
+                //         } else if (b === 11) {
+                //             movementBoard[4][9].filter((value) => {
+                //                 return value !== actualPlayer;
+                //             });
+                //             movementBoard[6][12].filter((value) => {
+                //                 return value !== actualPlayer;
+                //             });
+                //         } else if (b === 12) {
+                //             movementBoard[4][9].filter((value) => {
+                //                 return value !== actualPlayer;
+                //             });
+                //             movementBoard[6][11].filter((value) => {
+                //                 return value !== actualPlayer;
+                //             });
+                //         }
+                //         break;
+                //     case 11:
+                //         if (a === 8) {
+                //             movementBoard[10][3].filter((value) => {
+                //                 return value !== actualPlayer;
+                //             });
+                //         } else if (a === 10) {
+                //             movementBoard[8][6].filter((value) => {
+                //                 return value !== actualPlayer;
+                //             });
+                //         }
+                //         break;
+                //     case 12:
+                //         if (a === 9) {
+                //             movementBoard[12][16].filter((value) => {
+                //                 return value !== actualPlayer;
+                //             });
+                //         } else if (a === 12) {
+                //             movementBoard[9][17].filter((value) => {
+                //                 return value !== actualPlayer;
+                //             });
+                //         }
+                //         break;
+                //     case 13:
+                //         if (a === 12) {
+                //             movementBoard[15][5].filter((value) => {
+                //                 return value !== actualPlayer;
+                //             });
+                //         } else if (a === 15) {
+                //             movementBoard[12][1].filter((value) => {
+                //                 return value !== actualPlayer;
+                //             });
+                //         }
+                //         break;
+                //     case 15:
+                //         if (b === 8) {
+                //             movementBoard[17][9].filter((value) => {
+                //                 return value !== actualPlayer;
+                //             });
+                //             movementBoard[17][14].filter((value) => {
+                //                 return value !== actualPlayer;
+                //             });
+                //             movementBoard[19][15].filter((value) => {
+                //                 return value !== actualPlayer;
+                //             });
+                //         } else if (b === 9) {
+                //             movementBoard[19][8].filter((value) => {
+                //                 return value !== actualPlayer;
+                //             });
+                //             movementBoard[17][14].filter((value) => {
+                //                 return value !== actualPlayer;
+                //             });
+                //             movementBoard[19][15].filter((value) => {
+                //                 return value !== actualPlayer;
+                //             });
+                //         } else if (b === 14) {
+                //             movementBoard[19][8].filter((value) => {
+                //                 return value !== actualPlayer;
+                //             });
+                //             movementBoard[17][9].filter((value) => {
+                //                 return value !== actualPlayer;
+                //             });
+                //             movementBoard[19][15].filter((value) => {
+                //                 return value !== actualPlayer;
+                //             });
+                //         } else if (b === 15) {
+                //             movementBoard[19][8].filter((value) => {
+                //                 return value !== actualPlayer;
+                //             });
+                //             movementBoard[17][9].filter((value) => {
+                //                 return value !== actualPlayer;
+                //             });
+                //             movementBoard[17][14].filter((value) => {
+                //                 return value !== actualPlayer;
+                //             });
+                //         }
+                //         break;
+                // }
             }
             console.log(`La ficha del jugador se movió correctamente`);
             console.log(
@@ -1354,6 +2046,65 @@ const movingPlayerToCell = (
                 }
             } else {
                 movementBoard[newRow][newIndex].push(actualPlayer);
+                switch (movementBoard[newRow][newIndex][0]) {
+                    /*Vestíbulo: 9
+                    Biblioteca: 11
+                    Comedor: 12
+                    Billar: 13
+                    Salón de Baile: 15 */
+                    case 9:
+                        if (newRow === 4) {
+                            movementBoard[6][11].push(actualPlayer);
+                            movementBoard[6][12].push(actualPlayer);
+                        } else if (newIndex === 11) {
+                            movementBoard[4][9].push(actualPlayer);
+                            movementBoard[6][12].push(actualPlayer);
+                        } else if (newIndex === 12) {
+                            movementBoard[4][9].push(actualPlayer);
+                            movementBoard[6][11].push(actualPlayer);
+                        }
+                        break;
+                    case 11:
+                        if (newRow === 8) {
+                            movementBoard[10][3].push(actualPlayer);
+                        } else if (newRow === 10) {
+                            movementBoard[8][6].push(actualPlayer);
+                        }
+                        break;
+                    case 12:
+                        if (newRow === 9) {
+                            movementBoard[12][16].push(actualPlayer);
+                        } else if (newRow === 12) {
+                            movementBoard[9][17].push(actualPlayer);
+                        }
+                        break;
+                    case 13:
+                        if (newRow === 12) {
+                            movementBoard[15][5].push(actualPlayer);
+                        } else if (newRow === 15) {
+                            movementBoard[12][1].push(actualPlayer);
+                        }
+                        break;
+                    case 15:
+                        if (newIndex === 8) {
+                            movementBoard[17][9].push(actualPlayer);
+                            movementBoard[17][14].push(actualPlayer);
+                            movementBoard[19][15].push(actualPlayer);
+                        } else if (newIndex === 9) {
+                            movementBoard[19][8].push(actualPlayer);
+                            movementBoard[17][14].push(actualPlayer);
+                            movementBoard[19][15].push(actualPlayer);
+                        } else if (newIndex === 14) {
+                            movementBoard[19][8].push(actualPlayer);
+                            movementBoard[17][9].push(actualPlayer);
+                            movementBoard[19][15].push(actualPlayer);
+                        } else if (newIndex === 15) {
+                            movementBoard[19][8].push(actualPlayer);
+                            movementBoard[17][9].push(actualPlayer);
+                            movementBoard[17][14].push(actualPlayer);
+                        }
+                        break;
+                }
             }
             newCoordenates = [newRow, newIndex];
             newCell = movementBoard[newRow][newIndex];
@@ -1370,6 +2121,8 @@ const movingPlayerToCell = (
             console.log(`El jugador a mover es ${actualPlayer}`);
             playerMovingPiece = document.querySelector(`#azulino-ficha`);
             positioningInBoard = [movingPlayerRow, movingPlayerIndex];
+            inRoomChecker = accused;
+            console.log(inRoomChecker);
             for (let cell of movementAbleCells) {
                 console.dir(cell);
                 if (cell.childNodes[0] === playerMovingPiece) {
@@ -1398,11 +2151,7 @@ const movingPlayerToCell = (
                     y = 0;
                 }
             }
-            if (
-                typeof movementBoard[positioningInBoard[0]][
-                    positioningInBoard[1]
-                ] === "number"
-            ) {
+            if (!inRoomChecker) {
                 if (
                     movementBoard[positioningInBoard[0]][
                         positioningInBoard[1]
@@ -1413,21 +2162,149 @@ const movingPlayerToCell = (
                     ] = 0;
                 }
             } else {
-                console.log(`Logueando el valor del casillero de destino`);
-                console.log(
-                    typeof movementBoard[positioningInBoard[0]][
-                        positioningInBoard[1]
-                    ]
-                );
-                console.log(
-                    movementBoard[positioningInBoard[0]][positioningInBoard[1]]
-                );
-                movementBoard[positioningInBoard[0]][positioningInBoard[1]] =
-                    movementBoard[positioningInBoard[0]][
-                        positioningInBoard[1]
-                    ].filter((value) => {
+                for (let coordinate of playerCoordinates) {
+                    let positionRow = coordinate[0];
+                    let positionIndex = coordinate[1];
+                    console.log(`Logueando el valor del casillero de destino`);
+                    console.log(
+                        typeof movementBoard[positionRow][positionIndex]
+                    );
+                    console.log(movementBoard[positionRow][positionIndex]);
+                    movementBoard[positionRow][positionIndex] = movementBoard[
+                        positionRow
+                    ][positionIndex].filter((value) => {
                         return value !== actualPlayer;
                     });
+                }
+                /* Acá tengo que modificar los positioning por las cordenadas: hacer un for y eliminar la coordenada por cada una */
+                // console.log(`Logueando el valor del casillero de destino`);
+                // console.log(
+                //     typeof movementBoard[positioningInBoard[0]][
+                //         positioningInBoard[1]
+                //     ]
+                // );
+                // console.log(
+                //     movementBoard[positioningInBoard[0]][positioningInBoard[1]]
+                // );
+                // movementBoard[positioningInBoard[0]][positioningInBoard[1]] =
+                //     movementBoard[positioningInBoard[0]][
+                //         positioningInBoard[1]
+                //     ].filter((value) => {
+                //         return value !== actualPlayer;
+                //     });
+                // let a = positioningInBoard[0];
+                // let b = positioningInBoard[1];
+                // switch (
+                //     movementBoard[positioningInBoard[0]][
+                //         positioningInBoard[1]
+                //     ][0]
+                // ) {
+                //     /*Vestíbulo: 9
+                //         Biblioteca: 11
+                //         Comedor: 12
+                //         Billar: 13
+                //         Salón de Baile: 15 */
+                //     case 9:
+                //         if (a === 4) {
+                //             movementBoard[6][11].filter((value) => {
+                //                 return value !== actualPlayer;
+                //             });
+                //             movementBoard[6][12].filter((value) => {
+                //                 return value !== actualPlayer;
+                //             });
+                //         } else if (b === 11) {
+                //             movementBoard[4][9].filter((value) => {
+                //                 return value !== actualPlayer;
+                //             });
+                //             movementBoard[6][12].filter((value) => {
+                //                 return value !== actualPlayer;
+                //             });
+                //         } else if (b === 12) {
+                //             movementBoard[4][9].filter((value) => {
+                //                 return value !== actualPlayer;
+                //             });
+                //             movementBoard[6][11].filter((value) => {
+                //                 return value !== actualPlayer;
+                //             });
+                //         }
+                //         break;
+                //     case 11:
+                //         if (a === 8) {
+                //             movementBoard[10][3].filter((value) => {
+                //                 return value !== actualPlayer;
+                //             });
+                //         } else if (a === 10) {
+                //             movementBoard[8][6].filter((value) => {
+                //                 return value !== actualPlayer;
+                //             });
+                //         }
+                //         break;
+                //     case 12:
+                //         if (a === 9) {
+                //             movementBoard[12][16].filter((value) => {
+                //                 return value !== actualPlayer;
+                //             });
+                //         } else if (a === 12) {
+                //             movementBoard[9][17].filter((value) => {
+                //                 return value !== actualPlayer;
+                //             });
+                //         }
+                //         break;
+                //     case 13:
+                //         if (a === 12) {
+                //             movementBoard[15][5].filter((value) => {
+                //                 return value !== actualPlayer;
+                //             });
+                //         } else if (a === 15) {
+                //             movementBoard[12][1].filter((value) => {
+                //                 return value !== actualPlayer;
+                //             });
+                //         }
+                //         break;
+                //     case 15:
+                //         if (b === 8) {
+                //             movementBoard[17][9].filter((value) => {
+                //                 return value !== actualPlayer;
+                //             });
+                //             movementBoard[17][14].filter((value) => {
+                //                 return value !== actualPlayer;
+                //             });
+                //             movementBoard[19][15].filter((value) => {
+                //                 return value !== actualPlayer;
+                //             });
+                //         } else if (b === 9) {
+                //             movementBoard[19][8].filter((value) => {
+                //                 return value !== actualPlayer;
+                //             });
+                //             movementBoard[17][14].filter((value) => {
+                //                 return value !== actualPlayer;
+                //             });
+                //             movementBoard[19][15].filter((value) => {
+                //                 return value !== actualPlayer;
+                //             });
+                //         } else if (b === 14) {
+                //             movementBoard[19][8].filter((value) => {
+                //                 return value !== actualPlayer;
+                //             });
+                //             movementBoard[17][9].filter((value) => {
+                //                 return value !== actualPlayer;
+                //             });
+                //             movementBoard[19][15].filter((value) => {
+                //                 return value !== actualPlayer;
+                //             });
+                //         } else if (b === 15) {
+                //             movementBoard[19][8].filter((value) => {
+                //                 return value !== actualPlayer;
+                //             });
+                //             movementBoard[17][9].filter((value) => {
+                //                 return value !== actualPlayer;
+                //             });
+                //             movementBoard[17][14].filter((value) => {
+                //                 return value !== actualPlayer;
+                //             });
+                //         }
+                //         break;
+                // }
             }
             console.log(`La ficha del jugador se movió correctamente`);
             console.log(
@@ -1439,6 +2316,65 @@ const movingPlayerToCell = (
                 }
             } else {
                 movementBoard[newRow][newIndex].push(actualPlayer);
+                switch (movementBoard[newRow][newIndex][0]) {
+                    /*Vestíbulo: 9
+                    Biblioteca: 11
+                    Comedor: 12
+                    Billar: 13
+                    Salón de Baile: 15 */
+                    case 9:
+                        if (newRow === 4) {
+                            movementBoard[6][11].push(actualPlayer);
+                            movementBoard[6][12].push(actualPlayer);
+                        } else if (newIndex === 11) {
+                            movementBoard[4][9].push(actualPlayer);
+                            movementBoard[6][12].push(actualPlayer);
+                        } else if (newIndex === 12) {
+                            movementBoard[4][9].push(actualPlayer);
+                            movementBoard[6][11].push(actualPlayer);
+                        }
+                        break;
+                    case 11:
+                        if (newRow === 8) {
+                            movementBoard[10][3].push(actualPlayer);
+                        } else if (newRow === 10) {
+                            movementBoard[8][6].push(actualPlayer);
+                        }
+                        break;
+                    case 12:
+                        if (newRow === 9) {
+                            movementBoard[12][16].push(actualPlayer);
+                        } else if (newRow === 12) {
+                            movementBoard[9][17].push(actualPlayer);
+                        }
+                        break;
+                    case 13:
+                        if (newRow === 12) {
+                            movementBoard[15][5].push(actualPlayer);
+                        } else if (newRow === 15) {
+                            movementBoard[12][1].push(actualPlayer);
+                        }
+                        break;
+                    case 15:
+                        if (newIndex === 8) {
+                            movementBoard[17][9].push(actualPlayer);
+                            movementBoard[17][14].push(actualPlayer);
+                            movementBoard[19][15].push(actualPlayer);
+                        } else if (newIndex === 9) {
+                            movementBoard[19][8].push(actualPlayer);
+                            movementBoard[17][14].push(actualPlayer);
+                            movementBoard[19][15].push(actualPlayer);
+                        } else if (newIndex === 14) {
+                            movementBoard[19][8].push(actualPlayer);
+                            movementBoard[17][9].push(actualPlayer);
+                            movementBoard[19][15].push(actualPlayer);
+                        } else if (newIndex === 15) {
+                            movementBoard[19][8].push(actualPlayer);
+                            movementBoard[17][9].push(actualPlayer);
+                            movementBoard[17][14].push(actualPlayer);
+                        }
+                        break;
+                }
             }
             newCoordenates = [newRow, newIndex];
             newCell = movementBoard[newRow][newIndex];
@@ -1455,6 +2391,8 @@ const movingPlayerToCell = (
             console.log(`El jugador a mover es ${actualPlayer}`);
             playerMovingPiece = document.querySelector(`#moradillo-ficha`);
             positioningInBoard = [movingPlayerRow, movingPlayerIndex];
+            inRoomChecker = accused;
+            console.log(inRoomChecker);
             for (let cell of movementAbleCells) {
                 console.dir(cell);
                 if (cell.childNodes[0] === playerMovingPiece) {
@@ -1483,11 +2421,7 @@ const movingPlayerToCell = (
                     y = 0;
                 }
             }
-            if (
-                typeof movementBoard[positioningInBoard[0]][
-                    positioningInBoard[1]
-                ] === "number"
-            ) {
+            if (!inRoomChecker) {
                 if (
                     movementBoard[positioningInBoard[0]][
                         positioningInBoard[1]
@@ -1498,21 +2432,149 @@ const movingPlayerToCell = (
                     ] = 0;
                 }
             } else {
-                console.log(`Logueando el valor del casillero de destino`);
-                console.log(
-                    typeof movementBoard[positioningInBoard[0]][
-                        positioningInBoard[1]
-                    ]
-                );
-                console.log(
-                    movementBoard[positioningInBoard[0]][positioningInBoard[1]]
-                );
-                movementBoard[positioningInBoard[0]][positioningInBoard[1]] =
-                    movementBoard[positioningInBoard[0]][
-                        positioningInBoard[1]
-                    ].filter((value) => {
+                for (let coordinate of playerCoordinates) {
+                    let positionRow = coordinate[0];
+                    let positionIndex = coordinate[1];
+                    console.log(`Logueando el valor del casillero de destino`);
+                    console.log(
+                        typeof movementBoard[positionRow][positionIndex]
+                    );
+                    console.log(movementBoard[positionRow][positionIndex]);
+                    movementBoard[positionRow][positionIndex] = movementBoard[
+                        positionRow
+                    ][positionIndex].filter((value) => {
                         return value !== actualPlayer;
                     });
+                }
+                /* Acá tengo que modificar los positioning por las cordenadas: hacer un for y eliminar la coordenada por cada una */
+                // console.log(`Logueando el valor del casillero de destino`);
+                // console.log(
+                //     typeof movementBoard[positioningInBoard[0]][
+                //         positioningInBoard[1]
+                //     ]
+                // );
+                // console.log(
+                //     movementBoard[positioningInBoard[0]][positioningInBoard[1]]
+                // );
+                // movementBoard[positioningInBoard[0]][positioningInBoard[1]] =
+                //     movementBoard[positioningInBoard[0]][
+                //         positioningInBoard[1]
+                //     ].filter((value) => {
+                //         return value !== actualPlayer;
+                //     });
+                // let a = positioningInBoard[0];
+                // let b = positioningInBoard[1];
+                // switch (
+                //     movementBoard[positioningInBoard[0]][
+                //         positioningInBoard[1]
+                //     ][0]
+                // ) {
+                //     /*Vestíbulo: 9
+                //         Biblioteca: 11
+                //         Comedor: 12
+                //         Billar: 13
+                //         Salón de Baile: 15 */
+                //     case 9:
+                //         if (a === 4) {
+                //             movementBoard[6][11].filter((value) => {
+                //                 return value !== actualPlayer;
+                //             });
+                //             movementBoard[6][12].filter((value) => {
+                //                 return value !== actualPlayer;
+                //             });
+                //         } else if (b === 11) {
+                //             movementBoard[4][9].filter((value) => {
+                //                 return value !== actualPlayer;
+                //             });
+                //             movementBoard[6][12].filter((value) => {
+                //                 return value !== actualPlayer;
+                //             });
+                //         } else if (b === 12) {
+                //             movementBoard[4][9].filter((value) => {
+                //                 return value !== actualPlayer;
+                //             });
+                //             movementBoard[6][11].filter((value) => {
+                //                 return value !== actualPlayer;
+                //             });
+                //         }
+                //         break;
+                //     case 11:
+                //         if (a === 8) {
+                //             movementBoard[10][3].filter((value) => {
+                //                 return value !== actualPlayer;
+                //             });
+                //         } else if (a === 10) {
+                //             movementBoard[8][6].filter((value) => {
+                //                 return value !== actualPlayer;
+                //             });
+                //         }
+                //         break;
+                //     case 12:
+                //         if (a === 9) {
+                //             movementBoard[12][16].filter((value) => {
+                //                 return value !== actualPlayer;
+                //             });
+                //         } else if (a === 12) {
+                //             movementBoard[9][17].filter((value) => {
+                //                 return value !== actualPlayer;
+                //             });
+                //         }
+                //         break;
+                //     case 13:
+                //         if (a === 12) {
+                //             movementBoard[15][5].filter((value) => {
+                //                 return value !== actualPlayer;
+                //             });
+                //         } else if (a === 15) {
+                //             movementBoard[12][1].filter((value) => {
+                //                 return value !== actualPlayer;
+                //             });
+                //         }
+                //         break;
+                //     case 15:
+                //         if (b === 8) {
+                //             movementBoard[17][9].filter((value) => {
+                //                 return value !== actualPlayer;
+                //             });
+                //             movementBoard[17][14].filter((value) => {
+                //                 return value !== actualPlayer;
+                //             });
+                //             movementBoard[19][15].filter((value) => {
+                //                 return value !== actualPlayer;
+                //             });
+                //         } else if (b === 9) {
+                //             movementBoard[19][8].filter((value) => {
+                //                 return value !== actualPlayer;
+                //             });
+                //             movementBoard[17][14].filter((value) => {
+                //                 return value !== actualPlayer;
+                //             });
+                //             movementBoard[19][15].filter((value) => {
+                //                 return value !== actualPlayer;
+                //             });
+                //         } else if (b === 14) {
+                //             movementBoard[19][8].filter((value) => {
+                //                 return value !== actualPlayer;
+                //             });
+                //             movementBoard[17][9].filter((value) => {
+                //                 return value !== actualPlayer;
+                //             });
+                //             movementBoard[19][15].filter((value) => {
+                //                 return value !== actualPlayer;
+                //             });
+                //         } else if (b === 15) {
+                //             movementBoard[19][8].filter((value) => {
+                //                 return value !== actualPlayer;
+                //             });
+                //             movementBoard[17][9].filter((value) => {
+                //                 return value !== actualPlayer;
+                //             });
+                //             movementBoard[17][14].filter((value) => {
+                //                 return value !== actualPlayer;
+                //             });
+                //         }
+                //         break;
+                // }
             }
             console.log(`La ficha del jugador se movió correctamente`);
             console.log(
@@ -1524,6 +2586,65 @@ const movingPlayerToCell = (
                 }
             } else {
                 movementBoard[newRow][newIndex].push(actualPlayer);
+                switch (movementBoard[newRow][newIndex][0]) {
+                    /*Vestíbulo: 9
+                    Biblioteca: 11
+                    Comedor: 12
+                    Billar: 13
+                    Salón de Baile: 15 */
+                    case 9:
+                        if (newRow === 4) {
+                            movementBoard[6][11].push(actualPlayer);
+                            movementBoard[6][12].push(actualPlayer);
+                        } else if (newIndex === 11) {
+                            movementBoard[4][9].push(actualPlayer);
+                            movementBoard[6][12].push(actualPlayer);
+                        } else if (newIndex === 12) {
+                            movementBoard[4][9].push(actualPlayer);
+                            movementBoard[6][11].push(actualPlayer);
+                        }
+                        break;
+                    case 11:
+                        if (newRow === 8) {
+                            movementBoard[10][3].push(actualPlayer);
+                        } else if (newRow === 10) {
+                            movementBoard[8][6].push(actualPlayer);
+                        }
+                        break;
+                    case 12:
+                        if (newRow === 9) {
+                            movementBoard[12][16].push(actualPlayer);
+                        } else if (newRow === 12) {
+                            movementBoard[9][17].push(actualPlayer);
+                        }
+                        break;
+                    case 13:
+                        if (newRow === 12) {
+                            movementBoard[15][5].push(actualPlayer);
+                        } else if (newRow === 15) {
+                            movementBoard[12][1].push(actualPlayer);
+                        }
+                        break;
+                    case 15:
+                        if (newIndex === 8) {
+                            movementBoard[17][9].push(actualPlayer);
+                            movementBoard[17][14].push(actualPlayer);
+                            movementBoard[19][15].push(actualPlayer);
+                        } else if (newIndex === 9) {
+                            movementBoard[19][8].push(actualPlayer);
+                            movementBoard[17][14].push(actualPlayer);
+                            movementBoard[19][15].push(actualPlayer);
+                        } else if (newIndex === 14) {
+                            movementBoard[19][8].push(actualPlayer);
+                            movementBoard[17][9].push(actualPlayer);
+                            movementBoard[19][15].push(actualPlayer);
+                        } else if (newIndex === 15) {
+                            movementBoard[19][8].push(actualPlayer);
+                            movementBoard[17][9].push(actualPlayer);
+                            movementBoard[17][14].push(actualPlayer);
+                        }
+                        break;
+                }
             }
             newCoordenates = [newRow, newIndex];
             newCell = movementBoard[newRow][newIndex];
@@ -1777,6 +2898,142 @@ const isAbleCell = (cell) => {
     }
 };
 
+/* const correctingMovement = (movingPlayerIndex, movingPlayerRow) => {
+    let index = 0;
+    let rowCount = 0;
+    let movementPenalty;
+    let penalizedMovementCells = [];
+    let leftObstacle = false;
+    let rightObstacle = false;
+    let downObstacle = false;
+    for (
+        let neededIterations = 0;
+        neededIterations <= 3;
+        neededIterations += 1
+    ) {
+        console.log(`VUELTA ${neededIterations}`);
+        if (
+            movingPlayerRow - neededIterations !== movingPlayerRow ||
+            movingPlayerRow + neededIterations !== movingPlayerRow ||
+            movingPlayerIndex - neededIterations !== movingPlayerIndex ||
+            movingPlayerIndex + neededIterations !== movingPlayerIndex
+        ) {
+            if (movingPlayerRow > 0) {
+                neighborCells.push([
+                    movingPlayerRow - neededIterations,
+                    movingPlayerIndex,
+                    "row",
+                ]);
+            }
+            if (movingPlayerRow < 24) {
+                neighborCells.push([
+                    movingPlayerRow + neededIterations,
+                    movingPlayerIndex,
+                    "row",
+                ]);
+            }
+            if (movingPlayerIndex > 0) {
+                neighborCells.push([
+                    movingPlayerRow,
+                    movingPlayerIndex - neededIterations,
+                    "index",
+                ]);
+            }
+            if (movingPlayerIndex < 23) {
+                neighborCells.push([
+                    movingPlayerRow,
+                    movingPlayerIndex + neededIterations,
+                    "index",
+                ]);
+            }
+        }
+    }
+    console.log(neighborCells);
+    neighborCells.forEach((element) => {
+        console.log(element);
+        if (element.includes("row")) {
+            console.log(`el ${element} es una row`);
+            if (isAbleCell(movementBoard[element[0]][element[1]])) {
+                for (let x = 1; x <= 4; x += 1) {
+                    console.log(`Mirando hacia la derecha`);
+                    if (
+                        element[1] < 23 &&
+                        movementBoard[element[0]][element[1] + x] === 7 &&
+                        leftObstacle === false
+                    ) {
+                        console.log(`Se encontró obstáculo a la Derecha`);
+                        console.log(
+                            `La celda ${element[0]}, ${element[1] + x} es un ${
+                                movementBoard[element[0]][element[1] + x]
+                            }`
+                        );
+                        for (let i = element[1] + x; i <= 23; i += 1) {
+                            console.log(movementBoard[element[0]][i]);
+                            if (movementBoard[element[0]][i] === 0) {
+                                penalizedMovementCells.push([element[0], i, 2]);
+                            }
+                        }
+                        console.log(
+                            `Cortando el bucle por haber encontrado obstáculo`
+                        );
+                        leftObstacle = true;
+                    }
+                    console.log(`Mirando hacia la Izquierda`);
+                    if (
+                        element[1] > 0 &&
+                        movementBoard[element[0]][element[1] - x] === 7 &&
+                        rightObstacle === false
+                    ) {
+                        console.log(`Se encontró obstáculo a la Izquierda`);
+                        console.log(
+                            `La celda ${element[0]}, ${element[1] - 1} es un ${
+                                movementBoard[element[0]][element[1] - x]
+                            }`
+                        );
+                        for (let i = element[1] - x; i >= 0; i -= 1) {
+                            console.log(movementBoard[element[0]][i]);
+                            if (movementBoard[element[0]][i] === 0) {
+                                penalizedMovementCells.push([element[0], i, 2]);
+                            }
+                        }
+                        console.log(
+                            `Cortando el bucle por haber encontrado obstáculo`
+                        );
+                        rightObstacle = true;
+                    }
+                    console.log(`Mirando hacia la Abajo`);
+                    if (
+                        element[0] < 24 &&
+                        movementBoard[element[0] + x][element[1]] === 7 &&
+                        downObstacle === false
+                    ) {
+                        console.log(`Se encontró obstáculo hacia Abajo`);
+                        console.log(
+                            `La celda ${element[0] + x}, ${element[1]} es un ${
+                                movementBoard[element[0] + x][element[1]]
+                            }`
+                        );
+                        for (let i = element[0] + x; i <= 24; i += 1) {
+                            console.log(movementBoard[i ][element[1]]);
+                            if (movementBoard[i][element[1]] === 0) {
+                                penalizedMovementCells.push([i, element[1], 2]);
+                            }
+                        }
+                    }
+                }
+
+                console.log(penalizedMovementCells);
+            }
+        } else {
+            console.log(`El ${element} es un index`);
+        }
+        leftObstacle = false;
+        rightObstacle = false;
+    });
+
+    console.log(neighborCells);
+}; */
+
 const playerAccused = (player, cell) => {
     if (
         cell === +(String(8) + String(player)) ||
@@ -1807,6 +3064,9 @@ const playerMovement = (diceNumber, actualPlayer) => {
     let i = 0;
     let limitedMovement;
     let rowCounter = 0;
+    let possibleCell;
+    accuseChecker = false;
+    multipleCoordenates = [];
     movingPlayer = actualPlayer + 1;
     /* console.log(movingPlayer); */
     for (let row of movementBoard) {
@@ -1830,22 +3090,7 @@ const playerMovement = (diceNumber, actualPlayer) => {
                     possibleMovementCell = i;
                     possibleMovementRow = movementBoard.indexOf(row);
                     break;
-                } /* else if (playerAccused(movingPlayer, cell)) {
-                    console.log(`El Jugador estaba acusando`);
-                    movingPlayerIndex = row.indexOf(cell);
-                    movingPlayerRow = movementBoard.indexOf(row);
-                    console.log(
-                        `La ubicación del jugador es en fila ${movementBoard.indexOf(
-                            row
-                        )}, celda ${movingPlayerIndex}`
-                    );
-                    console.log(
-                        `La ubicación del jugador es en fila ${movingPlayerRow}, celda ${movingPlayerIndex}`
-                    );
-                    possibleMovementCell = i;
-                    possibleMovementRow = movementBoard.indexOf(row);
-                    break;
-                } */
+                }
                 if (i < 23) {
                     i += 1;
                 } else {
@@ -1853,35 +3098,28 @@ const playerMovement = (diceNumber, actualPlayer) => {
                 }
             } else {
                 if (cell.includes(movingPlayer)) {
-                    movingPlayerIndex = row.indexOf(cell);
-                    movingPlayerRow = movementBoard.indexOf(row);
-                    console.log(
+                    multipleCoordenates.push([
+                        movementBoard.indexOf(row),
+                        row.indexOf(cell),
+                    ]);
+                    /* movingPlayerIndex.push(row.indexOf(cell));
+                    movingPlayerRow.push(movementBoard.indexOf(row)); */
+                    /*  console.log(
                         `La ubicación del jugador es en fila ${movementBoard.indexOf(
                             row
                         )}, celda ${movingPlayerIndex}`
-                    );
+                    ); */
+                    console.log(multipleCoordenates);
                     console.log(
-                        `La ubicación del jugador es en fila ${movingPlayerRow}, celda ${movingPlayerIndex}`
+                        `La Ubicación del jugador es en las siguientes coordenadas: ${multipleCoordenates}`
                     );
+                    /* console.log(
+                        `La ubicación del jugador es en fila ${movingPlayerRow}, celda ${movingPlayerIndex}`
+                    ); */
                     possibleMovementCell = i;
                     possibleMovementRow = movementBoard.indexOf(row);
-                    break;
-                } /* else if (playerAccused(movingPlayer, cell)) {
-                    console.log(`El Jugador estaba acusando`);
-                    movingPlayerIndex = row.indexOf(cell);
-                    movingPlayerRow = movementBoard.indexOf(row);
-                    console.log(
-                        `La ubicación del jugador es en fila ${movementBoard.indexOf(
-                            row
-                        )}, celda ${movingPlayerIndex}`
-                    );
-                    console.log(
-                        `La ubicación del jugador es en fila ${movingPlayerRow}, celda ${movingPlayerIndex}`
-                    );
-                    possibleMovementCell = i;
-                    possibleMovementRow = movementBoard.indexOf(row);
-                    break;
-                } */
+                    accuseChecker = true;
+                }
                 if (i < 23) {
                     i += 1;
                 } else {
@@ -1898,183 +3136,857 @@ const playerMovement = (diceNumber, actualPlayer) => {
     }
     rowCounter = 0;
     i = 0;
-    for (let row of movementBoard) {
-        for (let cell of row) {
-            if (movementBoard[rowCounter][i] !== 7) {
-                /* console.log(rowCounter);
-                console.log(possibleMovementRow + movement); */
-                let cellDifference = Math.abs(i - movingPlayerIndex);
-                let rowDifference = Math.abs(rowCounter - movingPlayerRow);
-                console.log(
-                    `El valor de la celda es ${movementBoard[rowCounter][i]}`
-                );
-                console.log(
-                    `El typeof de la celda es ${typeof movementBoard[
-                        rowCounter
-                    ][i]}`
-                );
-                console.log(
-                    `El rowcounter es ${rowCounter} y el index es ${i}`
-                );
-                /* console.log(
-                    `isRoomDoor da : ${isRoomDoor(
-                        movementBoard,
-                        rowCounter,
-                        i
-                    )}`
-                ); */
-                if (isAbleCell(movementBoard[rowCounter][i])) {
+    movementCount = 0;
+    // Calculando el movimiento
+    console.log(`========= LOGUEANDO ACCUSE CHECKER ==========`);
+    console.log(accuseChecker);
+    console.log(`========= LOGUEANDO MULTIPLE COORDENATES ==========`);
+    console.log(multipleCoordenates);
+    if (!accuseChecker) {
+        movementBoardTable.children[movingPlayerRow].children[
+            movingPlayerIndex
+        ].classList.add(`movement-in-cell`);
+
+        neighborCells = [[movingPlayerRow, movingPlayerIndex]];
+        for (let i = 0; i <= movement; i += 1) {
+            console.log(`Ejecutando Calculating Movement`);
+            console.table(neighborCells);
+            neighborCells.forEach((element) => {
+                console.log(element);
+                console.log(element[0]);
+                console.log(element[1]);
+                console.log(movementBoard[element[0]][element[1]]);
+                if (typeof movementBoard[element[0]][element[1]] === "number") {
                     if (
-                        rowCounter === movingPlayerRow ||
-                        i === movingPlayerIndex
+                        isAbleCell(movementBoard[element[0]][element[1]]) &&
+                        (movementBoardTable.children[
+                            element[0] - 1 > 0 ? element[0] - 1 : 0
+                        ].children[element[1]].classList.contains(
+                            `movement-in-cell`
+                        ) ||
+                            movementBoardTable.children[
+                                element[0] + 1 < 24 ? element[0] + 1 : 24
+                            ].children[element[1]].classList.contains(
+                                `movement-in-cell`
+                            ) ||
+                            movementBoardTable.children[element[0]].children[
+                                element[1] - 1 > 0 ? element[1] - 1 : 0
+                            ].classList.contains(`movement-in-cell`) ||
+                            movementBoardTable.children[element[0]].children[
+                                element[1] + 1 < 23 ? element[1] + 1 : 23
+                            ].classList.contains(`movement-in-cell`))
                     ) {
-                        console.log(
-                            `Entró por estar en el mismo index o en el mismo row`
-                        );
-                        if (
-                            /* rowCounter <= possibleMovementRow + movement &&
-                        (i <= possibleMovementCell + movement ||
-                            i <= possibleMovementCell - movement) && */
-                            cellDifference <= movement &&
-                            rowDifference <= movement
-                        ) {
-                            console.log(
-                                `Entró por ser el valor ${movementBoard[rowCounter][i]}`
-                            );
-                            if (isAbleCell(movementBoard[rowCounter][i])) {
-                                console.log(
-                                    `se encontraron los siguientes movimientos posibles`
-                                );
-                                materializedCell =
-                                    movementBoardTable.children[rowCounter]
-                                        .children[i];
-                                console.log(materializedCell);
-                                if (materializedCell) {
-                                    if (
-                                        !materializedCell.classList.contains(
-                                            `unable`
-                                        )
-                                    ) {
-                                        materializedCell.classList.add(
-                                            `movement-in-cell`
-                                        );
-                                    }
-                                }
-                                /* correctMovements(movementBoard[rowCounter][i]); */
-                            }
-                        }
-                    } else if (
-                        Math.abs(rowCounter - movingPlayerRow) === 1 ||
-                        Math.abs(i - movingPlayerIndex) === 1
-                    ) {
-                        console.log(
-                            `Entró por estar a 1  index o row de diferencia`
-                        );
-                        movement -= 1;
-                        console.log(
-                            `El movement es ${movement}; el cellDifference es ${cellDifference}; el rowDifference es ${rowDifference}.`
-                        );
-                        if (
-                            /* rowCounter <= possibleMovementRow + movement &&
-                        (i <= possibleMovementCell + movement ||
-                            i <= possibleMovementCell - movement) && */
-                            cellDifference <= movement &&
-                            rowDifference <= movement
-                        ) {
-                            console.log(
-                                `Entró por ser el valor ${movementBoard[rowCounter][i]}`
-                            );
-                            if (isAbleCell(movementBoard[rowCounter][i])) {
-                                console.log(
-                                    `se encontraron los siguientes movimientos posibles`
-                                );
-                                materializedCell =
-                                    movementBoardTable.children[rowCounter]
-                                        .children[i];
-                                console.log(materializedCell);
-                                if (materializedCell) {
-                                    if (
-                                        !materializedCell.classList.contains(
-                                            `unable`
-                                        )
-                                    ) {
-                                        materializedCell.classList.add(
-                                            `movement-in-cell`
-                                        );
-                                    }
-                                }
-                                /* correctMovements(movementBoard[rowCounter][i]); */
-                            }
-                        }
-                        movement += 1;
-                    } else if (
-                        Math.abs(rowCounter - movingPlayerRow) === 2 ||
-                        Math.abs(i - movingPlayerIndex) === 2
-                    ) {
-                        console.log(
-                            `Entró por estar a 2 index o row de diferencia`
-                        );
-                        movement -= 2;
-                        if (
-                            /* rowCounter <= possibleMovementRow + movement &&
-                        (i <= possibleMovementCell + movement ||
-                            i <= possibleMovementCell - movement) && */
-                            cellDifference <= movement &&
-                            rowDifference <= movement
-                        ) {
-                            console.log(
-                                `Entró por ser el valor ${movementBoard[rowCounter][i]}`
-                            );
-                            if (isAbleCell(movementBoard[rowCounter][i])) {
-                                console.log(
-                                    `se encontraron los siguientes movimientos posibles`
-                                );
-                                materializedCell =
-                                    movementBoardTable.children[rowCounter]
-                                        .children[i];
-                                console.log(materializedCell);
-                                if (materializedCell) {
-                                    if (
-                                        !materializedCell.classList.contains(
-                                            `unable`
-                                        )
-                                    ) {
-                                        materializedCell.classList.add(
-                                            `movement-in-cell`
-                                        );
-                                    }
-                                }
-                                /* correctMovements(movementBoard[rowCounter][i]); */
-                            }
-                        }
-                        movement += 2;
+                        possibleCell =
+                            movementBoardTable.children[element[0]].children[
+                                [element[1]]
+                            ];
+                        possibleCell.classList.add(`movement-in-cell`);
                     }
-                    /* sala = isRoomDoor(rowCounter, i);
-                    console.log(`La Sala es ${sala}`);
-                    console.dir(sala);
-                    if (sala) {
-                        console.log(
-                            `Como la antesala no está habilitada, se despinta la sala.`
-                        );
-                        sala.classList.remove(`movement-in-cell`);
-                    }
-                    sala = false; */
                 } else {
+                    console.log(`Ingresa como puerta`);
+                    let a = element[0];
+                    let b = element[1];
+                    console.log(String(a) + String(b));
+                    switch (`${String(a) + String(b)}`) {
+                        case "36":
+                            console.log(`Ingresa switch estudio`);
+                            if (
+                                movementBoardTable.children[4].children[6].classList.contains(
+                                    `movement-in-cell`
+                                )
+                            ) {
+                                possibleCell =
+                                    movementBoardTable.children[element[0]]
+                                        .children[[element[1]]];
+                                possibleCell.classList.add(`movement-in-cell`);
+                            }
+                            break;
+                        case "49":
+                            console.log(`Ingresa switch estudio`);
+                            if (
+                                movementBoardTable.children[4].children[8].classList.contains(
+                                    `movement-in-cell`
+                                )
+                            ) {
+                                possibleCell =
+                                    movementBoardTable.children[element[0]]
+                                        .children[[element[1]]];
+                                possibleCell.classList.add(`movement-in-cell`);
+                            }
+                            break;
+                        case "517":
+                            console.log(`Ingresa switch estudio`);
+                            if (
+                                movementBoardTable.children[6].children[17].classList.contains(
+                                    `movement-in-cell`
+                                )
+                            ) {
+                                possibleCell =
+                                    movementBoardTable.children[element[0]]
+                                        .children[[element[1]]];
+                                possibleCell.classList.add(`movement-in-cell`);
+                            }
+                            break;
+                        case "611":
+                            console.log(`Ingresa switch estudio`);
+                            if (
+                                movementBoardTable.children[7].children[11].classList.contains(
+                                    `movement-in-cell`
+                                )
+                            ) {
+                                possibleCell =
+                                    movementBoardTable.children[element[0]]
+                                        .children[[element[1]]];
+                                possibleCell.classList.add(`movement-in-cell`);
+                            }
+                            break;
+                        case "612":
+                            console.log(`Ingresa switch estudio`);
+                            if (
+                                movementBoardTable.children[7].children[12].classList.contains(
+                                    `movement-in-cell`
+                                )
+                            ) {
+                                possibleCell =
+                                    movementBoardTable.children[element[0]]
+                                        .children[[element[1]]];
+                                possibleCell.classList.add(`movement-in-cell`);
+                            }
+                            break;
+                        case "86":
+                            console.log(`Ingresa switch estudio`);
+                            if (
+                                movementBoardTable.children[8].children[7].classList.contains(
+                                    `movement-in-cell`
+                                )
+                            ) {
+                                possibleCell =
+                                    movementBoardTable.children[element[0]]
+                                        .children[[element[1]]];
+                                possibleCell.classList.add(`movement-in-cell`);
+                            }
+                            break;
+                        case "917":
+                            console.log(`Ingresa switch estudio`);
+                            if (
+                                movementBoardTable.children[8].children[17].classList.contains(
+                                    `movement-in-cell`
+                                )
+                            ) {
+                                possibleCell =
+                                    movementBoardTable.children[element[0]]
+                                        .children[[element[1]]];
+                                possibleCell.classList.add(`movement-in-cell`);
+                            }
+                            break;
+                        case "103":
+                            console.log(`Ingresa switch estudio`);
+                            if (
+                                movementBoardTable.children[11].children[3].classList.contains(
+                                    `movement-in-cell`
+                                )
+                            ) {
+                                possibleCell =
+                                    movementBoardTable.children[element[0]]
+                                        .children[[element[1]]];
+                                possibleCell.classList.add(`movement-in-cell`);
+                            }
+                            break;
+                        case "121":
+                            console.log(`Ingresa switch estudio`);
+                            if (
+                                movementBoardTable.children[11].children[1].classList.contains(
+                                    `movement-in-cell`
+                                )
+                            ) {
+                                possibleCell =
+                                    movementBoardTable.children[element[0]]
+                                        .children[[element[1]]];
+                                possibleCell.classList.add(`movement-in-cell`);
+                            }
+                            break;
+                        case "1216":
+                            console.log(`Ingresa switch estudio`);
+                            if (
+                                movementBoardTable.children[12].children[15].classList.contains(
+                                    `movement-in-cell`
+                                )
+                            ) {
+                                possibleCell =
+                                    movementBoardTable.children[element[0]]
+                                        .children[[element[1]]];
+                                possibleCell.classList.add(`movement-in-cell`);
+                            }
+                            break;
+                        case "155":
+                            console.log(`Ingresa switch estudio`);
+                            if (
+                                movementBoardTable.children[15].children[6].classList.contains(
+                                    `movement-in-cell`
+                                )
+                            ) {
+                                possibleCell =
+                                    movementBoardTable.children[element[0]]
+                                        .children[[element[1]]];
+                                possibleCell.classList.add(`movement-in-cell`);
+                            }
+                            break;
+                        case "179":
+                            console.log(`Ingresa switch estudio`);
+                            if (
+                                movementBoardTable.children[16].children[9].classList.contains(
+                                    `movement-in-cell`
+                                )
+                            ) {
+                                possibleCell =
+                                    movementBoardTable.children[element[0]]
+                                        .children[[element[1]]];
+                                possibleCell.classList.add(`movement-in-cell`);
+                            }
+                            break;
+                        case "1714":
+                            console.log(`Ingresa switch estudio`);
+                            if (
+                                movementBoardTable.children[16].children[14].classList.contains(
+                                    `movement-in-cell`
+                                )
+                            ) {
+                                possibleCell =
+                                    movementBoardTable.children[element[0]]
+                                        .children[[element[1]]];
+                                possibleCell.classList.add(`movement-in-cell`);
+                            }
+                            break;
+                        case "1819":
+                            if (
+                                movementBoardTable.children[17].children[19].classList.contains(
+                                    `movement-in-cell`
+                                )
+                            ) {
+                                possibleCell =
+                                    movementBoardTable.children[element[0]]
+                                        .children[[element[1]]];
+                                possibleCell.classList.add(`movement-in-cell`);
+                            }
+                            break;
+                        case "194":
+                            console.log(`Ingresa switch estudio`);
+                            if (
+                                movementBoardTable.children[19].children[5].classList.contains(
+                                    `movement-in-cell`
+                                )
+                            ) {
+                                possibleCell =
+                                    movementBoardTable.children[element[0]]
+                                        .children[[element[1]]];
+                                possibleCell.classList.add(`movement-in-cell`);
+                            }
+                            break;
+                        case "198":
+                            console.log(`Ingresa switch estudio`);
+                            if (
+                                movementBoardTable.children[19].children[7].classList.contains(
+                                    `movement-in-cell`
+                                )
+                            ) {
+                                possibleCell =
+                                    movementBoardTable.children[element[0]]
+                                        .children[[element[1]]];
+                                possibleCell.classList.add(`movement-in-cell`);
+                            }
+                            break;
+                        case "1915":
+                            console.log(`Ingresa switch estudio`);
+                            if (
+                                movementBoardTable.children[19].children[16].classList.contains(
+                                    `movement-in-cell`
+                                )
+                            ) {
+                                possibleCell =
+                                    movementBoardTable.children[element[0]]
+                                        .children[[element[1]]];
+                                possibleCell.classList.add(`movement-in-cell`);
+                            }
+                            break;
+                    }
                 }
-            }
-            if (i < 23) {
-                i += 1;
-            } else {
-                i = 0;
-            }
+
+                if (
+                    element[0] > 0 &&
+                    movementBoard[element[0] - 1][element[1]] !== 7
+                ) {
+                    /* console.log(`Analizando ${element[0]}`); */
+                    neighborCells.push([element[0] - 1, element[1]]);
+                    /* console.log(`sumando ${[element[0] - 1, element[1]]}`); */
+                }
+                if (
+                    element[0] < 24 &&
+                    movementBoard[element[0] + 1][element[1]] !== 7
+                ) {
+                    neighborCells.push([element[0] + 1, element[1]]);
+                }
+                if (
+                    element[1] > 0 &&
+                    movementBoard[element[0]][element[1] - 1] !== 7
+                ) {
+                    neighborCells.push([element[0], element[1] - 1]);
+                }
+                if (
+                    element[1] < 23 &&
+                    movementBoard[element[0]][element[1] + 1] !== 7
+                ) {
+                    neighborCells.push([element[0], element[1] + 1]);
+                }
+                neighborCells = Array.from(
+                    new Set(neighborCells.map(JSON.stringify)),
+                    JSON.parse
+                );
+            });
         }
-        if (rowCounter < 24) {
-            rowCounter += 1;
-        } else {
-            rowCounter = 0;
+    } else {
+        console.log(
+            `Entró a retirar el número de múltiples lugares por el accusechecker`
+        );
+        for (let location of multipleCoordenates) {
+            movementBoardTable.children[location[0]].children[
+                location[1]
+            ].classList.add(`movement-in-cell`);
+
+            neighborCells = [[location[0], location[1]]];
+            for (let i = 0; i <= movement; i += 1) {
+                console.log(`Ejecutando Calculating Movement`);
+                console.table(neighborCells);
+                neighborCells.forEach((element) => {
+                    console.log(element);
+                    console.log(element[0]);
+                    console.log(element[1]);
+                    console.log(movementBoard[element[0]][element[1]]);
+                    if (
+                        typeof movementBoard[element[0]][element[1]] ===
+                        "number"
+                    ) {
+                        if (
+                            isAbleCell(movementBoard[element[0]][element[1]]) &&
+                            (movementBoardTable.children[
+                                element[0] - 1 > 0 ? element[0] - 1 : 0
+                            ].children[element[1]].classList.contains(
+                                `movement-in-cell`
+                            ) ||
+                                movementBoardTable.children[
+                                    element[0] + 1 < 24 ? element[0] + 1 : 24
+                                ].children[element[1]].classList.contains(
+                                    `movement-in-cell`
+                                ) ||
+                                movementBoardTable.children[
+                                    element[0]
+                                ].children[
+                                    element[1] - 1 > 0 ? element[1] - 1 : 0
+                                ].classList.contains(`movement-in-cell`) ||
+                                movementBoardTable.children[
+                                    element[0]
+                                ].children[
+                                    element[1] + 1 < 23 ? element[1] + 1 : 23
+                                ].classList.contains(`movement-in-cell`))
+                        ) {
+                            possibleCell =
+                                movementBoardTable.children[element[0]]
+                                    .children[[element[1]]];
+                            possibleCell.classList.add(`movement-in-cell`);
+                        }
+                    } else {
+                        console.log(`Ingresa como puerta`);
+                        let a = element[0];
+                        let b = element[1];
+                        console.log(String(a) + String(b));
+                        switch (`${String(a) + String(b)}`) {
+                            case "36":
+                                console.log(`Ingresa switch estudio`);
+                                if (
+                                    movementBoardTable.children[4].children[6].classList.contains(
+                                        `movement-in-cell`
+                                    )
+                                ) {
+                                    possibleCell =
+                                        movementBoardTable.children[element[0]]
+                                            .children[[element[1]]];
+                                    possibleCell.classList.add(
+                                        `movement-in-cell`
+                                    );
+                                }
+                                break;
+                            case "49":
+                                console.log(`Ingresa switch estudio`);
+                                if (
+                                    movementBoardTable.children[4].children[8].classList.contains(
+                                        `movement-in-cell`
+                                    )
+                                ) {
+                                    possibleCell =
+                                        movementBoardTable.children[element[0]]
+                                            .children[[element[1]]];
+                                    possibleCell.classList.add(
+                                        `movement-in-cell`
+                                    );
+                                }
+                                break;
+                            case "517":
+                                console.log(`Ingresa switch estudio`);
+                                if (
+                                    movementBoardTable.children[6].children[17].classList.contains(
+                                        `movement-in-cell`
+                                    )
+                                ) {
+                                    possibleCell =
+                                        movementBoardTable.children[element[0]]
+                                            .children[[element[1]]];
+                                    possibleCell.classList.add(
+                                        `movement-in-cell`
+                                    );
+                                }
+                                break;
+                            case "611":
+                                console.log(`Ingresa switch estudio`);
+                                if (
+                                    movementBoardTable.children[7].children[11].classList.contains(
+                                        `movement-in-cell`
+                                    )
+                                ) {
+                                    possibleCell =
+                                        movementBoardTable.children[element[0]]
+                                            .children[[element[1]]];
+                                    possibleCell.classList.add(
+                                        `movement-in-cell`
+                                    );
+                                }
+                                break;
+                            case "612":
+                                console.log(`Ingresa switch estudio`);
+                                if (
+                                    movementBoardTable.children[7].children[12].classList.contains(
+                                        `movement-in-cell`
+                                    )
+                                ) {
+                                    possibleCell =
+                                        movementBoardTable.children[element[0]]
+                                            .children[[element[1]]];
+                                    possibleCell.classList.add(
+                                        `movement-in-cell`
+                                    );
+                                }
+                                break;
+                            case "86":
+                                console.log(`Ingresa switch estudio`);
+                                if (
+                                    movementBoardTable.children[8].children[7].classList.contains(
+                                        `movement-in-cell`
+                                    )
+                                ) {
+                                    possibleCell =
+                                        movementBoardTable.children[element[0]]
+                                            .children[[element[1]]];
+                                    possibleCell.classList.add(
+                                        `movement-in-cell`
+                                    );
+                                }
+                                break;
+                            case "917":
+                                console.log(`Ingresa switch estudio`);
+                                if (
+                                    movementBoardTable.children[8].children[17].classList.contains(
+                                        `movement-in-cell`
+                                    )
+                                ) {
+                                    possibleCell =
+                                        movementBoardTable.children[element[0]]
+                                            .children[[element[1]]];
+                                    possibleCell.classList.add(
+                                        `movement-in-cell`
+                                    );
+                                }
+                                break;
+                            case "103":
+                                console.log(`Ingresa switch estudio`);
+                                if (
+                                    movementBoardTable.children[11].children[3].classList.contains(
+                                        `movement-in-cell`
+                                    )
+                                ) {
+                                    possibleCell =
+                                        movementBoardTable.children[element[0]]
+                                            .children[[element[1]]];
+                                    possibleCell.classList.add(
+                                        `movement-in-cell`
+                                    );
+                                }
+                                break;
+                            case "121":
+                                console.log(`Ingresa switch estudio`);
+                                if (
+                                    movementBoardTable.children[11].children[1].classList.contains(
+                                        `movement-in-cell`
+                                    )
+                                ) {
+                                    possibleCell =
+                                        movementBoardTable.children[element[0]]
+                                            .children[[element[1]]];
+                                    possibleCell.classList.add(
+                                        `movement-in-cell`
+                                    );
+                                }
+                                break;
+                            case "1216":
+                                console.log(`Ingresa switch estudio`);
+                                if (
+                                    movementBoardTable.children[12].children[15].classList.contains(
+                                        `movement-in-cell`
+                                    )
+                                ) {
+                                    possibleCell =
+                                        movementBoardTable.children[element[0]]
+                                            .children[[element[1]]];
+                                    possibleCell.classList.add(
+                                        `movement-in-cell`
+                                    );
+                                }
+                                break;
+                            case "155":
+                                console.log(`Ingresa switch estudio`);
+                                if (
+                                    movementBoardTable.children[15].children[6].classList.contains(
+                                        `movement-in-cell`
+                                    )
+                                ) {
+                                    possibleCell =
+                                        movementBoardTable.children[element[0]]
+                                            .children[[element[1]]];
+                                    possibleCell.classList.add(
+                                        `movement-in-cell`
+                                    );
+                                }
+                                break;
+                            case "179":
+                                console.log(`Ingresa switch estudio`);
+                                if (
+                                    movementBoardTable.children[16].children[9].classList.contains(
+                                        `movement-in-cell`
+                                    )
+                                ) {
+                                    possibleCell =
+                                        movementBoardTable.children[element[0]]
+                                            .children[[element[1]]];
+                                    possibleCell.classList.add(
+                                        `movement-in-cell`
+                                    );
+                                }
+                                break;
+                            case "1714":
+                                console.log(`Ingresa switch estudio`);
+                                if (
+                                    movementBoardTable.children[16].children[14].classList.contains(
+                                        `movement-in-cell`
+                                    )
+                                ) {
+                                    possibleCell =
+                                        movementBoardTable.children[element[0]]
+                                            .children[[element[1]]];
+                                    possibleCell.classList.add(
+                                        `movement-in-cell`
+                                    );
+                                }
+                                break;
+                            case "1819":
+                                if (
+                                    movementBoardTable.children[17].children[19].classList.contains(
+                                        `movement-in-cell`
+                                    )
+                                ) {
+                                    possibleCell =
+                                        movementBoardTable.children[element[0]]
+                                            .children[[element[1]]];
+                                    possibleCell.classList.add(
+                                        `movement-in-cell`
+                                    );
+                                }
+                                break;
+                            case "194":
+                                console.log(`Ingresa switch estudio`);
+                                if (
+                                    movementBoardTable.children[19].children[5].classList.contains(
+                                        `movement-in-cell`
+                                    )
+                                ) {
+                                    possibleCell =
+                                        movementBoardTable.children[element[0]]
+                                            .children[[element[1]]];
+                                    possibleCell.classList.add(
+                                        `movement-in-cell`
+                                    );
+                                }
+                                break;
+                            case "198":
+                                console.log(`Ingresa switch estudio`);
+                                if (
+                                    movementBoardTable.children[19].children[7].classList.contains(
+                                        `movement-in-cell`
+                                    )
+                                ) {
+                                    possibleCell =
+                                        movementBoardTable.children[element[0]]
+                                            .children[[element[1]]];
+                                    possibleCell.classList.add(
+                                        `movement-in-cell`
+                                    );
+                                }
+                                break;
+                            case "1915":
+                                console.log(`Ingresa switch estudio`);
+                                if (
+                                    movementBoardTable.children[19].children[16].classList.contains(
+                                        `movement-in-cell`
+                                    )
+                                ) {
+                                    possibleCell =
+                                        movementBoardTable.children[element[0]]
+                                            .children[[element[1]]];
+                                    possibleCell.classList.add(
+                                        `movement-in-cell`
+                                    );
+                                }
+                                break;
+                        }
+                    }
+
+                    if (
+                        element[0] > 0 &&
+                        movementBoard[element[0] - 1][element[1]] !== 7
+                    ) {
+                        /* console.log(`Analizando ${element[0]}`); */
+                        neighborCells.push([element[0] - 1, element[1]]);
+                        /* console.log(`sumando ${[element[0] - 1, element[1]]}`); */
+                    }
+                    if (
+                        element[0] < 24 &&
+                        movementBoard[element[0] + 1][element[1]] !== 7
+                    ) {
+                        neighborCells.push([element[0] + 1, element[1]]);
+                    }
+                    if (
+                        element[1] > 0 &&
+                        movementBoard[element[0]][element[1] - 1] !== 7
+                    ) {
+                        neighborCells.push([element[0], element[1] - 1]);
+                    }
+                    if (
+                        element[1] < 23 &&
+                        movementBoard[element[0]][element[1] + 1] !== 7
+                    ) {
+                        neighborCells.push([element[0], element[1] + 1]);
+                    }
+                    neighborCells = Array.from(
+                        new Set(neighborCells.map(JSON.stringify)),
+                        JSON.parse
+                    );
+                });
+            }
         }
     }
+
+    /* for (let i = 1; i <= movement; i += 1) {
+        let intermediateState = 0;
+        // identificando celdas vecinas
+        if (movingPlayerRow > 0) {
+            neighborCells.push([movingPlayerRow - i, movingPlayerIndex, "row"]);
+        }
+        if (movingPlayerRow < 24) {
+            neighborCells.push([movingPlayerRow + i, movingPlayerIndex, "row"]);
+        }
+        if (movingPlayerIndex > 0) {
+            neighborCells.push([
+                movingPlayerRow,
+                movingPlayerIndex - i,
+                "index",
+            ]);
+        }
+        if (movingPlayerIndex < 23) {
+            neighborCells.push([
+                movingPlayerRow,
+                movingPlayerIndex + i,
+                "index",
+            ]);
+        }
+        console.log(neighborCells);
+    } */
+
+    // for (let row of movementBoard) {
+    //     for (let cell of row) {
+    //         if (movementBoard[rowCounter][i] !== 7) {
+    //             /* console.log(rowCounter);
+    //             console.log(possibleMovementRow + movement); */
+    //             let cellDifference = Math.abs(i - movingPlayerIndex);
+    //             let rowDifference = Math.abs(rowCounter - movingPlayerRow);
+    //             console.log(
+    //                 `El valor de la celda es ${movementBoard[rowCounter][i]}`
+    //             );
+    //             console.log(
+    //                 `El typeof de la celda es ${typeof movementBoard[
+    //                     rowCounter
+    //                 ][i]}`
+    //             );
+    //             console.log(
+    //                 `El rowcounter es ${rowCounter} y el index es ${i}`
+    //             );
+    //             /* console.log(
+    //                 `isRoomDoor da : ${isRoomDoor(
+    //                     movementBoard,
+    //                     rowCounter,
+    //                     i
+    //                 )}`
+    //             ); */
+    //             if (isAbleCell(movementBoard[rowCounter][i])) {
+    //                 if (
+    //                     rowCounter === movingPlayerRow ||
+    //                     i === movingPlayerIndex
+    //                 ) {
+    //                     console.log(
+    //                         `Entró por estar en el mismo index o en el mismo row`
+    //                     );
+    //                     if (
+    //                         /* rowCounter <= possibleMovementRow + movement &&
+    //                     (i <= possibleMovementCell + movement ||
+    //                         i <= possibleMovementCell - movement) && */
+    //                         cellDifference <= movement &&
+    //                         rowDifference <= movement
+    //                     ) {
+    //                         console.log(
+    //                             `Entró por ser el valor ${movementBoard[rowCounter][i]}`
+    //                         );
+    //                         if (isAbleCell(movementBoard[rowCounter][i])) {
+    //                             console.log(
+    //                                 `se encontraron los siguientes movimientos posibles`
+    //                             );
+    //                             materializedCell =
+    //                                 movementBoardTable.children[rowCounter]
+    //                                     .children[i];
+    //                             console.log(materializedCell);
+    //                             if (materializedCell) {
+    //                                 if (
+    //                                     !materializedCell.classList.contains(
+    //                                         `unable`
+    //                                     )
+    //                                 ) {
+    //                                     materializedCell.classList.add(
+    //                                         `movement-in-cell`
+    //                                     );
+    //                                 }
+    //                             }
+    //                             /* correctMovements(movementBoard[rowCounter][i]); */
+    //                         }
+    //                     }
+    //                 } else if (
+    //                     Math.abs(rowCounter - movingPlayerRow) === 1 ||
+    //                     Math.abs(i - movingPlayerIndex) === 1
+    //                 ) {
+    //                     console.log(
+    //                         `Entró por estar a 1  index o row de diferencia`
+    //                     );
+    //                     movement -= 1;
+    //                     console.log(
+    //                         `El movement es ${movement}; el cellDifference es ${cellDifference}; el rowDifference es ${rowDifference}.`
+    //                     );
+    //                     if (
+    //                         /* rowCounter <= possibleMovementRow + movement &&
+    //                     (i <= possibleMovementCell + movement ||
+    //                         i <= possibleMovementCell - movement) && */
+    //                         cellDifference <= movement &&
+    //                         rowDifference <= movement
+    //                     ) {
+    //                         console.log(
+    //                             `Entró por ser el valor ${movementBoard[rowCounter][i]}`
+    //                         );
+    //                         if (isAbleCell(movementBoard[rowCounter][i])) {
+    //                             console.log(
+    //                                 `se encontraron los siguientes movimientos posibles`
+    //                             );
+    //                             materializedCell =
+    //                                 movementBoardTable.children[rowCounter]
+    //                                     .children[i];
+    //                             console.log(materializedCell);
+    //                             if (materializedCell) {
+    //                                 if (
+    //                                     !materializedCell.classList.contains(
+    //                                         `unable`
+    //                                     )
+    //                                 ) {
+    //                                     materializedCell.classList.add(
+    //                                         `movement-in-cell`
+    //                                     );
+    //                                 }
+    //                             }
+    //                             /* correctMovements(movementBoard[rowCounter][i]); */
+    //                         }
+    //                     }
+    //                     movement += 1;
+    //                 } else if (
+    //                     Math.abs(rowCounter - movingPlayerRow) === 2 ||
+    //                     Math.abs(i - movingPlayerIndex) === 2
+    //                 ) {
+    //                     console.log(
+    //                         `Entró por estar a 2 index o row de diferencia`
+    //                     );
+    //                     movement -= 2;
+    //                     if (
+    //                         /* rowCounter <= possibleMovementRow + movement &&
+    //                     (i <= possibleMovementCell + movement ||
+    //                         i <= possibleMovementCell - movement) && */
+    //                         cellDifference <= movement &&
+    //                         rowDifference <= movement
+    //                     ) {
+    //                         console.log(
+    //                             `Entró por ser el valor ${movementBoard[rowCounter][i]}`
+    //                         );
+    //                         if (isAbleCell(movementBoard[rowCounter][i])) {
+    //                             console.log(
+    //                                 `se encontraron los siguientes movimientos posibles`
+    //                             );
+    //                             materializedCell =
+    //                                 movementBoardTable.children[rowCounter]
+    //                                     .children[i];
+    //                             console.log(materializedCell);
+    //                             if (materializedCell) {
+    //                                 if (
+    //                                     !materializedCell.classList.contains(
+    //                                         `unable`
+    //                                     )
+    //                                 ) {
+    //                                     materializedCell.classList.add(
+    //                                         `movement-in-cell`
+    //                                     );
+    //                                 }
+    //                             }
+    //                             /* correctMovements(movementBoard[rowCounter][i]); */
+    //                         }
+    //                     }
+    //                     movement += 2;
+    //                 }
+    //             } else {
+    //             }
+    //         }
+    //         if (i < 23) {
+    //             i += 1;
+    //         } else {
+    //             i = 0;
+    //         }
+    //     }
+    //     if (rowCounter < 24) {
+    //         rowCounter += 1;
+    //     } else {
+    //         rowCounter = 0;
+    //     }
+    // }
+    // correctingMovement(movingPlayerIndex, movingPlayerRow);
+    neighborCells = [];
     isRoomDoor();
+    console.log(`Le estoy mandando accuseChecker ${accuseChecker}`);
     for (let cell of movementAbleCells) {
         cell.addEventListener("click", (evt) => {
             console.log(evt);
@@ -2083,11 +3995,20 @@ const playerMovement = (diceNumber, actualPlayer) => {
                 console.log(
                     `Le estoy pasando al a función para mover el index ${movingPlayerIndex} y el row ${movingPlayerRow}`
                 );
+                console.log(
+                    `Nuevamente repito, estoy mandando accuseChecker ${accuseChecker}`
+                );
+                console.log(
+                    `========= NUEVAMENTE LE ESTOY PASANDO LAS MULTIPLE COORDENATES MULTIPLE COORDENATES ==========`
+                );
+                console.log(multipleCoordenates);
                 movingPlayerToCell(
                     movingPlayer,
                     movingPlayerRow,
                     movingPlayerIndex,
-                    targetedCell
+                    targetedCell,
+                    accuseChecker,
+                    multipleCoordenates
                 );
             } else {
                 console.log(
