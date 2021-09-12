@@ -31,6 +31,8 @@ let neighborCells = [];
 let movementCount;
 let accuseChecker;
 let multipleCoordenates;
+let actualAccusingRoom;
+let accusedCoordenates;
 
 let activePlayerPiece;
 
@@ -957,7 +959,7 @@ const accusation = () => {};
 
 const enoughToAccuse = (newCell, position) => {
     console.log("ejecutando enoughToAccuse");
-    accusePosition = position;
+    actualAccusingRoom = position;
     if (
         newCell !== 1 &&
         newCell !== 2 &&
@@ -1013,8 +1015,6 @@ const enoughToAccuse = (newCell, position) => {
     newCoordenates = [undefined, undefined];
     activePlayerPiece = undefined;
 };
-
-const checkingIfMultipleDoors = () => {};
 
 const movingPlayerToCell = (
     actualPlayer,
@@ -4117,13 +4117,1370 @@ const greyscaleCards = (jugador) => {
 // FUNCIÓN CALLBACK QUE CONTIENE LA LÓGICA DE LA SELECCIÓN DE SOSPECHOSO, ARMA Y LUGAR, MANIPULA LAS INTERFACES Y MUESTRA UNA INTERFAZ FINAL DE LA ACUSACIÓN REALIZADA
 const suspectSelection = (evt) => {
     console.log(evt.target.id);
+    let accusedPlayerPiece;
+    let accusedPlayerIndex, accusedPlayerRow;
+    accusedCoordenates = [];
+    console.log(actualAccusingRoom);
     switch (selectedTriade.length) {
+        /*  Escarlata: 1
+            Mostaza: 2
+            Blanco: 3
+            Verdi: 4
+            Azulino: 5
+            Moradillo: 6 */
         case 0:
             suspectsAccContainer.classList.remove(
                 "hidden-accusation-category-container"
             );
             suspectsAccContainer.classList.add("accusation-category-container");
             selectedTriade.push(evt.target.id.toUpperCase());
+            switch (evt.target.id) {
+                case "azulino":
+                    console.log(`Llevando a azulino a habitación`);
+                    accusedPlayerPiece = 5;
+                    for (let row of movementBoard) {
+                        for (let cell of row) {
+                            if (typeof cell === "number") {
+                                if (accusedPlayerPiece === cell) {
+                                    accusedCoordenates.push([
+                                        movementBoard.indexOf(row),
+                                        row.indexOf(cell),
+                                    ]);
+                                    break;
+                                }
+                                if (i < 23) {
+                                    i += 1;
+                                } else {
+                                    i = 0;
+                                }
+                            } else {
+                                if (cell.includes(accusedPlayerPiece)) {
+                                    accusedCoordenates.push([
+                                        movementBoard.indexOf(row),
+                                        row.indexOf(cell),
+                                    ]);
+                                    console.log(accusedCoordenates);
+                                    console.log(
+                                        `La Ubicación del jugador es en las siguientes coordenadas: ${accusedCoordenates}`
+                                    );
+                                }
+                                if (i < 23) {
+                                    i += 1;
+                                } else {
+                                    i = 0;
+                                }
+                            }
+                        }
+                    }
+                    console.log(
+                        `La Ubicación FINAL del jugador es en las siguientes coordenadas: ${accusedCoordenates}`
+                    );
+                    console.log(movementBoard);
+                    console.log(accusedCoordenates[0][0]);
+                    console.log(
+                        movementBoard[accusedCoordenates[0][0]][
+                            accusedCoordenates[0][1]
+                        ]
+                    );
+                    if (
+                        typeof movementBoard[accusedCoordenates[0][0]][
+                            accusedCoordenates[0][1]
+                        ] === "number"
+                    ) {
+                        if (
+                            movementBoard[accusedCoordenates[0][0]][
+                                accusedCoordenates[0][1]
+                            ] === accusedPlayerPiece
+                        ) {
+                            movementBoard[accusedCoordenates[0][0]][
+                                accusedCoordenates[0][1]
+                            ] = 0;
+                        }
+                    } else {
+                        for (let coordinate of accusedCoordenates) {
+                            let positionRow = coordinate[0];
+                            let positionIndex = coordinate[1];
+                            console.log(
+                                `Logueando el valor del casillero de destino`
+                            );
+                            console.log(
+                                typeof movementBoard[positionRow][positionIndex]
+                            );
+                            console.log(
+                                movementBoard[positionRow][positionIndex]
+                            );
+                            movementBoard[positionRow][positionIndex] =
+                                movementBoard[positionRow][
+                                    positionIndex
+                                ].filter((value) => {
+                                    return value !== accusedPlayerPiece;
+                                });
+                        }
+                    }
+                    movementBoard[actualAccusingRoom[0]][
+                        actualAccusingRoom[1]
+                    ].push(accusedPlayerPiece);
+                    switch (
+                        movementBoard[actualAccusingRoom[0]][
+                            actualAccusingRoom[1]
+                        ][0]
+                    ) {
+                        /*Vestíbulo: 9
+                        Biblioteca: 11
+                        Comedor: 12
+                        Billar: 13
+                        Salón de Baile: 15 */
+                        case 9:
+                            if (actualAccusingRoom[0] === 4) {
+                                movementBoard[6][11].push(accusedPlayerPiece);
+                                movementBoard[6][12].push(accusedPlayerPiece);
+                            } else if (actualAccusingRoom[1] === 11) {
+                                movementBoard[4][9].push(accusedPlayerPiece);
+                                movementBoard[6][12].push(accusedPlayerPiece);
+                            } else if (actualAccusingRoom[1] === 12) {
+                                movementBoard[4][9].push(accusedPlayerPiece);
+                                movementBoard[6][11].push(accusedPlayerPiece);
+                            }
+                            break;
+                        case 11:
+                            if (actualAccusingRoom[0] === 8) {
+                                movementBoard[10][3].push(accusedPlayerPiece);
+                            } else if (actualAccusingRoom[0] === 10) {
+                                movementBoard[8][6].push(accusedPlayerPiece);
+                            }
+                            break;
+                        case 12:
+                            if (actualAccusingRoom[0] === 9) {
+                                movementBoard[12][16].push(accusedPlayerPiece);
+                            } else if (actualAccusingRoom[0] === 12) {
+                                movementBoard[9][17].push(accusedPlayerPiece);
+                            }
+                            break;
+                        case 13:
+                            if (actualAccusingRoom[0] === 12) {
+                                movementBoard[15][5].push(accusedPlayerPiece);
+                            } else if (actualAccusingRoom[0] === 15) {
+                                movementBoard[12][1].push(accusedPlayerPiece);
+                            }
+                            break;
+                        case 15:
+                            if (actualAccusingRoom[1] === 8) {
+                                movementBoard[17][9].push(accusedPlayerPiece);
+                                movementBoard[17][14].push(accusedPlayerPiece);
+                                movementBoard[19][15].push(accusedPlayerPiece);
+                            } else if (actualAccusingRoom[1] === 9) {
+                                movementBoard[19][8].push(accusedPlayerPiece);
+                                movementBoard[17][14].push(accusedPlayerPiece);
+                                movementBoard[19][15].push(accusedPlayerPiece);
+                            } else if (actualAccusingRoom[1] === 14) {
+                                movementBoard[19][8].push(accusedPlayerPiece);
+                                movementBoard[17][9].push(accusedPlayerPiece);
+                                movementBoard[19][15].push(accusedPlayerPiece);
+                            } else if (actualAccusingRoom[1] === 15) {
+                                movementBoard[19][8].push(accusedPlayerPiece);
+                                movementBoard[17][9].push(accusedPlayerPiece);
+                                movementBoard[17][14].push(accusedPlayerPiece);
+                            }
+                            break;
+                    }
+                    /*  Estudio: 8
+                    Vestíbulo: 9
+                    Sala: 10
+                    Biblioteca: 11
+                    Comedor: 12
+                    Billar: 13
+                    Invernadero: 14
+                    Salón de Baile: 15
+                    Cocina: 16 */
+
+                    for (let cell of movementAbleCells) {
+                        console.dir(cell);
+                        if (cell.childNodes[0] === fichaJugadorAzulino) {
+                            console.log(
+                                `Se encontró la ficha del jugador, y se quitó de su lugar`
+                            );
+                            cell.removeChild(fichaJugadorAzulino);
+                        }
+                    }
+                    console.log(
+                        movementBoard[actualAccusingRoom[0]][
+                            actualAccusingRoom[1]
+                        ]
+                    );
+                    switch (
+                        movementBoard[actualAccusingRoom[0]][
+                            actualAccusingRoom[1]
+                        ][0]
+                    ) {
+                        case 10:
+                            document
+                                .querySelector(`#cell-3u`)
+                                .appendChild(fichaJugadorAzulino);
+                            break;
+                        case 9:
+                            document
+                                .querySelector(`#cell-3k`)
+                                .appendChild(fichaJugadorAzulino);
+                            break;
+                        case 8:
+                            document
+                                .querySelector(`#cell-3c`)
+                                .appendChild(fichaJugadorAzulino);
+                            break;
+                        case 11:
+                            document
+                                .querySelector(`#cell-10d`)
+                                .appendChild(fichaJugadorAzulino);
+                            break;
+                        case 12:
+                            document
+                                .querySelector(`#cell-11u`)
+                                .appendChild(fichaJugadorAzulino);
+                            break;
+                        case 13:
+                            document
+                                .querySelector(`#cell-15e`)
+                                .appendChild(fichaJugadorAzulino);
+                            break;
+                        case 15:
+                            document
+                                .querySelector(`#cell-19j`)
+                                .appendChild(fichaJugadorAzulino);
+                            break;
+                        case 14:
+                            document
+                                .querySelector(`#cell-23d`)
+                                .appendChild(fichaJugadorAzulino);
+                            break;
+                        case 16:
+                            document
+                                .querySelector(`#cell-21v`)
+                                .appendChild(fichaJugadorAzulino);
+                            break;
+                    }
+                    console.log(`La ficha del jugador se movió correctamente`);
+                    break;
+                case "blanco":
+                    console.log(`Llevando a blanco a habitación`);
+                    accusedPlayerPiece = 3;
+                    for (let row of movementBoard) {
+                        for (let cell of row) {
+                            if (typeof cell === "number") {
+                                if (accusedPlayerPiece === cell) {
+                                    accusedCoordenates.push([
+                                        movementBoard.indexOf(row),
+                                        row.indexOf(cell),
+                                    ]);
+                                    break;
+                                }
+                                if (i < 23) {
+                                    i += 1;
+                                } else {
+                                    i = 0;
+                                }
+                            } else {
+                                if (cell.includes(accusedPlayerPiece)) {
+                                    accusedCoordenates.push([
+                                        movementBoard.indexOf(row),
+                                        row.indexOf(cell),
+                                    ]);
+                                    console.log(accusedCoordenates);
+                                    console.log(
+                                        `La Ubicación del jugador es en las siguientes coordenadas: ${accusedCoordenates}`
+                                    );
+                                }
+                                if (i < 23) {
+                                    i += 1;
+                                } else {
+                                    i = 0;
+                                }
+                            }
+                        }
+                    }
+                    console.log(
+                        `La Ubicación FINAL del jugador es en las siguientes coordenadas: ${accusedCoordenates}`
+                    );
+                    console.log(movementBoard);
+                    console.log(accusedCoordenates[0][0]);
+                    console.log(
+                        movementBoard[accusedCoordenates[0][0]][
+                            accusedCoordenates[0][1]
+                        ]
+                    );
+                    if (
+                        typeof movementBoard[accusedCoordenates[0][0]][
+                            accusedCoordenates[0][1]
+                        ] === "number"
+                    ) {
+                        if (
+                            movementBoard[accusedCoordenates[0][0]][
+                                accusedCoordenates[0][1]
+                            ] === accusedPlayerPiece
+                        ) {
+                            movementBoard[accusedCoordenates[0][0]][
+                                accusedCoordenates[0][1]
+                            ] = 0;
+                        }
+                    } else {
+                        for (let coordinate of accusedCoordenates) {
+                            let positionRow = coordinate[0];
+                            let positionIndex = coordinate[1];
+                            console.log(
+                                `Logueando el valor del casillero de destino`
+                            );
+                            console.log(
+                                typeof movementBoard[positionRow][positionIndex]
+                            );
+                            console.log(
+                                movementBoard[positionRow][positionIndex]
+                            );
+                            movementBoard[positionRow][positionIndex] =
+                                movementBoard[positionRow][
+                                    positionIndex
+                                ].filter((value) => {
+                                    return value !== accusedPlayerPiece;
+                                });
+                        }
+                    }
+                    movementBoard[actualAccusingRoom[0]][
+                        actualAccusingRoom[1]
+                    ].push(accusedPlayerPiece);
+                    switch (
+                        movementBoard[actualAccusingRoom[0]][
+                            actualAccusingRoom[1]
+                        ][0]
+                    ) {
+                        /*Vestíbulo: 9
+                        Biblioteca: 11
+                        Comedor: 12
+                        Billar: 13
+                        Salón de Baile: 15 */
+                        case 9:
+                            if (actualAccusingRoom[0] === 4) {
+                                movementBoard[6][11].push(accusedPlayerPiece);
+                                movementBoard[6][12].push(accusedPlayerPiece);
+                            } else if (actualAccusingRoom[1] === 11) {
+                                movementBoard[4][9].push(accusedPlayerPiece);
+                                movementBoard[6][12].push(accusedPlayerPiece);
+                            } else if (actualAccusingRoom[1] === 12) {
+                                movementBoard[4][9].push(accusedPlayerPiece);
+                                movementBoard[6][11].push(accusedPlayerPiece);
+                            }
+                            break;
+                        case 11:
+                            if (actualAccusingRoom[0] === 8) {
+                                movementBoard[10][3].push(accusedPlayerPiece);
+                            } else if (actualAccusingRoom[0] === 10) {
+                                movementBoard[8][6].push(accusedPlayerPiece);
+                            }
+                            break;
+                        case 12:
+                            if (actualAccusingRoom[0] === 9) {
+                                movementBoard[12][16].push(accusedPlayerPiece);
+                            } else if (actualAccusingRoom[0] === 12) {
+                                movementBoard[9][17].push(accusedPlayerPiece);
+                            }
+                            break;
+                        case 13:
+                            if (actualAccusingRoom[0] === 12) {
+                                movementBoard[15][5].push(accusedPlayerPiece);
+                            } else if (actualAccusingRoom[0] === 15) {
+                                movementBoard[12][1].push(accusedPlayerPiece);
+                            }
+                            break;
+                        case 15:
+                            if (actualAccusingRoom[1] === 8) {
+                                movementBoard[17][9].push(accusedPlayerPiece);
+                                movementBoard[17][14].push(accusedPlayerPiece);
+                                movementBoard[19][15].push(accusedPlayerPiece);
+                            } else if (actualAccusingRoom[1] === 9) {
+                                movementBoard[19][8].push(accusedPlayerPiece);
+                                movementBoard[17][14].push(accusedPlayerPiece);
+                                movementBoard[19][15].push(accusedPlayerPiece);
+                            } else if (actualAccusingRoom[1] === 14) {
+                                movementBoard[19][8].push(accusedPlayerPiece);
+                                movementBoard[17][9].push(accusedPlayerPiece);
+                                movementBoard[19][15].push(accusedPlayerPiece);
+                            } else if (actualAccusingRoom[1] === 15) {
+                                movementBoard[19][8].push(accusedPlayerPiece);
+                                movementBoard[17][9].push(accusedPlayerPiece);
+                                movementBoard[17][14].push(accusedPlayerPiece);
+                            }
+                            break;
+                    }
+                    /*  Estudio: 8
+                    Vestíbulo: 9
+                    Sala: 10
+                    Biblioteca: 11
+                    Comedor: 12
+                    Billar: 13
+                    Invernadero: 14
+                    Salón de Baile: 15
+                    Cocina: 16 */
+
+                    for (let cell of movementAbleCells) {
+                        console.dir(cell);
+                        if (cell.childNodes[0] === fichaJugadorBlanco) {
+                            console.log(
+                                `Se encontró la ficha del jugador, y se quitó de su lugar`
+                            );
+                            cell.removeChild(fichaJugadorBlanco);
+                        }
+                    }
+                    console.log(
+                        movementBoard[actualAccusingRoom[0]][
+                            actualAccusingRoom[1]
+                        ]
+                    );
+                    switch (
+                        movementBoard[actualAccusingRoom[0]][
+                            actualAccusingRoom[1]
+                        ][0]
+                    ) {
+                        case 10:
+                            document
+                                .querySelector(`#cell-3t`)
+                                .appendChild(fichaJugadorBlanco);
+                            break;
+                        case 9:
+                            document
+                                .querySelector(`#cell-4n`)
+                                .appendChild(fichaJugadorBlanco);
+                            break;
+                        case 8:
+                            document
+                                .querySelector(`#cell-2d`)
+                                .appendChild(fichaJugadorBlanco);
+                            break;
+                        case 11:
+                            document
+                                .querySelector(`#cell-10e`)
+                                .appendChild(fichaJugadorBlanco);
+                            break;
+                        case 12:
+                            document
+                                .querySelector(`#cell-14v`)
+                                .appendChild(fichaJugadorBlanco);
+                            break;
+                        case 13:
+                            document
+                                .querySelector(`#cell-14e`)
+                                .appendChild(fichaJugadorBlanco);
+                            break;
+                        case 15:
+                            document
+                                .querySelector(`#cell-22m`)
+                                .appendChild(fichaJugadorBlanco);
+                            break;
+                        case 14:
+                            document
+                                .querySelector(`#cell-23c`)
+                                .appendChild(fichaJugadorBlanco);
+                            break;
+                        case 16:
+                            document
+                                .querySelector(`#cell-23u`)
+                                .appendChild(fichaJugadorBlanco);
+                            break;
+                    }
+                    break;
+                case "escarlata":
+                    console.log(`Llevando a escarlata a habitación`);
+                    accusedPlayerPiece = 1;
+                    for (let row of movementBoard) {
+                        for (let cell of row) {
+                            if (typeof cell === "number") {
+                                if (accusedPlayerPiece === cell) {
+                                    accusedCoordenates.push([
+                                        movementBoard.indexOf(row),
+                                        row.indexOf(cell),
+                                    ]);
+                                    break;
+                                }
+                                if (i < 23) {
+                                    i += 1;
+                                } else {
+                                    i = 0;
+                                }
+                            } else {
+                                if (cell.includes(accusedPlayerPiece)) {
+                                    accusedCoordenates.push([
+                                        movementBoard.indexOf(row),
+                                        row.indexOf(cell),
+                                    ]);
+                                    console.log(accusedCoordenates);
+                                    console.log(
+                                        `La Ubicación del jugador es en las siguientes coordenadas: ${accusedCoordenates}`
+                                    );
+                                }
+                                if (i < 23) {
+                                    i += 1;
+                                } else {
+                                    i = 0;
+                                }
+                            }
+                        }
+                    }
+                    console.log(
+                        `La Ubicación FINAL del jugador es en las siguientes coordenadas: ${accusedCoordenates}`
+                    );
+                    console.log(movementBoard);
+                    console.log(accusedCoordenates[0][0]);
+                    console.log(
+                        movementBoard[accusedCoordenates[0][0]][
+                            accusedCoordenates[0][1]
+                        ]
+                    );
+                    if (
+                        typeof movementBoard[accusedCoordenates[0][0]][
+                            accusedCoordenates[0][1]
+                        ] === "number"
+                    ) {
+                        if (
+                            movementBoard[accusedCoordenates[0][0]][
+                                accusedCoordenates[0][1]
+                            ] === accusedPlayerPiece
+                        ) {
+                            movementBoard[accusedCoordenates[0][0]][
+                                accusedCoordenates[0][1]
+                            ] = 0;
+                        }
+                    } else {
+                        for (let coordinate of accusedCoordenates) {
+                            let positionRow = coordinate[0];
+                            let positionIndex = coordinate[1];
+                            console.log(
+                                `Logueando el valor del casillero de destino`
+                            );
+                            console.log(
+                                typeof movementBoard[positionRow][positionIndex]
+                            );
+                            console.log(
+                                movementBoard[positionRow][positionIndex]
+                            );
+                            movementBoard[positionRow][positionIndex] =
+                                movementBoard[positionRow][
+                                    positionIndex
+                                ].filter((value) => {
+                                    return value !== accusedPlayerPiece;
+                                });
+                        }
+                    }
+                    movementBoard[actualAccusingRoom[0]][
+                        actualAccusingRoom[1]
+                    ].push(accusedPlayerPiece);
+                    switch (
+                        movementBoard[actualAccusingRoom[0]][
+                            actualAccusingRoom[1]
+                        ][0]
+                    ) {
+                        /*Vestíbulo: 9
+                        Biblioteca: 11
+                        Comedor: 12
+                        Billar: 13
+                        Salón de Baile: 15 */
+                        case 9:
+                            if (actualAccusingRoom[0] === 4) {
+                                movementBoard[6][11].push(accusedPlayerPiece);
+                                movementBoard[6][12].push(accusedPlayerPiece);
+                            } else if (actualAccusingRoom[1] === 11) {
+                                movementBoard[4][9].push(accusedPlayerPiece);
+                                movementBoard[6][12].push(accusedPlayerPiece);
+                            } else if (actualAccusingRoom[1] === 12) {
+                                movementBoard[4][9].push(accusedPlayerPiece);
+                                movementBoard[6][11].push(accusedPlayerPiece);
+                            }
+                            break;
+                        case 11:
+                            if (actualAccusingRoom[0] === 8) {
+                                movementBoard[10][3].push(accusedPlayerPiece);
+                            } else if (actualAccusingRoom[0] === 10) {
+                                movementBoard[8][6].push(accusedPlayerPiece);
+                            }
+                            break;
+                        case 12:
+                            if (actualAccusingRoom[0] === 9) {
+                                movementBoard[12][16].push(accusedPlayerPiece);
+                            } else if (actualAccusingRoom[0] === 12) {
+                                movementBoard[9][17].push(accusedPlayerPiece);
+                            }
+                            break;
+                        case 13:
+                            if (actualAccusingRoom[0] === 12) {
+                                movementBoard[15][5].push(accusedPlayerPiece);
+                            } else if (actualAccusingRoom[0] === 15) {
+                                movementBoard[12][1].push(accusedPlayerPiece);
+                            }
+                            break;
+                        case 15:
+                            if (actualAccusingRoom[1] === 8) {
+                                movementBoard[17][9].push(accusedPlayerPiece);
+                                movementBoard[17][14].push(accusedPlayerPiece);
+                                movementBoard[19][15].push(accusedPlayerPiece);
+                            } else if (actualAccusingRoom[1] === 9) {
+                                movementBoard[19][8].push(accusedPlayerPiece);
+                                movementBoard[17][14].push(accusedPlayerPiece);
+                                movementBoard[19][15].push(accusedPlayerPiece);
+                            } else if (actualAccusingRoom[1] === 14) {
+                                movementBoard[19][8].push(accusedPlayerPiece);
+                                movementBoard[17][9].push(accusedPlayerPiece);
+                                movementBoard[19][15].push(accusedPlayerPiece);
+                            } else if (actualAccusingRoom[1] === 15) {
+                                movementBoard[19][8].push(accusedPlayerPiece);
+                                movementBoard[17][9].push(accusedPlayerPiece);
+                                movementBoard[17][14].push(accusedPlayerPiece);
+                            }
+                            break;
+                    }
+                    /*  Estudio: 8
+                    Vestíbulo: 9
+                    Sala: 10
+                    Biblioteca: 11
+                    Comedor: 12
+                    Billar: 13
+                    Invernadero: 14
+                    Salón de Baile: 15
+                    Cocina: 16 */
+
+                    for (let cell of movementAbleCells) {
+                        console.dir(cell);
+                        if (cell.childNodes[0] === fichaJugadorEscarlata) {
+                            console.log(
+                                `Se encontró la ficha del jugador, y se quitó de su lugar`
+                            );
+                            cell.removeChild(fichaJugadorEscarlata);
+                        }
+                    }
+                    console.log(
+                        movementBoard[actualAccusingRoom[0]][
+                            actualAccusingRoom[1]
+                        ]
+                    );
+                    switch (
+                        movementBoard[actualAccusingRoom[0]][
+                            actualAccusingRoom[1]
+                        ][0]
+                    ) {
+                        case 10:
+                            document
+                                .querySelector(`#cell-3v`)
+                                .appendChild(fichaJugadorEscarlata);
+                            break;
+                        case 9:
+                            document
+                                .querySelector(`#cell-3n`)
+                                .appendChild(fichaJugadorEscarlata);
+                            break;
+                        case 8:
+                            document
+                                .querySelector(`#cell-2c`)
+                                .appendChild(fichaJugadorEscarlata);
+                            break;
+                        case 11:
+                            document
+                                .querySelector(`#cell-8c`)
+                                .appendChild(fichaJugadorEscarlata);
+                            break;
+                        case 12:
+                            document
+                                .querySelector(`#cell-11v`)
+                                .appendChild(fichaJugadorEscarlata);
+                            break;
+                        case 13:
+                            document
+                                .querySelector(`#cell-14d`)
+                                .appendChild(fichaJugadorEscarlata);
+                            break;
+                        case 15:
+                            document
+                                .querySelector(`#cell-19o`)
+                                .appendChild(fichaJugadorEscarlata);
+                            break;
+                        case 14:
+                            document
+                                .querySelector(`#cell-23b`)
+                                .appendChild(fichaJugadorEscarlata);
+                            break;
+                        case 16:
+                            document
+                                .querySelector(`#cell-21w`)
+                                .appendChild(fichaJugadorEscarlata);
+                            break;
+                    }
+                    break;
+                case "moradillo":
+                    console.log(`Llevando a moradillo a habitación`);
+                    accusedPlayerPiece = 6;
+                    for (let row of movementBoard) {
+                        for (let cell of row) {
+                            if (typeof cell === "number") {
+                                if (accusedPlayerPiece === cell) {
+                                    accusedCoordenates.push([
+                                        movementBoard.indexOf(row),
+                                        row.indexOf(cell),
+                                    ]);
+                                    break;
+                                }
+                                if (i < 23) {
+                                    i += 1;
+                                } else {
+                                    i = 0;
+                                }
+                            } else {
+                                if (cell.includes(accusedPlayerPiece)) {
+                                    accusedCoordenates.push([
+                                        movementBoard.indexOf(row),
+                                        row.indexOf(cell),
+                                    ]);
+                                    console.log(accusedCoordenates);
+                                    console.log(
+                                        `La Ubicación del jugador es en las siguientes coordenadas: ${accusedCoordenates}`
+                                    );
+                                }
+                                if (i < 23) {
+                                    i += 1;
+                                } else {
+                                    i = 0;
+                                }
+                            }
+                        }
+                    }
+                    console.log(
+                        `La Ubicación FINAL del jugador es en las siguientes coordenadas: ${accusedCoordenates}`
+                    );
+                    console.log(movementBoard);
+                    console.log(accusedCoordenates[0][0]);
+                    console.log(
+                        movementBoard[accusedCoordenates[0][0]][
+                            accusedCoordenates[0][1]
+                        ]
+                    );
+                    if (
+                        typeof movementBoard[accusedCoordenates[0][0]][
+                            accusedCoordenates[0][1]
+                        ] === "number"
+                    ) {
+                        if (
+                            movementBoard[accusedCoordenates[0][0]][
+                                accusedCoordenates[0][1]
+                            ] === accusedPlayerPiece
+                        ) {
+                            movementBoard[accusedCoordenates[0][0]][
+                                accusedCoordenates[0][1]
+                            ] = 0;
+                        }
+                    } else {
+                        for (let coordinate of accusedCoordenates) {
+                            let positionRow = coordinate[0];
+                            let positionIndex = coordinate[1];
+                            console.log(
+                                `Logueando el valor del casillero de destino`
+                            );
+                            console.log(
+                                typeof movementBoard[positionRow][positionIndex]
+                            );
+                            console.log(
+                                movementBoard[positionRow][positionIndex]
+                            );
+                            movementBoard[positionRow][positionIndex] =
+                                movementBoard[positionRow][
+                                    positionIndex
+                                ].filter((value) => {
+                                    return value !== accusedPlayerPiece;
+                                });
+                        }
+                    }
+                    movementBoard[actualAccusingRoom[0]][
+                        actualAccusingRoom[1]
+                    ].push(accusedPlayerPiece);
+                    switch (
+                        movementBoard[actualAccusingRoom[0]][
+                            actualAccusingRoom[1]
+                        ][0]
+                    ) {
+                        /*Vestíbulo: 9
+                        Biblioteca: 11
+                        Comedor: 12
+                        Billar: 13
+                        Salón de Baile: 15 */
+                        case 9:
+                            if (actualAccusingRoom[0] === 4) {
+                                movementBoard[6][11].push(accusedPlayerPiece);
+                                movementBoard[6][12].push(accusedPlayerPiece);
+                            } else if (actualAccusingRoom[1] === 11) {
+                                movementBoard[4][9].push(accusedPlayerPiece);
+                                movementBoard[6][12].push(accusedPlayerPiece);
+                            } else if (actualAccusingRoom[1] === 12) {
+                                movementBoard[4][9].push(accusedPlayerPiece);
+                                movementBoard[6][11].push(accusedPlayerPiece);
+                            }
+                            break;
+                        case 11:
+                            if (actualAccusingRoom[0] === 8) {
+                                movementBoard[10][3].push(accusedPlayerPiece);
+                            } else if (actualAccusingRoom[0] === 10) {
+                                movementBoard[8][6].push(accusedPlayerPiece);
+                            }
+                            break;
+                        case 12:
+                            if (actualAccusingRoom[0] === 9) {
+                                movementBoard[12][16].push(accusedPlayerPiece);
+                            } else if (actualAccusingRoom[0] === 12) {
+                                movementBoard[9][17].push(accusedPlayerPiece);
+                            }
+                            break;
+                        case 13:
+                            if (actualAccusingRoom[0] === 12) {
+                                movementBoard[15][5].push(accusedPlayerPiece);
+                            } else if (actualAccusingRoom[0] === 15) {
+                                movementBoard[12][1].push(accusedPlayerPiece);
+                            }
+                            break;
+                        case 15:
+                            if (actualAccusingRoom[1] === 8) {
+                                movementBoard[17][9].push(accusedPlayerPiece);
+                                movementBoard[17][14].push(accusedPlayerPiece);
+                                movementBoard[19][15].push(accusedPlayerPiece);
+                            } else if (actualAccusingRoom[1] === 9) {
+                                movementBoard[19][8].push(accusedPlayerPiece);
+                                movementBoard[17][14].push(accusedPlayerPiece);
+                                movementBoard[19][15].push(accusedPlayerPiece);
+                            } else if (actualAccusingRoom[1] === 14) {
+                                movementBoard[19][8].push(accusedPlayerPiece);
+                                movementBoard[17][9].push(accusedPlayerPiece);
+                                movementBoard[19][15].push(accusedPlayerPiece);
+                            } else if (actualAccusingRoom[1] === 15) {
+                                movementBoard[19][8].push(accusedPlayerPiece);
+                                movementBoard[17][9].push(accusedPlayerPiece);
+                                movementBoard[17][14].push(accusedPlayerPiece);
+                            }
+                            break;
+                    }
+                    /*  Estudio: 8
+                    Vestíbulo: 9
+                    Sala: 10
+                    Biblioteca: 11
+                    Comedor: 12
+                    Billar: 13
+                    Invernadero: 14
+                    Salón de Baile: 15
+                    Cocina: 16 */
+
+                    for (let cell of movementAbleCells) {
+                        console.dir(cell);
+                        if (cell.childNodes[0] === fichaJugadorMoradillo) {
+                            console.log(
+                                `Se encontró la ficha del jugador, y se quitó de su lugar`
+                            );
+                            cell.removeChild(fichaJugadorMoradillo);
+                        }
+                    }
+                    console.log(
+                        movementBoard[actualAccusingRoom[0]][
+                            actualAccusingRoom[1]
+                        ]
+                    );
+                    switch (
+                        movementBoard[actualAccusingRoom[0]][
+                            actualAccusingRoom[1]
+                        ][0]
+                    ) {
+                        case 10:
+                            document
+                                .querySelector(`#cell-4v`)
+                                .appendChild(fichaJugadorMoradillo);
+                            break;
+                        case 9:
+                            document
+                                .querySelector(`#cell-5n`)
+                                .appendChild(fichaJugadorMoradillo);
+                            break;
+                        case 8:
+                            document
+                                .querySelector(`#cell-3d`)
+                                .appendChild(fichaJugadorMoradillo);
+                            break;
+                        case 11:
+                            document
+                                .querySelector(`#cell-8e`)
+                                .appendChild(fichaJugadorMoradillo);
+                            break;
+                        case 12:
+                            document
+                                .querySelector(`#cell-14t`)
+                                .appendChild(fichaJugadorMoradillo);
+                            break;
+                        case 13:
+                            document
+                                .querySelector(`#cell-16e`)
+                                .appendChild(fichaJugadorMoradillo);
+                            break;
+                        case 15:
+                            document
+                                .querySelector(`#cell-19m`)
+                                .appendChild(fichaJugadorMoradillo);
+                            break;
+                        case 14:
+                            document
+                                .querySelector(`#cell-22b`)
+                                .appendChild(fichaJugadorMoradillo);
+                            break;
+                        case 16:
+                            document
+                                .querySelector(`#cell-21u`)
+                                .appendChild(fichaJugadorMoradillo);
+                            break;
+                    }
+                    break;
+                case "mostaza":
+                    console.log(`Llevando a mostaza a habitación`);
+                    accusedPlayerPiece = 2;
+                    for (let row of movementBoard) {
+                        for (let cell of row) {
+                            if (typeof cell === "number") {
+                                if (accusedPlayerPiece === cell) {
+                                    accusedCoordenates.push([
+                                        movementBoard.indexOf(row),
+                                        row.indexOf(cell),
+                                    ]);
+                                    break;
+                                }
+                                if (i < 23) {
+                                    i += 1;
+                                } else {
+                                    i = 0;
+                                }
+                            } else {
+                                if (cell.includes(accusedPlayerPiece)) {
+                                    accusedCoordenates.push([
+                                        movementBoard.indexOf(row),
+                                        row.indexOf(cell),
+                                    ]);
+                                    console.log(accusedCoordenates);
+                                    console.log(
+                                        `La Ubicación del jugador es en las siguientes coordenadas: ${accusedCoordenates}`
+                                    );
+                                }
+                                if (i < 23) {
+                                    i += 1;
+                                } else {
+                                    i = 0;
+                                }
+                            }
+                        }
+                    }
+                    console.log(
+                        `La Ubicación FINAL del jugador es en las siguientes coordenadas: ${accusedCoordenates}`
+                    );
+                    console.log(movementBoard);
+                    console.log(accusedCoordenates[0][0]);
+                    console.log(
+                        movementBoard[accusedCoordenates[0][0]][
+                            accusedCoordenates[0][1]
+                        ]
+                    );
+                    if (
+                        typeof movementBoard[accusedCoordenates[0][0]][
+                            accusedCoordenates[0][1]
+                        ] === "number"
+                    ) {
+                        if (
+                            movementBoard[accusedCoordenates[0][0]][
+                                accusedCoordenates[0][1]
+                            ] === accusedPlayerPiece
+                        ) {
+                            movementBoard[accusedCoordenates[0][0]][
+                                accusedCoordenates[0][1]
+                            ] = 0;
+                        }
+                    } else {
+                        for (let coordinate of accusedCoordenates) {
+                            let positionRow = coordinate[0];
+                            let positionIndex = coordinate[1];
+                            console.log(
+                                `Logueando el valor del casillero de destino`
+                            );
+                            console.log(
+                                typeof movementBoard[positionRow][positionIndex]
+                            );
+                            console.log(
+                                movementBoard[positionRow][positionIndex]
+                            );
+                            movementBoard[positionRow][positionIndex] =
+                                movementBoard[positionRow][
+                                    positionIndex
+                                ].filter((value) => {
+                                    return value !== accusedPlayerPiece;
+                                });
+                        }
+                    }
+                    movementBoard[actualAccusingRoom[0]][
+                        actualAccusingRoom[1]
+                    ].push(accusedPlayerPiece);
+                    switch (
+                        movementBoard[actualAccusingRoom[0]][
+                            actualAccusingRoom[1]
+                        ][0]
+                    ) {
+                        /*Vestíbulo: 9
+                        Biblioteca: 11
+                        Comedor: 12
+                        Billar: 13
+                        Salón de Baile: 15 */
+                        case 9:
+                            if (actualAccusingRoom[0] === 4) {
+                                movementBoard[6][11].push(accusedPlayerPiece);
+                                movementBoard[6][12].push(accusedPlayerPiece);
+                            } else if (actualAccusingRoom[1] === 11) {
+                                movementBoard[4][9].push(accusedPlayerPiece);
+                                movementBoard[6][12].push(accusedPlayerPiece);
+                            } else if (actualAccusingRoom[1] === 12) {
+                                movementBoard[4][9].push(accusedPlayerPiece);
+                                movementBoard[6][11].push(accusedPlayerPiece);
+                            }
+                            break;
+                        case 11:
+                            if (actualAccusingRoom[0] === 8) {
+                                movementBoard[10][3].push(accusedPlayerPiece);
+                            } else if (actualAccusingRoom[0] === 10) {
+                                movementBoard[8][6].push(accusedPlayerPiece);
+                            }
+                            break;
+                        case 12:
+                            if (actualAccusingRoom[0] === 9) {
+                                movementBoard[12][16].push(accusedPlayerPiece);
+                            } else if (actualAccusingRoom[0] === 12) {
+                                movementBoard[9][17].push(accusedPlayerPiece);
+                            }
+                            break;
+                        case 13:
+                            if (actualAccusingRoom[0] === 12) {
+                                movementBoard[15][5].push(accusedPlayerPiece);
+                            } else if (actualAccusingRoom[0] === 15) {
+                                movementBoard[12][1].push(accusedPlayerPiece);
+                            }
+                            break;
+                        case 15:
+                            if (actualAccusingRoom[1] === 8) {
+                                movementBoard[17][9].push(accusedPlayerPiece);
+                                movementBoard[17][14].push(accusedPlayerPiece);
+                                movementBoard[19][15].push(accusedPlayerPiece);
+                            } else if (actualAccusingRoom[1] === 9) {
+                                movementBoard[19][8].push(accusedPlayerPiece);
+                                movementBoard[17][14].push(accusedPlayerPiece);
+                                movementBoard[19][15].push(accusedPlayerPiece);
+                            } else if (actualAccusingRoom[1] === 14) {
+                                movementBoard[19][8].push(accusedPlayerPiece);
+                                movementBoard[17][9].push(accusedPlayerPiece);
+                                movementBoard[19][15].push(accusedPlayerPiece);
+                            } else if (actualAccusingRoom[1] === 15) {
+                                movementBoard[19][8].push(accusedPlayerPiece);
+                                movementBoard[17][9].push(accusedPlayerPiece);
+                                movementBoard[17][14].push(accusedPlayerPiece);
+                            }
+                            break;
+                    }
+                    /*  Estudio: 8
+                    Vestíbulo: 9
+                    Sala: 10
+                    Biblioteca: 11
+                    Comedor: 12
+                    Billar: 13
+                    Invernadero: 14
+                    Salón de Baile: 15
+                    Cocina: 16 */
+
+                    for (let cell of movementAbleCells) {
+                        console.dir(cell);
+                        if (cell.childNodes[0] === fichaJugadorMostaza) {
+                            console.log(
+                                `Se encontró la ficha del jugador, y se quitó de su lugar`
+                            );
+                            cell.removeChild(fichaJugadorMostaza);
+                        }
+                    }
+                    console.log(
+                        movementBoard[actualAccusingRoom[0]][
+                            actualAccusingRoom[1]
+                        ]
+                    );
+                    switch (
+                        movementBoard[actualAccusingRoom[0]][
+                            actualAccusingRoom[1]
+                        ][0]
+                    ) {
+                        case 10:
+                            document
+                                .querySelector(`#cell-3t`)
+                                .appendChild(fichaJugadorMostaza);
+                            break;
+                        case 9:
+                            document
+                                .querySelector(`#cell-4n`)
+                                .appendChild(fichaJugadorMostaza);
+                            break;
+                        case 8:
+                            document
+                                .querySelector(`#cell-2d`)
+                                .appendChild(fichaJugadorMostaza);
+                            break;
+                        case 11:
+                            document
+                                .querySelector(`#cell-10e`)
+                                .appendChild(fichaJugadorMostaza);
+                            break;
+                        case 12:
+                            document
+                                .querySelector(`#cell-14v`)
+                                .appendChild(fichaJugadorMostaza);
+                            break;
+                        case 13:
+                            document
+                                .querySelector(`#cell-14e`)
+                                .appendChild(fichaJugadorMostaza);
+                            break;
+                        case 15:
+                            document
+                                .querySelector(`#cell-22m`)
+                                .appendChild(fichaJugadorMostaza);
+                            break;
+                        case 14:
+                            document
+                                .querySelector(`#cell-23c`)
+                                .appendChild(fichaJugadorMostaza);
+                            break;
+                        case 16:
+                            document
+                                .querySelector(`#cell-23u`)
+                                .appendChild(fichaJugadorMostaza);
+                            break;
+                    }
+                    break;
+                case "verdi":
+                    console.log(`Llevando a verdi a habitación`);
+                    accusedPlayerPiece = 4;
+                    for (let row of movementBoard) {
+                        for (let cell of row) {
+                            if (typeof cell === "number") {
+                                if (accusedPlayerPiece === cell) {
+                                    accusedCoordenates.push([
+                                        movementBoard.indexOf(row),
+                                        row.indexOf(cell),
+                                    ]);
+                                    break;
+                                }
+                                if (i < 23) {
+                                    i += 1;
+                                } else {
+                                    i = 0;
+                                }
+                            } else {
+                                if (cell.includes(accusedPlayerPiece)) {
+                                    accusedCoordenates.push([
+                                        movementBoard.indexOf(row),
+                                        row.indexOf(cell),
+                                    ]);
+                                    console.log(accusedCoordenates);
+                                    console.log(
+                                        `La Ubicación del jugador es en las siguientes coordenadas: ${accusedCoordenates}`
+                                    );
+                                }
+                                if (i < 23) {
+                                    i += 1;
+                                } else {
+                                    i = 0;
+                                }
+                            }
+                        }
+                    }
+                    console.log(
+                        `La Ubicación FINAL del jugador es en las siguientes coordenadas: ${accusedCoordenates}`
+                    );
+                    console.log(movementBoard);
+                    console.log(accusedCoordenates[0][0]);
+                    console.log(
+                        movementBoard[accusedCoordenates[0][0]][
+                            accusedCoordenates[0][1]
+                        ]
+                    );
+                    if (
+                        typeof movementBoard[accusedCoordenates[0][0]][
+                            accusedCoordenates[0][1]
+                        ] === "number"
+                    ) {
+                        if (
+                            movementBoard[accusedCoordenates[0][0]][
+                                accusedCoordenates[0][1]
+                            ] === accusedPlayerPiece
+                        ) {
+                            movementBoard[accusedCoordenates[0][0]][
+                                accusedCoordenates[0][1]
+                            ] = 0;
+                        }
+                    } else {
+                        for (let coordinate of accusedCoordenates) {
+                            let positionRow = coordinate[0];
+                            let positionIndex = coordinate[1];
+                            console.log(
+                                `Logueando el valor del casillero de destino`
+                            );
+                            console.log(
+                                typeof movementBoard[positionRow][positionIndex]
+                            );
+                            console.log(
+                                movementBoard[positionRow][positionIndex]
+                            );
+                            movementBoard[positionRow][positionIndex] =
+                                movementBoard[positionRow][
+                                    positionIndex
+                                ].filter((value) => {
+                                    return value !== accusedPlayerPiece;
+                                });
+                        }
+                    }
+                    movementBoard[actualAccusingRoom[0]][
+                        actualAccusingRoom[1]
+                    ].push(accusedPlayerPiece);
+                    switch (
+                        movementBoard[actualAccusingRoom[0]][
+                            actualAccusingRoom[1]
+                        ][0]
+                    ) {
+                        /*Vestíbulo: 9
+                        Biblioteca: 11
+                        Comedor: 12
+                        Billar: 13
+                        Salón de Baile: 15 */
+                        case 9:
+                            if (actualAccusingRoom[0] === 4) {
+                                movementBoard[6][11].push(accusedPlayerPiece);
+                                movementBoard[6][12].push(accusedPlayerPiece);
+                            } else if (actualAccusingRoom[1] === 11) {
+                                movementBoard[4][9].push(accusedPlayerPiece);
+                                movementBoard[6][12].push(accusedPlayerPiece);
+                            } else if (actualAccusingRoom[1] === 12) {
+                                movementBoard[4][9].push(accusedPlayerPiece);
+                                movementBoard[6][11].push(accusedPlayerPiece);
+                            }
+                            break;
+                        case 11:
+                            if (actualAccusingRoom[0] === 8) {
+                                movementBoard[10][3].push(accusedPlayerPiece);
+                            } else if (actualAccusingRoom[0] === 10) {
+                                movementBoard[8][6].push(accusedPlayerPiece);
+                            }
+                            break;
+                        case 12:
+                            if (actualAccusingRoom[0] === 9) {
+                                movementBoard[12][16].push(accusedPlayerPiece);
+                            } else if (actualAccusingRoom[0] === 12) {
+                                movementBoard[9][17].push(accusedPlayerPiece);
+                            }
+                            break;
+                        case 13:
+                            if (actualAccusingRoom[0] === 12) {
+                                movementBoard[15][5].push(accusedPlayerPiece);
+                            } else if (actualAccusingRoom[0] === 15) {
+                                movementBoard[12][1].push(accusedPlayerPiece);
+                            }
+                            break;
+                        case 15:
+                            if (actualAccusingRoom[1] === 8) {
+                                movementBoard[17][9].push(accusedPlayerPiece);
+                                movementBoard[17][14].push(accusedPlayerPiece);
+                                movementBoard[19][15].push(accusedPlayerPiece);
+                            } else if (actualAccusingRoom[1] === 9) {
+                                movementBoard[19][8].push(accusedPlayerPiece);
+                                movementBoard[17][14].push(accusedPlayerPiece);
+                                movementBoard[19][15].push(accusedPlayerPiece);
+                            } else if (actualAccusingRoom[1] === 14) {
+                                movementBoard[19][8].push(accusedPlayerPiece);
+                                movementBoard[17][9].push(accusedPlayerPiece);
+                                movementBoard[19][15].push(accusedPlayerPiece);
+                            } else if (actualAccusingRoom[1] === 15) {
+                                movementBoard[19][8].push(accusedPlayerPiece);
+                                movementBoard[17][9].push(accusedPlayerPiece);
+                                movementBoard[17][14].push(accusedPlayerPiece);
+                            }
+                            break;
+                    }
+                    /*  Estudio: 8
+                    Vestíbulo: 9
+                    Sala: 10
+                    Biblioteca: 11
+                    Comedor: 12
+                    Billar: 13
+                    Invernadero: 14
+                    Salón de Baile: 15
+                    Cocina: 16 */
+
+                    for (let cell of movementAbleCells) {
+                        console.dir(cell);
+                        if (cell.childNodes[0] === fichaJugadorVerdi) {
+                            console.log(
+                                `Se encontró la ficha del jugador, y se quitó de su lugar`
+                            );
+                            cell.removeChild(fichaJugadorVerdi);
+                        }
+                    }
+                    console.log(
+                        movementBoard[actualAccusingRoom[0]][
+                            actualAccusingRoom[1]
+                        ]
+                    );
+                    switch (
+                        movementBoard[actualAccusingRoom[0]][
+                            actualAccusingRoom[1]
+                        ][0]
+                    ) {
+                        case 10:
+                            document
+                                .querySelector(`#cell-4u`)
+                                .appendChild(fichaJugadorVerdi);
+                            break;
+                        case 9:
+                            document
+                                .querySelector(`#cell-4k`)
+                                .appendChild(fichaJugadorVerdi);
+                            break;
+                        case 8:
+                            document
+                                .querySelector(`#cell-3e`)
+                                .appendChild(fichaJugadorVerdi);
+                            break;
+                        case 11:
+                            document
+                                .querySelector(`#cell-8d`)
+                                .appendChild(fichaJugadorVerdi);
+                            break;
+                        case 12:
+                            document
+                                .querySelector(`#cell-11t`)
+                                .appendChild(fichaJugadorVerdi);
+                            break;
+                        case 13:
+                            document
+                                .querySelector(`#cell-15d`)
+                                .appendChild(fichaJugadorVerdi);
+                            break;
+                        case 15:
+                            document
+                                .querySelector(`#cell-21k`)
+                                .appendChild(fichaJugadorVerdi);
+                            break;
+                        case 14:
+                            document
+                                .querySelector(`#cell-22c`)
+                                .appendChild(fichaJugadorVerdi);
+                            break;
+                        case 16:
+                            document
+                                .querySelector(`#cell-23v`)
+                                .appendChild(fichaJugadorVerdi);
+                            break;
+                    }
+                    break;
+            }
             suspectsAccContainer.classList.add(
                 "hidden-accusation-category-container"
             );
@@ -4144,18 +5501,54 @@ const suspectSelection = (evt) => {
             weaponsAccContainer.classList.add(
                 "hidden-accusation-category-container"
             );
-            roomsAccContainer.classList.add("accusation-category-container");
-            roomsAccContainer.classList.remove(
-                "hidden-accusation-category-container"
-            );
-            break;
-        case 2:
-            selectedTriade.push(evt.target.id.toUpperCase());
+            // roomsAccContainer.classList.add("accusation-category-container");
+            // roomsAccContainer.classList.remove(
+            //     "hidden-accusation-category-container"
+            // );
+            switch (
+                movementBoard[actualAccusingRoom[0]][actualAccusingRoom[1]][0]
+            ) {
+                /*  Estudio: 8
+                    Vestíbulo: 9
+                    Sala: 10
+                    Biblioteca: 11
+                    Comedor: 12
+                    Billar: 13
+                    Invernadero: 14
+                    Salón de Baile: 15
+                    Cocina: 16 */
+
+                case 8:
+                    selectedTriade.push("estudio".toUpperCase());
+                    break;
+                case 9:
+                    selectedTriade.push("vestibulo".toUpperCase());
+                    break;
+                case 10:
+                    selectedTriade.push("sala".toUpperCase());
+                    break;
+                case 11:
+                    selectedTriade.push("biblioteca".toUpperCase());
+                    break;
+                case 12:
+                    selectedTriade.push("comedor".toUpperCase());
+                    break;
+                case 13:
+                    selectedTriade.push("saladebillar".toUpperCase());
+                    break;
+                case 14:
+                    selectedTriade.push("invernadero".toUpperCase());
+                    break;
+                case 15:
+                    selectedTriade.push("salondebaile".toUpperCase());
+                    break;
+                case 16:
+                    selectedTriade.push("cocina".toUpperCase());
+                    break;
+            }
+            console.log(actualAccusingRoom);
+            actualAccusingRoom = undefined;
             console.log(selectedTriade);
-            roomsAccContainer.classList.remove("accusation-category-container");
-            roomsAccContainer.classList.add(
-                "hidden-accusation-category-container"
-            );
             guessedAccContainer.classList.remove(
                 "hidden-accusation-category-container"
             );
