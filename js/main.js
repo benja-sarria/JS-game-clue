@@ -23,6 +23,13 @@ let playerHand1,
     playerHand5,
     playerHand6;
 
+let discoveredHand1,
+    discoveredHand2,
+    discoveredHand3,
+    discoveredHand4,
+    discoveredHand5,
+    discoveredHand6;
+
 let antesala;
 let playerMovingPiece, positioningInBoard, targetedCell;
 let accusePosition;
@@ -41,6 +48,13 @@ const totalPlayers = [];
 const manosClasificadas = [];
 
 let selectedTriade = [];
+let selectedTarget;
+let matchFind;
+let possibleShowingCards = [];
+let cardToShow, pickedCard;
+const updatedManosArmadas = {};
+const cartasDescubiertas = {};
+let showingCounter = 0;
 
 /* MAPA DEL TABLERO: Como los jugadores van del 1 al 6 - y en el array de jugadores los index van del 0 al 5, me reservo los números del 1 al 6 para ubicar a los jugadores, quedando el número 0 indicando los casilleros disponibles y el número 7 aquellos que no lo están. Las habitaciones se identifican por los siguientes numeros:
 Estudio: 8
@@ -248,6 +262,12 @@ const offCanvasBtn = document.querySelector(`.offcanvas-btn`);
 const movementBoardTable =
     document.querySelectorAll(`.game-board-table`)[0].childNodes[1];
 const movementAbleCells = document.querySelectorAll(`.able`);
+const discoveredSuspects =
+    cardHolder.children[1].children[0].children[0].children[0].children[0];
+const discoveredWeapons =
+    cardHolder.children[1].children[0].children[0].children[0].children[1];
+const discoveredRooms =
+    cardHolder.children[1].children[0].children[0].children[0].children[2];
 
 // CASILLEROS DE LAS ENTRADAS HABITACIONES
 const salaDoor = document.querySelector(`#cell-6r`);
@@ -527,17 +547,29 @@ const turnDynamic = (playerNumber) => {
                 suspectHolderRow.innerHTML = ``;
                 weaponsHolderRow.innerHTML = ``;
                 roomsHolderRow.innerHTML = ``;
+                discoveredSuspects.innerHTML = ``;
+                discoveredWeapons.innerHTML = ``;
+                discoveredRooms.innerHTML = ``;
                 turn(1);
                 if (!playerHand1) {
                     console.log(`Creando PlayerHand1`);
-                    playerHand1 = readyForPrint(actualPlayer);
-                    /* console.table(`${playerHand1}`); */
+                    playerHand1 = readyForPrint(actualPlayer, manosArmadas);
+                    console.table(`${playerHand1}`);
                     playerHand1 = JSON.stringify(playerHand1);
-                    /* console.log(playerHand1); */
+                    console.log(playerHand1);
                     sessionStorage.setItem("playerHand1", playerHand1);
                 } else {
                     console.log(`Playerhand 1 ya fue creada`);
                 }
+                console.log(`LOGUEANDO DISCOVERED HAND`);
+                discoveredHand1 = readyForPrint(
+                    actualPlayer,
+                    cartasDescubiertas
+                );
+                console.table(discoveredHand1);
+                discoveredHand1 = JSON.stringify(discoveredHand1);
+                console.log(discoveredHand1);
+                sessionStorage.setItem("discoveredHand1", discoveredHand1);
                 activePlayerPiece = fichaJugadorEscarlata;
                 personalizePlayerOffcanvas(actualPlayer);
                 printCards(actualPlayer);
@@ -546,17 +578,29 @@ const turnDynamic = (playerNumber) => {
                 suspectHolderRow.innerHTML = ``;
                 weaponsHolderRow.innerHTML = ``;
                 roomsHolderRow.innerHTML = ``;
+                discoveredSuspects.innerHTML = ``;
+                discoveredWeapons.innerHTML = ``;
+                discoveredRooms.innerHTML = ``;
                 turn(2);
                 if (!playerHand2) {
                     console.log(`Creando PlayerHand2`);
-                    playerHand2 = readyForPrint(actualPlayer);
+                    playerHand2 = readyForPrint(actualPlayer, manosArmadas);
                     /* console.table(`${playerHand2}`); */
                     playerHand2 = JSON.stringify(playerHand2);
                     /*  console.log(playerHand2); */
                     sessionStorage.setItem("playerHand2", playerHand2);
                 } else {
-                    console.log(`Playerhand 1 ya fue creada`);
+                    console.log(`Playerhand 2 ya fue creada`);
                 }
+                console.log(`LOGUEANDO DISCOVERED HAND`);
+                discoveredHand2 = readyForPrint(
+                    actualPlayer,
+                    cartasDescubiertas
+                );
+                console.table(discoveredHand2);
+                discoveredHand2 = JSON.stringify(discoveredHand2);
+                console.log(discoveredHand2);
+                sessionStorage.setItem("discoveredHand2", discoveredHand2);
                 activePlayerPiece = fichaJugadorMostaza;
                 personalizePlayerOffcanvas(actualPlayer);
                 printCards(actualPlayer);
@@ -577,10 +621,13 @@ const turnDynamic = (playerNumber) => {
                 suspectHolderRow.innerHTML = ``;
                 weaponsHolderRow.innerHTML = ``;
                 roomsHolderRow.innerHTML = ``;
+                discoveredSuspects.innerHTML = ``;
+                discoveredWeapons.innerHTML = ``;
+                discoveredRooms.innerHTML = ``;
                 turn(1);
                 if (!playerHand1) {
                     console.log(`Creando PlayerHand1`);
-                    playerHand1 = readyForPrint(actualPlayer);
+                    playerHand1 = readyForPrint(actualPlayer, manosArmadas);
                     /* console.table(`${playerHand1}`); */
                     playerHand1 = JSON.stringify(playerHand1);
                     /*  console.log(playerHand1); */
@@ -588,6 +635,15 @@ const turnDynamic = (playerNumber) => {
                 } else {
                     console.log(`Playerhand 1 ya fue creada`);
                 }
+                console.log(`LOGUEANDO DISCOVERED HAND`);
+                discoveredHand1 = readyForPrint(
+                    actualPlayer,
+                    cartasDescubiertas
+                );
+                console.table(discoveredHand1);
+                discoveredHand2 = JSON.stringify(discoveredHand1);
+                console.log(discoveredHand1);
+                sessionStorage.setItem("discoveredHand1", discoveredHand1);
                 activePlayerPiece = fichaJugadorEscarlata;
                 personalizePlayerOffcanvas(actualPlayer);
                 printCards(actualPlayer);
@@ -596,10 +652,13 @@ const turnDynamic = (playerNumber) => {
                 suspectHolderRow.innerHTML = ``;
                 weaponsHolderRow.innerHTML = ``;
                 roomsHolderRow.innerHTML = ``;
+                discoveredSuspects.innerHTML = ``;
+                discoveredWeapons.innerHTML = ``;
+                discoveredRooms.innerHTML = ``;
                 turn(2);
                 if (!playerHand2) {
                     console.log(`Creando PlayerHand2`);
-                    playerHand2 = readyForPrint(actualPlayer);
+                    playerHand2 = readyForPrint(actualPlayer, manosArmadas);
                     /* console.table(`${playerHand2}`); */
                     playerHand2 = JSON.stringify(playerHand2);
                     /* console.log(playerHand2); */
@@ -607,6 +666,15 @@ const turnDynamic = (playerNumber) => {
                 } else {
                     console.log(`Playerhand 2 ya fue creada`);
                 }
+                console.log(`LOGUEANDO DISCOVERED HAND`);
+                discoveredHand2 = readyForPrint(
+                    actualPlayer,
+                    cartasDescubiertas
+                );
+                console.table(discoveredHand2);
+                discoveredHand2 = JSON.stringify(discoveredHand2);
+                console.log(discoveredHand2);
+                sessionStorage.setItem("discoveredHand2", discoveredHand2);
                 activePlayerPiece = fichaJugadorMostaza;
                 personalizePlayerOffcanvas(actualPlayer);
                 printCards(actualPlayer);
@@ -615,10 +683,13 @@ const turnDynamic = (playerNumber) => {
                 suspectHolderRow.innerHTML = ``;
                 weaponsHolderRow.innerHTML = ``;
                 roomsHolderRow.innerHTML = ``;
+                discoveredSuspects.innerHTML = ``;
+                discoveredWeapons.innerHTML = ``;
+                discoveredRooms.innerHTML = ``;
                 turn(3);
                 if (!playerHand3) {
                     console.log(`Creando PlayerHand3`);
-                    playerHand3 = readyForPrint(actualPlayer);
+                    playerHand3 = readyForPrint(actualPlayer, manosArmadas);
                     /*  console.table(`${playerHand3}`); */
                     playerHand3 = JSON.stringify(playerHand3);
                     /* console.log(playerHand3); */
@@ -626,6 +697,15 @@ const turnDynamic = (playerNumber) => {
                 } else {
                     console.log(`Playerhand 3 ya fue creada`);
                 }
+                console.log(`LOGUEANDO DISCOVERED HAND`);
+                discoveredHand3 = readyForPrint(
+                    actualPlayer,
+                    cartasDescubiertas
+                );
+                console.table(discoveredHand3);
+                discoveredHand3 = JSON.stringify(discoveredHand3);
+                console.log(discoveredHand3);
+                sessionStorage.setItem("discoveredHand3", discoveredHand3);
                 activePlayerPiece = fichaJugadorBlanco;
                 personalizePlayerOffcanvas(actualPlayer);
                 printCards(actualPlayer);
@@ -645,10 +725,13 @@ const turnDynamic = (playerNumber) => {
                 suspectHolderRow.innerHTML = ``;
                 weaponsHolderRow.innerHTML = ``;
                 roomsHolderRow.innerHTML = ``;
+                discoveredSuspects.innerHTML = ``;
+                discoveredWeapons.innerHTML = ``;
+                discoveredRooms.innerHTML = ``;
                 turn(1);
                 if (!playerHand1) {
                     console.log(`Creando PlayerHand1`);
-                    playerHand1 = readyForPrint(actualPlayer);
+                    playerHand1 = readyForPrint(actualPlayer, manosArmadas);
                     /* console.table(`${playerHand1}`); */
                     playerHand1 = JSON.stringify(playerHand1);
                     /* console.log(playerHand1); */
@@ -656,6 +739,15 @@ const turnDynamic = (playerNumber) => {
                 } else {
                     console.log(`Playerhand 1 ya fue creada`);
                 }
+                console.log(`LOGUEANDO DISCOVERED HAND`);
+                discoveredHand1 = readyForPrint(
+                    actualPlayer,
+                    cartasDescubiertas
+                );
+                console.table(discoveredHand1);
+                discoveredHand1 = JSON.stringify(discoveredHand1);
+                console.log(discoveredHand1);
+                sessionStorage.setItem("discoveredHand1", discoveredHand1);
                 activePlayerPiece = fichaJugadorEscarlata;
                 personalizePlayerOffcanvas(actualPlayer);
                 printCards(actualPlayer);
@@ -664,10 +756,13 @@ const turnDynamic = (playerNumber) => {
                 suspectHolderRow.innerHTML = ``;
                 weaponsHolderRow.innerHTML = ``;
                 roomsHolderRow.innerHTML = ``;
+                discoveredSuspects.innerHTML = ``;
+                discoveredWeapons.innerHTML = ``;
+                discoveredRooms.innerHTML = ``;
                 turn(2);
                 if (!playerHand2) {
                     console.log(`Creando PlayerHand2`);
-                    playerHand2 = readyForPrint(actualPlayer);
+                    playerHand2 = readyForPrint(actualPlayer, manosArmadas);
                     /* console.table(`${playerHand2}`); */
                     playerHand2 = JSON.stringify(playerHand2);
                     /*   console.log(playerHand2); */
@@ -675,6 +770,15 @@ const turnDynamic = (playerNumber) => {
                 } else {
                     console.log(`Playerhand 2 ya fue creada`);
                 }
+                console.log(`LOGUEANDO DISCOVERED HAND`);
+                discoveredHand2 = readyForPrint(
+                    actualPlayer,
+                    cartasDescubiertas
+                );
+                console.table(discoveredHand2);
+                discoveredHand2 = JSON.stringify(discoveredHand2);
+                console.log(discoveredHand2);
+                sessionStorage.setItem("discoveredHand2", discoveredHand2);
                 activePlayerPiece = fichaJugadorMostaza;
                 personalizePlayerOffcanvas(actualPlayer);
                 printCards(actualPlayer);
@@ -683,10 +787,13 @@ const turnDynamic = (playerNumber) => {
                 suspectHolderRow.innerHTML = ``;
                 weaponsHolderRow.innerHTML = ``;
                 roomsHolderRow.innerHTML = ``;
+                discoveredSuspects.innerHTML = ``;
+                discoveredWeapons.innerHTML = ``;
+                discoveredRooms.innerHTML = ``;
                 turn(3);
                 if (!playerHand3) {
                     console.log(`Creando PlayerHand3`);
-                    playerHand3 = readyForPrint(actualPlayer);
+                    playerHand3 = readyForPrint(actualPlayer, manosArmadas);
                     /* console.table(`${playerHand3}`); */
                     playerHand3 = JSON.stringify(playerHand3);
                     /* console.log(playerHand3); */
@@ -694,6 +801,15 @@ const turnDynamic = (playerNumber) => {
                 } else {
                     console.log(`Playerhand 3 ya fue creada`);
                 }
+                console.log(`LOGUEANDO DISCOVERED HAND`);
+                discoveredHand3 = readyForPrint(
+                    actualPlayer,
+                    cartasDescubiertas
+                );
+                console.table(discoveredHand3);
+                discoveredHand3 = JSON.stringify(discoveredHand3);
+                console.log(discoveredHand3);
+                sessionStorage.setItem("discoveredHand3", discoveredHand3);
                 activePlayerPiece = fichaJugadorBlanco;
                 personalizePlayerOffcanvas(actualPlayer);
                 printCards(actualPlayer);
@@ -702,10 +818,13 @@ const turnDynamic = (playerNumber) => {
                 suspectHolderRow.innerHTML = ``;
                 weaponsHolderRow.innerHTML = ``;
                 roomsHolderRow.innerHTML = ``;
+                discoveredSuspects.innerHTML = ``;
+                discoveredWeapons.innerHTML = ``;
+                discoveredRooms.innerHTML = ``;
                 turn(4);
                 if (!playerHand4) {
                     console.log(`Creando PlayerHand4`);
-                    playerHand4 = readyForPrint(actualPlayer);
+                    playerHand4 = readyForPrint(actualPlayer, manosArmadas);
                     /* console.table(`${playerHand4}`); */
                     playerHand4 = JSON.stringify(playerHand4);
                     /* console.log(playerHand4); */
@@ -713,6 +832,15 @@ const turnDynamic = (playerNumber) => {
                 } else {
                     console.log(`Playerhand 4 ya fue creada`);
                 }
+                console.log(`LOGUEANDO DISCOVERED HAND`);
+                discoveredHand4 = readyForPrint(
+                    actualPlayer,
+                    cartasDescubiertas
+                );
+                console.table(discoveredHand4);
+                discoveredHand4 = JSON.stringify(discoveredHand4);
+                console.log(discoveredHand4);
+                sessionStorage.setItem("discoveredHand4", discoveredHand4);
                 activePlayerPiece = fichaJugadorVerdi;
                 personalizePlayerOffcanvas(actualPlayer);
                 printCards(actualPlayer);
@@ -732,10 +860,13 @@ const turnDynamic = (playerNumber) => {
                 suspectHolderRow.innerHTML = ``;
                 weaponsHolderRow.innerHTML = ``;
                 roomsHolderRow.innerHTML = ``;
+                discoveredSuspects.innerHTML = ``;
+                discoveredWeapons.innerHTML = ``;
+                discoveredRooms.innerHTML = ``;
                 turn(1);
                 if (!playerHand1) {
                     console.log(`Creando PlayerHand1`);
-                    playerHand1 = readyForPrint(actualPlayer);
+                    playerHand1 = readyForPrint(actualPlayer, manosArmadas);
                     /* console.table(`${playerHand1}`); */
                     playerHand1 = JSON.stringify(playerHand1);
                     /* console.log(playerHand1); */
@@ -743,6 +874,15 @@ const turnDynamic = (playerNumber) => {
                 } else {
                     console.log(`Playerhand 1 ya fue creada`);
                 }
+                console.log(`LOGUEANDO DISCOVERED HAND`);
+                discoveredHand1 = readyForPrint(
+                    actualPlayer,
+                    cartasDescubiertas
+                );
+                console.table(discoveredHand1);
+                discoveredHand1 = JSON.stringify(discoveredHand1);
+                console.log(discoveredHand1);
+                sessionStorage.setItem("discoveredHand1", discoveredHand1);
                 activePlayerPiece = fichaJugadorEscarlata;
                 personalizePlayerOffcanvas(actualPlayer);
                 printCards(actualPlayer);
@@ -751,10 +891,13 @@ const turnDynamic = (playerNumber) => {
                 suspectHolderRow.innerHTML = ``;
                 weaponsHolderRow.innerHTML = ``;
                 roomsHolderRow.innerHTML = ``;
+                discoveredSuspects.innerHTML = ``;
+                discoveredWeapons.innerHTML = ``;
+                discoveredRooms.innerHTML = ``;
                 turn(2);
                 if (!playerHand2) {
                     console.log(`Creando PlayerHand2`);
-                    playerHand2 = readyForPrint(actualPlayer);
+                    playerHand2 = readyForPrint(actualPlayer, manosArmadas);
                     /* console.table(`${playerHand2}`); */
                     playerHand2 = JSON.stringify(playerHand2);
                     /*  console.log(playerHand2); */
@@ -762,6 +905,15 @@ const turnDynamic = (playerNumber) => {
                 } else {
                     console.log(`Playerhand 2 ya fue creada`);
                 }
+                console.log(`LOGUEANDO DISCOVERED HAND`);
+                discoveredHand2 = readyForPrint(
+                    actualPlayer,
+                    cartasDescubiertas
+                );
+                console.table(discoveredHand2);
+                discoveredHand2 = JSON.stringify(discoveredHand2);
+                console.log(discoveredHand2);
+                sessionStorage.setItem("discoveredHand2", discoveredHand2);
                 activePlayerPiece = fichaJugadorMostaza;
                 personalizePlayerOffcanvas(actualPlayer);
                 printCards(actualPlayer);
@@ -770,10 +922,13 @@ const turnDynamic = (playerNumber) => {
                 suspectHolderRow.innerHTML = ``;
                 weaponsHolderRow.innerHTML = ``;
                 roomsHolderRow.innerHTML = ``;
+                discoveredSuspects.innerHTML = ``;
+                discoveredWeapons.innerHTML = ``;
+                discoveredRooms.innerHTML = ``;
                 turn(3);
                 if (!playerHand3) {
                     console.log(`Creando PlayerHand3`);
-                    playerHand3 = readyForPrint(actualPlayer);
+                    playerHand3 = readyForPrint(actualPlayer, manosArmadas);
                     /* console.table(`${playerHand3}`); */
                     playerHand3 = JSON.stringify(playerHand3);
                     /* console.log(playerHand3); */
@@ -781,6 +936,15 @@ const turnDynamic = (playerNumber) => {
                 } else {
                     console.log(`Playerhand 3 ya fue creada`);
                 }
+                console.log(`LOGUEANDO DISCOVERED HAND`);
+                discoveredHand3 = readyForPrint(
+                    actualPlayer,
+                    cartasDescubiertas
+                );
+                console.table(discoveredHand3);
+                discoveredHand3 = JSON.stringify(discoveredHand3);
+                console.log(discoveredHand3);
+                sessionStorage.setItem("discoveredHand3", discoveredHand3);
                 activePlayerPiece = fichaJugadorBlanco;
                 personalizePlayerOffcanvas(actualPlayer);
                 printCards(actualPlayer);
@@ -789,10 +953,13 @@ const turnDynamic = (playerNumber) => {
                 suspectHolderRow.innerHTML = ``;
                 weaponsHolderRow.innerHTML = ``;
                 roomsHolderRow.innerHTML = ``;
+                discoveredSuspects.innerHTML = ``;
+                discoveredWeapons.innerHTML = ``;
+                discoveredRooms.innerHTML = ``;
                 turn(4);
                 if (!playerHand4) {
                     console.log(`Creando PlayerHand4`);
-                    playerHand4 = readyForPrint(actualPlayer);
+                    playerHand4 = readyForPrint(actualPlayer, manosArmadas);
                     /* console.table(`${playerHand4}`); */
                     playerHand4 = JSON.stringify(playerHand4);
                     /* console.log(playerHand4); */
@@ -800,6 +967,15 @@ const turnDynamic = (playerNumber) => {
                 } else {
                     console.log(`Playerhand 4 ya fue creada`);
                 }
+                console.log(`LOGUEANDO DISCOVERED HAND`);
+                discoveredHand4 = readyForPrint(
+                    actualPlayer,
+                    cartasDescubiertas
+                );
+                console.table(discoveredHand4);
+                discoveredHand4 = JSON.stringify(discoveredHand4);
+                console.log(discoveredHand4);
+                sessionStorage.setItem("discoveredHand4", discoveredHand4);
                 activePlayerPiece = fichaJugadorVerdi;
                 personalizePlayerOffcanvas(actualPlayer);
                 printCards(actualPlayer);
@@ -808,10 +984,13 @@ const turnDynamic = (playerNumber) => {
                 suspectHolderRow.innerHTML = ``;
                 weaponsHolderRow.innerHTML = ``;
                 roomsHolderRow.innerHTML = ``;
+                discoveredSuspects.innerHTML = ``;
+                discoveredWeapons.innerHTML = ``;
+                discoveredRooms.innerHTML = ``;
                 turn(5);
                 if (!playerHand5) {
                     console.log(`Creando PlayerHand5`);
-                    playerHand5 = readyForPrint(actualPlayer);
+                    playerHand5 = readyForPrint(actualPlayer, manosArmadas);
                     /* console.table(`${playerHand5}`); */
                     playerHand5 = JSON.stringify(playerHand5);
                     /* console.log(playerHand5); */
@@ -819,6 +998,15 @@ const turnDynamic = (playerNumber) => {
                 } else {
                     console.log(`Playerhand 5 ya fue creada`);
                 }
+                console.log(`LOGUEANDO DISCOVERED HAND`);
+                discoveredHand5 = readyForPrint(
+                    actualPlayer,
+                    cartasDescubiertas
+                );
+                console.table(discoveredHand5);
+                discoveredHand5 = JSON.stringify(discoveredHand5);
+                console.log(discoveredHand5);
+                sessionStorage.setItem("discoveredHand5", discoveredHand5);
                 activePlayerPiece = fichaJugadorAzulino;
                 personalizePlayerOffcanvas(actualPlayer);
                 printCards(actualPlayer);
@@ -838,10 +1026,13 @@ const turnDynamic = (playerNumber) => {
                 suspectHolderRow.innerHTML = ``;
                 weaponsHolderRow.innerHTML = ``;
                 roomsHolderRow.innerHTML = ``;
+                discoveredSuspects.innerHTML = ``;
+                discoveredWeapons.innerHTML = ``;
+                discoveredRooms.innerHTML = ``;
                 turn(1);
                 if (!playerHand1) {
                     console.log(`Creando PlayerHand1`);
-                    playerHand1 = readyForPrint(actualPlayer);
+                    playerHand1 = readyForPrint(actualPlayer, manosArmadas);
                     /* console.table(`${playerHand1}`); */
                     playerHand1 = JSON.stringify(playerHand1);
                     /*  console.log(playerHand1); */
@@ -849,6 +1040,15 @@ const turnDynamic = (playerNumber) => {
                 } else {
                     console.log(`Playerhand 1 ya fue creada`);
                 }
+                console.log(`LOGUEANDO DISCOVERED HAND`);
+                discoveredHand1 = readyForPrint(
+                    actualPlayer,
+                    cartasDescubiertas
+                );
+                console.table(discoveredHand1);
+                discoveredHand1 = JSON.stringify(discoveredHand1);
+                console.log(discoveredHand1);
+                sessionStorage.setItem("discoveredHand1", discoveredHand1);
                 activePlayerPiece = fichaJugadorEscarlata;
                 personalizePlayerOffcanvas(actualPlayer);
                 printCards(actualPlayer);
@@ -857,10 +1057,13 @@ const turnDynamic = (playerNumber) => {
                 suspectHolderRow.innerHTML = ``;
                 weaponsHolderRow.innerHTML = ``;
                 roomsHolderRow.innerHTML = ``;
+                discoveredSuspects.innerHTML = ``;
+                discoveredWeapons.innerHTML = ``;
+                discoveredRooms.innerHTML = ``;
                 turn(2);
                 if (!playerHand2) {
                     console.log(`Creando PlayerHand2`);
-                    playerHand2 = readyForPrint(actualPlayer);
+                    playerHand2 = readyForPrint(actualPlayer, manosArmadas);
                     /* console.table(`${playerHand2}`); */
                     playerHand2 = JSON.stringify(playerHand2);
                     /*  console.log(playerHand2); */
@@ -868,6 +1071,15 @@ const turnDynamic = (playerNumber) => {
                 } else {
                     console.log(`Playerhand 2 ya fue creada`);
                 }
+                console.log(`LOGUEANDO DISCOVERED HAND`);
+                discoveredHand2 = readyForPrint(
+                    actualPlayer,
+                    cartasDescubiertas
+                );
+                console.table(discoveredHand2);
+                discoveredHand2 = JSON.stringify(discoveredHand2);
+                console.log(discoveredHand2);
+                sessionStorage.setItem("discoveredHand2", discoveredHand2);
                 activePlayerPiece = fichaJugadorMostaza;
                 personalizePlayerOffcanvas(actualPlayer);
                 printCards(actualPlayer);
@@ -876,10 +1088,13 @@ const turnDynamic = (playerNumber) => {
                 suspectHolderRow.innerHTML = ``;
                 weaponsHolderRow.innerHTML = ``;
                 roomsHolderRow.innerHTML = ``;
+                discoveredSuspects.innerHTML = ``;
+                discoveredWeapons.innerHTML = ``;
+                discoveredRooms.innerHTML = ``;
                 turn(3);
                 if (!playerHand3) {
                     console.log(`Creando PlayerHand3`);
-                    playerHand3 = readyForPrint(actualPlayer);
+                    playerHand3 = readyForPrint(actualPlayer, manosArmadas);
                     /* console.table(`${playerHand3}`); */
                     playerHand3 = JSON.stringify(playerHand3);
                     /* console.log(playerHand3); */
@@ -887,6 +1102,15 @@ const turnDynamic = (playerNumber) => {
                 } else {
                     console.log(`Playerhand 3 ya fue creada`);
                 }
+                console.log(`LOGUEANDO DISCOVERED HAND`);
+                discoveredHand3 = readyForPrint(
+                    actualPlayer,
+                    cartasDescubiertas
+                );
+                console.table(discoveredHand3);
+                discoveredHand3 = JSON.stringify(discoveredHand3);
+                console.log(discoveredHand3);
+                sessionStorage.setItem("discoveredHand3", discoveredHand3);
                 activePlayerPiece = fichaJugadorBlanco;
                 personalizePlayerOffcanvas(actualPlayer);
                 printCards(actualPlayer);
@@ -895,10 +1119,13 @@ const turnDynamic = (playerNumber) => {
                 suspectHolderRow.innerHTML = ``;
                 weaponsHolderRow.innerHTML = ``;
                 roomsHolderRow.innerHTML = ``;
+                discoveredSuspects.innerHTML = ``;
+                discoveredWeapons.innerHTML = ``;
+                discoveredRooms.innerHTML = ``;
                 turn(4);
                 if (!playerHand4) {
                     console.log(`Creando PlayerHand4`);
-                    playerHand4 = readyForPrint(actualPlayer);
+                    playerHand4 = readyForPrint(actualPlayer, manosArmadas);
                     /* console.table(`${playerHand4}`); */
                     playerHand4 = JSON.stringify(playerHand4);
                     /* console.log(playerHand4); */
@@ -906,6 +1133,15 @@ const turnDynamic = (playerNumber) => {
                 } else {
                     console.log(`Playerhand 4 ya fue creada`);
                 }
+                console.log(`LOGUEANDO DISCOVERED HAND`);
+                discoveredHand4 = readyForPrint(
+                    actualPlayer,
+                    cartasDescubiertas
+                );
+                console.table(discoveredHand4);
+                discoveredHand4 = JSON.stringify(discoveredHand4);
+                console.log(discoveredHand4);
+                sessionStorage.setItem("discoveredHand4", discoveredHand4);
                 activePlayerPiece = fichaJugadorVerdi;
                 personalizePlayerOffcanvas(actualPlayer);
                 printCards(actualPlayer);
@@ -914,10 +1150,13 @@ const turnDynamic = (playerNumber) => {
                 suspectHolderRow.innerHTML = ``;
                 weaponsHolderRow.innerHTML = ``;
                 roomsHolderRow.innerHTML = ``;
+                discoveredSuspects.innerHTML = ``;
+                discoveredWeapons.innerHTML = ``;
+                discoveredRooms.innerHTML = ``;
                 turn(5);
                 if (!playerHand5) {
                     console.log(`Creando PlayerHand5`);
-                    playerHand5 = readyForPrint(actualPlayer);
+                    playerHand5 = readyForPrint(actualPlayer, manosArmadas);
                     /* console.table(`${playerHand5}`); */
                     playerHand5 = JSON.stringify(playerHand5);
                     /*  console.log(playerHand5); */
@@ -925,6 +1164,15 @@ const turnDynamic = (playerNumber) => {
                 } else {
                     console.log(`Playerhand 5 ya fue creada`);
                 }
+                console.log(`LOGUEANDO DISCOVERED HAND`);
+                discoveredHand5 = readyForPrint(
+                    actualPlayer,
+                    cartasDescubiertas
+                );
+                console.table(discoveredHand5);
+                discoveredHand5 = JSON.stringify(discoveredHand5);
+                console.log(discoveredHand5);
+                sessionStorage.setItem("discoveredHand5", discoveredHand5);
                 activePlayerPiece = fichaJugadorAzulino;
                 personalizePlayerOffcanvas(actualPlayer);
                 printCards(actualPlayer);
@@ -933,10 +1181,13 @@ const turnDynamic = (playerNumber) => {
                 suspectHolderRow.innerHTML = ``;
                 weaponsHolderRow.innerHTML = ``;
                 roomsHolderRow.innerHTML = ``;
+                discoveredSuspects.innerHTML = ``;
+                discoveredWeapons.innerHTML = ``;
+                discoveredRooms.innerHTML = ``;
                 turn(6);
                 if (!playerHand6) {
                     console.log(`Creando PlayerHand6`);
-                    playerHand6 = readyForPrint(actualPlayer);
+                    playerHand6 = readyForPrint(actualPlayer, manosArmadas);
                     /* console.table(`${playerHand6}`); */
                     playerHand6 = JSON.stringify(playerHand6);
                     /* console.log(playerHand6); */
@@ -944,6 +1195,15 @@ const turnDynamic = (playerNumber) => {
                 } else {
                     console.log(`Playerhand 6 ya fue creada`);
                 }
+                console.log(`LOGUEANDO DISCOVERED HAND`);
+                discoveredHand6 = readyForPrint(
+                    actualPlayer,
+                    cartasDescubiertas
+                );
+                console.table(discoveredHand6);
+                discoveredHand6 = JSON.stringify(discoveredHand6);
+                console.log(discoveredHand6);
+                sessionStorage.setItem("discoveredHand6", discoveredHand6);
                 activePlayerPiece = fichaJugadorMoradillo;
                 personalizePlayerOffcanvas(actualPlayer);
                 printCards(actualPlayer);
@@ -3858,10 +4118,135 @@ const isInTriad = () => {
     console.log(`Se reinició Accuse Position ${accusePosition}`);
 }; */
 
+const searchingPlHand = (player) => {
+    if (player > Object.keys(manosArmadas).length) {
+        player = 1;
+    }
+    console.log(`El contador es ${player}`);
+    console.log(`El player es ${player}`);
+    let nextPlayer = player;
+    /* let playerHand = player + count; */
+    console.log(`La playerHand evaluada es ${nextPlayer}`);
+    // console.log(`El actual player evaluado es ${actualPlayer + 1}`);
+    console.log(+nextPlayer !== actualPlayer + 1);
+    if (+nextPlayer !== actualPlayer + 1) {
+        for (let category of manosArmadas[`${nextPlayer}`]) {
+            for (let card of category) {
+                if (selectedTriade.includes(card)) {
+                    console.log(`El jugador ${nextPlayer} tiene: ${card}`);
+                    possibleShowingCards.push(card);
+                }
+            }
+        }
+        if (
+            possibleShowingCards.length !== 0 ||
+            nextPlayer + 1 === actualPlayer + 1
+        ) {
+            console.log("Cortando el bucle");
+            return possibleShowingCards;
+        } else {
+            console.log(`Pasando al siguiente jugador`);
+            if (nextPlayer < Object.keys(manosArmadas).length) {
+                nextPlayer += 1;
+            } else {
+                nextPlayer = 1;
+            }
+            searchingPlHand(nextPlayer);
+        }
+    }
+};
+
+const checkingNextPlHand = (selectedTriade) => {
+    matchFind = false;
+    let triadeAccusationCheck = selectedTriade;
+    console.log(selectedTriade);
+    let category;
+    searchingPlHand(actualPlayer + 2);
+
+    /*  for (let playerHand in manosArmadas) {
+        console.log(`La playerHand evaluada es ${playerHand}`);
+        // console.log(`El actual player evaluado es ${actualPlayer + 1}`);
+        console.log(+playerHand !== actualPlayer + 1);
+        if (+playerHand !== actualPlayer + 1) {
+            for (let category of manosArmadas[`${playerHand}`]) {
+                for (let card of category) {
+                    if (selectedTriade.includes(card)) {
+                        console.log(`El jugador ${playerHand} tiene: ${card}`);
+                        possibleShowingCards.push(card);
+                    }
+                }
+            }
+            if (possibleShowingCards.length !== 0) {
+                console.log("Cortando el bucle");
+                break;
+            } else {
+                console.log(`Pasando al siguiente jugador`);
+            }
+        }
+    } */
+    console.log(possibleShowingCards);
+    console.log(possibleShowingCards.length);
+    if (possibleShowingCards.length > 1) {
+        console.log(`Tiene varias cartas a mostrar, se seleccionó:`);
+        do {
+            console.log(`Se determinó PickedCard`);
+            pickedCard = possibleShowingCards.filter(() => {
+                return !possibleShowingCards[
+                    Math.ceil(Math.random() * possibleShowingCards.length)
+                ];
+            });
+            console.log(pickedCard);
+        } while (pickedCard === [] || pickedCard.length !== 1);
+
+        cardToShow = pickedCard[0];
+        console.log(`Tiene varias cartas a mostrar, se seleccionó:`);
+        console.log(cardToShow);
+    } else if (possibleShowingCards.length === 1) {
+        cardToShow = possibleShowingCards[0];
+        console.log(`Tiene una sola carta a mostrar, se seleccionó:`);
+        console.log(cardToShow);
+    }
+    if (esPersonaje(cardToShow) !== undefined) {
+        category = 0;
+    }
+    if (esArma(cardToShow) !== undefined) {
+        category = 1;
+    }
+    if (esHabitacion(cardToShow) !== undefined) {
+        category = 2;
+    }
+    if (cardToShow !== undefined) {
+        if (
+            !cartasDescubiertas[`${actualPlayer + 1}`][category].includes(
+                cardToShow
+            )
+        ) {
+            cartasDescubiertas[`${actualPlayer + 1}`][category].push(
+                cardToShow
+            );
+        } else {
+            console.log(`Ya has visto esta carta`);
+        }
+    }
+    console.log(cartasDescubiertas);
+    possibleShowingCards = [];
+    cardToShow = undefined;
+};
+
 // FUNCIÓN QUE UNA VEZ CONFIRMADA LA ACUSACIÓN CHEQUEA SI CORRESPONDE DECLARAR UN GANADOR, O SI POR EL CONTRARIO, CORRESPONDE DAR CURSO AL SIGUIENTE TURNO
 const confirmAccusation = (evt) => {
+    console.log(selectedTarget);
+    movingAccusedPlayer();
     console.log(`la Solución es: ${solution}`);
     console.log(`la acusación es: ${selectedTriade}`);
+    console.log(`Chequeando mano de los otros jugadores`);
+    if (
+        selectedTriade[0] !== solution[0] ||
+        selectedTriade[1] !== solution[1] ||
+        selectedTriade[2] !== solution[2]
+    ) {
+        checkingNextPlHand(selectedTriade);
+    }
     if (
         selectedTriade[0] === solution[0] &&
         selectedTriade[1] === solution[1] &&
@@ -4114,6 +4499,1291 @@ const greyscaleCards = (jugador) => {
     }
 };
 
+const movingAccusedPlayer = () => {
+    console.log(`Ejecutando moving accused player`);
+    switch (selectedTarget) {
+        case "azulino":
+            console.log(`Llevando a azulino a habitación`);
+            accusedPlayerPiece = 5;
+            for (let row of movementBoard) {
+                for (let cell of row) {
+                    if (typeof cell === "number") {
+                        if (accusedPlayerPiece === cell) {
+                            accusedCoordenates.push([
+                                movementBoard.indexOf(row),
+                                row.indexOf(cell),
+                            ]);
+                            break;
+                        }
+                        if (i < 23) {
+                            i += 1;
+                        } else {
+                            i = 0;
+                        }
+                    } else {
+                        if (cell.includes(accusedPlayerPiece)) {
+                            accusedCoordenates.push([
+                                movementBoard.indexOf(row),
+                                row.indexOf(cell),
+                            ]);
+                            console.log(accusedCoordenates);
+                            console.log(
+                                `La Ubicación del jugador es en las siguientes coordenadas: ${accusedCoordenates}`
+                            );
+                        }
+                        if (i < 23) {
+                            i += 1;
+                        } else {
+                            i = 0;
+                        }
+                    }
+                }
+            }
+            console.log(
+                `La Ubicación FINAL del jugador es en las siguientes coordenadas: ${accusedCoordenates}`
+            );
+            console.log(movementBoard);
+            console.log(accusedCoordenates[0][0]);
+            console.log(
+                movementBoard[accusedCoordenates[0][0]][
+                    accusedCoordenates[0][1]
+                ]
+            );
+            if (
+                typeof movementBoard[accusedCoordenates[0][0]][
+                    accusedCoordenates[0][1]
+                ] === "number"
+            ) {
+                if (
+                    movementBoard[accusedCoordenates[0][0]][
+                        accusedCoordenates[0][1]
+                    ] === accusedPlayerPiece
+                ) {
+                    movementBoard[accusedCoordenates[0][0]][
+                        accusedCoordenates[0][1]
+                    ] = 0;
+                }
+            } else {
+                for (let coordinate of accusedCoordenates) {
+                    let positionRow = coordinate[0];
+                    let positionIndex = coordinate[1];
+                    console.log(`Logueando el valor del casillero de destino`);
+                    console.log(
+                        typeof movementBoard[positionRow][positionIndex]
+                    );
+                    console.log(movementBoard[positionRow][positionIndex]);
+                    movementBoard[positionRow][positionIndex] = movementBoard[
+                        positionRow
+                    ][positionIndex].filter((value) => {
+                        return value !== accusedPlayerPiece;
+                    });
+                }
+            }
+            movementBoard[actualAccusingRoom[0]][actualAccusingRoom[1]].push(
+                accusedPlayerPiece
+            );
+            switch (
+                movementBoard[actualAccusingRoom[0]][actualAccusingRoom[1]][0]
+            ) {
+                /*Vestíbulo: 9
+                Biblioteca: 11
+                Comedor: 12
+                Billar: 13
+                Salón de Baile: 15 */
+                case 9:
+                    if (actualAccusingRoom[0] === 4) {
+                        movementBoard[6][11].push(accusedPlayerPiece);
+                        movementBoard[6][12].push(accusedPlayerPiece);
+                    } else if (actualAccusingRoom[1] === 11) {
+                        movementBoard[4][9].push(accusedPlayerPiece);
+                        movementBoard[6][12].push(accusedPlayerPiece);
+                    } else if (actualAccusingRoom[1] === 12) {
+                        movementBoard[4][9].push(accusedPlayerPiece);
+                        movementBoard[6][11].push(accusedPlayerPiece);
+                    }
+                    break;
+                case 11:
+                    if (actualAccusingRoom[0] === 8) {
+                        movementBoard[10][3].push(accusedPlayerPiece);
+                    } else if (actualAccusingRoom[0] === 10) {
+                        movementBoard[8][6].push(accusedPlayerPiece);
+                    }
+                    break;
+                case 12:
+                    if (actualAccusingRoom[0] === 9) {
+                        movementBoard[12][16].push(accusedPlayerPiece);
+                    } else if (actualAccusingRoom[0] === 12) {
+                        movementBoard[9][17].push(accusedPlayerPiece);
+                    }
+                    break;
+                case 13:
+                    if (actualAccusingRoom[0] === 12) {
+                        movementBoard[15][5].push(accusedPlayerPiece);
+                    } else if (actualAccusingRoom[0] === 15) {
+                        movementBoard[12][1].push(accusedPlayerPiece);
+                    }
+                    break;
+                case 15:
+                    if (actualAccusingRoom[1] === 8) {
+                        movementBoard[17][9].push(accusedPlayerPiece);
+                        movementBoard[17][14].push(accusedPlayerPiece);
+                        movementBoard[19][15].push(accusedPlayerPiece);
+                    } else if (actualAccusingRoom[1] === 9) {
+                        movementBoard[19][8].push(accusedPlayerPiece);
+                        movementBoard[17][14].push(accusedPlayerPiece);
+                        movementBoard[19][15].push(accusedPlayerPiece);
+                    } else if (actualAccusingRoom[1] === 14) {
+                        movementBoard[19][8].push(accusedPlayerPiece);
+                        movementBoard[17][9].push(accusedPlayerPiece);
+                        movementBoard[19][15].push(accusedPlayerPiece);
+                    } else if (actualAccusingRoom[1] === 15) {
+                        movementBoard[19][8].push(accusedPlayerPiece);
+                        movementBoard[17][9].push(accusedPlayerPiece);
+                        movementBoard[17][14].push(accusedPlayerPiece);
+                    }
+                    break;
+            }
+            /*  Estudio: 8
+            Vestíbulo: 9
+            Sala: 10
+            Biblioteca: 11
+            Comedor: 12
+            Billar: 13
+            Invernadero: 14
+            Salón de Baile: 15
+            Cocina: 16 */
+
+            for (let cell of movementAbleCells) {
+                console.dir(cell);
+                if (cell.childNodes[0] === fichaJugadorAzulino) {
+                    console.log(
+                        `Se encontró la ficha del jugador, y se quitó de su lugar`
+                    );
+                    cell.removeChild(fichaJugadorAzulino);
+                }
+            }
+            console.log(
+                movementBoard[actualAccusingRoom[0]][actualAccusingRoom[1]]
+            );
+            switch (
+                movementBoard[actualAccusingRoom[0]][actualAccusingRoom[1]][0]
+            ) {
+                case 10:
+                    document
+                        .querySelector(`#cell-3u`)
+                        .appendChild(fichaJugadorAzulino);
+                    break;
+                case 9:
+                    document
+                        .querySelector(`#cell-3k`)
+                        .appendChild(fichaJugadorAzulino);
+                    break;
+                case 8:
+                    document
+                        .querySelector(`#cell-3c`)
+                        .appendChild(fichaJugadorAzulino);
+                    break;
+                case 11:
+                    document
+                        .querySelector(`#cell-10d`)
+                        .appendChild(fichaJugadorAzulino);
+                    break;
+                case 12:
+                    document
+                        .querySelector(`#cell-11u`)
+                        .appendChild(fichaJugadorAzulino);
+                    break;
+                case 13:
+                    document
+                        .querySelector(`#cell-15e`)
+                        .appendChild(fichaJugadorAzulino);
+                    break;
+                case 15:
+                    document
+                        .querySelector(`#cell-19j`)
+                        .appendChild(fichaJugadorAzulino);
+                    break;
+                case 14:
+                    document
+                        .querySelector(`#cell-23d`)
+                        .appendChild(fichaJugadorAzulino);
+                    break;
+                case 16:
+                    document
+                        .querySelector(`#cell-21v`)
+                        .appendChild(fichaJugadorAzulino);
+                    break;
+            }
+            console.log(`La ficha del jugador se movió correctamente`);
+            break;
+        case "blanco":
+            console.log(`Llevando a blanco a habitación`);
+            accusedPlayerPiece = 3;
+            for (let row of movementBoard) {
+                for (let cell of row) {
+                    if (typeof cell === "number") {
+                        if (accusedPlayerPiece === cell) {
+                            accusedCoordenates.push([
+                                movementBoard.indexOf(row),
+                                row.indexOf(cell),
+                            ]);
+                            break;
+                        }
+                        if (i < 23) {
+                            i += 1;
+                        } else {
+                            i = 0;
+                        }
+                    } else {
+                        if (cell.includes(accusedPlayerPiece)) {
+                            accusedCoordenates.push([
+                                movementBoard.indexOf(row),
+                                row.indexOf(cell),
+                            ]);
+                            console.log(accusedCoordenates);
+                            console.log(
+                                `La Ubicación del jugador es en las siguientes coordenadas: ${accusedCoordenates}`
+                            );
+                        }
+                        if (i < 23) {
+                            i += 1;
+                        } else {
+                            i = 0;
+                        }
+                    }
+                }
+            }
+            console.log(
+                `La Ubicación FINAL del jugador es en las siguientes coordenadas: ${accusedCoordenates}`
+            );
+            console.log(movementBoard);
+            console.log(accusedCoordenates[0][0]);
+            console.log(
+                movementBoard[accusedCoordenates[0][0]][
+                    accusedCoordenates[0][1]
+                ]
+            );
+            if (
+                typeof movementBoard[accusedCoordenates[0][0]][
+                    accusedCoordenates[0][1]
+                ] === "number"
+            ) {
+                if (
+                    movementBoard[accusedCoordenates[0][0]][
+                        accusedCoordenates[0][1]
+                    ] === accusedPlayerPiece
+                ) {
+                    movementBoard[accusedCoordenates[0][0]][
+                        accusedCoordenates[0][1]
+                    ] = 0;
+                }
+            } else {
+                for (let coordinate of accusedCoordenates) {
+                    let positionRow = coordinate[0];
+                    let positionIndex = coordinate[1];
+                    console.log(`Logueando el valor del casillero de destino`);
+                    console.log(
+                        typeof movementBoard[positionRow][positionIndex]
+                    );
+                    console.log(movementBoard[positionRow][positionIndex]);
+                    movementBoard[positionRow][positionIndex] = movementBoard[
+                        positionRow
+                    ][positionIndex].filter((value) => {
+                        return value !== accusedPlayerPiece;
+                    });
+                }
+            }
+            movementBoard[actualAccusingRoom[0]][actualAccusingRoom[1]].push(
+                accusedPlayerPiece
+            );
+            switch (
+                movementBoard[actualAccusingRoom[0]][actualAccusingRoom[1]][0]
+            ) {
+                /*Vestíbulo: 9
+                Biblioteca: 11
+                Comedor: 12
+                Billar: 13
+                Salón de Baile: 15 */
+                case 9:
+                    if (actualAccusingRoom[0] === 4) {
+                        movementBoard[6][11].push(accusedPlayerPiece);
+                        movementBoard[6][12].push(accusedPlayerPiece);
+                    } else if (actualAccusingRoom[1] === 11) {
+                        movementBoard[4][9].push(accusedPlayerPiece);
+                        movementBoard[6][12].push(accusedPlayerPiece);
+                    } else if (actualAccusingRoom[1] === 12) {
+                        movementBoard[4][9].push(accusedPlayerPiece);
+                        movementBoard[6][11].push(accusedPlayerPiece);
+                    }
+                    break;
+                case 11:
+                    if (actualAccusingRoom[0] === 8) {
+                        movementBoard[10][3].push(accusedPlayerPiece);
+                    } else if (actualAccusingRoom[0] === 10) {
+                        movementBoard[8][6].push(accusedPlayerPiece);
+                    }
+                    break;
+                case 12:
+                    if (actualAccusingRoom[0] === 9) {
+                        movementBoard[12][16].push(accusedPlayerPiece);
+                    } else if (actualAccusingRoom[0] === 12) {
+                        movementBoard[9][17].push(accusedPlayerPiece);
+                    }
+                    break;
+                case 13:
+                    if (actualAccusingRoom[0] === 12) {
+                        movementBoard[15][5].push(accusedPlayerPiece);
+                    } else if (actualAccusingRoom[0] === 15) {
+                        movementBoard[12][1].push(accusedPlayerPiece);
+                    }
+                    break;
+                case 15:
+                    if (actualAccusingRoom[1] === 8) {
+                        movementBoard[17][9].push(accusedPlayerPiece);
+                        movementBoard[17][14].push(accusedPlayerPiece);
+                        movementBoard[19][15].push(accusedPlayerPiece);
+                    } else if (actualAccusingRoom[1] === 9) {
+                        movementBoard[19][8].push(accusedPlayerPiece);
+                        movementBoard[17][14].push(accusedPlayerPiece);
+                        movementBoard[19][15].push(accusedPlayerPiece);
+                    } else if (actualAccusingRoom[1] === 14) {
+                        movementBoard[19][8].push(accusedPlayerPiece);
+                        movementBoard[17][9].push(accusedPlayerPiece);
+                        movementBoard[19][15].push(accusedPlayerPiece);
+                    } else if (actualAccusingRoom[1] === 15) {
+                        movementBoard[19][8].push(accusedPlayerPiece);
+                        movementBoard[17][9].push(accusedPlayerPiece);
+                        movementBoard[17][14].push(accusedPlayerPiece);
+                    }
+                    break;
+            }
+            /*  Estudio: 8
+            Vestíbulo: 9
+            Sala: 10
+            Biblioteca: 11
+            Comedor: 12
+            Billar: 13
+            Invernadero: 14
+            Salón de Baile: 15
+            Cocina: 16 */
+
+            for (let cell of movementAbleCells) {
+                console.dir(cell);
+                if (cell.childNodes[0] === fichaJugadorBlanco) {
+                    console.log(
+                        `Se encontró la ficha del jugador, y se quitó de su lugar`
+                    );
+                    cell.removeChild(fichaJugadorBlanco);
+                }
+            }
+            console.log(
+                movementBoard[actualAccusingRoom[0]][actualAccusingRoom[1]]
+            );
+            switch (
+                movementBoard[actualAccusingRoom[0]][actualAccusingRoom[1]][0]
+            ) {
+                case 10:
+                    document
+                        .querySelector(`#cell-3t`)
+                        .appendChild(fichaJugadorBlanco);
+                    break;
+                case 9:
+                    document
+                        .querySelector(`#cell-4n`)
+                        .appendChild(fichaJugadorBlanco);
+                    break;
+                case 8:
+                    document
+                        .querySelector(`#cell-2d`)
+                        .appendChild(fichaJugadorBlanco);
+                    break;
+                case 11:
+                    document
+                        .querySelector(`#cell-10e`)
+                        .appendChild(fichaJugadorBlanco);
+                    break;
+                case 12:
+                    document
+                        .querySelector(`#cell-14v`)
+                        .appendChild(fichaJugadorBlanco);
+                    break;
+                case 13:
+                    document
+                        .querySelector(`#cell-14e`)
+                        .appendChild(fichaJugadorBlanco);
+                    break;
+                case 15:
+                    document
+                        .querySelector(`#cell-22m`)
+                        .appendChild(fichaJugadorBlanco);
+                    break;
+                case 14:
+                    document
+                        .querySelector(`#cell-23c`)
+                        .appendChild(fichaJugadorBlanco);
+                    break;
+                case 16:
+                    document
+                        .querySelector(`#cell-23u`)
+                        .appendChild(fichaJugadorBlanco);
+                    break;
+            }
+            break;
+        case "escarlata":
+            console.log(`Llevando a escarlata a habitación`);
+            accusedPlayerPiece = 1;
+            for (let row of movementBoard) {
+                for (let cell of row) {
+                    if (typeof cell === "number") {
+                        if (accusedPlayerPiece === cell) {
+                            accusedCoordenates.push([
+                                movementBoard.indexOf(row),
+                                row.indexOf(cell),
+                            ]);
+                            break;
+                        }
+                        if (i < 23) {
+                            i += 1;
+                        } else {
+                            i = 0;
+                        }
+                    } else {
+                        if (cell.includes(accusedPlayerPiece)) {
+                            accusedCoordenates.push([
+                                movementBoard.indexOf(row),
+                                row.indexOf(cell),
+                            ]);
+                            console.log(accusedCoordenates);
+                            console.log(
+                                `La Ubicación del jugador es en las siguientes coordenadas: ${accusedCoordenates}`
+                            );
+                        }
+                        if (i < 23) {
+                            i += 1;
+                        } else {
+                            i = 0;
+                        }
+                    }
+                }
+            }
+            console.log(
+                `La Ubicación FINAL del jugador es en las siguientes coordenadas: ${accusedCoordenates}`
+            );
+            console.log(movementBoard);
+            console.log(accusedCoordenates[0][0]);
+            console.log(
+                movementBoard[accusedCoordenates[0][0]][
+                    accusedCoordenates[0][1]
+                ]
+            );
+            if (
+                typeof movementBoard[accusedCoordenates[0][0]][
+                    accusedCoordenates[0][1]
+                ] === "number"
+            ) {
+                if (
+                    movementBoard[accusedCoordenates[0][0]][
+                        accusedCoordenates[0][1]
+                    ] === accusedPlayerPiece
+                ) {
+                    movementBoard[accusedCoordenates[0][0]][
+                        accusedCoordenates[0][1]
+                    ] = 0;
+                }
+            } else {
+                for (let coordinate of accusedCoordenates) {
+                    let positionRow = coordinate[0];
+                    let positionIndex = coordinate[1];
+                    console.log(`Logueando el valor del casillero de destino`);
+                    console.log(
+                        typeof movementBoard[positionRow][positionIndex]
+                    );
+                    console.log(movementBoard[positionRow][positionIndex]);
+                    movementBoard[positionRow][positionIndex] = movementBoard[
+                        positionRow
+                    ][positionIndex].filter((value) => {
+                        return value !== accusedPlayerPiece;
+                    });
+                }
+            }
+            movementBoard[actualAccusingRoom[0]][actualAccusingRoom[1]].push(
+                accusedPlayerPiece
+            );
+            switch (
+                movementBoard[actualAccusingRoom[0]][actualAccusingRoom[1]][0]
+            ) {
+                /*Vestíbulo: 9
+                Biblioteca: 11
+                Comedor: 12
+                Billar: 13
+                Salón de Baile: 15 */
+                case 9:
+                    if (actualAccusingRoom[0] === 4) {
+                        movementBoard[6][11].push(accusedPlayerPiece);
+                        movementBoard[6][12].push(accusedPlayerPiece);
+                    } else if (actualAccusingRoom[1] === 11) {
+                        movementBoard[4][9].push(accusedPlayerPiece);
+                        movementBoard[6][12].push(accusedPlayerPiece);
+                    } else if (actualAccusingRoom[1] === 12) {
+                        movementBoard[4][9].push(accusedPlayerPiece);
+                        movementBoard[6][11].push(accusedPlayerPiece);
+                    }
+                    break;
+                case 11:
+                    if (actualAccusingRoom[0] === 8) {
+                        movementBoard[10][3].push(accusedPlayerPiece);
+                    } else if (actualAccusingRoom[0] === 10) {
+                        movementBoard[8][6].push(accusedPlayerPiece);
+                    }
+                    break;
+                case 12:
+                    if (actualAccusingRoom[0] === 9) {
+                        movementBoard[12][16].push(accusedPlayerPiece);
+                    } else if (actualAccusingRoom[0] === 12) {
+                        movementBoard[9][17].push(accusedPlayerPiece);
+                    }
+                    break;
+                case 13:
+                    if (actualAccusingRoom[0] === 12) {
+                        movementBoard[15][5].push(accusedPlayerPiece);
+                    } else if (actualAccusingRoom[0] === 15) {
+                        movementBoard[12][1].push(accusedPlayerPiece);
+                    }
+                    break;
+                case 15:
+                    if (actualAccusingRoom[1] === 8) {
+                        movementBoard[17][9].push(accusedPlayerPiece);
+                        movementBoard[17][14].push(accusedPlayerPiece);
+                        movementBoard[19][15].push(accusedPlayerPiece);
+                    } else if (actualAccusingRoom[1] === 9) {
+                        movementBoard[19][8].push(accusedPlayerPiece);
+                        movementBoard[17][14].push(accusedPlayerPiece);
+                        movementBoard[19][15].push(accusedPlayerPiece);
+                    } else if (actualAccusingRoom[1] === 14) {
+                        movementBoard[19][8].push(accusedPlayerPiece);
+                        movementBoard[17][9].push(accusedPlayerPiece);
+                        movementBoard[19][15].push(accusedPlayerPiece);
+                    } else if (actualAccusingRoom[1] === 15) {
+                        movementBoard[19][8].push(accusedPlayerPiece);
+                        movementBoard[17][9].push(accusedPlayerPiece);
+                        movementBoard[17][14].push(accusedPlayerPiece);
+                    }
+                    break;
+            }
+            /*  Estudio: 8
+            Vestíbulo: 9
+            Sala: 10
+            Biblioteca: 11
+            Comedor: 12
+            Billar: 13
+            Invernadero: 14
+            Salón de Baile: 15
+            Cocina: 16 */
+
+            for (let cell of movementAbleCells) {
+                console.dir(cell);
+                if (cell.childNodes[0] === fichaJugadorEscarlata) {
+                    console.log(
+                        `Se encontró la ficha del jugador, y se quitó de su lugar`
+                    );
+                    cell.removeChild(fichaJugadorEscarlata);
+                }
+            }
+            console.log(
+                movementBoard[actualAccusingRoom[0]][actualAccusingRoom[1]]
+            );
+            switch (
+                movementBoard[actualAccusingRoom[0]][actualAccusingRoom[1]][0]
+            ) {
+                case 10:
+                    document
+                        .querySelector(`#cell-3v`)
+                        .appendChild(fichaJugadorEscarlata);
+                    break;
+                case 9:
+                    document
+                        .querySelector(`#cell-3n`)
+                        .appendChild(fichaJugadorEscarlata);
+                    break;
+                case 8:
+                    document
+                        .querySelector(`#cell-2c`)
+                        .appendChild(fichaJugadorEscarlata);
+                    break;
+                case 11:
+                    document
+                        .querySelector(`#cell-8c`)
+                        .appendChild(fichaJugadorEscarlata);
+                    break;
+                case 12:
+                    document
+                        .querySelector(`#cell-11v`)
+                        .appendChild(fichaJugadorEscarlata);
+                    break;
+                case 13:
+                    document
+                        .querySelector(`#cell-14d`)
+                        .appendChild(fichaJugadorEscarlata);
+                    break;
+                case 15:
+                    document
+                        .querySelector(`#cell-19o`)
+                        .appendChild(fichaJugadorEscarlata);
+                    break;
+                case 14:
+                    document
+                        .querySelector(`#cell-23b`)
+                        .appendChild(fichaJugadorEscarlata);
+                    break;
+                case 16:
+                    document
+                        .querySelector(`#cell-21w`)
+                        .appendChild(fichaJugadorEscarlata);
+                    break;
+            }
+            break;
+        case "moradillo":
+            console.log(`Llevando a moradillo a habitación`);
+            accusedPlayerPiece = 6;
+            for (let row of movementBoard) {
+                for (let cell of row) {
+                    if (typeof cell === "number") {
+                        if (accusedPlayerPiece === cell) {
+                            accusedCoordenates.push([
+                                movementBoard.indexOf(row),
+                                row.indexOf(cell),
+                            ]);
+                            break;
+                        }
+                        if (i < 23) {
+                            i += 1;
+                        } else {
+                            i = 0;
+                        }
+                    } else {
+                        if (cell.includes(accusedPlayerPiece)) {
+                            accusedCoordenates.push([
+                                movementBoard.indexOf(row),
+                                row.indexOf(cell),
+                            ]);
+                            console.log(accusedCoordenates);
+                            console.log(
+                                `La Ubicación del jugador es en las siguientes coordenadas: ${accusedCoordenates}`
+                            );
+                        }
+                        if (i < 23) {
+                            i += 1;
+                        } else {
+                            i = 0;
+                        }
+                    }
+                }
+            }
+            console.log(
+                `La Ubicación FINAL del jugador es en las siguientes coordenadas: ${accusedCoordenates}`
+            );
+            console.log(movementBoard);
+            console.log(accusedCoordenates[0][0]);
+            console.log(
+                movementBoard[accusedCoordenates[0][0]][
+                    accusedCoordenates[0][1]
+                ]
+            );
+            if (
+                typeof movementBoard[accusedCoordenates[0][0]][
+                    accusedCoordenates[0][1]
+                ] === "number"
+            ) {
+                if (
+                    movementBoard[accusedCoordenates[0][0]][
+                        accusedCoordenates[0][1]
+                    ] === accusedPlayerPiece
+                ) {
+                    movementBoard[accusedCoordenates[0][0]][
+                        accusedCoordenates[0][1]
+                    ] = 0;
+                }
+            } else {
+                for (let coordinate of accusedCoordenates) {
+                    let positionRow = coordinate[0];
+                    let positionIndex = coordinate[1];
+                    console.log(`Logueando el valor del casillero de destino`);
+                    console.log(
+                        typeof movementBoard[positionRow][positionIndex]
+                    );
+                    console.log(movementBoard[positionRow][positionIndex]);
+                    movementBoard[positionRow][positionIndex] = movementBoard[
+                        positionRow
+                    ][positionIndex].filter((value) => {
+                        return value !== accusedPlayerPiece;
+                    });
+                }
+            }
+            movementBoard[actualAccusingRoom[0]][actualAccusingRoom[1]].push(
+                accusedPlayerPiece
+            );
+            switch (
+                movementBoard[actualAccusingRoom[0]][actualAccusingRoom[1]][0]
+            ) {
+                /*Vestíbulo: 9
+                Biblioteca: 11
+                Comedor: 12
+                Billar: 13
+                Salón de Baile: 15 */
+                case 9:
+                    if (actualAccusingRoom[0] === 4) {
+                        movementBoard[6][11].push(accusedPlayerPiece);
+                        movementBoard[6][12].push(accusedPlayerPiece);
+                    } else if (actualAccusingRoom[1] === 11) {
+                        movementBoard[4][9].push(accusedPlayerPiece);
+                        movementBoard[6][12].push(accusedPlayerPiece);
+                    } else if (actualAccusingRoom[1] === 12) {
+                        movementBoard[4][9].push(accusedPlayerPiece);
+                        movementBoard[6][11].push(accusedPlayerPiece);
+                    }
+                    break;
+                case 11:
+                    if (actualAccusingRoom[0] === 8) {
+                        movementBoard[10][3].push(accusedPlayerPiece);
+                    } else if (actualAccusingRoom[0] === 10) {
+                        movementBoard[8][6].push(accusedPlayerPiece);
+                    }
+                    break;
+                case 12:
+                    if (actualAccusingRoom[0] === 9) {
+                        movementBoard[12][16].push(accusedPlayerPiece);
+                    } else if (actualAccusingRoom[0] === 12) {
+                        movementBoard[9][17].push(accusedPlayerPiece);
+                    }
+                    break;
+                case 13:
+                    if (actualAccusingRoom[0] === 12) {
+                        movementBoard[15][5].push(accusedPlayerPiece);
+                    } else if (actualAccusingRoom[0] === 15) {
+                        movementBoard[12][1].push(accusedPlayerPiece);
+                    }
+                    break;
+                case 15:
+                    if (actualAccusingRoom[1] === 8) {
+                        movementBoard[17][9].push(accusedPlayerPiece);
+                        movementBoard[17][14].push(accusedPlayerPiece);
+                        movementBoard[19][15].push(accusedPlayerPiece);
+                    } else if (actualAccusingRoom[1] === 9) {
+                        movementBoard[19][8].push(accusedPlayerPiece);
+                        movementBoard[17][14].push(accusedPlayerPiece);
+                        movementBoard[19][15].push(accusedPlayerPiece);
+                    } else if (actualAccusingRoom[1] === 14) {
+                        movementBoard[19][8].push(accusedPlayerPiece);
+                        movementBoard[17][9].push(accusedPlayerPiece);
+                        movementBoard[19][15].push(accusedPlayerPiece);
+                    } else if (actualAccusingRoom[1] === 15) {
+                        movementBoard[19][8].push(accusedPlayerPiece);
+                        movementBoard[17][9].push(accusedPlayerPiece);
+                        movementBoard[17][14].push(accusedPlayerPiece);
+                    }
+                    break;
+            }
+            /*  Estudio: 8
+            Vestíbulo: 9
+            Sala: 10
+            Biblioteca: 11
+            Comedor: 12
+            Billar: 13
+            Invernadero: 14
+            Salón de Baile: 15
+            Cocina: 16 */
+
+            for (let cell of movementAbleCells) {
+                console.dir(cell);
+                if (cell.childNodes[0] === fichaJugadorMoradillo) {
+                    console.log(
+                        `Se encontró la ficha del jugador, y se quitó de su lugar`
+                    );
+                    cell.removeChild(fichaJugadorMoradillo);
+                }
+            }
+            console.log(
+                movementBoard[actualAccusingRoom[0]][actualAccusingRoom[1]]
+            );
+            switch (
+                movementBoard[actualAccusingRoom[0]][actualAccusingRoom[1]][0]
+            ) {
+                case 10:
+                    document
+                        .querySelector(`#cell-4v`)
+                        .appendChild(fichaJugadorMoradillo);
+                    break;
+                case 9:
+                    document
+                        .querySelector(`#cell-5n`)
+                        .appendChild(fichaJugadorMoradillo);
+                    break;
+                case 8:
+                    document
+                        .querySelector(`#cell-3d`)
+                        .appendChild(fichaJugadorMoradillo);
+                    break;
+                case 11:
+                    document
+                        .querySelector(`#cell-8e`)
+                        .appendChild(fichaJugadorMoradillo);
+                    break;
+                case 12:
+                    document
+                        .querySelector(`#cell-14t`)
+                        .appendChild(fichaJugadorMoradillo);
+                    break;
+                case 13:
+                    document
+                        .querySelector(`#cell-16e`)
+                        .appendChild(fichaJugadorMoradillo);
+                    break;
+                case 15:
+                    document
+                        .querySelector(`#cell-19m`)
+                        .appendChild(fichaJugadorMoradillo);
+                    break;
+                case 14:
+                    document
+                        .querySelector(`#cell-22b`)
+                        .appendChild(fichaJugadorMoradillo);
+                    break;
+                case 16:
+                    document
+                        .querySelector(`#cell-21u`)
+                        .appendChild(fichaJugadorMoradillo);
+                    break;
+            }
+            break;
+        case "mostaza":
+            console.log(`Llevando a mostaza a habitación`);
+            accusedPlayerPiece = 2;
+            for (let row of movementBoard) {
+                for (let cell of row) {
+                    if (typeof cell === "number") {
+                        if (accusedPlayerPiece === cell) {
+                            accusedCoordenates.push([
+                                movementBoard.indexOf(row),
+                                row.indexOf(cell),
+                            ]);
+                            break;
+                        }
+                        if (i < 23) {
+                            i += 1;
+                        } else {
+                            i = 0;
+                        }
+                    } else {
+                        if (cell.includes(accusedPlayerPiece)) {
+                            accusedCoordenates.push([
+                                movementBoard.indexOf(row),
+                                row.indexOf(cell),
+                            ]);
+                            console.log(accusedCoordenates);
+                            console.log(
+                                `La Ubicación del jugador es en las siguientes coordenadas: ${accusedCoordenates}`
+                            );
+                        }
+                        if (i < 23) {
+                            i += 1;
+                        } else {
+                            i = 0;
+                        }
+                    }
+                }
+            }
+            console.log(
+                `La Ubicación FINAL del jugador es en las siguientes coordenadas: ${accusedCoordenates}`
+            );
+            console.log(movementBoard);
+            console.log(accusedCoordenates[0][0]);
+            console.log(
+                movementBoard[accusedCoordenates[0][0]][
+                    accusedCoordenates[0][1]
+                ]
+            );
+            if (
+                typeof movementBoard[accusedCoordenates[0][0]][
+                    accusedCoordenates[0][1]
+                ] === "number"
+            ) {
+                if (
+                    movementBoard[accusedCoordenates[0][0]][
+                        accusedCoordenates[0][1]
+                    ] === accusedPlayerPiece
+                ) {
+                    movementBoard[accusedCoordenates[0][0]][
+                        accusedCoordenates[0][1]
+                    ] = 0;
+                }
+            } else {
+                for (let coordinate of accusedCoordenates) {
+                    let positionRow = coordinate[0];
+                    let positionIndex = coordinate[1];
+                    console.log(`Logueando el valor del casillero de destino`);
+                    console.log(
+                        typeof movementBoard[positionRow][positionIndex]
+                    );
+                    console.log(movementBoard[positionRow][positionIndex]);
+                    movementBoard[positionRow][positionIndex] = movementBoard[
+                        positionRow
+                    ][positionIndex].filter((value) => {
+                        return value !== accusedPlayerPiece;
+                    });
+                }
+            }
+            movementBoard[actualAccusingRoom[0]][actualAccusingRoom[1]].push(
+                accusedPlayerPiece
+            );
+            switch (
+                movementBoard[actualAccusingRoom[0]][actualAccusingRoom[1]][0]
+            ) {
+                /*Vestíbulo: 9
+                Biblioteca: 11
+                Comedor: 12
+                Billar: 13
+                Salón de Baile: 15 */
+                case 9:
+                    if (actualAccusingRoom[0] === 4) {
+                        movementBoard[6][11].push(accusedPlayerPiece);
+                        movementBoard[6][12].push(accusedPlayerPiece);
+                    } else if (actualAccusingRoom[1] === 11) {
+                        movementBoard[4][9].push(accusedPlayerPiece);
+                        movementBoard[6][12].push(accusedPlayerPiece);
+                    } else if (actualAccusingRoom[1] === 12) {
+                        movementBoard[4][9].push(accusedPlayerPiece);
+                        movementBoard[6][11].push(accusedPlayerPiece);
+                    }
+                    break;
+                case 11:
+                    if (actualAccusingRoom[0] === 8) {
+                        movementBoard[10][3].push(accusedPlayerPiece);
+                    } else if (actualAccusingRoom[0] === 10) {
+                        movementBoard[8][6].push(accusedPlayerPiece);
+                    }
+                    break;
+                case 12:
+                    if (actualAccusingRoom[0] === 9) {
+                        movementBoard[12][16].push(accusedPlayerPiece);
+                    } else if (actualAccusingRoom[0] === 12) {
+                        movementBoard[9][17].push(accusedPlayerPiece);
+                    }
+                    break;
+                case 13:
+                    if (actualAccusingRoom[0] === 12) {
+                        movementBoard[15][5].push(accusedPlayerPiece);
+                    } else if (actualAccusingRoom[0] === 15) {
+                        movementBoard[12][1].push(accusedPlayerPiece);
+                    }
+                    break;
+                case 15:
+                    if (actualAccusingRoom[1] === 8) {
+                        movementBoard[17][9].push(accusedPlayerPiece);
+                        movementBoard[17][14].push(accusedPlayerPiece);
+                        movementBoard[19][15].push(accusedPlayerPiece);
+                    } else if (actualAccusingRoom[1] === 9) {
+                        movementBoard[19][8].push(accusedPlayerPiece);
+                        movementBoard[17][14].push(accusedPlayerPiece);
+                        movementBoard[19][15].push(accusedPlayerPiece);
+                    } else if (actualAccusingRoom[1] === 14) {
+                        movementBoard[19][8].push(accusedPlayerPiece);
+                        movementBoard[17][9].push(accusedPlayerPiece);
+                        movementBoard[19][15].push(accusedPlayerPiece);
+                    } else if (actualAccusingRoom[1] === 15) {
+                        movementBoard[19][8].push(accusedPlayerPiece);
+                        movementBoard[17][9].push(accusedPlayerPiece);
+                        movementBoard[17][14].push(accusedPlayerPiece);
+                    }
+                    break;
+            }
+            /*  Estudio: 8
+            Vestíbulo: 9
+            Sala: 10
+            Biblioteca: 11
+            Comedor: 12
+            Billar: 13
+            Invernadero: 14
+            Salón de Baile: 15
+            Cocina: 16 */
+
+            for (let cell of movementAbleCells) {
+                console.dir(cell);
+                if (cell.childNodes[0] === fichaJugadorMostaza) {
+                    console.log(
+                        `Se encontró la ficha del jugador, y se quitó de su lugar`
+                    );
+                    cell.removeChild(fichaJugadorMostaza);
+                }
+            }
+            console.log(
+                movementBoard[actualAccusingRoom[0]][actualAccusingRoom[1]]
+            );
+            switch (
+                movementBoard[actualAccusingRoom[0]][actualAccusingRoom[1]][0]
+            ) {
+                case 10:
+                    document
+                        .querySelector(`#cell-3t`)
+                        .appendChild(fichaJugadorMostaza);
+                    break;
+                case 9:
+                    document
+                        .querySelector(`#cell-4n`)
+                        .appendChild(fichaJugadorMostaza);
+                    break;
+                case 8:
+                    document
+                        .querySelector(`#cell-2d`)
+                        .appendChild(fichaJugadorMostaza);
+                    break;
+                case 11:
+                    document
+                        .querySelector(`#cell-10e`)
+                        .appendChild(fichaJugadorMostaza);
+                    break;
+                case 12:
+                    document
+                        .querySelector(`#cell-14v`)
+                        .appendChild(fichaJugadorMostaza);
+                    break;
+                case 13:
+                    document
+                        .querySelector(`#cell-14e`)
+                        .appendChild(fichaJugadorMostaza);
+                    break;
+                case 15:
+                    document
+                        .querySelector(`#cell-22m`)
+                        .appendChild(fichaJugadorMostaza);
+                    break;
+                case 14:
+                    document
+                        .querySelector(`#cell-23c`)
+                        .appendChild(fichaJugadorMostaza);
+                    break;
+                case 16:
+                    document
+                        .querySelector(`#cell-23u`)
+                        .appendChild(fichaJugadorMostaza);
+                    break;
+            }
+            break;
+        case "verdi":
+            console.log(`Llevando a verdi a habitación`);
+            accusedPlayerPiece = 4;
+            for (let row of movementBoard) {
+                for (let cell of row) {
+                    if (typeof cell === "number") {
+                        if (accusedPlayerPiece === cell) {
+                            accusedCoordenates.push([
+                                movementBoard.indexOf(row),
+                                row.indexOf(cell),
+                            ]);
+                            break;
+                        }
+                        if (i < 23) {
+                            i += 1;
+                        } else {
+                            i = 0;
+                        }
+                    } else {
+                        if (cell.includes(accusedPlayerPiece)) {
+                            accusedCoordenates.push([
+                                movementBoard.indexOf(row),
+                                row.indexOf(cell),
+                            ]);
+                            console.log(accusedCoordenates);
+                            console.log(
+                                `La Ubicación del jugador es en las siguientes coordenadas: ${accusedCoordenates}`
+                            );
+                        }
+                        if (i < 23) {
+                            i += 1;
+                        } else {
+                            i = 0;
+                        }
+                    }
+                }
+            }
+            console.log(
+                `La Ubicación FINAL del jugador es en las siguientes coordenadas: ${accusedCoordenates}`
+            );
+            console.log(movementBoard);
+            console.log(accusedCoordenates[0][0]);
+            console.log(
+                movementBoard[accusedCoordenates[0][0]][
+                    accusedCoordenates[0][1]
+                ]
+            );
+            if (
+                typeof movementBoard[accusedCoordenates[0][0]][
+                    accusedCoordenates[0][1]
+                ] === "number"
+            ) {
+                if (
+                    movementBoard[accusedCoordenates[0][0]][
+                        accusedCoordenates[0][1]
+                    ] === accusedPlayerPiece
+                ) {
+                    movementBoard[accusedCoordenates[0][0]][
+                        accusedCoordenates[0][1]
+                    ] = 0;
+                }
+            } else {
+                for (let coordinate of accusedCoordenates) {
+                    let positionRow = coordinate[0];
+                    let positionIndex = coordinate[1];
+                    console.log(`Logueando el valor del casillero de destino`);
+                    console.log(
+                        typeof movementBoard[positionRow][positionIndex]
+                    );
+                    console.log(movementBoard[positionRow][positionIndex]);
+                    movementBoard[positionRow][positionIndex] = movementBoard[
+                        positionRow
+                    ][positionIndex].filter((value) => {
+                        return value !== accusedPlayerPiece;
+                    });
+                }
+            }
+            movementBoard[actualAccusingRoom[0]][actualAccusingRoom[1]].push(
+                accusedPlayerPiece
+            );
+            switch (
+                movementBoard[actualAccusingRoom[0]][actualAccusingRoom[1]][0]
+            ) {
+                /*Vestíbulo: 9
+                Biblioteca: 11
+                Comedor: 12
+                Billar: 13
+                Salón de Baile: 15 */
+                case 9:
+                    if (actualAccusingRoom[0] === 4) {
+                        movementBoard[6][11].push(accusedPlayerPiece);
+                        movementBoard[6][12].push(accusedPlayerPiece);
+                    } else if (actualAccusingRoom[1] === 11) {
+                        movementBoard[4][9].push(accusedPlayerPiece);
+                        movementBoard[6][12].push(accusedPlayerPiece);
+                    } else if (actualAccusingRoom[1] === 12) {
+                        movementBoard[4][9].push(accusedPlayerPiece);
+                        movementBoard[6][11].push(accusedPlayerPiece);
+                    }
+                    break;
+                case 11:
+                    if (actualAccusingRoom[0] === 8) {
+                        movementBoard[10][3].push(accusedPlayerPiece);
+                    } else if (actualAccusingRoom[0] === 10) {
+                        movementBoard[8][6].push(accusedPlayerPiece);
+                    }
+                    break;
+                case 12:
+                    if (actualAccusingRoom[0] === 9) {
+                        movementBoard[12][16].push(accusedPlayerPiece);
+                    } else if (actualAccusingRoom[0] === 12) {
+                        movementBoard[9][17].push(accusedPlayerPiece);
+                    }
+                    break;
+                case 13:
+                    if (actualAccusingRoom[0] === 12) {
+                        movementBoard[15][5].push(accusedPlayerPiece);
+                    } else if (actualAccusingRoom[0] === 15) {
+                        movementBoard[12][1].push(accusedPlayerPiece);
+                    }
+                    break;
+                case 15:
+                    if (actualAccusingRoom[1] === 8) {
+                        movementBoard[17][9].push(accusedPlayerPiece);
+                        movementBoard[17][14].push(accusedPlayerPiece);
+                        movementBoard[19][15].push(accusedPlayerPiece);
+                    } else if (actualAccusingRoom[1] === 9) {
+                        movementBoard[19][8].push(accusedPlayerPiece);
+                        movementBoard[17][14].push(accusedPlayerPiece);
+                        movementBoard[19][15].push(accusedPlayerPiece);
+                    } else if (actualAccusingRoom[1] === 14) {
+                        movementBoard[19][8].push(accusedPlayerPiece);
+                        movementBoard[17][9].push(accusedPlayerPiece);
+                        movementBoard[19][15].push(accusedPlayerPiece);
+                    } else if (actualAccusingRoom[1] === 15) {
+                        movementBoard[19][8].push(accusedPlayerPiece);
+                        movementBoard[17][9].push(accusedPlayerPiece);
+                        movementBoard[17][14].push(accusedPlayerPiece);
+                    }
+                    break;
+            }
+            /*  Estudio: 8
+            Vestíbulo: 9
+            Sala: 10
+            Biblioteca: 11
+            Comedor: 12
+            Billar: 13
+            Invernadero: 14
+            Salón de Baile: 15
+            Cocina: 16 */
+
+            for (let cell of movementAbleCells) {
+                console.dir(cell);
+                if (cell.childNodes[0] === fichaJugadorVerdi) {
+                    console.log(
+                        `Se encontró la ficha del jugador, y se quitó de su lugar`
+                    );
+                    cell.removeChild(fichaJugadorVerdi);
+                }
+            }
+            console.log(
+                movementBoard[actualAccusingRoom[0]][actualAccusingRoom[1]]
+            );
+            switch (
+                movementBoard[actualAccusingRoom[0]][actualAccusingRoom[1]][0]
+            ) {
+                case 10:
+                    document
+                        .querySelector(`#cell-4u`)
+                        .appendChild(fichaJugadorVerdi);
+                    break;
+                case 9:
+                    document
+                        .querySelector(`#cell-4k`)
+                        .appendChild(fichaJugadorVerdi);
+                    break;
+                case 8:
+                    document
+                        .querySelector(`#cell-3e`)
+                        .appendChild(fichaJugadorVerdi);
+                    break;
+                case 11:
+                    document
+                        .querySelector(`#cell-8d`)
+                        .appendChild(fichaJugadorVerdi);
+                    break;
+                case 12:
+                    document
+                        .querySelector(`#cell-11t`)
+                        .appendChild(fichaJugadorVerdi);
+                    break;
+                case 13:
+                    document
+                        .querySelector(`#cell-15d`)
+                        .appendChild(fichaJugadorVerdi);
+                    break;
+                case 15:
+                    document
+                        .querySelector(`#cell-21k`)
+                        .appendChild(fichaJugadorVerdi);
+                    break;
+                case 14:
+                    document
+                        .querySelector(`#cell-22c`)
+                        .appendChild(fichaJugadorVerdi);
+                    break;
+                case 16:
+                    document
+                        .querySelector(`#cell-23v`)
+                        .appendChild(fichaJugadorVerdi);
+                    break;
+            }
+            break;
+    }
+};
+
 // FUNCIÓN CALLBACK QUE CONTIENE LA LÓGICA DE LA SELECCIÓN DE SOSPECHOSO, ARMA Y LUGAR, MANIPULA LAS INTERFACES Y MUESTRA UNA INTERFAZ FINAL DE LA ACUSACIÓN REALIZADA
 const suspectSelection = (evt) => {
     console.log(evt.target.id);
@@ -4134,1353 +5804,1354 @@ const suspectSelection = (evt) => {
             );
             suspectsAccContainer.classList.add("accusation-category-container");
             selectedTriade.push(evt.target.id.toUpperCase());
-            switch (evt.target.id) {
-                case "azulino":
-                    console.log(`Llevando a azulino a habitación`);
-                    accusedPlayerPiece = 5;
-                    for (let row of movementBoard) {
-                        for (let cell of row) {
-                            if (typeof cell === "number") {
-                                if (accusedPlayerPiece === cell) {
-                                    accusedCoordenates.push([
-                                        movementBoard.indexOf(row),
-                                        row.indexOf(cell),
-                                    ]);
-                                    break;
-                                }
-                                if (i < 23) {
-                                    i += 1;
-                                } else {
-                                    i = 0;
-                                }
-                            } else {
-                                if (cell.includes(accusedPlayerPiece)) {
-                                    accusedCoordenates.push([
-                                        movementBoard.indexOf(row),
-                                        row.indexOf(cell),
-                                    ]);
-                                    console.log(accusedCoordenates);
-                                    console.log(
-                                        `La Ubicación del jugador es en las siguientes coordenadas: ${accusedCoordenates}`
-                                    );
-                                }
-                                if (i < 23) {
-                                    i += 1;
-                                } else {
-                                    i = 0;
-                                }
-                            }
-                        }
-                    }
-                    console.log(
-                        `La Ubicación FINAL del jugador es en las siguientes coordenadas: ${accusedCoordenates}`
-                    );
-                    console.log(movementBoard);
-                    console.log(accusedCoordenates[0][0]);
-                    console.log(
-                        movementBoard[accusedCoordenates[0][0]][
-                            accusedCoordenates[0][1]
-                        ]
-                    );
-                    if (
-                        typeof movementBoard[accusedCoordenates[0][0]][
-                            accusedCoordenates[0][1]
-                        ] === "number"
-                    ) {
-                        if (
-                            movementBoard[accusedCoordenates[0][0]][
-                                accusedCoordenates[0][1]
-                            ] === accusedPlayerPiece
-                        ) {
-                            movementBoard[accusedCoordenates[0][0]][
-                                accusedCoordenates[0][1]
-                            ] = 0;
-                        }
-                    } else {
-                        for (let coordinate of accusedCoordenates) {
-                            let positionRow = coordinate[0];
-                            let positionIndex = coordinate[1];
-                            console.log(
-                                `Logueando el valor del casillero de destino`
-                            );
-                            console.log(
-                                typeof movementBoard[positionRow][positionIndex]
-                            );
-                            console.log(
-                                movementBoard[positionRow][positionIndex]
-                            );
-                            movementBoard[positionRow][positionIndex] =
-                                movementBoard[positionRow][
-                                    positionIndex
-                                ].filter((value) => {
-                                    return value !== accusedPlayerPiece;
-                                });
-                        }
-                    }
-                    movementBoard[actualAccusingRoom[0]][
-                        actualAccusingRoom[1]
-                    ].push(accusedPlayerPiece);
-                    switch (
-                        movementBoard[actualAccusingRoom[0]][
-                            actualAccusingRoom[1]
-                        ][0]
-                    ) {
-                        /*Vestíbulo: 9
-                        Biblioteca: 11
-                        Comedor: 12
-                        Billar: 13
-                        Salón de Baile: 15 */
-                        case 9:
-                            if (actualAccusingRoom[0] === 4) {
-                                movementBoard[6][11].push(accusedPlayerPiece);
-                                movementBoard[6][12].push(accusedPlayerPiece);
-                            } else if (actualAccusingRoom[1] === 11) {
-                                movementBoard[4][9].push(accusedPlayerPiece);
-                                movementBoard[6][12].push(accusedPlayerPiece);
-                            } else if (actualAccusingRoom[1] === 12) {
-                                movementBoard[4][9].push(accusedPlayerPiece);
-                                movementBoard[6][11].push(accusedPlayerPiece);
-                            }
-                            break;
-                        case 11:
-                            if (actualAccusingRoom[0] === 8) {
-                                movementBoard[10][3].push(accusedPlayerPiece);
-                            } else if (actualAccusingRoom[0] === 10) {
-                                movementBoard[8][6].push(accusedPlayerPiece);
-                            }
-                            break;
-                        case 12:
-                            if (actualAccusingRoom[0] === 9) {
-                                movementBoard[12][16].push(accusedPlayerPiece);
-                            } else if (actualAccusingRoom[0] === 12) {
-                                movementBoard[9][17].push(accusedPlayerPiece);
-                            }
-                            break;
-                        case 13:
-                            if (actualAccusingRoom[0] === 12) {
-                                movementBoard[15][5].push(accusedPlayerPiece);
-                            } else if (actualAccusingRoom[0] === 15) {
-                                movementBoard[12][1].push(accusedPlayerPiece);
-                            }
-                            break;
-                        case 15:
-                            if (actualAccusingRoom[1] === 8) {
-                                movementBoard[17][9].push(accusedPlayerPiece);
-                                movementBoard[17][14].push(accusedPlayerPiece);
-                                movementBoard[19][15].push(accusedPlayerPiece);
-                            } else if (actualAccusingRoom[1] === 9) {
-                                movementBoard[19][8].push(accusedPlayerPiece);
-                                movementBoard[17][14].push(accusedPlayerPiece);
-                                movementBoard[19][15].push(accusedPlayerPiece);
-                            } else if (actualAccusingRoom[1] === 14) {
-                                movementBoard[19][8].push(accusedPlayerPiece);
-                                movementBoard[17][9].push(accusedPlayerPiece);
-                                movementBoard[19][15].push(accusedPlayerPiece);
-                            } else if (actualAccusingRoom[1] === 15) {
-                                movementBoard[19][8].push(accusedPlayerPiece);
-                                movementBoard[17][9].push(accusedPlayerPiece);
-                                movementBoard[17][14].push(accusedPlayerPiece);
-                            }
-                            break;
-                    }
-                    /*  Estudio: 8
-                    Vestíbulo: 9
-                    Sala: 10
-                    Biblioteca: 11
-                    Comedor: 12
-                    Billar: 13
-                    Invernadero: 14
-                    Salón de Baile: 15
-                    Cocina: 16 */
+            selectedTarget = evt.target.id;
+            // switch (evt.target.id) {
+            //     case "azulino":
+            //         console.log(`Llevando a azulino a habitación`);
+            //         accusedPlayerPiece = 5;
+            //         for (let row of movementBoard) {
+            //             for (let cell of row) {
+            //                 if (typeof cell === "number") {
+            //                     if (accusedPlayerPiece === cell) {
+            //                         accusedCoordenates.push([
+            //                             movementBoard.indexOf(row),
+            //                             row.indexOf(cell),
+            //                         ]);
+            //                         break;
+            //                     }
+            //                     if (i < 23) {
+            //                         i += 1;
+            //                     } else {
+            //                         i = 0;
+            //                     }
+            //                 } else {
+            //                     if (cell.includes(accusedPlayerPiece)) {
+            //                         accusedCoordenates.push([
+            //                             movementBoard.indexOf(row),
+            //                             row.indexOf(cell),
+            //                         ]);
+            //                         console.log(accusedCoordenates);
+            //                         console.log(
+            //                             `La Ubicación del jugador es en las siguientes coordenadas: ${accusedCoordenates}`
+            //                         );
+            //                     }
+            //                     if (i < 23) {
+            //                         i += 1;
+            //                     } else {
+            //                         i = 0;
+            //                     }
+            //                 }
+            //             }
+            //         }
+            //         console.log(
+            //             `La Ubicación FINAL del jugador es en las siguientes coordenadas: ${accusedCoordenates}`
+            //         );
+            //         console.log(movementBoard);
+            //         console.log(accusedCoordenates[0][0]);
+            //         console.log(
+            //             movementBoard[accusedCoordenates[0][0]][
+            //                 accusedCoordenates[0][1]
+            //             ]
+            //         );
+            //         if (
+            //             typeof movementBoard[accusedCoordenates[0][0]][
+            //                 accusedCoordenates[0][1]
+            //             ] === "number"
+            //         ) {
+            //             if (
+            //                 movementBoard[accusedCoordenates[0][0]][
+            //                     accusedCoordenates[0][1]
+            //                 ] === accusedPlayerPiece
+            //             ) {
+            //                 movementBoard[accusedCoordenates[0][0]][
+            //                     accusedCoordenates[0][1]
+            //                 ] = 0;
+            //             }
+            //         } else {
+            //             for (let coordinate of accusedCoordenates) {
+            //                 let positionRow = coordinate[0];
+            //                 let positionIndex = coordinate[1];
+            //                 console.log(
+            //                     `Logueando el valor del casillero de destino`
+            //                 );
+            //                 console.log(
+            //                     typeof movementBoard[positionRow][positionIndex]
+            //                 );
+            //                 console.log(
+            //                     movementBoard[positionRow][positionIndex]
+            //                 );
+            //                 movementBoard[positionRow][positionIndex] =
+            //                     movementBoard[positionRow][
+            //                         positionIndex
+            //                     ].filter((value) => {
+            //                         return value !== accusedPlayerPiece;
+            //                     });
+            //             }
+            //         }
+            //         movementBoard[actualAccusingRoom[0]][
+            //             actualAccusingRoom[1]
+            //         ].push(accusedPlayerPiece);
+            //         switch (
+            //             movementBoard[actualAccusingRoom[0]][
+            //                 actualAccusingRoom[1]
+            //             ][0]
+            //         ) {
+            //             /*Vestíbulo: 9
+            //             Biblioteca: 11
+            //             Comedor: 12
+            //             Billar: 13
+            //             Salón de Baile: 15 */
+            //             case 9:
+            //                 if (actualAccusingRoom[0] === 4) {
+            //                     movementBoard[6][11].push(accusedPlayerPiece);
+            //                     movementBoard[6][12].push(accusedPlayerPiece);
+            //                 } else if (actualAccusingRoom[1] === 11) {
+            //                     movementBoard[4][9].push(accusedPlayerPiece);
+            //                     movementBoard[6][12].push(accusedPlayerPiece);
+            //                 } else if (actualAccusingRoom[1] === 12) {
+            //                     movementBoard[4][9].push(accusedPlayerPiece);
+            //                     movementBoard[6][11].push(accusedPlayerPiece);
+            //                 }
+            //                 break;
+            //             case 11:
+            //                 if (actualAccusingRoom[0] === 8) {
+            //                     movementBoard[10][3].push(accusedPlayerPiece);
+            //                 } else if (actualAccusingRoom[0] === 10) {
+            //                     movementBoard[8][6].push(accusedPlayerPiece);
+            //                 }
+            //                 break;
+            //             case 12:
+            //                 if (actualAccusingRoom[0] === 9) {
+            //                     movementBoard[12][16].push(accusedPlayerPiece);
+            //                 } else if (actualAccusingRoom[0] === 12) {
+            //                     movementBoard[9][17].push(accusedPlayerPiece);
+            //                 }
+            //                 break;
+            //             case 13:
+            //                 if (actualAccusingRoom[0] === 12) {
+            //                     movementBoard[15][5].push(accusedPlayerPiece);
+            //                 } else if (actualAccusingRoom[0] === 15) {
+            //                     movementBoard[12][1].push(accusedPlayerPiece);
+            //                 }
+            //                 break;
+            //             case 15:
+            //                 if (actualAccusingRoom[1] === 8) {
+            //                     movementBoard[17][9].push(accusedPlayerPiece);
+            //                     movementBoard[17][14].push(accusedPlayerPiece);
+            //                     movementBoard[19][15].push(accusedPlayerPiece);
+            //                 } else if (actualAccusingRoom[1] === 9) {
+            //                     movementBoard[19][8].push(accusedPlayerPiece);
+            //                     movementBoard[17][14].push(accusedPlayerPiece);
+            //                     movementBoard[19][15].push(accusedPlayerPiece);
+            //                 } else if (actualAccusingRoom[1] === 14) {
+            //                     movementBoard[19][8].push(accusedPlayerPiece);
+            //                     movementBoard[17][9].push(accusedPlayerPiece);
+            //                     movementBoard[19][15].push(accusedPlayerPiece);
+            //                 } else if (actualAccusingRoom[1] === 15) {
+            //                     movementBoard[19][8].push(accusedPlayerPiece);
+            //                     movementBoard[17][9].push(accusedPlayerPiece);
+            //                     movementBoard[17][14].push(accusedPlayerPiece);
+            //                 }
+            //                 break;
+            //         }
+            //         /*  Estudio: 8
+            //         Vestíbulo: 9
+            //         Sala: 10
+            //         Biblioteca: 11
+            //         Comedor: 12
+            //         Billar: 13
+            //         Invernadero: 14
+            //         Salón de Baile: 15
+            //         Cocina: 16 */
 
-                    for (let cell of movementAbleCells) {
-                        console.dir(cell);
-                        if (cell.childNodes[0] === fichaJugadorAzulino) {
-                            console.log(
-                                `Se encontró la ficha del jugador, y se quitó de su lugar`
-                            );
-                            cell.removeChild(fichaJugadorAzulino);
-                        }
-                    }
-                    console.log(
-                        movementBoard[actualAccusingRoom[0]][
-                            actualAccusingRoom[1]
-                        ]
-                    );
-                    switch (
-                        movementBoard[actualAccusingRoom[0]][
-                            actualAccusingRoom[1]
-                        ][0]
-                    ) {
-                        case 10:
-                            document
-                                .querySelector(`#cell-3u`)
-                                .appendChild(fichaJugadorAzulino);
-                            break;
-                        case 9:
-                            document
-                                .querySelector(`#cell-3k`)
-                                .appendChild(fichaJugadorAzulino);
-                            break;
-                        case 8:
-                            document
-                                .querySelector(`#cell-3c`)
-                                .appendChild(fichaJugadorAzulino);
-                            break;
-                        case 11:
-                            document
-                                .querySelector(`#cell-10d`)
-                                .appendChild(fichaJugadorAzulino);
-                            break;
-                        case 12:
-                            document
-                                .querySelector(`#cell-11u`)
-                                .appendChild(fichaJugadorAzulino);
-                            break;
-                        case 13:
-                            document
-                                .querySelector(`#cell-15e`)
-                                .appendChild(fichaJugadorAzulino);
-                            break;
-                        case 15:
-                            document
-                                .querySelector(`#cell-19j`)
-                                .appendChild(fichaJugadorAzulino);
-                            break;
-                        case 14:
-                            document
-                                .querySelector(`#cell-23d`)
-                                .appendChild(fichaJugadorAzulino);
-                            break;
-                        case 16:
-                            document
-                                .querySelector(`#cell-21v`)
-                                .appendChild(fichaJugadorAzulino);
-                            break;
-                    }
-                    console.log(`La ficha del jugador se movió correctamente`);
-                    break;
-                case "blanco":
-                    console.log(`Llevando a blanco a habitación`);
-                    accusedPlayerPiece = 3;
-                    for (let row of movementBoard) {
-                        for (let cell of row) {
-                            if (typeof cell === "number") {
-                                if (accusedPlayerPiece === cell) {
-                                    accusedCoordenates.push([
-                                        movementBoard.indexOf(row),
-                                        row.indexOf(cell),
-                                    ]);
-                                    break;
-                                }
-                                if (i < 23) {
-                                    i += 1;
-                                } else {
-                                    i = 0;
-                                }
-                            } else {
-                                if (cell.includes(accusedPlayerPiece)) {
-                                    accusedCoordenates.push([
-                                        movementBoard.indexOf(row),
-                                        row.indexOf(cell),
-                                    ]);
-                                    console.log(accusedCoordenates);
-                                    console.log(
-                                        `La Ubicación del jugador es en las siguientes coordenadas: ${accusedCoordenates}`
-                                    );
-                                }
-                                if (i < 23) {
-                                    i += 1;
-                                } else {
-                                    i = 0;
-                                }
-                            }
-                        }
-                    }
-                    console.log(
-                        `La Ubicación FINAL del jugador es en las siguientes coordenadas: ${accusedCoordenates}`
-                    );
-                    console.log(movementBoard);
-                    console.log(accusedCoordenates[0][0]);
-                    console.log(
-                        movementBoard[accusedCoordenates[0][0]][
-                            accusedCoordenates[0][1]
-                        ]
-                    );
-                    if (
-                        typeof movementBoard[accusedCoordenates[0][0]][
-                            accusedCoordenates[0][1]
-                        ] === "number"
-                    ) {
-                        if (
-                            movementBoard[accusedCoordenates[0][0]][
-                                accusedCoordenates[0][1]
-                            ] === accusedPlayerPiece
-                        ) {
-                            movementBoard[accusedCoordenates[0][0]][
-                                accusedCoordenates[0][1]
-                            ] = 0;
-                        }
-                    } else {
-                        for (let coordinate of accusedCoordenates) {
-                            let positionRow = coordinate[0];
-                            let positionIndex = coordinate[1];
-                            console.log(
-                                `Logueando el valor del casillero de destino`
-                            );
-                            console.log(
-                                typeof movementBoard[positionRow][positionIndex]
-                            );
-                            console.log(
-                                movementBoard[positionRow][positionIndex]
-                            );
-                            movementBoard[positionRow][positionIndex] =
-                                movementBoard[positionRow][
-                                    positionIndex
-                                ].filter((value) => {
-                                    return value !== accusedPlayerPiece;
-                                });
-                        }
-                    }
-                    movementBoard[actualAccusingRoom[0]][
-                        actualAccusingRoom[1]
-                    ].push(accusedPlayerPiece);
-                    switch (
-                        movementBoard[actualAccusingRoom[0]][
-                            actualAccusingRoom[1]
-                        ][0]
-                    ) {
-                        /*Vestíbulo: 9
-                        Biblioteca: 11
-                        Comedor: 12
-                        Billar: 13
-                        Salón de Baile: 15 */
-                        case 9:
-                            if (actualAccusingRoom[0] === 4) {
-                                movementBoard[6][11].push(accusedPlayerPiece);
-                                movementBoard[6][12].push(accusedPlayerPiece);
-                            } else if (actualAccusingRoom[1] === 11) {
-                                movementBoard[4][9].push(accusedPlayerPiece);
-                                movementBoard[6][12].push(accusedPlayerPiece);
-                            } else if (actualAccusingRoom[1] === 12) {
-                                movementBoard[4][9].push(accusedPlayerPiece);
-                                movementBoard[6][11].push(accusedPlayerPiece);
-                            }
-                            break;
-                        case 11:
-                            if (actualAccusingRoom[0] === 8) {
-                                movementBoard[10][3].push(accusedPlayerPiece);
-                            } else if (actualAccusingRoom[0] === 10) {
-                                movementBoard[8][6].push(accusedPlayerPiece);
-                            }
-                            break;
-                        case 12:
-                            if (actualAccusingRoom[0] === 9) {
-                                movementBoard[12][16].push(accusedPlayerPiece);
-                            } else if (actualAccusingRoom[0] === 12) {
-                                movementBoard[9][17].push(accusedPlayerPiece);
-                            }
-                            break;
-                        case 13:
-                            if (actualAccusingRoom[0] === 12) {
-                                movementBoard[15][5].push(accusedPlayerPiece);
-                            } else if (actualAccusingRoom[0] === 15) {
-                                movementBoard[12][1].push(accusedPlayerPiece);
-                            }
-                            break;
-                        case 15:
-                            if (actualAccusingRoom[1] === 8) {
-                                movementBoard[17][9].push(accusedPlayerPiece);
-                                movementBoard[17][14].push(accusedPlayerPiece);
-                                movementBoard[19][15].push(accusedPlayerPiece);
-                            } else if (actualAccusingRoom[1] === 9) {
-                                movementBoard[19][8].push(accusedPlayerPiece);
-                                movementBoard[17][14].push(accusedPlayerPiece);
-                                movementBoard[19][15].push(accusedPlayerPiece);
-                            } else if (actualAccusingRoom[1] === 14) {
-                                movementBoard[19][8].push(accusedPlayerPiece);
-                                movementBoard[17][9].push(accusedPlayerPiece);
-                                movementBoard[19][15].push(accusedPlayerPiece);
-                            } else if (actualAccusingRoom[1] === 15) {
-                                movementBoard[19][8].push(accusedPlayerPiece);
-                                movementBoard[17][9].push(accusedPlayerPiece);
-                                movementBoard[17][14].push(accusedPlayerPiece);
-                            }
-                            break;
-                    }
-                    /*  Estudio: 8
-                    Vestíbulo: 9
-                    Sala: 10
-                    Biblioteca: 11
-                    Comedor: 12
-                    Billar: 13
-                    Invernadero: 14
-                    Salón de Baile: 15
-                    Cocina: 16 */
+            //         for (let cell of movementAbleCells) {
+            //             console.dir(cell);
+            //             if (cell.childNodes[0] === fichaJugadorAzulino) {
+            //                 console.log(
+            //                     `Se encontró la ficha del jugador, y se quitó de su lugar`
+            //                 );
+            //                 cell.removeChild(fichaJugadorAzulino);
+            //             }
+            //         }
+            //         console.log(
+            //             movementBoard[actualAccusingRoom[0]][
+            //                 actualAccusingRoom[1]
+            //             ]
+            //         );
+            //         switch (
+            //             movementBoard[actualAccusingRoom[0]][
+            //                 actualAccusingRoom[1]
+            //             ][0]
+            //         ) {
+            //             case 10:
+            //                 document
+            //                     .querySelector(`#cell-3u`)
+            //                     .appendChild(fichaJugadorAzulino);
+            //                 break;
+            //             case 9:
+            //                 document
+            //                     .querySelector(`#cell-3k`)
+            //                     .appendChild(fichaJugadorAzulino);
+            //                 break;
+            //             case 8:
+            //                 document
+            //                     .querySelector(`#cell-3c`)
+            //                     .appendChild(fichaJugadorAzulino);
+            //                 break;
+            //             case 11:
+            //                 document
+            //                     .querySelector(`#cell-10d`)
+            //                     .appendChild(fichaJugadorAzulino);
+            //                 break;
+            //             case 12:
+            //                 document
+            //                     .querySelector(`#cell-11u`)
+            //                     .appendChild(fichaJugadorAzulino);
+            //                 break;
+            //             case 13:
+            //                 document
+            //                     .querySelector(`#cell-15e`)
+            //                     .appendChild(fichaJugadorAzulino);
+            //                 break;
+            //             case 15:
+            //                 document
+            //                     .querySelector(`#cell-19j`)
+            //                     .appendChild(fichaJugadorAzulino);
+            //                 break;
+            //             case 14:
+            //                 document
+            //                     .querySelector(`#cell-23d`)
+            //                     .appendChild(fichaJugadorAzulino);
+            //                 break;
+            //             case 16:
+            //                 document
+            //                     .querySelector(`#cell-21v`)
+            //                     .appendChild(fichaJugadorAzulino);
+            //                 break;
+            //         }
+            //         console.log(`La ficha del jugador se movió correctamente`);
+            //         break;
+            //     case "blanco":
+            //         console.log(`Llevando a blanco a habitación`);
+            //         accusedPlayerPiece = 3;
+            //         for (let row of movementBoard) {
+            //             for (let cell of row) {
+            //                 if (typeof cell === "number") {
+            //                     if (accusedPlayerPiece === cell) {
+            //                         accusedCoordenates.push([
+            //                             movementBoard.indexOf(row),
+            //                             row.indexOf(cell),
+            //                         ]);
+            //                         break;
+            //                     }
+            //                     if (i < 23) {
+            //                         i += 1;
+            //                     } else {
+            //                         i = 0;
+            //                     }
+            //                 } else {
+            //                     if (cell.includes(accusedPlayerPiece)) {
+            //                         accusedCoordenates.push([
+            //                             movementBoard.indexOf(row),
+            //                             row.indexOf(cell),
+            //                         ]);
+            //                         console.log(accusedCoordenates);
+            //                         console.log(
+            //                             `La Ubicación del jugador es en las siguientes coordenadas: ${accusedCoordenates}`
+            //                         );
+            //                     }
+            //                     if (i < 23) {
+            //                         i += 1;
+            //                     } else {
+            //                         i = 0;
+            //                     }
+            //                 }
+            //             }
+            //         }
+            //         console.log(
+            //             `La Ubicación FINAL del jugador es en las siguientes coordenadas: ${accusedCoordenates}`
+            //         );
+            //         console.log(movementBoard);
+            //         console.log(accusedCoordenates[0][0]);
+            //         console.log(
+            //             movementBoard[accusedCoordenates[0][0]][
+            //                 accusedCoordenates[0][1]
+            //             ]
+            //         );
+            //         if (
+            //             typeof movementBoard[accusedCoordenates[0][0]][
+            //                 accusedCoordenates[0][1]
+            //             ] === "number"
+            //         ) {
+            //             if (
+            //                 movementBoard[accusedCoordenates[0][0]][
+            //                     accusedCoordenates[0][1]
+            //                 ] === accusedPlayerPiece
+            //             ) {
+            //                 movementBoard[accusedCoordenates[0][0]][
+            //                     accusedCoordenates[0][1]
+            //                 ] = 0;
+            //             }
+            //         } else {
+            //             for (let coordinate of accusedCoordenates) {
+            //                 let positionRow = coordinate[0];
+            //                 let positionIndex = coordinate[1];
+            //                 console.log(
+            //                     `Logueando el valor del casillero de destino`
+            //                 );
+            //                 console.log(
+            //                     typeof movementBoard[positionRow][positionIndex]
+            //                 );
+            //                 console.log(
+            //                     movementBoard[positionRow][positionIndex]
+            //                 );
+            //                 movementBoard[positionRow][positionIndex] =
+            //                     movementBoard[positionRow][
+            //                         positionIndex
+            //                     ].filter((value) => {
+            //                         return value !== accusedPlayerPiece;
+            //                     });
+            //             }
+            //         }
+            //         movementBoard[actualAccusingRoom[0]][
+            //             actualAccusingRoom[1]
+            //         ].push(accusedPlayerPiece);
+            //         switch (
+            //             movementBoard[actualAccusingRoom[0]][
+            //                 actualAccusingRoom[1]
+            //             ][0]
+            //         ) {
+            //             /*Vestíbulo: 9
+            //             Biblioteca: 11
+            //             Comedor: 12
+            //             Billar: 13
+            //             Salón de Baile: 15 */
+            //             case 9:
+            //                 if (actualAccusingRoom[0] === 4) {
+            //                     movementBoard[6][11].push(accusedPlayerPiece);
+            //                     movementBoard[6][12].push(accusedPlayerPiece);
+            //                 } else if (actualAccusingRoom[1] === 11) {
+            //                     movementBoard[4][9].push(accusedPlayerPiece);
+            //                     movementBoard[6][12].push(accusedPlayerPiece);
+            //                 } else if (actualAccusingRoom[1] === 12) {
+            //                     movementBoard[4][9].push(accusedPlayerPiece);
+            //                     movementBoard[6][11].push(accusedPlayerPiece);
+            //                 }
+            //                 break;
+            //             case 11:
+            //                 if (actualAccusingRoom[0] === 8) {
+            //                     movementBoard[10][3].push(accusedPlayerPiece);
+            //                 } else if (actualAccusingRoom[0] === 10) {
+            //                     movementBoard[8][6].push(accusedPlayerPiece);
+            //                 }
+            //                 break;
+            //             case 12:
+            //                 if (actualAccusingRoom[0] === 9) {
+            //                     movementBoard[12][16].push(accusedPlayerPiece);
+            //                 } else if (actualAccusingRoom[0] === 12) {
+            //                     movementBoard[9][17].push(accusedPlayerPiece);
+            //                 }
+            //                 break;
+            //             case 13:
+            //                 if (actualAccusingRoom[0] === 12) {
+            //                     movementBoard[15][5].push(accusedPlayerPiece);
+            //                 } else if (actualAccusingRoom[0] === 15) {
+            //                     movementBoard[12][1].push(accusedPlayerPiece);
+            //                 }
+            //                 break;
+            //             case 15:
+            //                 if (actualAccusingRoom[1] === 8) {
+            //                     movementBoard[17][9].push(accusedPlayerPiece);
+            //                     movementBoard[17][14].push(accusedPlayerPiece);
+            //                     movementBoard[19][15].push(accusedPlayerPiece);
+            //                 } else if (actualAccusingRoom[1] === 9) {
+            //                     movementBoard[19][8].push(accusedPlayerPiece);
+            //                     movementBoard[17][14].push(accusedPlayerPiece);
+            //                     movementBoard[19][15].push(accusedPlayerPiece);
+            //                 } else if (actualAccusingRoom[1] === 14) {
+            //                     movementBoard[19][8].push(accusedPlayerPiece);
+            //                     movementBoard[17][9].push(accusedPlayerPiece);
+            //                     movementBoard[19][15].push(accusedPlayerPiece);
+            //                 } else if (actualAccusingRoom[1] === 15) {
+            //                     movementBoard[19][8].push(accusedPlayerPiece);
+            //                     movementBoard[17][9].push(accusedPlayerPiece);
+            //                     movementBoard[17][14].push(accusedPlayerPiece);
+            //                 }
+            //                 break;
+            //         }
+            //         /*  Estudio: 8
+            //         Vestíbulo: 9
+            //         Sala: 10
+            //         Biblioteca: 11
+            //         Comedor: 12
+            //         Billar: 13
+            //         Invernadero: 14
+            //         Salón de Baile: 15
+            //         Cocina: 16 */
 
-                    for (let cell of movementAbleCells) {
-                        console.dir(cell);
-                        if (cell.childNodes[0] === fichaJugadorBlanco) {
-                            console.log(
-                                `Se encontró la ficha del jugador, y se quitó de su lugar`
-                            );
-                            cell.removeChild(fichaJugadorBlanco);
-                        }
-                    }
-                    console.log(
-                        movementBoard[actualAccusingRoom[0]][
-                            actualAccusingRoom[1]
-                        ]
-                    );
-                    switch (
-                        movementBoard[actualAccusingRoom[0]][
-                            actualAccusingRoom[1]
-                        ][0]
-                    ) {
-                        case 10:
-                            document
-                                .querySelector(`#cell-3t`)
-                                .appendChild(fichaJugadorBlanco);
-                            break;
-                        case 9:
-                            document
-                                .querySelector(`#cell-4n`)
-                                .appendChild(fichaJugadorBlanco);
-                            break;
-                        case 8:
-                            document
-                                .querySelector(`#cell-2d`)
-                                .appendChild(fichaJugadorBlanco);
-                            break;
-                        case 11:
-                            document
-                                .querySelector(`#cell-10e`)
-                                .appendChild(fichaJugadorBlanco);
-                            break;
-                        case 12:
-                            document
-                                .querySelector(`#cell-14v`)
-                                .appendChild(fichaJugadorBlanco);
-                            break;
-                        case 13:
-                            document
-                                .querySelector(`#cell-14e`)
-                                .appendChild(fichaJugadorBlanco);
-                            break;
-                        case 15:
-                            document
-                                .querySelector(`#cell-22m`)
-                                .appendChild(fichaJugadorBlanco);
-                            break;
-                        case 14:
-                            document
-                                .querySelector(`#cell-23c`)
-                                .appendChild(fichaJugadorBlanco);
-                            break;
-                        case 16:
-                            document
-                                .querySelector(`#cell-23u`)
-                                .appendChild(fichaJugadorBlanco);
-                            break;
-                    }
-                    break;
-                case "escarlata":
-                    console.log(`Llevando a escarlata a habitación`);
-                    accusedPlayerPiece = 1;
-                    for (let row of movementBoard) {
-                        for (let cell of row) {
-                            if (typeof cell === "number") {
-                                if (accusedPlayerPiece === cell) {
-                                    accusedCoordenates.push([
-                                        movementBoard.indexOf(row),
-                                        row.indexOf(cell),
-                                    ]);
-                                    break;
-                                }
-                                if (i < 23) {
-                                    i += 1;
-                                } else {
-                                    i = 0;
-                                }
-                            } else {
-                                if (cell.includes(accusedPlayerPiece)) {
-                                    accusedCoordenates.push([
-                                        movementBoard.indexOf(row),
-                                        row.indexOf(cell),
-                                    ]);
-                                    console.log(accusedCoordenates);
-                                    console.log(
-                                        `La Ubicación del jugador es en las siguientes coordenadas: ${accusedCoordenates}`
-                                    );
-                                }
-                                if (i < 23) {
-                                    i += 1;
-                                } else {
-                                    i = 0;
-                                }
-                            }
-                        }
-                    }
-                    console.log(
-                        `La Ubicación FINAL del jugador es en las siguientes coordenadas: ${accusedCoordenates}`
-                    );
-                    console.log(movementBoard);
-                    console.log(accusedCoordenates[0][0]);
-                    console.log(
-                        movementBoard[accusedCoordenates[0][0]][
-                            accusedCoordenates[0][1]
-                        ]
-                    );
-                    if (
-                        typeof movementBoard[accusedCoordenates[0][0]][
-                            accusedCoordenates[0][1]
-                        ] === "number"
-                    ) {
-                        if (
-                            movementBoard[accusedCoordenates[0][0]][
-                                accusedCoordenates[0][1]
-                            ] === accusedPlayerPiece
-                        ) {
-                            movementBoard[accusedCoordenates[0][0]][
-                                accusedCoordenates[0][1]
-                            ] = 0;
-                        }
-                    } else {
-                        for (let coordinate of accusedCoordenates) {
-                            let positionRow = coordinate[0];
-                            let positionIndex = coordinate[1];
-                            console.log(
-                                `Logueando el valor del casillero de destino`
-                            );
-                            console.log(
-                                typeof movementBoard[positionRow][positionIndex]
-                            );
-                            console.log(
-                                movementBoard[positionRow][positionIndex]
-                            );
-                            movementBoard[positionRow][positionIndex] =
-                                movementBoard[positionRow][
-                                    positionIndex
-                                ].filter((value) => {
-                                    return value !== accusedPlayerPiece;
-                                });
-                        }
-                    }
-                    movementBoard[actualAccusingRoom[0]][
-                        actualAccusingRoom[1]
-                    ].push(accusedPlayerPiece);
-                    switch (
-                        movementBoard[actualAccusingRoom[0]][
-                            actualAccusingRoom[1]
-                        ][0]
-                    ) {
-                        /*Vestíbulo: 9
-                        Biblioteca: 11
-                        Comedor: 12
-                        Billar: 13
-                        Salón de Baile: 15 */
-                        case 9:
-                            if (actualAccusingRoom[0] === 4) {
-                                movementBoard[6][11].push(accusedPlayerPiece);
-                                movementBoard[6][12].push(accusedPlayerPiece);
-                            } else if (actualAccusingRoom[1] === 11) {
-                                movementBoard[4][9].push(accusedPlayerPiece);
-                                movementBoard[6][12].push(accusedPlayerPiece);
-                            } else if (actualAccusingRoom[1] === 12) {
-                                movementBoard[4][9].push(accusedPlayerPiece);
-                                movementBoard[6][11].push(accusedPlayerPiece);
-                            }
-                            break;
-                        case 11:
-                            if (actualAccusingRoom[0] === 8) {
-                                movementBoard[10][3].push(accusedPlayerPiece);
-                            } else if (actualAccusingRoom[0] === 10) {
-                                movementBoard[8][6].push(accusedPlayerPiece);
-                            }
-                            break;
-                        case 12:
-                            if (actualAccusingRoom[0] === 9) {
-                                movementBoard[12][16].push(accusedPlayerPiece);
-                            } else if (actualAccusingRoom[0] === 12) {
-                                movementBoard[9][17].push(accusedPlayerPiece);
-                            }
-                            break;
-                        case 13:
-                            if (actualAccusingRoom[0] === 12) {
-                                movementBoard[15][5].push(accusedPlayerPiece);
-                            } else if (actualAccusingRoom[0] === 15) {
-                                movementBoard[12][1].push(accusedPlayerPiece);
-                            }
-                            break;
-                        case 15:
-                            if (actualAccusingRoom[1] === 8) {
-                                movementBoard[17][9].push(accusedPlayerPiece);
-                                movementBoard[17][14].push(accusedPlayerPiece);
-                                movementBoard[19][15].push(accusedPlayerPiece);
-                            } else if (actualAccusingRoom[1] === 9) {
-                                movementBoard[19][8].push(accusedPlayerPiece);
-                                movementBoard[17][14].push(accusedPlayerPiece);
-                                movementBoard[19][15].push(accusedPlayerPiece);
-                            } else if (actualAccusingRoom[1] === 14) {
-                                movementBoard[19][8].push(accusedPlayerPiece);
-                                movementBoard[17][9].push(accusedPlayerPiece);
-                                movementBoard[19][15].push(accusedPlayerPiece);
-                            } else if (actualAccusingRoom[1] === 15) {
-                                movementBoard[19][8].push(accusedPlayerPiece);
-                                movementBoard[17][9].push(accusedPlayerPiece);
-                                movementBoard[17][14].push(accusedPlayerPiece);
-                            }
-                            break;
-                    }
-                    /*  Estudio: 8
-                    Vestíbulo: 9
-                    Sala: 10
-                    Biblioteca: 11
-                    Comedor: 12
-                    Billar: 13
-                    Invernadero: 14
-                    Salón de Baile: 15
-                    Cocina: 16 */
+            //         for (let cell of movementAbleCells) {
+            //             console.dir(cell);
+            //             if (cell.childNodes[0] === fichaJugadorBlanco) {
+            //                 console.log(
+            //                     `Se encontró la ficha del jugador, y se quitó de su lugar`
+            //                 );
+            //                 cell.removeChild(fichaJugadorBlanco);
+            //             }
+            //         }
+            //         console.log(
+            //             movementBoard[actualAccusingRoom[0]][
+            //                 actualAccusingRoom[1]
+            //             ]
+            //         );
+            //         switch (
+            //             movementBoard[actualAccusingRoom[0]][
+            //                 actualAccusingRoom[1]
+            //             ][0]
+            //         ) {
+            //             case 10:
+            //                 document
+            //                     .querySelector(`#cell-3t`)
+            //                     .appendChild(fichaJugadorBlanco);
+            //                 break;
+            //             case 9:
+            //                 document
+            //                     .querySelector(`#cell-4n`)
+            //                     .appendChild(fichaJugadorBlanco);
+            //                 break;
+            //             case 8:
+            //                 document
+            //                     .querySelector(`#cell-2d`)
+            //                     .appendChild(fichaJugadorBlanco);
+            //                 break;
+            //             case 11:
+            //                 document
+            //                     .querySelector(`#cell-10e`)
+            //                     .appendChild(fichaJugadorBlanco);
+            //                 break;
+            //             case 12:
+            //                 document
+            //                     .querySelector(`#cell-14v`)
+            //                     .appendChild(fichaJugadorBlanco);
+            //                 break;
+            //             case 13:
+            //                 document
+            //                     .querySelector(`#cell-14e`)
+            //                     .appendChild(fichaJugadorBlanco);
+            //                 break;
+            //             case 15:
+            //                 document
+            //                     .querySelector(`#cell-22m`)
+            //                     .appendChild(fichaJugadorBlanco);
+            //                 break;
+            //             case 14:
+            //                 document
+            //                     .querySelector(`#cell-23c`)
+            //                     .appendChild(fichaJugadorBlanco);
+            //                 break;
+            //             case 16:
+            //                 document
+            //                     .querySelector(`#cell-23u`)
+            //                     .appendChild(fichaJugadorBlanco);
+            //                 break;
+            //         }
+            //         break;
+            //     case "escarlata":
+            //         console.log(`Llevando a escarlata a habitación`);
+            //         accusedPlayerPiece = 1;
+            //         for (let row of movementBoard) {
+            //             for (let cell of row) {
+            //                 if (typeof cell === "number") {
+            //                     if (accusedPlayerPiece === cell) {
+            //                         accusedCoordenates.push([
+            //                             movementBoard.indexOf(row),
+            //                             row.indexOf(cell),
+            //                         ]);
+            //                         break;
+            //                     }
+            //                     if (i < 23) {
+            //                         i += 1;
+            //                     } else {
+            //                         i = 0;
+            //                     }
+            //                 } else {
+            //                     if (cell.includes(accusedPlayerPiece)) {
+            //                         accusedCoordenates.push([
+            //                             movementBoard.indexOf(row),
+            //                             row.indexOf(cell),
+            //                         ]);
+            //                         console.log(accusedCoordenates);
+            //                         console.log(
+            //                             `La Ubicación del jugador es en las siguientes coordenadas: ${accusedCoordenates}`
+            //                         );
+            //                     }
+            //                     if (i < 23) {
+            //                         i += 1;
+            //                     } else {
+            //                         i = 0;
+            //                     }
+            //                 }
+            //             }
+            //         }
+            //         console.log(
+            //             `La Ubicación FINAL del jugador es en las siguientes coordenadas: ${accusedCoordenates}`
+            //         );
+            //         console.log(movementBoard);
+            //         console.log(accusedCoordenates[0][0]);
+            //         console.log(
+            //             movementBoard[accusedCoordenates[0][0]][
+            //                 accusedCoordenates[0][1]
+            //             ]
+            //         );
+            //         if (
+            //             typeof movementBoard[accusedCoordenates[0][0]][
+            //                 accusedCoordenates[0][1]
+            //             ] === "number"
+            //         ) {
+            //             if (
+            //                 movementBoard[accusedCoordenates[0][0]][
+            //                     accusedCoordenates[0][1]
+            //                 ] === accusedPlayerPiece
+            //             ) {
+            //                 movementBoard[accusedCoordenates[0][0]][
+            //                     accusedCoordenates[0][1]
+            //                 ] = 0;
+            //             }
+            //         } else {
+            //             for (let coordinate of accusedCoordenates) {
+            //                 let positionRow = coordinate[0];
+            //                 let positionIndex = coordinate[1];
+            //                 console.log(
+            //                     `Logueando el valor del casillero de destino`
+            //                 );
+            //                 console.log(
+            //                     typeof movementBoard[positionRow][positionIndex]
+            //                 );
+            //                 console.log(
+            //                     movementBoard[positionRow][positionIndex]
+            //                 );
+            //                 movementBoard[positionRow][positionIndex] =
+            //                     movementBoard[positionRow][
+            //                         positionIndex
+            //                     ].filter((value) => {
+            //                         return value !== accusedPlayerPiece;
+            //                     });
+            //             }
+            //         }
+            //         movementBoard[actualAccusingRoom[0]][
+            //             actualAccusingRoom[1]
+            //         ].push(accusedPlayerPiece);
+            //         switch (
+            //             movementBoard[actualAccusingRoom[0]][
+            //                 actualAccusingRoom[1]
+            //             ][0]
+            //         ) {
+            //             /*Vestíbulo: 9
+            //             Biblioteca: 11
+            //             Comedor: 12
+            //             Billar: 13
+            //             Salón de Baile: 15 */
+            //             case 9:
+            //                 if (actualAccusingRoom[0] === 4) {
+            //                     movementBoard[6][11].push(accusedPlayerPiece);
+            //                     movementBoard[6][12].push(accusedPlayerPiece);
+            //                 } else if (actualAccusingRoom[1] === 11) {
+            //                     movementBoard[4][9].push(accusedPlayerPiece);
+            //                     movementBoard[6][12].push(accusedPlayerPiece);
+            //                 } else if (actualAccusingRoom[1] === 12) {
+            //                     movementBoard[4][9].push(accusedPlayerPiece);
+            //                     movementBoard[6][11].push(accusedPlayerPiece);
+            //                 }
+            //                 break;
+            //             case 11:
+            //                 if (actualAccusingRoom[0] === 8) {
+            //                     movementBoard[10][3].push(accusedPlayerPiece);
+            //                 } else if (actualAccusingRoom[0] === 10) {
+            //                     movementBoard[8][6].push(accusedPlayerPiece);
+            //                 }
+            //                 break;
+            //             case 12:
+            //                 if (actualAccusingRoom[0] === 9) {
+            //                     movementBoard[12][16].push(accusedPlayerPiece);
+            //                 } else if (actualAccusingRoom[0] === 12) {
+            //                     movementBoard[9][17].push(accusedPlayerPiece);
+            //                 }
+            //                 break;
+            //             case 13:
+            //                 if (actualAccusingRoom[0] === 12) {
+            //                     movementBoard[15][5].push(accusedPlayerPiece);
+            //                 } else if (actualAccusingRoom[0] === 15) {
+            //                     movementBoard[12][1].push(accusedPlayerPiece);
+            //                 }
+            //                 break;
+            //             case 15:
+            //                 if (actualAccusingRoom[1] === 8) {
+            //                     movementBoard[17][9].push(accusedPlayerPiece);
+            //                     movementBoard[17][14].push(accusedPlayerPiece);
+            //                     movementBoard[19][15].push(accusedPlayerPiece);
+            //                 } else if (actualAccusingRoom[1] === 9) {
+            //                     movementBoard[19][8].push(accusedPlayerPiece);
+            //                     movementBoard[17][14].push(accusedPlayerPiece);
+            //                     movementBoard[19][15].push(accusedPlayerPiece);
+            //                 } else if (actualAccusingRoom[1] === 14) {
+            //                     movementBoard[19][8].push(accusedPlayerPiece);
+            //                     movementBoard[17][9].push(accusedPlayerPiece);
+            //                     movementBoard[19][15].push(accusedPlayerPiece);
+            //                 } else if (actualAccusingRoom[1] === 15) {
+            //                     movementBoard[19][8].push(accusedPlayerPiece);
+            //                     movementBoard[17][9].push(accusedPlayerPiece);
+            //                     movementBoard[17][14].push(accusedPlayerPiece);
+            //                 }
+            //                 break;
+            //         }
+            //         /*  Estudio: 8
+            //         Vestíbulo: 9
+            //         Sala: 10
+            //         Biblioteca: 11
+            //         Comedor: 12
+            //         Billar: 13
+            //         Invernadero: 14
+            //         Salón de Baile: 15
+            //         Cocina: 16 */
 
-                    for (let cell of movementAbleCells) {
-                        console.dir(cell);
-                        if (cell.childNodes[0] === fichaJugadorEscarlata) {
-                            console.log(
-                                `Se encontró la ficha del jugador, y se quitó de su lugar`
-                            );
-                            cell.removeChild(fichaJugadorEscarlata);
-                        }
-                    }
-                    console.log(
-                        movementBoard[actualAccusingRoom[0]][
-                            actualAccusingRoom[1]
-                        ]
-                    );
-                    switch (
-                        movementBoard[actualAccusingRoom[0]][
-                            actualAccusingRoom[1]
-                        ][0]
-                    ) {
-                        case 10:
-                            document
-                                .querySelector(`#cell-3v`)
-                                .appendChild(fichaJugadorEscarlata);
-                            break;
-                        case 9:
-                            document
-                                .querySelector(`#cell-3n`)
-                                .appendChild(fichaJugadorEscarlata);
-                            break;
-                        case 8:
-                            document
-                                .querySelector(`#cell-2c`)
-                                .appendChild(fichaJugadorEscarlata);
-                            break;
-                        case 11:
-                            document
-                                .querySelector(`#cell-8c`)
-                                .appendChild(fichaJugadorEscarlata);
-                            break;
-                        case 12:
-                            document
-                                .querySelector(`#cell-11v`)
-                                .appendChild(fichaJugadorEscarlata);
-                            break;
-                        case 13:
-                            document
-                                .querySelector(`#cell-14d`)
-                                .appendChild(fichaJugadorEscarlata);
-                            break;
-                        case 15:
-                            document
-                                .querySelector(`#cell-19o`)
-                                .appendChild(fichaJugadorEscarlata);
-                            break;
-                        case 14:
-                            document
-                                .querySelector(`#cell-23b`)
-                                .appendChild(fichaJugadorEscarlata);
-                            break;
-                        case 16:
-                            document
-                                .querySelector(`#cell-21w`)
-                                .appendChild(fichaJugadorEscarlata);
-                            break;
-                    }
-                    break;
-                case "moradillo":
-                    console.log(`Llevando a moradillo a habitación`);
-                    accusedPlayerPiece = 6;
-                    for (let row of movementBoard) {
-                        for (let cell of row) {
-                            if (typeof cell === "number") {
-                                if (accusedPlayerPiece === cell) {
-                                    accusedCoordenates.push([
-                                        movementBoard.indexOf(row),
-                                        row.indexOf(cell),
-                                    ]);
-                                    break;
-                                }
-                                if (i < 23) {
-                                    i += 1;
-                                } else {
-                                    i = 0;
-                                }
-                            } else {
-                                if (cell.includes(accusedPlayerPiece)) {
-                                    accusedCoordenates.push([
-                                        movementBoard.indexOf(row),
-                                        row.indexOf(cell),
-                                    ]);
-                                    console.log(accusedCoordenates);
-                                    console.log(
-                                        `La Ubicación del jugador es en las siguientes coordenadas: ${accusedCoordenates}`
-                                    );
-                                }
-                                if (i < 23) {
-                                    i += 1;
-                                } else {
-                                    i = 0;
-                                }
-                            }
-                        }
-                    }
-                    console.log(
-                        `La Ubicación FINAL del jugador es en las siguientes coordenadas: ${accusedCoordenates}`
-                    );
-                    console.log(movementBoard);
-                    console.log(accusedCoordenates[0][0]);
-                    console.log(
-                        movementBoard[accusedCoordenates[0][0]][
-                            accusedCoordenates[0][1]
-                        ]
-                    );
-                    if (
-                        typeof movementBoard[accusedCoordenates[0][0]][
-                            accusedCoordenates[0][1]
-                        ] === "number"
-                    ) {
-                        if (
-                            movementBoard[accusedCoordenates[0][0]][
-                                accusedCoordenates[0][1]
-                            ] === accusedPlayerPiece
-                        ) {
-                            movementBoard[accusedCoordenates[0][0]][
-                                accusedCoordenates[0][1]
-                            ] = 0;
-                        }
-                    } else {
-                        for (let coordinate of accusedCoordenates) {
-                            let positionRow = coordinate[0];
-                            let positionIndex = coordinate[1];
-                            console.log(
-                                `Logueando el valor del casillero de destino`
-                            );
-                            console.log(
-                                typeof movementBoard[positionRow][positionIndex]
-                            );
-                            console.log(
-                                movementBoard[positionRow][positionIndex]
-                            );
-                            movementBoard[positionRow][positionIndex] =
-                                movementBoard[positionRow][
-                                    positionIndex
-                                ].filter((value) => {
-                                    return value !== accusedPlayerPiece;
-                                });
-                        }
-                    }
-                    movementBoard[actualAccusingRoom[0]][
-                        actualAccusingRoom[1]
-                    ].push(accusedPlayerPiece);
-                    switch (
-                        movementBoard[actualAccusingRoom[0]][
-                            actualAccusingRoom[1]
-                        ][0]
-                    ) {
-                        /*Vestíbulo: 9
-                        Biblioteca: 11
-                        Comedor: 12
-                        Billar: 13
-                        Salón de Baile: 15 */
-                        case 9:
-                            if (actualAccusingRoom[0] === 4) {
-                                movementBoard[6][11].push(accusedPlayerPiece);
-                                movementBoard[6][12].push(accusedPlayerPiece);
-                            } else if (actualAccusingRoom[1] === 11) {
-                                movementBoard[4][9].push(accusedPlayerPiece);
-                                movementBoard[6][12].push(accusedPlayerPiece);
-                            } else if (actualAccusingRoom[1] === 12) {
-                                movementBoard[4][9].push(accusedPlayerPiece);
-                                movementBoard[6][11].push(accusedPlayerPiece);
-                            }
-                            break;
-                        case 11:
-                            if (actualAccusingRoom[0] === 8) {
-                                movementBoard[10][3].push(accusedPlayerPiece);
-                            } else if (actualAccusingRoom[0] === 10) {
-                                movementBoard[8][6].push(accusedPlayerPiece);
-                            }
-                            break;
-                        case 12:
-                            if (actualAccusingRoom[0] === 9) {
-                                movementBoard[12][16].push(accusedPlayerPiece);
-                            } else if (actualAccusingRoom[0] === 12) {
-                                movementBoard[9][17].push(accusedPlayerPiece);
-                            }
-                            break;
-                        case 13:
-                            if (actualAccusingRoom[0] === 12) {
-                                movementBoard[15][5].push(accusedPlayerPiece);
-                            } else if (actualAccusingRoom[0] === 15) {
-                                movementBoard[12][1].push(accusedPlayerPiece);
-                            }
-                            break;
-                        case 15:
-                            if (actualAccusingRoom[1] === 8) {
-                                movementBoard[17][9].push(accusedPlayerPiece);
-                                movementBoard[17][14].push(accusedPlayerPiece);
-                                movementBoard[19][15].push(accusedPlayerPiece);
-                            } else if (actualAccusingRoom[1] === 9) {
-                                movementBoard[19][8].push(accusedPlayerPiece);
-                                movementBoard[17][14].push(accusedPlayerPiece);
-                                movementBoard[19][15].push(accusedPlayerPiece);
-                            } else if (actualAccusingRoom[1] === 14) {
-                                movementBoard[19][8].push(accusedPlayerPiece);
-                                movementBoard[17][9].push(accusedPlayerPiece);
-                                movementBoard[19][15].push(accusedPlayerPiece);
-                            } else if (actualAccusingRoom[1] === 15) {
-                                movementBoard[19][8].push(accusedPlayerPiece);
-                                movementBoard[17][9].push(accusedPlayerPiece);
-                                movementBoard[17][14].push(accusedPlayerPiece);
-                            }
-                            break;
-                    }
-                    /*  Estudio: 8
-                    Vestíbulo: 9
-                    Sala: 10
-                    Biblioteca: 11
-                    Comedor: 12
-                    Billar: 13
-                    Invernadero: 14
-                    Salón de Baile: 15
-                    Cocina: 16 */
+            //         for (let cell of movementAbleCells) {
+            //             console.dir(cell);
+            //             if (cell.childNodes[0] === fichaJugadorEscarlata) {
+            //                 console.log(
+            //                     `Se encontró la ficha del jugador, y se quitó de su lugar`
+            //                 );
+            //                 cell.removeChild(fichaJugadorEscarlata);
+            //             }
+            //         }
+            //         console.log(
+            //             movementBoard[actualAccusingRoom[0]][
+            //                 actualAccusingRoom[1]
+            //             ]
+            //         );
+            //         switch (
+            //             movementBoard[actualAccusingRoom[0]][
+            //                 actualAccusingRoom[1]
+            //             ][0]
+            //         ) {
+            //             case 10:
+            //                 document
+            //                     .querySelector(`#cell-3v`)
+            //                     .appendChild(fichaJugadorEscarlata);
+            //                 break;
+            //             case 9:
+            //                 document
+            //                     .querySelector(`#cell-3n`)
+            //                     .appendChild(fichaJugadorEscarlata);
+            //                 break;
+            //             case 8:
+            //                 document
+            //                     .querySelector(`#cell-2c`)
+            //                     .appendChild(fichaJugadorEscarlata);
+            //                 break;
+            //             case 11:
+            //                 document
+            //                     .querySelector(`#cell-8c`)
+            //                     .appendChild(fichaJugadorEscarlata);
+            //                 break;
+            //             case 12:
+            //                 document
+            //                     .querySelector(`#cell-11v`)
+            //                     .appendChild(fichaJugadorEscarlata);
+            //                 break;
+            //             case 13:
+            //                 document
+            //                     .querySelector(`#cell-14d`)
+            //                     .appendChild(fichaJugadorEscarlata);
+            //                 break;
+            //             case 15:
+            //                 document
+            //                     .querySelector(`#cell-19o`)
+            //                     .appendChild(fichaJugadorEscarlata);
+            //                 break;
+            //             case 14:
+            //                 document
+            //                     .querySelector(`#cell-23b`)
+            //                     .appendChild(fichaJugadorEscarlata);
+            //                 break;
+            //             case 16:
+            //                 document
+            //                     .querySelector(`#cell-21w`)
+            //                     .appendChild(fichaJugadorEscarlata);
+            //                 break;
+            //         }
+            //         break;
+            //     case "moradillo":
+            //         console.log(`Llevando a moradillo a habitación`);
+            //         accusedPlayerPiece = 6;
+            //         for (let row of movementBoard) {
+            //             for (let cell of row) {
+            //                 if (typeof cell === "number") {
+            //                     if (accusedPlayerPiece === cell) {
+            //                         accusedCoordenates.push([
+            //                             movementBoard.indexOf(row),
+            //                             row.indexOf(cell),
+            //                         ]);
+            //                         break;
+            //                     }
+            //                     if (i < 23) {
+            //                         i += 1;
+            //                     } else {
+            //                         i = 0;
+            //                     }
+            //                 } else {
+            //                     if (cell.includes(accusedPlayerPiece)) {
+            //                         accusedCoordenates.push([
+            //                             movementBoard.indexOf(row),
+            //                             row.indexOf(cell),
+            //                         ]);
+            //                         console.log(accusedCoordenates);
+            //                         console.log(
+            //                             `La Ubicación del jugador es en las siguientes coordenadas: ${accusedCoordenates}`
+            //                         );
+            //                     }
+            //                     if (i < 23) {
+            //                         i += 1;
+            //                     } else {
+            //                         i = 0;
+            //                     }
+            //                 }
+            //             }
+            //         }
+            //         console.log(
+            //             `La Ubicación FINAL del jugador es en las siguientes coordenadas: ${accusedCoordenates}`
+            //         );
+            //         console.log(movementBoard);
+            //         console.log(accusedCoordenates[0][0]);
+            //         console.log(
+            //             movementBoard[accusedCoordenates[0][0]][
+            //                 accusedCoordenates[0][1]
+            //             ]
+            //         );
+            //         if (
+            //             typeof movementBoard[accusedCoordenates[0][0]][
+            //                 accusedCoordenates[0][1]
+            //             ] === "number"
+            //         ) {
+            //             if (
+            //                 movementBoard[accusedCoordenates[0][0]][
+            //                     accusedCoordenates[0][1]
+            //                 ] === accusedPlayerPiece
+            //             ) {
+            //                 movementBoard[accusedCoordenates[0][0]][
+            //                     accusedCoordenates[0][1]
+            //                 ] = 0;
+            //             }
+            //         } else {
+            //             for (let coordinate of accusedCoordenates) {
+            //                 let positionRow = coordinate[0];
+            //                 let positionIndex = coordinate[1];
+            //                 console.log(
+            //                     `Logueando el valor del casillero de destino`
+            //                 );
+            //                 console.log(
+            //                     typeof movementBoard[positionRow][positionIndex]
+            //                 );
+            //                 console.log(
+            //                     movementBoard[positionRow][positionIndex]
+            //                 );
+            //                 movementBoard[positionRow][positionIndex] =
+            //                     movementBoard[positionRow][
+            //                         positionIndex
+            //                     ].filter((value) => {
+            //                         return value !== accusedPlayerPiece;
+            //                     });
+            //             }
+            //         }
+            //         movementBoard[actualAccusingRoom[0]][
+            //             actualAccusingRoom[1]
+            //         ].push(accusedPlayerPiece);
+            //         switch (
+            //             movementBoard[actualAccusingRoom[0]][
+            //                 actualAccusingRoom[1]
+            //             ][0]
+            //         ) {
+            //             /*Vestíbulo: 9
+            //             Biblioteca: 11
+            //             Comedor: 12
+            //             Billar: 13
+            //             Salón de Baile: 15 */
+            //             case 9:
+            //                 if (actualAccusingRoom[0] === 4) {
+            //                     movementBoard[6][11].push(accusedPlayerPiece);
+            //                     movementBoard[6][12].push(accusedPlayerPiece);
+            //                 } else if (actualAccusingRoom[1] === 11) {
+            //                     movementBoard[4][9].push(accusedPlayerPiece);
+            //                     movementBoard[6][12].push(accusedPlayerPiece);
+            //                 } else if (actualAccusingRoom[1] === 12) {
+            //                     movementBoard[4][9].push(accusedPlayerPiece);
+            //                     movementBoard[6][11].push(accusedPlayerPiece);
+            //                 }
+            //                 break;
+            //             case 11:
+            //                 if (actualAccusingRoom[0] === 8) {
+            //                     movementBoard[10][3].push(accusedPlayerPiece);
+            //                 } else if (actualAccusingRoom[0] === 10) {
+            //                     movementBoard[8][6].push(accusedPlayerPiece);
+            //                 }
+            //                 break;
+            //             case 12:
+            //                 if (actualAccusingRoom[0] === 9) {
+            //                     movementBoard[12][16].push(accusedPlayerPiece);
+            //                 } else if (actualAccusingRoom[0] === 12) {
+            //                     movementBoard[9][17].push(accusedPlayerPiece);
+            //                 }
+            //                 break;
+            //             case 13:
+            //                 if (actualAccusingRoom[0] === 12) {
+            //                     movementBoard[15][5].push(accusedPlayerPiece);
+            //                 } else if (actualAccusingRoom[0] === 15) {
+            //                     movementBoard[12][1].push(accusedPlayerPiece);
+            //                 }
+            //                 break;
+            //             case 15:
+            //                 if (actualAccusingRoom[1] === 8) {
+            //                     movementBoard[17][9].push(accusedPlayerPiece);
+            //                     movementBoard[17][14].push(accusedPlayerPiece);
+            //                     movementBoard[19][15].push(accusedPlayerPiece);
+            //                 } else if (actualAccusingRoom[1] === 9) {
+            //                     movementBoard[19][8].push(accusedPlayerPiece);
+            //                     movementBoard[17][14].push(accusedPlayerPiece);
+            //                     movementBoard[19][15].push(accusedPlayerPiece);
+            //                 } else if (actualAccusingRoom[1] === 14) {
+            //                     movementBoard[19][8].push(accusedPlayerPiece);
+            //                     movementBoard[17][9].push(accusedPlayerPiece);
+            //                     movementBoard[19][15].push(accusedPlayerPiece);
+            //                 } else if (actualAccusingRoom[1] === 15) {
+            //                     movementBoard[19][8].push(accusedPlayerPiece);
+            //                     movementBoard[17][9].push(accusedPlayerPiece);
+            //                     movementBoard[17][14].push(accusedPlayerPiece);
+            //                 }
+            //                 break;
+            //         }
+            //         /*  Estudio: 8
+            //         Vestíbulo: 9
+            //         Sala: 10
+            //         Biblioteca: 11
+            //         Comedor: 12
+            //         Billar: 13
+            //         Invernadero: 14
+            //         Salón de Baile: 15
+            //         Cocina: 16 */
 
-                    for (let cell of movementAbleCells) {
-                        console.dir(cell);
-                        if (cell.childNodes[0] === fichaJugadorMoradillo) {
-                            console.log(
-                                `Se encontró la ficha del jugador, y se quitó de su lugar`
-                            );
-                            cell.removeChild(fichaJugadorMoradillo);
-                        }
-                    }
-                    console.log(
-                        movementBoard[actualAccusingRoom[0]][
-                            actualAccusingRoom[1]
-                        ]
-                    );
-                    switch (
-                        movementBoard[actualAccusingRoom[0]][
-                            actualAccusingRoom[1]
-                        ][0]
-                    ) {
-                        case 10:
-                            document
-                                .querySelector(`#cell-4v`)
-                                .appendChild(fichaJugadorMoradillo);
-                            break;
-                        case 9:
-                            document
-                                .querySelector(`#cell-5n`)
-                                .appendChild(fichaJugadorMoradillo);
-                            break;
-                        case 8:
-                            document
-                                .querySelector(`#cell-3d`)
-                                .appendChild(fichaJugadorMoradillo);
-                            break;
-                        case 11:
-                            document
-                                .querySelector(`#cell-8e`)
-                                .appendChild(fichaJugadorMoradillo);
-                            break;
-                        case 12:
-                            document
-                                .querySelector(`#cell-14t`)
-                                .appendChild(fichaJugadorMoradillo);
-                            break;
-                        case 13:
-                            document
-                                .querySelector(`#cell-16e`)
-                                .appendChild(fichaJugadorMoradillo);
-                            break;
-                        case 15:
-                            document
-                                .querySelector(`#cell-19m`)
-                                .appendChild(fichaJugadorMoradillo);
-                            break;
-                        case 14:
-                            document
-                                .querySelector(`#cell-22b`)
-                                .appendChild(fichaJugadorMoradillo);
-                            break;
-                        case 16:
-                            document
-                                .querySelector(`#cell-21u`)
-                                .appendChild(fichaJugadorMoradillo);
-                            break;
-                    }
-                    break;
-                case "mostaza":
-                    console.log(`Llevando a mostaza a habitación`);
-                    accusedPlayerPiece = 2;
-                    for (let row of movementBoard) {
-                        for (let cell of row) {
-                            if (typeof cell === "number") {
-                                if (accusedPlayerPiece === cell) {
-                                    accusedCoordenates.push([
-                                        movementBoard.indexOf(row),
-                                        row.indexOf(cell),
-                                    ]);
-                                    break;
-                                }
-                                if (i < 23) {
-                                    i += 1;
-                                } else {
-                                    i = 0;
-                                }
-                            } else {
-                                if (cell.includes(accusedPlayerPiece)) {
-                                    accusedCoordenates.push([
-                                        movementBoard.indexOf(row),
-                                        row.indexOf(cell),
-                                    ]);
-                                    console.log(accusedCoordenates);
-                                    console.log(
-                                        `La Ubicación del jugador es en las siguientes coordenadas: ${accusedCoordenates}`
-                                    );
-                                }
-                                if (i < 23) {
-                                    i += 1;
-                                } else {
-                                    i = 0;
-                                }
-                            }
-                        }
-                    }
-                    console.log(
-                        `La Ubicación FINAL del jugador es en las siguientes coordenadas: ${accusedCoordenates}`
-                    );
-                    console.log(movementBoard);
-                    console.log(accusedCoordenates[0][0]);
-                    console.log(
-                        movementBoard[accusedCoordenates[0][0]][
-                            accusedCoordenates[0][1]
-                        ]
-                    );
-                    if (
-                        typeof movementBoard[accusedCoordenates[0][0]][
-                            accusedCoordenates[0][1]
-                        ] === "number"
-                    ) {
-                        if (
-                            movementBoard[accusedCoordenates[0][0]][
-                                accusedCoordenates[0][1]
-                            ] === accusedPlayerPiece
-                        ) {
-                            movementBoard[accusedCoordenates[0][0]][
-                                accusedCoordenates[0][1]
-                            ] = 0;
-                        }
-                    } else {
-                        for (let coordinate of accusedCoordenates) {
-                            let positionRow = coordinate[0];
-                            let positionIndex = coordinate[1];
-                            console.log(
-                                `Logueando el valor del casillero de destino`
-                            );
-                            console.log(
-                                typeof movementBoard[positionRow][positionIndex]
-                            );
-                            console.log(
-                                movementBoard[positionRow][positionIndex]
-                            );
-                            movementBoard[positionRow][positionIndex] =
-                                movementBoard[positionRow][
-                                    positionIndex
-                                ].filter((value) => {
-                                    return value !== accusedPlayerPiece;
-                                });
-                        }
-                    }
-                    movementBoard[actualAccusingRoom[0]][
-                        actualAccusingRoom[1]
-                    ].push(accusedPlayerPiece);
-                    switch (
-                        movementBoard[actualAccusingRoom[0]][
-                            actualAccusingRoom[1]
-                        ][0]
-                    ) {
-                        /*Vestíbulo: 9
-                        Biblioteca: 11
-                        Comedor: 12
-                        Billar: 13
-                        Salón de Baile: 15 */
-                        case 9:
-                            if (actualAccusingRoom[0] === 4) {
-                                movementBoard[6][11].push(accusedPlayerPiece);
-                                movementBoard[6][12].push(accusedPlayerPiece);
-                            } else if (actualAccusingRoom[1] === 11) {
-                                movementBoard[4][9].push(accusedPlayerPiece);
-                                movementBoard[6][12].push(accusedPlayerPiece);
-                            } else if (actualAccusingRoom[1] === 12) {
-                                movementBoard[4][9].push(accusedPlayerPiece);
-                                movementBoard[6][11].push(accusedPlayerPiece);
-                            }
-                            break;
-                        case 11:
-                            if (actualAccusingRoom[0] === 8) {
-                                movementBoard[10][3].push(accusedPlayerPiece);
-                            } else if (actualAccusingRoom[0] === 10) {
-                                movementBoard[8][6].push(accusedPlayerPiece);
-                            }
-                            break;
-                        case 12:
-                            if (actualAccusingRoom[0] === 9) {
-                                movementBoard[12][16].push(accusedPlayerPiece);
-                            } else if (actualAccusingRoom[0] === 12) {
-                                movementBoard[9][17].push(accusedPlayerPiece);
-                            }
-                            break;
-                        case 13:
-                            if (actualAccusingRoom[0] === 12) {
-                                movementBoard[15][5].push(accusedPlayerPiece);
-                            } else if (actualAccusingRoom[0] === 15) {
-                                movementBoard[12][1].push(accusedPlayerPiece);
-                            }
-                            break;
-                        case 15:
-                            if (actualAccusingRoom[1] === 8) {
-                                movementBoard[17][9].push(accusedPlayerPiece);
-                                movementBoard[17][14].push(accusedPlayerPiece);
-                                movementBoard[19][15].push(accusedPlayerPiece);
-                            } else if (actualAccusingRoom[1] === 9) {
-                                movementBoard[19][8].push(accusedPlayerPiece);
-                                movementBoard[17][14].push(accusedPlayerPiece);
-                                movementBoard[19][15].push(accusedPlayerPiece);
-                            } else if (actualAccusingRoom[1] === 14) {
-                                movementBoard[19][8].push(accusedPlayerPiece);
-                                movementBoard[17][9].push(accusedPlayerPiece);
-                                movementBoard[19][15].push(accusedPlayerPiece);
-                            } else if (actualAccusingRoom[1] === 15) {
-                                movementBoard[19][8].push(accusedPlayerPiece);
-                                movementBoard[17][9].push(accusedPlayerPiece);
-                                movementBoard[17][14].push(accusedPlayerPiece);
-                            }
-                            break;
-                    }
-                    /*  Estudio: 8
-                    Vestíbulo: 9
-                    Sala: 10
-                    Biblioteca: 11
-                    Comedor: 12
-                    Billar: 13
-                    Invernadero: 14
-                    Salón de Baile: 15
-                    Cocina: 16 */
+            //         for (let cell of movementAbleCells) {
+            //             console.dir(cell);
+            //             if (cell.childNodes[0] === fichaJugadorMoradillo) {
+            //                 console.log(
+            //                     `Se encontró la ficha del jugador, y se quitó de su lugar`
+            //                 );
+            //                 cell.removeChild(fichaJugadorMoradillo);
+            //             }
+            //         }
+            //         console.log(
+            //             movementBoard[actualAccusingRoom[0]][
+            //                 actualAccusingRoom[1]
+            //             ]
+            //         );
+            //         switch (
+            //             movementBoard[actualAccusingRoom[0]][
+            //                 actualAccusingRoom[1]
+            //             ][0]
+            //         ) {
+            //             case 10:
+            //                 document
+            //                     .querySelector(`#cell-4v`)
+            //                     .appendChild(fichaJugadorMoradillo);
+            //                 break;
+            //             case 9:
+            //                 document
+            //                     .querySelector(`#cell-5n`)
+            //                     .appendChild(fichaJugadorMoradillo);
+            //                 break;
+            //             case 8:
+            //                 document
+            //                     .querySelector(`#cell-3d`)
+            //                     .appendChild(fichaJugadorMoradillo);
+            //                 break;
+            //             case 11:
+            //                 document
+            //                     .querySelector(`#cell-8e`)
+            //                     .appendChild(fichaJugadorMoradillo);
+            //                 break;
+            //             case 12:
+            //                 document
+            //                     .querySelector(`#cell-14t`)
+            //                     .appendChild(fichaJugadorMoradillo);
+            //                 break;
+            //             case 13:
+            //                 document
+            //                     .querySelector(`#cell-16e`)
+            //                     .appendChild(fichaJugadorMoradillo);
+            //                 break;
+            //             case 15:
+            //                 document
+            //                     .querySelector(`#cell-19m`)
+            //                     .appendChild(fichaJugadorMoradillo);
+            //                 break;
+            //             case 14:
+            //                 document
+            //                     .querySelector(`#cell-22b`)
+            //                     .appendChild(fichaJugadorMoradillo);
+            //                 break;
+            //             case 16:
+            //                 document
+            //                     .querySelector(`#cell-21u`)
+            //                     .appendChild(fichaJugadorMoradillo);
+            //                 break;
+            //         }
+            //         break;
+            //     case "mostaza":
+            //         console.log(`Llevando a mostaza a habitación`);
+            //         accusedPlayerPiece = 2;
+            //         for (let row of movementBoard) {
+            //             for (let cell of row) {
+            //                 if (typeof cell === "number") {
+            //                     if (accusedPlayerPiece === cell) {
+            //                         accusedCoordenates.push([
+            //                             movementBoard.indexOf(row),
+            //                             row.indexOf(cell),
+            //                         ]);
+            //                         break;
+            //                     }
+            //                     if (i < 23) {
+            //                         i += 1;
+            //                     } else {
+            //                         i = 0;
+            //                     }
+            //                 } else {
+            //                     if (cell.includes(accusedPlayerPiece)) {
+            //                         accusedCoordenates.push([
+            //                             movementBoard.indexOf(row),
+            //                             row.indexOf(cell),
+            //                         ]);
+            //                         console.log(accusedCoordenates);
+            //                         console.log(
+            //                             `La Ubicación del jugador es en las siguientes coordenadas: ${accusedCoordenates}`
+            //                         );
+            //                     }
+            //                     if (i < 23) {
+            //                         i += 1;
+            //                     } else {
+            //                         i = 0;
+            //                     }
+            //                 }
+            //             }
+            //         }
+            //         console.log(
+            //             `La Ubicación FINAL del jugador es en las siguientes coordenadas: ${accusedCoordenates}`
+            //         );
+            //         console.log(movementBoard);
+            //         console.log(accusedCoordenates[0][0]);
+            //         console.log(
+            //             movementBoard[accusedCoordenates[0][0]][
+            //                 accusedCoordenates[0][1]
+            //             ]
+            //         );
+            //         if (
+            //             typeof movementBoard[accusedCoordenates[0][0]][
+            //                 accusedCoordenates[0][1]
+            //             ] === "number"
+            //         ) {
+            //             if (
+            //                 movementBoard[accusedCoordenates[0][0]][
+            //                     accusedCoordenates[0][1]
+            //                 ] === accusedPlayerPiece
+            //             ) {
+            //                 movementBoard[accusedCoordenates[0][0]][
+            //                     accusedCoordenates[0][1]
+            //                 ] = 0;
+            //             }
+            //         } else {
+            //             for (let coordinate of accusedCoordenates) {
+            //                 let positionRow = coordinate[0];
+            //                 let positionIndex = coordinate[1];
+            //                 console.log(
+            //                     `Logueando el valor del casillero de destino`
+            //                 );
+            //                 console.log(
+            //                     typeof movementBoard[positionRow][positionIndex]
+            //                 );
+            //                 console.log(
+            //                     movementBoard[positionRow][positionIndex]
+            //                 );
+            //                 movementBoard[positionRow][positionIndex] =
+            //                     movementBoard[positionRow][
+            //                         positionIndex
+            //                     ].filter((value) => {
+            //                         return value !== accusedPlayerPiece;
+            //                     });
+            //             }
+            //         }
+            //         movementBoard[actualAccusingRoom[0]][
+            //             actualAccusingRoom[1]
+            //         ].push(accusedPlayerPiece);
+            //         switch (
+            //             movementBoard[actualAccusingRoom[0]][
+            //                 actualAccusingRoom[1]
+            //             ][0]
+            //         ) {
+            //             /*Vestíbulo: 9
+            //             Biblioteca: 11
+            //             Comedor: 12
+            //             Billar: 13
+            //             Salón de Baile: 15 */
+            //             case 9:
+            //                 if (actualAccusingRoom[0] === 4) {
+            //                     movementBoard[6][11].push(accusedPlayerPiece);
+            //                     movementBoard[6][12].push(accusedPlayerPiece);
+            //                 } else if (actualAccusingRoom[1] === 11) {
+            //                     movementBoard[4][9].push(accusedPlayerPiece);
+            //                     movementBoard[6][12].push(accusedPlayerPiece);
+            //                 } else if (actualAccusingRoom[1] === 12) {
+            //                     movementBoard[4][9].push(accusedPlayerPiece);
+            //                     movementBoard[6][11].push(accusedPlayerPiece);
+            //                 }
+            //                 break;
+            //             case 11:
+            //                 if (actualAccusingRoom[0] === 8) {
+            //                     movementBoard[10][3].push(accusedPlayerPiece);
+            //                 } else if (actualAccusingRoom[0] === 10) {
+            //                     movementBoard[8][6].push(accusedPlayerPiece);
+            //                 }
+            //                 break;
+            //             case 12:
+            //                 if (actualAccusingRoom[0] === 9) {
+            //                     movementBoard[12][16].push(accusedPlayerPiece);
+            //                 } else if (actualAccusingRoom[0] === 12) {
+            //                     movementBoard[9][17].push(accusedPlayerPiece);
+            //                 }
+            //                 break;
+            //             case 13:
+            //                 if (actualAccusingRoom[0] === 12) {
+            //                     movementBoard[15][5].push(accusedPlayerPiece);
+            //                 } else if (actualAccusingRoom[0] === 15) {
+            //                     movementBoard[12][1].push(accusedPlayerPiece);
+            //                 }
+            //                 break;
+            //             case 15:
+            //                 if (actualAccusingRoom[1] === 8) {
+            //                     movementBoard[17][9].push(accusedPlayerPiece);
+            //                     movementBoard[17][14].push(accusedPlayerPiece);
+            //                     movementBoard[19][15].push(accusedPlayerPiece);
+            //                 } else if (actualAccusingRoom[1] === 9) {
+            //                     movementBoard[19][8].push(accusedPlayerPiece);
+            //                     movementBoard[17][14].push(accusedPlayerPiece);
+            //                     movementBoard[19][15].push(accusedPlayerPiece);
+            //                 } else if (actualAccusingRoom[1] === 14) {
+            //                     movementBoard[19][8].push(accusedPlayerPiece);
+            //                     movementBoard[17][9].push(accusedPlayerPiece);
+            //                     movementBoard[19][15].push(accusedPlayerPiece);
+            //                 } else if (actualAccusingRoom[1] === 15) {
+            //                     movementBoard[19][8].push(accusedPlayerPiece);
+            //                     movementBoard[17][9].push(accusedPlayerPiece);
+            //                     movementBoard[17][14].push(accusedPlayerPiece);
+            //                 }
+            //                 break;
+            //         }
+            //         /*  Estudio: 8
+            //         Vestíbulo: 9
+            //         Sala: 10
+            //         Biblioteca: 11
+            //         Comedor: 12
+            //         Billar: 13
+            //         Invernadero: 14
+            //         Salón de Baile: 15
+            //         Cocina: 16 */
 
-                    for (let cell of movementAbleCells) {
-                        console.dir(cell);
-                        if (cell.childNodes[0] === fichaJugadorMostaza) {
-                            console.log(
-                                `Se encontró la ficha del jugador, y se quitó de su lugar`
-                            );
-                            cell.removeChild(fichaJugadorMostaza);
-                        }
-                    }
-                    console.log(
-                        movementBoard[actualAccusingRoom[0]][
-                            actualAccusingRoom[1]
-                        ]
-                    );
-                    switch (
-                        movementBoard[actualAccusingRoom[0]][
-                            actualAccusingRoom[1]
-                        ][0]
-                    ) {
-                        case 10:
-                            document
-                                .querySelector(`#cell-3t`)
-                                .appendChild(fichaJugadorMostaza);
-                            break;
-                        case 9:
-                            document
-                                .querySelector(`#cell-4n`)
-                                .appendChild(fichaJugadorMostaza);
-                            break;
-                        case 8:
-                            document
-                                .querySelector(`#cell-2d`)
-                                .appendChild(fichaJugadorMostaza);
-                            break;
-                        case 11:
-                            document
-                                .querySelector(`#cell-10e`)
-                                .appendChild(fichaJugadorMostaza);
-                            break;
-                        case 12:
-                            document
-                                .querySelector(`#cell-14v`)
-                                .appendChild(fichaJugadorMostaza);
-                            break;
-                        case 13:
-                            document
-                                .querySelector(`#cell-14e`)
-                                .appendChild(fichaJugadorMostaza);
-                            break;
-                        case 15:
-                            document
-                                .querySelector(`#cell-22m`)
-                                .appendChild(fichaJugadorMostaza);
-                            break;
-                        case 14:
-                            document
-                                .querySelector(`#cell-23c`)
-                                .appendChild(fichaJugadorMostaza);
-                            break;
-                        case 16:
-                            document
-                                .querySelector(`#cell-23u`)
-                                .appendChild(fichaJugadorMostaza);
-                            break;
-                    }
-                    break;
-                case "verdi":
-                    console.log(`Llevando a verdi a habitación`);
-                    accusedPlayerPiece = 4;
-                    for (let row of movementBoard) {
-                        for (let cell of row) {
-                            if (typeof cell === "number") {
-                                if (accusedPlayerPiece === cell) {
-                                    accusedCoordenates.push([
-                                        movementBoard.indexOf(row),
-                                        row.indexOf(cell),
-                                    ]);
-                                    break;
-                                }
-                                if (i < 23) {
-                                    i += 1;
-                                } else {
-                                    i = 0;
-                                }
-                            } else {
-                                if (cell.includes(accusedPlayerPiece)) {
-                                    accusedCoordenates.push([
-                                        movementBoard.indexOf(row),
-                                        row.indexOf(cell),
-                                    ]);
-                                    console.log(accusedCoordenates);
-                                    console.log(
-                                        `La Ubicación del jugador es en las siguientes coordenadas: ${accusedCoordenates}`
-                                    );
-                                }
-                                if (i < 23) {
-                                    i += 1;
-                                } else {
-                                    i = 0;
-                                }
-                            }
-                        }
-                    }
-                    console.log(
-                        `La Ubicación FINAL del jugador es en las siguientes coordenadas: ${accusedCoordenates}`
-                    );
-                    console.log(movementBoard);
-                    console.log(accusedCoordenates[0][0]);
-                    console.log(
-                        movementBoard[accusedCoordenates[0][0]][
-                            accusedCoordenates[0][1]
-                        ]
-                    );
-                    if (
-                        typeof movementBoard[accusedCoordenates[0][0]][
-                            accusedCoordenates[0][1]
-                        ] === "number"
-                    ) {
-                        if (
-                            movementBoard[accusedCoordenates[0][0]][
-                                accusedCoordenates[0][1]
-                            ] === accusedPlayerPiece
-                        ) {
-                            movementBoard[accusedCoordenates[0][0]][
-                                accusedCoordenates[0][1]
-                            ] = 0;
-                        }
-                    } else {
-                        for (let coordinate of accusedCoordenates) {
-                            let positionRow = coordinate[0];
-                            let positionIndex = coordinate[1];
-                            console.log(
-                                `Logueando el valor del casillero de destino`
-                            );
-                            console.log(
-                                typeof movementBoard[positionRow][positionIndex]
-                            );
-                            console.log(
-                                movementBoard[positionRow][positionIndex]
-                            );
-                            movementBoard[positionRow][positionIndex] =
-                                movementBoard[positionRow][
-                                    positionIndex
-                                ].filter((value) => {
-                                    return value !== accusedPlayerPiece;
-                                });
-                        }
-                    }
-                    movementBoard[actualAccusingRoom[0]][
-                        actualAccusingRoom[1]
-                    ].push(accusedPlayerPiece);
-                    switch (
-                        movementBoard[actualAccusingRoom[0]][
-                            actualAccusingRoom[1]
-                        ][0]
-                    ) {
-                        /*Vestíbulo: 9
-                        Biblioteca: 11
-                        Comedor: 12
-                        Billar: 13
-                        Salón de Baile: 15 */
-                        case 9:
-                            if (actualAccusingRoom[0] === 4) {
-                                movementBoard[6][11].push(accusedPlayerPiece);
-                                movementBoard[6][12].push(accusedPlayerPiece);
-                            } else if (actualAccusingRoom[1] === 11) {
-                                movementBoard[4][9].push(accusedPlayerPiece);
-                                movementBoard[6][12].push(accusedPlayerPiece);
-                            } else if (actualAccusingRoom[1] === 12) {
-                                movementBoard[4][9].push(accusedPlayerPiece);
-                                movementBoard[6][11].push(accusedPlayerPiece);
-                            }
-                            break;
-                        case 11:
-                            if (actualAccusingRoom[0] === 8) {
-                                movementBoard[10][3].push(accusedPlayerPiece);
-                            } else if (actualAccusingRoom[0] === 10) {
-                                movementBoard[8][6].push(accusedPlayerPiece);
-                            }
-                            break;
-                        case 12:
-                            if (actualAccusingRoom[0] === 9) {
-                                movementBoard[12][16].push(accusedPlayerPiece);
-                            } else if (actualAccusingRoom[0] === 12) {
-                                movementBoard[9][17].push(accusedPlayerPiece);
-                            }
-                            break;
-                        case 13:
-                            if (actualAccusingRoom[0] === 12) {
-                                movementBoard[15][5].push(accusedPlayerPiece);
-                            } else if (actualAccusingRoom[0] === 15) {
-                                movementBoard[12][1].push(accusedPlayerPiece);
-                            }
-                            break;
-                        case 15:
-                            if (actualAccusingRoom[1] === 8) {
-                                movementBoard[17][9].push(accusedPlayerPiece);
-                                movementBoard[17][14].push(accusedPlayerPiece);
-                                movementBoard[19][15].push(accusedPlayerPiece);
-                            } else if (actualAccusingRoom[1] === 9) {
-                                movementBoard[19][8].push(accusedPlayerPiece);
-                                movementBoard[17][14].push(accusedPlayerPiece);
-                                movementBoard[19][15].push(accusedPlayerPiece);
-                            } else if (actualAccusingRoom[1] === 14) {
-                                movementBoard[19][8].push(accusedPlayerPiece);
-                                movementBoard[17][9].push(accusedPlayerPiece);
-                                movementBoard[19][15].push(accusedPlayerPiece);
-                            } else if (actualAccusingRoom[1] === 15) {
-                                movementBoard[19][8].push(accusedPlayerPiece);
-                                movementBoard[17][9].push(accusedPlayerPiece);
-                                movementBoard[17][14].push(accusedPlayerPiece);
-                            }
-                            break;
-                    }
-                    /*  Estudio: 8
-                    Vestíbulo: 9
-                    Sala: 10
-                    Biblioteca: 11
-                    Comedor: 12
-                    Billar: 13
-                    Invernadero: 14
-                    Salón de Baile: 15
-                    Cocina: 16 */
+            //         for (let cell of movementAbleCells) {
+            //             console.dir(cell);
+            //             if (cell.childNodes[0] === fichaJugadorMostaza) {
+            //                 console.log(
+            //                     `Se encontró la ficha del jugador, y se quitó de su lugar`
+            //                 );
+            //                 cell.removeChild(fichaJugadorMostaza);
+            //             }
+            //         }
+            //         console.log(
+            //             movementBoard[actualAccusingRoom[0]][
+            //                 actualAccusingRoom[1]
+            //             ]
+            //         );
+            //         switch (
+            //             movementBoard[actualAccusingRoom[0]][
+            //                 actualAccusingRoom[1]
+            //             ][0]
+            //         ) {
+            //             case 10:
+            //                 document
+            //                     .querySelector(`#cell-3t`)
+            //                     .appendChild(fichaJugadorMostaza);
+            //                 break;
+            //             case 9:
+            //                 document
+            //                     .querySelector(`#cell-4n`)
+            //                     .appendChild(fichaJugadorMostaza);
+            //                 break;
+            //             case 8:
+            //                 document
+            //                     .querySelector(`#cell-2d`)
+            //                     .appendChild(fichaJugadorMostaza);
+            //                 break;
+            //             case 11:
+            //                 document
+            //                     .querySelector(`#cell-10e`)
+            //                     .appendChild(fichaJugadorMostaza);
+            //                 break;
+            //             case 12:
+            //                 document
+            //                     .querySelector(`#cell-14v`)
+            //                     .appendChild(fichaJugadorMostaza);
+            //                 break;
+            //             case 13:
+            //                 document
+            //                     .querySelector(`#cell-14e`)
+            //                     .appendChild(fichaJugadorMostaza);
+            //                 break;
+            //             case 15:
+            //                 document
+            //                     .querySelector(`#cell-22m`)
+            //                     .appendChild(fichaJugadorMostaza);
+            //                 break;
+            //             case 14:
+            //                 document
+            //                     .querySelector(`#cell-23c`)
+            //                     .appendChild(fichaJugadorMostaza);
+            //                 break;
+            //             case 16:
+            //                 document
+            //                     .querySelector(`#cell-23u`)
+            //                     .appendChild(fichaJugadorMostaza);
+            //                 break;
+            //         }
+            //         break;
+            //     case "verdi":
+            //         console.log(`Llevando a verdi a habitación`);
+            //         accusedPlayerPiece = 4;
+            //         for (let row of movementBoard) {
+            //             for (let cell of row) {
+            //                 if (typeof cell === "number") {
+            //                     if (accusedPlayerPiece === cell) {
+            //                         accusedCoordenates.push([
+            //                             movementBoard.indexOf(row),
+            //                             row.indexOf(cell),
+            //                         ]);
+            //                         break;
+            //                     }
+            //                     if (i < 23) {
+            //                         i += 1;
+            //                     } else {
+            //                         i = 0;
+            //                     }
+            //                 } else {
+            //                     if (cell.includes(accusedPlayerPiece)) {
+            //                         accusedCoordenates.push([
+            //                             movementBoard.indexOf(row),
+            //                             row.indexOf(cell),
+            //                         ]);
+            //                         console.log(accusedCoordenates);
+            //                         console.log(
+            //                             `La Ubicación del jugador es en las siguientes coordenadas: ${accusedCoordenates}`
+            //                         );
+            //                     }
+            //                     if (i < 23) {
+            //                         i += 1;
+            //                     } else {
+            //                         i = 0;
+            //                     }
+            //                 }
+            //             }
+            //         }
+            //         console.log(
+            //             `La Ubicación FINAL del jugador es en las siguientes coordenadas: ${accusedCoordenates}`
+            //         );
+            //         console.log(movementBoard);
+            //         console.log(accusedCoordenates[0][0]);
+            //         console.log(
+            //             movementBoard[accusedCoordenates[0][0]][
+            //                 accusedCoordenates[0][1]
+            //             ]
+            //         );
+            //         if (
+            //             typeof movementBoard[accusedCoordenates[0][0]][
+            //                 accusedCoordenates[0][1]
+            //             ] === "number"
+            //         ) {
+            //             if (
+            //                 movementBoard[accusedCoordenates[0][0]][
+            //                     accusedCoordenates[0][1]
+            //                 ] === accusedPlayerPiece
+            //             ) {
+            //                 movementBoard[accusedCoordenates[0][0]][
+            //                     accusedCoordenates[0][1]
+            //                 ] = 0;
+            //             }
+            //         } else {
+            //             for (let coordinate of accusedCoordenates) {
+            //                 let positionRow = coordinate[0];
+            //                 let positionIndex = coordinate[1];
+            //                 console.log(
+            //                     `Logueando el valor del casillero de destino`
+            //                 );
+            //                 console.log(
+            //                     typeof movementBoard[positionRow][positionIndex]
+            //                 );
+            //                 console.log(
+            //                     movementBoard[positionRow][positionIndex]
+            //                 );
+            //                 movementBoard[positionRow][positionIndex] =
+            //                     movementBoard[positionRow][
+            //                         positionIndex
+            //                     ].filter((value) => {
+            //                         return value !== accusedPlayerPiece;
+            //                     });
+            //             }
+            //         }
+            //         movementBoard[actualAccusingRoom[0]][
+            //             actualAccusingRoom[1]
+            //         ].push(accusedPlayerPiece);
+            //         switch (
+            //             movementBoard[actualAccusingRoom[0]][
+            //                 actualAccusingRoom[1]
+            //             ][0]
+            //         ) {
+            //             /*Vestíbulo: 9
+            //             Biblioteca: 11
+            //             Comedor: 12
+            //             Billar: 13
+            //             Salón de Baile: 15 */
+            //             case 9:
+            //                 if (actualAccusingRoom[0] === 4) {
+            //                     movementBoard[6][11].push(accusedPlayerPiece);
+            //                     movementBoard[6][12].push(accusedPlayerPiece);
+            //                 } else if (actualAccusingRoom[1] === 11) {
+            //                     movementBoard[4][9].push(accusedPlayerPiece);
+            //                     movementBoard[6][12].push(accusedPlayerPiece);
+            //                 } else if (actualAccusingRoom[1] === 12) {
+            //                     movementBoard[4][9].push(accusedPlayerPiece);
+            //                     movementBoard[6][11].push(accusedPlayerPiece);
+            //                 }
+            //                 break;
+            //             case 11:
+            //                 if (actualAccusingRoom[0] === 8) {
+            //                     movementBoard[10][3].push(accusedPlayerPiece);
+            //                 } else if (actualAccusingRoom[0] === 10) {
+            //                     movementBoard[8][6].push(accusedPlayerPiece);
+            //                 }
+            //                 break;
+            //             case 12:
+            //                 if (actualAccusingRoom[0] === 9) {
+            //                     movementBoard[12][16].push(accusedPlayerPiece);
+            //                 } else if (actualAccusingRoom[0] === 12) {
+            //                     movementBoard[9][17].push(accusedPlayerPiece);
+            //                 }
+            //                 break;
+            //             case 13:
+            //                 if (actualAccusingRoom[0] === 12) {
+            //                     movementBoard[15][5].push(accusedPlayerPiece);
+            //                 } else if (actualAccusingRoom[0] === 15) {
+            //                     movementBoard[12][1].push(accusedPlayerPiece);
+            //                 }
+            //                 break;
+            //             case 15:
+            //                 if (actualAccusingRoom[1] === 8) {
+            //                     movementBoard[17][9].push(accusedPlayerPiece);
+            //                     movementBoard[17][14].push(accusedPlayerPiece);
+            //                     movementBoard[19][15].push(accusedPlayerPiece);
+            //                 } else if (actualAccusingRoom[1] === 9) {
+            //                     movementBoard[19][8].push(accusedPlayerPiece);
+            //                     movementBoard[17][14].push(accusedPlayerPiece);
+            //                     movementBoard[19][15].push(accusedPlayerPiece);
+            //                 } else if (actualAccusingRoom[1] === 14) {
+            //                     movementBoard[19][8].push(accusedPlayerPiece);
+            //                     movementBoard[17][9].push(accusedPlayerPiece);
+            //                     movementBoard[19][15].push(accusedPlayerPiece);
+            //                 } else if (actualAccusingRoom[1] === 15) {
+            //                     movementBoard[19][8].push(accusedPlayerPiece);
+            //                     movementBoard[17][9].push(accusedPlayerPiece);
+            //                     movementBoard[17][14].push(accusedPlayerPiece);
+            //                 }
+            //                 break;
+            //         }
+            //         /*  Estudio: 8
+            //         Vestíbulo: 9
+            //         Sala: 10
+            //         Biblioteca: 11
+            //         Comedor: 12
+            //         Billar: 13
+            //         Invernadero: 14
+            //         Salón de Baile: 15
+            //         Cocina: 16 */
 
-                    for (let cell of movementAbleCells) {
-                        console.dir(cell);
-                        if (cell.childNodes[0] === fichaJugadorVerdi) {
-                            console.log(
-                                `Se encontró la ficha del jugador, y se quitó de su lugar`
-                            );
-                            cell.removeChild(fichaJugadorVerdi);
-                        }
-                    }
-                    console.log(
-                        movementBoard[actualAccusingRoom[0]][
-                            actualAccusingRoom[1]
-                        ]
-                    );
-                    switch (
-                        movementBoard[actualAccusingRoom[0]][
-                            actualAccusingRoom[1]
-                        ][0]
-                    ) {
-                        case 10:
-                            document
-                                .querySelector(`#cell-4u`)
-                                .appendChild(fichaJugadorVerdi);
-                            break;
-                        case 9:
-                            document
-                                .querySelector(`#cell-4k`)
-                                .appendChild(fichaJugadorVerdi);
-                            break;
-                        case 8:
-                            document
-                                .querySelector(`#cell-3e`)
-                                .appendChild(fichaJugadorVerdi);
-                            break;
-                        case 11:
-                            document
-                                .querySelector(`#cell-8d`)
-                                .appendChild(fichaJugadorVerdi);
-                            break;
-                        case 12:
-                            document
-                                .querySelector(`#cell-11t`)
-                                .appendChild(fichaJugadorVerdi);
-                            break;
-                        case 13:
-                            document
-                                .querySelector(`#cell-15d`)
-                                .appendChild(fichaJugadorVerdi);
-                            break;
-                        case 15:
-                            document
-                                .querySelector(`#cell-21k`)
-                                .appendChild(fichaJugadorVerdi);
-                            break;
-                        case 14:
-                            document
-                                .querySelector(`#cell-22c`)
-                                .appendChild(fichaJugadorVerdi);
-                            break;
-                        case 16:
-                            document
-                                .querySelector(`#cell-23v`)
-                                .appendChild(fichaJugadorVerdi);
-                            break;
-                    }
-                    break;
-            }
+            //         for (let cell of movementAbleCells) {
+            //             console.dir(cell);
+            //             if (cell.childNodes[0] === fichaJugadorVerdi) {
+            //                 console.log(
+            //                     `Se encontró la ficha del jugador, y se quitó de su lugar`
+            //                 );
+            //                 cell.removeChild(fichaJugadorVerdi);
+            //             }
+            //         }
+            //         console.log(
+            //             movementBoard[actualAccusingRoom[0]][
+            //                 actualAccusingRoom[1]
+            //             ]
+            //         );
+            //         switch (
+            //             movementBoard[actualAccusingRoom[0]][
+            //                 actualAccusingRoom[1]
+            //             ][0]
+            //         ) {
+            //             case 10:
+            //                 document
+            //                     .querySelector(`#cell-4u`)
+            //                     .appendChild(fichaJugadorVerdi);
+            //                 break;
+            //             case 9:
+            //                 document
+            //                     .querySelector(`#cell-4k`)
+            //                     .appendChild(fichaJugadorVerdi);
+            //                 break;
+            //             case 8:
+            //                 document
+            //                     .querySelector(`#cell-3e`)
+            //                     .appendChild(fichaJugadorVerdi);
+            //                 break;
+            //             case 11:
+            //                 document
+            //                     .querySelector(`#cell-8d`)
+            //                     .appendChild(fichaJugadorVerdi);
+            //                 break;
+            //             case 12:
+            //                 document
+            //                     .querySelector(`#cell-11t`)
+            //                     .appendChild(fichaJugadorVerdi);
+            //                 break;
+            //             case 13:
+            //                 document
+            //                     .querySelector(`#cell-15d`)
+            //                     .appendChild(fichaJugadorVerdi);
+            //                 break;
+            //             case 15:
+            //                 document
+            //                     .querySelector(`#cell-21k`)
+            //                     .appendChild(fichaJugadorVerdi);
+            //                 break;
+            //             case 14:
+            //                 document
+            //                     .querySelector(`#cell-22c`)
+            //                     .appendChild(fichaJugadorVerdi);
+            //                 break;
+            //             case 16:
+            //                 document
+            //                     .querySelector(`#cell-23v`)
+            //                     .appendChild(fichaJugadorVerdi);
+            //                 break;
+            //         }
+            //         break;
+            // }
             suspectsAccContainer.classList.add(
                 "hidden-accusation-category-container"
             );
@@ -5547,7 +7218,7 @@ const suspectSelection = (evt) => {
                     break;
             }
             console.log(actualAccusingRoom);
-            actualAccusingRoom = undefined;
+            // actualAccusingRoom = undefined;
             console.log(selectedTriade);
             guessedAccContainer.classList.remove(
                 "hidden-accusation-category-container"
@@ -5711,8 +7382,12 @@ function runGame() {
     // ejecución de la función que produce como resultado la asignación de los sub-arrays y los guarda en clave/valor dentro del objeto
     clasificarCartas();
     const manosArmadas = armarTodasLasManos();
+    for (let player in manosArmadas) {
+        cartasDescubiertas[`${player}`] = [[], [], []];
+    }
     // control del objeto contenedor de la repartición
     console.log(manosArmadas);
+    console.log(cartasDescubiertas);
     /* printCards(1); */
     /* playGame(); */
 }
@@ -5781,14 +7456,14 @@ const cartas = {
     sala: "assets/cartas/sala.png",
 };
 // FUNCIÓN QUE PERMITE DETERMINAR QUÉ CARTAS TIENE EL JUGADOR, LAS CLASIFICA EN CATEGORÍAS, Y DEVUELVE UN OBJETO QUE SERÁ ALMACENADO EN LA SESSION STORAGE A LOS FINES DE PODER IMPRIMIR LAS CARTAS DEL JUGADOR EN PANTALLA, EVITANDO TENER QUE REALIZAR DICHO CÁLCULO CADA VEZ QUE SEA SU TURNO
-const readyForPrint = (jugador) => {
+const readyForPrint = (jugador, tipoDeImpresion) => {
     console.log(`Ejecutando readyForPrint`);
     let forPrint = {};
     let suspects = [];
     let weapons = [];
     let rooms = [];
     let listaCartas = Object.keys(cartas);
-    let manosJugador = Object.values(manosArmadas)[jugador];
+    let manosJugador = Object.values(tipoDeImpresion)[jugador];
     /* console.log(manosJugador); */
     let actualArray = 0;
     for (carta of listaCartas) {
@@ -5863,12 +7538,30 @@ const printMechanism = (hand) => {
                 break;
             }
         }
-        if (!suspectHolderRow.innerHTML) {
-            console.log(`Imprimiendo la carta "${alt} en columna Sospechosos"`);
-            suspectHolderRow.innerHTML = `<img src="${card}" alt="${alt}" class="card-suspect">`;
+        if (hand === `playerHand${actualPlayer + 1}`) {
+            if (!suspectHolderRow.innerHTML) {
+                console.log(
+                    `Imprimiendo la carta "${alt} en columna Sospechosos"`
+                );
+                suspectHolderRow.innerHTML = `<img src="${card}" alt="${alt}" class="card-suspect">`;
+            } else {
+                console.log(
+                    `Imprimiendo la carta "${alt} en columna Sospechosos"`
+                );
+                suspectHolderRow.innerHTML += `<img src="${card}" alt="${alt}" class="card-suspect">`;
+            }
         } else {
-            console.log(`Imprimiendo la carta "${alt} en columna Sospechosos"`);
-            suspectHolderRow.innerHTML += `<img src="${card}" alt="${alt}" class="card-suspect">`;
+            if (!discoveredSuspects.innerHTML) {
+                console.log(
+                    `Imprimiendo la carta "${alt} en columna Sospechosos"`
+                );
+                discoveredSuspects.innerHTML = `<img src="${card}" alt="${alt}" class="card-suspect">`;
+            } else {
+                console.log(
+                    `Imprimiendo la carta "${alt} en columna Sospechosos"`
+                );
+                discoveredSuspects.innerHTML += `<img src="${card}" alt="${alt}" class="card-suspect">`;
+            }
         }
     }
     for (let card of weapons) {
@@ -5879,12 +7572,22 @@ const printMechanism = (hand) => {
                 break;
             }
         }
-        if (!weaponsHolderRow.innerHTML) {
-            console.log(`Imprimiendo la carta "${alt} en columna Armas"`);
-            weaponsHolderRow.innerHTML = `<img src="${card}" alt="${alt}" class="card-suspect">`;
+        if (hand === `playerHand${actualPlayer + 1}`) {
+            if (!weaponsHolderRow.innerHTML) {
+                console.log(`Imprimiendo la carta "${alt} en columna Armas"`);
+                weaponsHolderRow.innerHTML = `<img src="${card}" alt="${alt}" class="card-suspect">`;
+            } else {
+                console.log(`Imprimiendo la carta "${alt} en columna Armas"`);
+                weaponsHolderRow.innerHTML += `<img src="${card}" alt="${alt}" class="card-suspect">`;
+            }
         } else {
-            console.log(`Imprimiendo la carta "${alt} en columna Armas"`);
-            weaponsHolderRow.innerHTML += `<img src="${card}" alt="${alt}" class="card-suspect">`;
+            if (!discoveredWeapons.innerHTML) {
+                console.log(`Imprimiendo la carta "${alt} en columna Armas"`);
+                discoveredWeapons.innerHTML = `<img src="${card}" alt="${alt}" class="card-suspect">`;
+            } else {
+                console.log(`Imprimiendo la carta "${alt} en columna Armas"`);
+                discoveredWeapons.innerHTML += `<img src="${card}" alt="${alt}" class="card-suspect">`;
+            }
         }
     }
     for (let card of rooms) {
@@ -5895,16 +7598,30 @@ const printMechanism = (hand) => {
                 break;
             }
         }
-        if (!roomsHolderRow.innerHTML) {
-            console.log(
-                `Imprimiendo la carta "${alt} en columna Habitaciones"`
-            );
-            roomsHolderRow.innerHTML = `<img src="${card}" alt="${alt}" class="card-suspect">`;
+        if (hand === `playerHand${actualPlayer + 1}`) {
+            if (!roomsHolderRow.innerHTML) {
+                console.log(
+                    `Imprimiendo la carta "${alt} en columna Habitaciones"`
+                );
+                roomsHolderRow.innerHTML = `<img src="${card}" alt="${alt}" class="card-suspect">`;
+            } else {
+                console.log(
+                    `Imprimiendo la carta "${alt} en columna Habitaciones"`
+                );
+                roomsHolderRow.innerHTML += `<img src="${card}" alt="${alt}" class="card-suspect">`;
+            }
         } else {
-            console.log(
-                `Imprimiendo la carta "${alt} en columna Habitaciones"`
-            );
-            roomsHolderRow.innerHTML += `<img src="${card}" alt="${alt}" class="card-suspect">`;
+            if (!discoveredRooms.innerHTML) {
+                console.log(
+                    `Imprimiendo la carta "${alt} en columna Habitaciones"`
+                );
+                discoveredRooms.innerHTML = `<img src="${card}" alt="${alt}" class="card-suspect">`;
+            } else {
+                console.log(
+                    `Imprimiendo la carta "${alt} en columna Habitaciones"`
+                );
+                discoveredRooms.innerHTML += `<img src="${card}" alt="${alt}" class="card-suspect">`;
+            }
         }
     }
 };
@@ -5915,26 +7632,32 @@ const printCards = (jugador) => {
         case 1:
             console.log(`Imprimiendo cartas jugador ${jugador + 1}`);
             printMechanism("playerHand1");
+            printMechanism("discoveredHand1");
             break;
         case 2:
             console.log(`Imprimiendo cartas jugador ${jugador + 1}`);
             printMechanism("playerHand2");
+            printMechanism("discoveredHand2");
             break;
         case 3:
             console.log(`Imprimiendo cartas jugador ${jugador + 1}`);
             printMechanism("playerHand3");
+            printMechanism("discoveredHand3");
             break;
         case 4:
             console.log(`Imprimiendo cartas jugador ${jugador + 1}`);
             printMechanism("playerHand4");
+            printMechanism("discoveredHand4");
             break;
         case 5:
             console.log(`Imprimiendo cartas jugador ${jugador + 1}`);
             printMechanism("playerHand5");
+            printMechanism("discoveredHand5");
             break;
         case 6:
             console.log(`Imprimiendo cartas jugador ${jugador + 1}`);
             printMechanism("playerHand6");
+            printMechanism("discoveredHand6");
             break;
     }
 };
@@ -6129,5 +7852,6 @@ const clasificarCartas = () => {
 window.onunload = function () {
     for (let i = 1; i <= 6; i += 1) {
         sessionStorage.removeItem(`playerHand${i}`);
+        sessionStorage.removeItem(`discoveredHand${i}`);
     }
 };
