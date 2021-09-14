@@ -3095,6 +3095,36 @@
                                     &:last-child {
                                         border-bottom: transparent;
                                     }
+                                    .carta-escarlata {
+                                        border: 6px solid rgb(206, 0, 0);
+                                        background-color: rgb(206, 0, 0);
+                                        border-radius: 0.5em;
+                                    }
+                                    .carta-mostaza {
+                                        border: 6px solid rgb(243, 208, 13);
+                                        background-color: rgb(243, 208, 13);
+                                        border-radius: 0.5em;
+                                    }
+                                    .carta-blanco {
+                                        border: 6px solid rgb(219, 219, 211);
+                                        background-color: rgb(219, 219, 211);
+                                        border-radius: 0.5em;
+                                    }
+                                    .carta-verdi {
+                                        border: 6px solid rgb(44, 190, 24);
+                                        background-color: rgb(44, 190, 24);
+                                        border-radius: 0.5em;
+                                    }
+                                    .carta-azulino {
+                                        border: 6px solid rgb(49, 98, 233);
+                                        background-color: rgb(49, 98, 233);
+                                        border-radius: 0.5em;
+                                    }
+                                    .carta-moradillo {
+                                        border: 6px solid rgb(142, 17, 192);
+                                        background-color: rgb(142, 17, 192);
+                                        border-radius: 0.5em;
+                                    }
                                 }
                             }
                         }

@@ -3094,6 +3094,36 @@
 .index-body .game-area-container .offcanvas-body .row .col .collapse .card-body .category-container .cards-category:last-child {
   border-bottom: transparent;
 }
+.index-body .game-area-container .offcanvas-body .row .col .collapse .card-body .category-container .cards-category .carta-escarlata {
+  border: 6px solid #ce0000;
+  background-color: #ce0000;
+  border-radius: 0.5em;
+}
+.index-body .game-area-container .offcanvas-body .row .col .collapse .card-body .category-container .cards-category .carta-mostaza {
+  border: 6px solid #f3d00d;
+  background-color: #f3d00d;
+  border-radius: 0.5em;
+}
+.index-body .game-area-container .offcanvas-body .row .col .collapse .card-body .category-container .cards-category .carta-blanco {
+  border: 6px solid #dbdbd3;
+  background-color: #dbdbd3;
+  border-radius: 0.5em;
+}
+.index-body .game-area-container .offcanvas-body .row .col .collapse .card-body .category-container .cards-category .carta-verdi {
+  border: 6px solid #2cbe18;
+  background-color: #2cbe18;
+  border-radius: 0.5em;
+}
+.index-body .game-area-container .offcanvas-body .row .col .collapse .card-body .category-container .cards-category .carta-azulino {
+  border: 6px solid #3162e9;
+  background-color: #3162e9;
+  border-radius: 0.5em;
+}
+.index-body .game-area-container .offcanvas-body .row .col .collapse .card-body .category-container .cards-category .carta-moradillo {
+  border: 6px solid #8e11c0;
+  background-color: #8e11c0;
+  border-radius: 0.5em;
+}
 .index-body .game-area-container .offcanvas-body .row .col .collapse .card-2 {
   right: 57%;
 }

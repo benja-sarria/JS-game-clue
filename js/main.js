@@ -55,6 +55,7 @@ let cardToShow, pickedCard;
 const updatedManosArmadas = {};
 const cartasDescubiertas = {};
 let showingCounter = 0;
+let cartaDetectada, holdingPlayer;
 
 /* MAPA DEL TABLERO: Como los jugadores van del 1 al 6 - y en el array de jugadores los index van del 0 al 5, me reservo los números del 1 al 6 para ubicar a los jugadores, quedando el número 0 indicando los casilleros disponibles y el número 7 aquellos que no lo están. Las habitaciones se identifican por los siguientes numeros:
 Estudio: 8
@@ -268,6 +269,7 @@ const discoveredWeapons =
     cardHolder.children[1].children[0].children[0].children[0].children[1];
 const discoveredRooms =
     cardHolder.children[1].children[0].children[0].children[0].children[2];
+const everyDiscovery = [discoveredSuspects, discoveredWeapons, discoveredRooms];
 
 // CASILLEROS DE LAS ENTRADAS HABITACIONES
 const salaDoor = document.querySelector(`#cell-6r`);
@@ -523,6 +525,80 @@ const personalizePlayerOffcanvas = (player) => {
             offCanvasBtn.innerText = "Prof. Moradillo";
             break;
     }
+    let cartaDetectada, holdingPlayer;
+    for (let row in everyDiscovery) {
+        console.dir(everyDiscovery[row]);
+        for (let card in everyDiscovery[row].children) {
+            console.log(card);
+            console.dir(everyDiscovery[row].children[card]);
+            for (let image in cartas) {
+                if (everyDiscovery[row].children[card].alt === image) {
+                    cartaDetectada = image.toUpperCase();
+                    console.log(cartaDetectada);
+                    for (let hand in manosArmadas) {
+                        for (let category of manosArmadas[hand]) {
+                            for (let item of category) {
+                                if (item === cartaDetectada) {
+                                    holdingPlayer = hand;
+                                    if (
+                                        everyDiscovery[row].children[card]
+                                            .classList.length < 2
+                                    ) {
+                                        switch (+holdingPlayer) {
+                                            case 1:
+                                                console.log(`Es de ESCARLATA`);
+                                                everyDiscovery[row].children[
+                                                    card
+                                                ].classList.add(
+                                                    "carta-escarlata"
+                                                );
+                                                break;
+                                            case 2:
+                                                console.log(`Es de MOSTAZA`);
+                                                everyDiscovery[row].children[
+                                                    card
+                                                ].classList.add(
+                                                    "carta-mostaza"
+                                                );
+                                                break;
+                                            case 3:
+                                                console.log(`Es de BLANCO`);
+                                                everyDiscovery[row].children[
+                                                    card
+                                                ].classList.add("carta-blanco");
+                                                break;
+                                            case 4:
+                                                console.log(`Es de VERDI`);
+                                                everyDiscovery[row].children[
+                                                    card
+                                                ].classList.add("carta-verdi");
+                                                break;
+                                            case 5:
+                                                console.log(`Es de AZULINO`);
+                                                everyDiscovery[row].children[
+                                                    card
+                                                ].classList.add(
+                                                    "carta-azulino"
+                                                );
+                                                break;
+                                            case 6:
+                                                console.log(`Es de MORADILLO`);
+                                                everyDiscovery[row].children[
+                                                    card
+                                                ].classList.add(
+                                                    "carta-moradillo"
+                                                );
+                                                break;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
 };
 
 isEnoughtToAccuse = diceBtn.addEventListener("click", rollDice);
@@ -571,9 +647,9 @@ const turnDynamic = (playerNumber) => {
                 console.log(discoveredHand1);
                 sessionStorage.setItem("discoveredHand1", discoveredHand1);
                 activePlayerPiece = fichaJugadorEscarlata;
-                personalizePlayerOffcanvas(actualPlayer);
                 printCards(actualPlayer);
                 greyscaleCards(actualPlayer);
+                personalizePlayerOffcanvas(actualPlayer);
             } else if (actualPlayer === 1) {
                 suspectHolderRow.innerHTML = ``;
                 weaponsHolderRow.innerHTML = ``;
@@ -602,9 +678,9 @@ const turnDynamic = (playerNumber) => {
                 console.log(discoveredHand2);
                 sessionStorage.setItem("discoveredHand2", discoveredHand2);
                 activePlayerPiece = fichaJugadorMostaza;
-                personalizePlayerOffcanvas(actualPlayer);
                 printCards(actualPlayer);
                 greyscaleCards(actualPlayer);
+                personalizePlayerOffcanvas(actualPlayer);
             }
 
             break;
@@ -641,13 +717,13 @@ const turnDynamic = (playerNumber) => {
                     cartasDescubiertas
                 );
                 console.table(discoveredHand1);
-                discoveredHand2 = JSON.stringify(discoveredHand1);
+                discoveredHand1 = JSON.stringify(discoveredHand1);
                 console.log(discoveredHand1);
                 sessionStorage.setItem("discoveredHand1", discoveredHand1);
                 activePlayerPiece = fichaJugadorEscarlata;
-                personalizePlayerOffcanvas(actualPlayer);
                 printCards(actualPlayer);
                 greyscaleCards(actualPlayer);
+                personalizePlayerOffcanvas(actualPlayer);
             } else if (actualPlayer === 1) {
                 suspectHolderRow.innerHTML = ``;
                 weaponsHolderRow.innerHTML = ``;
@@ -676,9 +752,9 @@ const turnDynamic = (playerNumber) => {
                 console.log(discoveredHand2);
                 sessionStorage.setItem("discoveredHand2", discoveredHand2);
                 activePlayerPiece = fichaJugadorMostaza;
-                personalizePlayerOffcanvas(actualPlayer);
                 printCards(actualPlayer);
                 greyscaleCards(actualPlayer);
+                personalizePlayerOffcanvas(actualPlayer);
             } else if (actualPlayer === 2) {
                 suspectHolderRow.innerHTML = ``;
                 weaponsHolderRow.innerHTML = ``;
@@ -707,9 +783,9 @@ const turnDynamic = (playerNumber) => {
                 console.log(discoveredHand3);
                 sessionStorage.setItem("discoveredHand3", discoveredHand3);
                 activePlayerPiece = fichaJugadorBlanco;
-                personalizePlayerOffcanvas(actualPlayer);
                 printCards(actualPlayer);
                 greyscaleCards(actualPlayer);
+                personalizePlayerOffcanvas(actualPlayer);
             }
             break;
         case 4:
@@ -749,9 +825,9 @@ const turnDynamic = (playerNumber) => {
                 console.log(discoveredHand1);
                 sessionStorage.setItem("discoveredHand1", discoveredHand1);
                 activePlayerPiece = fichaJugadorEscarlata;
-                personalizePlayerOffcanvas(actualPlayer);
                 printCards(actualPlayer);
                 greyscaleCards(actualPlayer);
+                personalizePlayerOffcanvas(actualPlayer);
             } else if (actualPlayer === 1) {
                 suspectHolderRow.innerHTML = ``;
                 weaponsHolderRow.innerHTML = ``;
@@ -780,9 +856,9 @@ const turnDynamic = (playerNumber) => {
                 console.log(discoveredHand2);
                 sessionStorage.setItem("discoveredHand2", discoveredHand2);
                 activePlayerPiece = fichaJugadorMostaza;
-                personalizePlayerOffcanvas(actualPlayer);
                 printCards(actualPlayer);
                 greyscaleCards(actualPlayer);
+                personalizePlayerOffcanvas(actualPlayer);
             } else if (actualPlayer === 2) {
                 suspectHolderRow.innerHTML = ``;
                 weaponsHolderRow.innerHTML = ``;
@@ -811,9 +887,9 @@ const turnDynamic = (playerNumber) => {
                 console.log(discoveredHand3);
                 sessionStorage.setItem("discoveredHand3", discoveredHand3);
                 activePlayerPiece = fichaJugadorBlanco;
-                personalizePlayerOffcanvas(actualPlayer);
                 printCards(actualPlayer);
                 greyscaleCards(actualPlayer);
+                personalizePlayerOffcanvas(actualPlayer);
             } else if (actualPlayer === 3) {
                 suspectHolderRow.innerHTML = ``;
                 weaponsHolderRow.innerHTML = ``;
@@ -842,9 +918,9 @@ const turnDynamic = (playerNumber) => {
                 console.log(discoveredHand4);
                 sessionStorage.setItem("discoveredHand4", discoveredHand4);
                 activePlayerPiece = fichaJugadorVerdi;
-                personalizePlayerOffcanvas(actualPlayer);
                 printCards(actualPlayer);
                 greyscaleCards(actualPlayer);
+                personalizePlayerOffcanvas(actualPlayer);
             }
             break;
         case 5:
@@ -884,9 +960,9 @@ const turnDynamic = (playerNumber) => {
                 console.log(discoveredHand1);
                 sessionStorage.setItem("discoveredHand1", discoveredHand1);
                 activePlayerPiece = fichaJugadorEscarlata;
-                personalizePlayerOffcanvas(actualPlayer);
                 printCards(actualPlayer);
                 greyscaleCards(actualPlayer);
+                personalizePlayerOffcanvas(actualPlayer);
             } else if (actualPlayer === 1) {
                 suspectHolderRow.innerHTML = ``;
                 weaponsHolderRow.innerHTML = ``;
@@ -915,9 +991,9 @@ const turnDynamic = (playerNumber) => {
                 console.log(discoveredHand2);
                 sessionStorage.setItem("discoveredHand2", discoveredHand2);
                 activePlayerPiece = fichaJugadorMostaza;
-                personalizePlayerOffcanvas(actualPlayer);
                 printCards(actualPlayer);
                 greyscaleCards(actualPlayer);
+                personalizePlayerOffcanvas(actualPlayer);
             } else if (actualPlayer === 2) {
                 suspectHolderRow.innerHTML = ``;
                 weaponsHolderRow.innerHTML = ``;
@@ -946,9 +1022,9 @@ const turnDynamic = (playerNumber) => {
                 console.log(discoveredHand3);
                 sessionStorage.setItem("discoveredHand3", discoveredHand3);
                 activePlayerPiece = fichaJugadorBlanco;
-                personalizePlayerOffcanvas(actualPlayer);
                 printCards(actualPlayer);
                 greyscaleCards(actualPlayer);
+                personalizePlayerOffcanvas(actualPlayer);
             } else if (actualPlayer === 3) {
                 suspectHolderRow.innerHTML = ``;
                 weaponsHolderRow.innerHTML = ``;
@@ -977,9 +1053,9 @@ const turnDynamic = (playerNumber) => {
                 console.log(discoveredHand4);
                 sessionStorage.setItem("discoveredHand4", discoveredHand4);
                 activePlayerPiece = fichaJugadorVerdi;
-                personalizePlayerOffcanvas(actualPlayer);
                 printCards(actualPlayer);
                 greyscaleCards(actualPlayer);
+                personalizePlayerOffcanvas(actualPlayer);
             } else if (actualPlayer === 4) {
                 suspectHolderRow.innerHTML = ``;
                 weaponsHolderRow.innerHTML = ``;
@@ -1008,9 +1084,9 @@ const turnDynamic = (playerNumber) => {
                 console.log(discoveredHand5);
                 sessionStorage.setItem("discoveredHand5", discoveredHand5);
                 activePlayerPiece = fichaJugadorAzulino;
-                personalizePlayerOffcanvas(actualPlayer);
                 printCards(actualPlayer);
                 greyscaleCards(actualPlayer);
+                personalizePlayerOffcanvas(actualPlayer);
             }
             break;
         case 6:
@@ -1050,9 +1126,9 @@ const turnDynamic = (playerNumber) => {
                 console.log(discoveredHand1);
                 sessionStorage.setItem("discoveredHand1", discoveredHand1);
                 activePlayerPiece = fichaJugadorEscarlata;
-                personalizePlayerOffcanvas(actualPlayer);
                 printCards(actualPlayer);
                 greyscaleCards(actualPlayer);
+                personalizePlayerOffcanvas(actualPlayer);
             } else if (actualPlayer === 1) {
                 suspectHolderRow.innerHTML = ``;
                 weaponsHolderRow.innerHTML = ``;
@@ -1081,9 +1157,9 @@ const turnDynamic = (playerNumber) => {
                 console.log(discoveredHand2);
                 sessionStorage.setItem("discoveredHand2", discoveredHand2);
                 activePlayerPiece = fichaJugadorMostaza;
-                personalizePlayerOffcanvas(actualPlayer);
                 printCards(actualPlayer);
                 greyscaleCards(actualPlayer);
+                personalizePlayerOffcanvas(actualPlayer);
             } else if (actualPlayer === 2) {
                 suspectHolderRow.innerHTML = ``;
                 weaponsHolderRow.innerHTML = ``;
@@ -1112,9 +1188,9 @@ const turnDynamic = (playerNumber) => {
                 console.log(discoveredHand3);
                 sessionStorage.setItem("discoveredHand3", discoveredHand3);
                 activePlayerPiece = fichaJugadorBlanco;
-                personalizePlayerOffcanvas(actualPlayer);
                 printCards(actualPlayer);
                 greyscaleCards(actualPlayer);
+                personalizePlayerOffcanvas(actualPlayer);
             } else if (actualPlayer === 3) {
                 suspectHolderRow.innerHTML = ``;
                 weaponsHolderRow.innerHTML = ``;
@@ -1143,9 +1219,9 @@ const turnDynamic = (playerNumber) => {
                 console.log(discoveredHand4);
                 sessionStorage.setItem("discoveredHand4", discoveredHand4);
                 activePlayerPiece = fichaJugadorVerdi;
-                personalizePlayerOffcanvas(actualPlayer);
                 printCards(actualPlayer);
                 greyscaleCards(actualPlayer);
+                personalizePlayerOffcanvas(actualPlayer);
             } else if (actualPlayer === 4) {
                 suspectHolderRow.innerHTML = ``;
                 weaponsHolderRow.innerHTML = ``;
@@ -1174,9 +1250,9 @@ const turnDynamic = (playerNumber) => {
                 console.log(discoveredHand5);
                 sessionStorage.setItem("discoveredHand5", discoveredHand5);
                 activePlayerPiece = fichaJugadorAzulino;
-                personalizePlayerOffcanvas(actualPlayer);
                 printCards(actualPlayer);
                 greyscaleCards(actualPlayer);
+                personalizePlayerOffcanvas(actualPlayer);
             } else if (actualPlayer === 5) {
                 suspectHolderRow.innerHTML = ``;
                 weaponsHolderRow.innerHTML = ``;
@@ -1205,9 +1281,9 @@ const turnDynamic = (playerNumber) => {
                 console.log(discoveredHand6);
                 sessionStorage.setItem("discoveredHand6", discoveredHand6);
                 activePlayerPiece = fichaJugadorMoradillo;
-                personalizePlayerOffcanvas(actualPlayer);
                 printCards(actualPlayer);
                 greyscaleCards(actualPlayer);
+                personalizePlayerOffcanvas(actualPlayer);
             }
             break;
         default:
@@ -4308,34 +4384,44 @@ const greyscaleCards = (jugador) => {
     console.log(` ========= Runing grayscale =========`);
     let currentHand;
     let storagedHand;
+    let discoveredStoragedHand;
+    let totalCardsToGrey = [];
     let counter = 0;
     switch (jugador + 1) {
         case 1:
             unGrayingCards();
             storagedHand = "playerHand1";
+            discoveredStoragedHand = "discoveredHand1";
             currentHand = sessionStorage.getItem(storagedHand);
+            currentDiscoveredHand = sessionStorage.getItem(
+                discoveredStoragedHand
+            );
             /* console.log(currentHand); */
             currentHand = JSON.parse(currentHand);
+            currentDiscoveredHand = JSON.parse(currentDiscoveredHand);
             /* console.log(currentHand); */
-            for (const key in currentHand) {
-                for (let card of currentHand[`${key}`]) {
-                    /* console.log(card); */
-                    /* console.log(`./${card}`); */
-                    for (let screenCard of accusationTotalCards) {
-                        /* console.log(counter); */
-                        if (
-                            accusationTotalCards[counter].childNodes[0]
-                                .attributes[0].value === `./${card}`
-                        ) {
-                            /* console.log(`Se encontró ${card} en ${screenCard}`); */
-                            accusationTotalCards[
-                                counter
-                            ].childNodes[0].classList.add(`greyed-card`);
-                        }
-                        if (counter < 20) {
-                            counter += 1;
-                        } else {
-                            counter = 0;
+            totalCardsToGrey = [currentHand, currentDiscoveredHand];
+            for (let object of totalCardsToGrey) {
+                for (const key in object) {
+                    for (let card of object[`${key}`]) {
+                        /* console.log(card); */
+                        /* console.log(`./${card}`); */
+                        for (let screenCard of accusationTotalCards) {
+                            /* console.log(counter); */
+                            if (
+                                accusationTotalCards[counter].childNodes[0]
+                                    .attributes[0].value === `./${card}`
+                            ) {
+                                /* console.log(`Se encontró ${card} en ${screenCard}`); */
+                                accusationTotalCards[
+                                    counter
+                                ].childNodes[0].classList.add(`greyed-card`);
+                            }
+                            if (counter < 20) {
+                                counter += 1;
+                            } else {
+                                counter = 0;
+                            }
                         }
                     }
                 }
@@ -4348,25 +4434,33 @@ const greyscaleCards = (jugador) => {
             /* console.log(currentHand); */
             currentHand = JSON.parse(currentHand);
             /* console.log(currentHand); */
-            for (const key in currentHand) {
-                for (let card of currentHand[`${key}`]) {
-                    /* console.log(card);
-                    console.log(`./${card}`); */
-                    for (let screenCard of accusationTotalCards) {
-                        /* console.log(counter); */
-                        if (
-                            accusationTotalCards[counter].childNodes[0]
-                                .attributes[0].value === `./${card}`
-                        ) {
-                            /* console.log(`Se encontró ${card} en ${screenCard}`); */
-                            accusationTotalCards[
-                                counter
-                            ].childNodes[0].classList.add(`greyed-card`);
-                        }
-                        if (counter < 20) {
-                            counter += 1;
-                        } else {
-                            counter = 0;
+            discoveredStoragedHand = "discoveredHand2";
+            currentDiscoveredHand = sessionStorage.getItem(
+                discoveredStoragedHand
+            );
+            currentDiscoveredHand = JSON.parse(currentDiscoveredHand);
+            totalCardsToGrey = [currentHand, currentDiscoveredHand];
+            for (let object of totalCardsToGrey) {
+                for (const key in object) {
+                    for (let card of object[`${key}`]) {
+                        /* console.log(card);
+                        console.log(`./${card}`); */
+                        for (let screenCard of accusationTotalCards) {
+                            /* console.log(counter); */
+                            if (
+                                accusationTotalCards[counter].childNodes[0]
+                                    .attributes[0].value === `./${card}`
+                            ) {
+                                /* console.log(`Se encontró ${card} en ${screenCard}`); */
+                                accusationTotalCards[
+                                    counter
+                                ].childNodes[0].classList.add(`greyed-card`);
+                            }
+                            if (counter < 20) {
+                                counter += 1;
+                            } else {
+                                counter = 0;
+                            }
                         }
                     }
                 }
@@ -4379,25 +4473,33 @@ const greyscaleCards = (jugador) => {
             /* console.log(currentHand); */
             currentHand = JSON.parse(currentHand);
             /* console.log(currentHand); */
-            for (const key in currentHand) {
-                for (let card of currentHand[`${key}`]) {
-                    /* console.log(card);
-                    console.log(`./${card}`); */
-                    for (let screenCard of accusationTotalCards) {
-                        /* console.log(counter); */
-                        if (
-                            accusationTotalCards[counter].childNodes[0]
-                                .attributes[0].value === `./${card}`
-                        ) {
-                            /* console.log(`Se encontró ${card} en ${screenCard}`); */
-                            accusationTotalCards[
-                                counter
-                            ].childNodes[0].classList.add(`greyed-card`);
-                        }
-                        if (counter < 20) {
-                            counter += 1;
-                        } else {
-                            counter = 0;
+            discoveredStoragedHand = "discoveredHand3";
+            currentDiscoveredHand = sessionStorage.getItem(
+                discoveredStoragedHand
+            );
+            currentDiscoveredHand = JSON.parse(currentDiscoveredHand);
+            totalCardsToGrey = [currentHand, currentDiscoveredHand];
+            for (let object of totalCardsToGrey) {
+                for (const key in object) {
+                    for (let card of object[`${key}`]) {
+                        /* console.log(card);
+                        console.log(`./${card}`); */
+                        for (let screenCard of accusationTotalCards) {
+                            /* console.log(counter); */
+                            if (
+                                accusationTotalCards[counter].childNodes[0]
+                                    .attributes[0].value === `./${card}`
+                            ) {
+                                /* console.log(`Se encontró ${card} en ${screenCard}`); */
+                                accusationTotalCards[
+                                    counter
+                                ].childNodes[0].classList.add(`greyed-card`);
+                            }
+                            if (counter < 20) {
+                                counter += 1;
+                            } else {
+                                counter = 0;
+                            }
                         }
                     }
                 }
@@ -4410,25 +4512,33 @@ const greyscaleCards = (jugador) => {
             /* console.log(currentHand); */
             currentHand = JSON.parse(currentHand);
             /* console.log(currentHand); */
-            for (const key in currentHand) {
-                for (let card of currentHand[`${key}`]) {
-                    /* console.log(card);
-                    console.log(`./${card}`); */
-                    for (let screenCard of accusationTotalCards) {
-                        /* console.log(counter); */
-                        if (
-                            accusationTotalCards[counter].childNodes[0]
-                                .attributes[0].value === `./${card}`
-                        ) {
-                            /* console.log(`Se encontró ${card} en ${screenCard}`); */
-                            accusationTotalCards[
-                                counter
-                            ].childNodes[0].classList.add(`greyed-card`);
-                        }
-                        if (counter < 20) {
-                            counter += 1;
-                        } else {
-                            counter = 0;
+            discoveredStoragedHand = "discoveredHand4";
+            currentDiscoveredHand = sessionStorage.getItem(
+                discoveredStoragedHand
+            );
+            currentDiscoveredHand = JSON.parse(currentDiscoveredHand);
+            totalCardsToGrey = [currentHand, currentDiscoveredHand];
+            for (let object of totalCardsToGrey) {
+                for (const key in object) {
+                    for (let card of object[`${key}`]) {
+                        /* console.log(card);
+                        console.log(`./${card}`); */
+                        for (let screenCard of accusationTotalCards) {
+                            /* console.log(counter); */
+                            if (
+                                accusationTotalCards[counter].childNodes[0]
+                                    .attributes[0].value === `./${card}`
+                            ) {
+                                /* console.log(`Se encontró ${card} en ${screenCard}`); */
+                                accusationTotalCards[
+                                    counter
+                                ].childNodes[0].classList.add(`greyed-card`);
+                            }
+                            if (counter < 20) {
+                                counter += 1;
+                            } else {
+                                counter = 0;
+                            }
                         }
                     }
                 }
@@ -4441,25 +4551,33 @@ const greyscaleCards = (jugador) => {
             /* console.log(currentHand); */
             currentHand = JSON.parse(currentHand);
             /* console.log(currentHand); */
-            for (const key in currentHand) {
-                for (let card of currentHand[`${key}`]) {
-                    /* console.log(card);
-                    console.log(`./${card}`); */
-                    for (let screenCard of accusationTotalCards) {
-                        /* console.log(counter); */
-                        if (
-                            accusationTotalCards[counter].childNodes[0]
-                                .attributes[0].value === `./${card}`
-                        ) {
-                            /* console.log(`Se encontró ${card} en ${screenCard}`); */
-                            accusationTotalCards[
-                                counter
-                            ].childNodes[0].classList.add(`greyed-card`);
-                        }
-                        if (counter < 20) {
-                            counter += 1;
-                        } else {
-                            counter = 0;
+            discoveredStoragedHand = "discoveredHand5";
+            currentDiscoveredHand = sessionStorage.getItem(
+                discoveredStoragedHand
+            );
+            currentDiscoveredHand = JSON.parse(currentDiscoveredHand);
+            totalCardsToGrey = [currentHand, currentDiscoveredHand];
+            for (let object of totalCardsToGrey) {
+                for (const key in object) {
+                    for (let card of object[`${key}`]) {
+                        /* console.log(card);
+                        console.log(`./${card}`); */
+                        for (let screenCard of accusationTotalCards) {
+                            /* console.log(counter); */
+                            if (
+                                accusationTotalCards[counter].childNodes[0]
+                                    .attributes[0].value === `./${card}`
+                            ) {
+                                /* console.log(`Se encontró ${card} en ${screenCard}`); */
+                                accusationTotalCards[
+                                    counter
+                                ].childNodes[0].classList.add(`greyed-card`);
+                            }
+                            if (counter < 20) {
+                                counter += 1;
+                            } else {
+                                counter = 0;
+                            }
                         }
                     }
                 }
@@ -4472,25 +4590,33 @@ const greyscaleCards = (jugador) => {
             /* console.log(currentHand); */
             currentHand = JSON.parse(currentHand);
             /* console.log(currentHand); */
-            for (const key in currentHand) {
-                for (let card of currentHand[`${key}`]) {
-                    /* console.log(card);
-                    console.log(`./${card}`); */
-                    for (let screenCard of accusationTotalCards) {
-                        /* console.log(counter); */
-                        if (
-                            accusationTotalCards[counter].childNodes[0]
-                                .attributes[0].value === `./${card}`
-                        ) {
-                            /* console.log(`Se encontró ${card} en ${screenCard}`); */
-                            accusationTotalCards[
-                                counter
-                            ].childNodes[0].classList.add(`greyed-card`);
-                        }
-                        if (counter < 20) {
-                            counter += 1;
-                        } else {
-                            counter = 0;
+            discoveredStoragedHand = "discoveredHand6";
+            currentDiscoveredHand = sessionStorage.getItem(
+                discoveredStoragedHand
+            );
+            currentDiscoveredHand = JSON.parse(currentDiscoveredHand);
+            totalCardsToGrey = [currentHand, currentDiscoveredHand];
+            for (let object of totalCardsToGrey) {
+                for (const key in object) {
+                    for (let card of object[`${key}`]) {
+                        /* console.log(card);
+                        console.log(`./${card}`); */
+                        for (let screenCard of accusationTotalCards) {
+                            /* console.log(counter); */
+                            if (
+                                accusationTotalCards[counter].childNodes[0]
+                                    .attributes[0].value === `./${card}`
+                            ) {
+                                /* console.log(`Se encontró ${card} en ${screenCard}`); */
+                                accusationTotalCards[
+                                    counter
+                                ].childNodes[0].classList.add(`greyed-card`);
+                            }
+                            if (counter < 20) {
+                                counter += 1;
+                            } else {
+                                counter = 0;
+                            }
                         }
                     }
                 }
