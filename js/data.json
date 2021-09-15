@@ -1,0 +1,52 @@
+{
+    "personajes": {
+        "personaje1": "MOSTAZA",
+        "personaje2": "VERDI",
+        "personaje3": "MORADILLO",
+        "personaje4": "BLANCO",
+        "personaje5": "ESCARLATA",
+        "personaje6": "AZULINO"
+    },
+    "armas": {
+        "arma1": "CUCHILLO",
+        "arma2": "PISTOLA",
+        "arma3": "TUBO",
+        "arma4": "CUERDA",
+        "arma5": "LLAVEDETUERCAS",
+        "arma6": "CANDELABRO"
+    },
+    "lugares": {
+        "lugar1": "COCINA",
+        "lugar2": "SALONDEBAILE",
+        "lugar3": "INVERNADERO",
+        "lugar4": "COMEDOR",
+        "lugar5": "SALADEBILLAR",
+        "lugar6": "BIBLIOTECA",
+        "lugar7": "ESTUDIO",
+        "lugar8": "VESTIBULO",
+        "lugar9": "SALA"
+    },
+    "cartas": {
+        "mostaza": "assets/cartas/mostaza.png",
+        "verdi": "assets/cartas/verdi.png",
+        "moradillo": "assets/cartas/moradillo.png",
+        "blanco": "assets/cartas/blanco.png",
+        "escarlata": "assets/cartas/escarlata.png",
+        "azulino": "assets/cartas/azulino.png",
+        "cuchillo": "assets/cartas/cuchillo.png",
+        "pistola": "assets/cartas/pistola.png",
+        "tubo": "assets/cartas/tubo.png",
+        "cuerda": "assets/cartas/cuerda.png",
+        "llavedetuercas": "assets/cartas/llavedetuercas.png",
+        "candelabro": "assets/cartas/candelabro.png",
+        "cocina": "assets/cartas/cocina.png",
+        "salondebaile": "assets/cartas/salondebaile.png",
+        "invernadero": "assets/cartas/invernadero.png",
+        "comedor": "assets/cartas/COMEDOR.png",
+        "saladebillar": "assets/cartas/billar.png",
+        "biblioteca": "assets/cartas/biblioteca.png",
+        "estudio": "assets/cartas/estudio.png",
+        "vestibulo": "assets/cartas/hall.png",
+        "sala": "assets/cartas/sala.png"
+    }
+}
