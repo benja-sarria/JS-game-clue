@@ -305,9 +305,9 @@
                         $alpha: 1
                     );
                 margin-bottom: 1em;
-                @media (min-width: 922px) {
-                    max-width: 25vw;
-                    min-height: 130vh;
+                @media (min-width: 1300px) {
+                    max-width: 22vw;
+                    min-height: 140vh;
                     width: 30em;
                     height: 39em;
                     // background-color: red;
@@ -435,7 +435,7 @@
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                @media (min-width: 922px) {
+                @media (min-width: 1300px) {
                     max-width: 70vw;
                     justify-content: flex-start;
                 }
@@ -512,8 +512,14 @@
                         .board-cell {
                             /* min-width: 3em; */
                             margin: 5em;
-                            width: 2em;
-                            height: 2.5em;
+                            width: 0.5em;
+                            max-height: 0.1em;
+                            height: 0.5em;
+                            @media (min-width: 920px) {
+                                margin: 5em;
+                                min-width: 2.5em;
+                                height: 2.5em;
+                            }
                             img {
                                 @media (min-width: 400px) {
                                     margin: 0 0 0 0em;

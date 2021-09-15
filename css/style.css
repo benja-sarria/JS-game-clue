@@ -362,10 +362,10 @@
   box-shadow: 1px 5px 30px 5px #00b2b0;
   margin-bottom: 1em;
 }
-@media (min-width: 922px) {
+@media (min-width: 1300px) {
   .index-body .game-area-container .game-interface-container .system-message-area-container {
-    max-width: 25vw;
-    min-height: 130vh;
+    max-width: 22vw;
+    min-height: 140vh;
     width: 30em;
     height: 39em;
     position: absolute;
@@ -479,7 +479,7 @@
   justify-content: center;
   align-items: center;
 }
-@media (min-width: 922px) {
+@media (min-width: 1300px) {
   .index-body .game-area-container .game-interface-container .board-container {
     max-width: 70vw;
     justify-content: flex-start;
@@ -538,8 +538,16 @@
 .index-body .game-area-container .game-interface-container .board-container .game-board-table .board-row .board-cell {
   /* min-width: 3em; */
   margin: 5em;
-  width: 2em;
-  height: 2.5em;
+  width: 0.5em;
+  max-height: 0.1em;
+  height: 0.5em;
+}
+@media (min-width: 920px) {
+  .index-body .game-area-container .game-interface-container .board-container .game-board-table .board-row .board-cell {
+    margin: 5em;
+    min-width: 2.5em;
+    height: 2.5em;
+  }
 }
 .index-body .game-area-container .game-interface-container .board-container .game-board-table .board-row .board-cell img {
   max-height: 2.5em;
