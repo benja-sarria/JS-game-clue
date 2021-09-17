@@ -1,4 +1,11 @@
+@font-face {
+    font-family: "seratUltra";
+    src: url("../assets/fonts/SeratUltra.ttf");
+    font-display: swap;
+}
+
 $fonts: (
     normalMain: "Trebuchet MS",
     lighfont: "Pontano Sans",
+    systemMsgs: "seratUltra",
 );

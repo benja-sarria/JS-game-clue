@@ -56,6 +56,7 @@ const updatedManosArmadas = {};
 const cartasDescubiertas = {};
 let showingCounter = 0;
 let cartaDetectada, holdingPlayer;
+let thereIsMovement, blockedCell;
 
 /* MAPA DEL TABLERO: Como los jugadores van del 1 al 6 - y en el array de jugadores los index van del 0 al 5, me reservo los números del 1 al 6 para ubicar a los jugadores, quedando el número 0 indicando los casilleros disponibles y el número 7 aquellos que no lo están. Las habitaciones se identifican por los siguientes numeros:
 Estudio: 8
@@ -510,12 +511,36 @@ const onceReady = async () => {
 
     // Cartel de Bienvenida al juego
     gameMessages.children[0].innerText = `¡Bienvenido a The Clue!
-
     En esta casa se ha cometido un crimen. Deberás recorrer la casa, investigando y hallando pistas que te ayuden a aclarar lo sucedido ¡Éxitos en tu búsqueda!`;
+
+    const rollingAnimation = (counter) => {
+        let rotation = 120;
+        let processedcounter = counter;
+        console.log(`Ejecutando animación del dado ${processedcounter}`);
+        $(diceBtn)
+            .css("transition", "all ease 300ms")
+            .css("transform", `rotate(${rotation * processedcounter}deg)`);
+        console.log(rotation * processedcounter);
+        if (processedcounter <= 10) {
+            processedcounter += 1;
+            console.log(`Volviendo a ejecutar para que gire`);
+            setTimeout(() => {
+                rollingAnimation(processedcounter);
+            }, 50);
+        } else {
+            setTimeout(() => {
+                $(diceBtn).fadeOut(300);
+                $(diceBtn)
+                    .css("transition", "all ease 300ms")
+                    .css("transform", `rotate(0deg)`);
+            }, 10);
+        }
+    };
 
     // FUNCIÓN PARA DETERMINAR EL MOVIMIENTO DEL JUGADOR
     const rollDice = () => {
-        hideDiceBtn();
+        let i = 0;
+        rollingAnimation(i);
         movimiento = Math.ceil(Math.random() * 6);
         setTimeout(() => {
             showMessage(`Tiraste un ${movimiento}`);
@@ -3600,35 +3625,180 @@ const onceReady = async () => {
 
                     if (
                         element[0] > 0 &&
-                        movementBoard[element[0] - 1][element[1]] !== 7
+                        movementBoard[element[0] - 1][element[1]] !== 7 &&
+                        isAbleCell(movementBoard[element[0] - 1][element[1]])
                     ) {
+                        let a = element[0];
+                        let b = element[1];
+                        console.log(String(a) + String(b));
+                        switch (`${String(a) + String(b)}`) {
+                            case "36":
+                                if (element[0] - 1 !== 3 && element[1] !== 7) {
+                                    neighborCells.push([
+                                        element[0] - 1,
+                                        element[1],
+                                    ]);
+                                }
+                                break;
+                            case "517":
+                                if (element[0] - 1 !== 5 && element[1] !== 16) {
+                                    neighborCells.push([
+                                        element[0] - 1,
+                                        element[1],
+                                    ]);
+                                }
+                                break;
+                            case "194":
+                                if (element[0] - 1 !== 18 && element[1] !== 4) {
+                                    neighborCells.push([
+                                        element[0] - 1,
+                                        element[1],
+                                    ]);
+                                }
+                                break;
+                            default:
+                                neighborCells.push([
+                                    element[0] - 1,
+                                    element[1],
+                                ]);
+                                break;
+                        }
                         /* console.log(`Analizando ${element[0]}`); */
-                        neighborCells.push([element[0] - 1, element[1]]);
+                        // neighborCells.push([element[0] - 1, element[1]]);
                         /* console.log(`sumando ${[element[0] - 1, element[1]]}`); */
                     }
                     if (
                         element[0] < 24 &&
-                        movementBoard[element[0] + 1][element[1]] !== 7
+                        movementBoard[element[0] + 1][element[1]] !== 7 &&
+                        isAbleCell(movementBoard[element[0] + 1][element[1]])
                     ) {
-                        neighborCells.push([element[0] + 1, element[1]]);
+                        let a = element[0];
+                        let b = element[1];
+                        console.log(String(a) + String(b));
+                        switch (`${String(a) + String(b)}`) {
+                            case "36":
+                                if (element[0] + 1 !== 3 && element[1] !== 7) {
+                                    neighborCells.push([
+                                        element[0] + 1,
+                                        element[1],
+                                    ]);
+                                }
+                                break;
+                            case "517":
+                                if (element[0] + 1 !== 5 && element[1] !== 16) {
+                                    neighborCells.push([
+                                        element[0] + 1,
+                                        element[1],
+                                    ]);
+                                }
+                                break;
+                            case "194":
+                                if (element[0] + 1 !== 18 && element[1] !== 4) {
+                                    neighborCells.push([
+                                        element[0] + 1,
+                                        element[1],
+                                    ]);
+                                }
+                                break;
+                            default:
+                                neighborCells.push([
+                                    element[0] + 1,
+                                    element[1],
+                                ]);
+                                break;
+                        }
+                        // neighborCells.push([element[0] + 1, element[1]]);
                     }
                     if (
                         element[1] > 0 &&
-                        movementBoard[element[0]][element[1] - 1] !== 7
+                        movementBoard[element[0]][element[1] - 1] !== 7 &&
+                        isAbleCell(movementBoard[element[0]][element[1] - 1])
                     ) {
-                        neighborCells.push([element[0], element[1] - 1]);
+                        let a = element[0];
+                        let b = element[1];
+                        console.log(String(a) + String(b));
+                        switch (`${String(a) + String(b)}`) {
+                            case "36":
+                                if (element[0] !== 3 && element[1] - 1 !== 7) {
+                                    neighborCells.push([
+                                        element[0],
+                                        element[1] - 1,
+                                    ]);
+                                }
+                                break;
+                            case "517":
+                                if (element[0] !== 5 && element[1] - 1 !== 16) {
+                                    neighborCells.push([
+                                        element[0],
+                                        element[1] - 1,
+                                    ]);
+                                }
+                                break;
+                            case "194":
+                                if (element[0] !== 18 && element[1] - 1 !== 4) {
+                                    neighborCells.push([
+                                        element[0],
+                                        element[1] - 1,
+                                    ]);
+                                }
+                                break;
+                            default:
+                                neighborCells.push([
+                                    element[0],
+                                    element[1] - 1,
+                                ]);
+                                break;
+                        }
+                        // neighborCells.push([element[0], element[1] - 1]);
                     }
                     if (
                         element[1] < 23 &&
-                        movementBoard[element[0]][element[1] + 1] !== 7
+                        movementBoard[element[0]][element[1] + 1] !== 7 &&
+                        isAbleCell(movementBoard[element[0]][element[1] + 1])
                     ) {
-                        neighborCells.push([element[0], element[1] + 1]);
+                        let a = element[0];
+                        let b = element[1];
+                        console.log(String(a) + String(b));
+                        switch (`${String(a) + String(b)}`) {
+                            case "36":
+                                if (element[0] !== 3 && element[1] + 1 !== 7) {
+                                    neighborCells.push([
+                                        element[0],
+                                        element[1] + 1,
+                                    ]);
+                                }
+                                break;
+                            case "517":
+                                if (element[0] !== 5 && element[1] + 1 !== 16) {
+                                    neighborCells.push([
+                                        element[0],
+                                        element[1] + 1,
+                                    ]);
+                                }
+                                break;
+                            case "194":
+                                if (element[0] !== 18 && element[1] + 1 !== 4) {
+                                    neighborCells.push([
+                                        element[0],
+                                        element[1] + 1,
+                                    ]);
+                                }
+                                break;
+                            default:
+                                neighborCells.push([
+                                    element[0],
+                                    element[1] + 1,
+                                ]);
+                                break;
+                        }
+                        // neighborCells.push([element[0], element[1] + 1]);
                     }
                     neighborCells = Array.from(
                         new Set(neighborCells.map(JSON.stringify)),
                         JSON.parse
                     );
                 });
+                blockedCell = false;
             }
         } else {
             console.log(
@@ -3968,29 +4138,217 @@ const onceReady = async () => {
 
                         if (
                             element[0] > 0 &&
-                            movementBoard[element[0] - 1][element[1]] !== 7
+                            movementBoard[element[0] - 1][element[1]] !== 7 &&
+                            isAbleCell(
+                                movementBoard[element[0] - 1][element[1]]
+                            )
                         ) {
+                            let a = element[0];
+                            let b = element[1];
+                            console.log(String(a) + String(b));
+                            switch (`${String(a) + String(b)}`) {
+                                case "36":
+                                    if (
+                                        element[0] - 1 !== 3 &&
+                                        element[1] !== 7
+                                    ) {
+                                        neighborCells.push([
+                                            element[0] - 1,
+                                            element[1],
+                                        ]);
+                                    }
+                                    break;
+                                case "517":
+                                    if (
+                                        element[0] - 1 !== 5 &&
+                                        element[1] !== 16
+                                    ) {
+                                        neighborCells.push([
+                                            element[0] - 1,
+                                            element[1],
+                                        ]);
+                                    }
+                                    break;
+                                case "194":
+                                    if (
+                                        element[0] - 1 !== 18 &&
+                                        element[1] !== 4
+                                    ) {
+                                        neighborCells.push([
+                                            element[0] - 1,
+                                            element[1],
+                                        ]);
+                                    }
+                                    break;
+                                default:
+                                    neighborCells.push([
+                                        element[0] - 1,
+                                        element[1],
+                                    ]);
+                                    break;
+                            }
                             /* console.log(`Analizando ${element[0]}`); */
-                            neighborCells.push([element[0] - 1, element[1]]);
+                            // neighborCells.push([element[0] - 1, element[1]]);
                             /* console.log(`sumando ${[element[0] - 1, element[1]]}`); */
                         }
                         if (
                             element[0] < 24 &&
-                            movementBoard[element[0] + 1][element[1]] !== 7
+                            movementBoard[element[0] + 1][element[1]] !== 7 &&
+                            isAbleCell(
+                                movementBoard[element[0] + 1][element[1]]
+                            )
                         ) {
-                            neighborCells.push([element[0] + 1, element[1]]);
+                            let a = element[0];
+                            let b = element[1];
+                            console.log(String(a) + String(b));
+                            switch (`${String(a) + String(b)}`) {
+                                case "36":
+                                    if (
+                                        element[0] + 1 !== 3 &&
+                                        element[1] !== 7
+                                    ) {
+                                        neighborCells.push([
+                                            element[0] + 1,
+                                            element[1],
+                                        ]);
+                                    }
+                                    break;
+                                case "517":
+                                    if (
+                                        element[0] + 1 !== 5 &&
+                                        element[1] !== 16
+                                    ) {
+                                        neighborCells.push([
+                                            element[0] + 1,
+                                            element[1],
+                                        ]);
+                                    }
+                                    break;
+                                case "194":
+                                    if (
+                                        element[0] + 1 !== 18 &&
+                                        element[1] !== 4
+                                    ) {
+                                        neighborCells.push([
+                                            element[0] + 1,
+                                            element[1],
+                                        ]);
+                                    }
+                                    break;
+                                default:
+                                    neighborCells.push([
+                                        element[0] + 1,
+                                        element[1],
+                                    ]);
+                                    break;
+                            }
+                            // neighborCells.push([element[0] + 1, element[1]]);
                         }
                         if (
                             element[1] > 0 &&
-                            movementBoard[element[0]][element[1] - 1] !== 7
+                            movementBoard[element[0]][element[1] - 1] !== 7 &&
+                            isAbleCell(
+                                movementBoard[element[0]][element[1] - 1]
+                            )
                         ) {
-                            neighborCells.push([element[0], element[1] - 1]);
+                            let a = element[0];
+                            let b = element[1];
+                            console.log(String(a) + String(b));
+                            switch (`${String(a) + String(b)}`) {
+                                case "36":
+                                    if (
+                                        element[0] !== 3 &&
+                                        element[1] - 1 !== 7
+                                    ) {
+                                        neighborCells.push([
+                                            element[0],
+                                            element[1] - 1,
+                                        ]);
+                                    }
+                                    break;
+                                case "517":
+                                    if (
+                                        element[0] !== 5 &&
+                                        element[1] - 1 !== 16
+                                    ) {
+                                        neighborCells.push([
+                                            element[0],
+                                            element[1] - 1,
+                                        ]);
+                                    }
+                                    break;
+                                case "194":
+                                    if (
+                                        element[0] !== 18 &&
+                                        element[1] - 1 !== 4
+                                    ) {
+                                        neighborCells.push([
+                                            element[0],
+                                            element[1] - 1,
+                                        ]);
+                                    }
+                                    break;
+                                default:
+                                    neighborCells.push([
+                                        element[0],
+                                        element[1] - 1,
+                                    ]);
+                                    break;
+                            }
+                            // neighborCells.push([element[0], element[1] - 1]);
                         }
                         if (
                             element[1] < 23 &&
-                            movementBoard[element[0]][element[1] + 1] !== 7
+                            movementBoard[element[0]][element[1] + 1] !== 7 &&
+                            isAbleCell(
+                                movementBoard[element[0]][element[1] + 1]
+                            )
                         ) {
-                            neighborCells.push([element[0], element[1] + 1]);
+                            let a = element[0];
+                            let b = element[1];
+                            console.log(String(a) + String(b));
+                            switch (`${String(a) + String(b)}`) {
+                                case "36":
+                                    if (
+                                        element[0] !== 3 &&
+                                        element[1] + 1 !== 7
+                                    ) {
+                                        neighborCells.push([
+                                            element[0],
+                                            element[1] + 1,
+                                        ]);
+                                    }
+                                    break;
+                                case "517":
+                                    if (
+                                        element[0] !== 5 &&
+                                        element[1] + 1 !== 16
+                                    ) {
+                                        neighborCells.push([
+                                            element[0],
+                                            element[1] + 1,
+                                        ]);
+                                    }
+                                    break;
+                                case "194":
+                                    if (
+                                        element[0] !== 18 &&
+                                        element[1] + 1 !== 4
+                                    ) {
+                                        neighborCells.push([
+                                            element[0],
+                                            element[1] + 1,
+                                        ]);
+                                    }
+                                    break;
+                                default:
+                                    neighborCells.push([
+                                        element[0],
+                                        element[1] + 1,
+                                    ]);
+                                    break;
+                            }
+                            // neighborCells.push([element[0], element[1] + 1]);
                         }
                         neighborCells = Array.from(
                             new Set(neighborCells.map(JSON.stringify)),
@@ -4004,6 +4362,9 @@ const onceReady = async () => {
         isRoomDoor();
         console.log(`Le estoy mandando accuseChecker ${accuseChecker}`);
         for (let cell of movementAbleCells) {
+            if (cell.classList.contains("movement-in-cell")) {
+                thereIsMovement = true;
+            }
             cell.addEventListener("click", (evt) => {
                 console.log(evt);
                 targetedCell = evt.path[0];
@@ -4039,6 +4400,17 @@ const onceReady = async () => {
                 }
             });
         }
+        if (!thereIsMovement) {
+            console.log(
+                `La puerta está bloqueada - Pintando puertas del lugar`
+            );
+            for (let place of multipleCoordenates) {
+                movementBoardTable.children[place[0]].children[
+                    [place[1]]
+                ].classList.add("movement-in-cell");
+            }
+        }
+        thereIsMovement = false;
     };
 
     // Función auxiliar que permite que al seleccionar las cartas de sospechoso, arma y lugar, vaya haciendo un checkmark y no se repitan en la tríada

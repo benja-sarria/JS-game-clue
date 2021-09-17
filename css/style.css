@@ -4,6 +4,11 @@
   box-sizing: border-box;
 }
 
+@font-face {
+  font-family: "seratUltra";
+  src: url("../assets/fonts/SeratUltra.ttf");
+  font-display: swap;
+}
 .navbar-light .navbar-toggler-icon {
   background-image: url("../assets/hamburguermenumobile.png");
 }
@@ -377,6 +382,11 @@
     margin-bottom: 0;
   }
 }
+.index-body .game-area-container .game-interface-container .system-message-area-container .system-messages-text {
+  font-family: "seratUltra";
+  font-size: 1.47em;
+  color: #0e6ba7;
+}
 .index-body .game-area-container .game-interface-container .system-message-area-container .system-messages-text .message-title {
   font-family: "Pontano Sans";
   color: #0e6ba7;
@@ -474,6 +484,21 @@
   max-height: 3em;
   border-radius: 50em;
 }
+.index-body .game-area-container .game-interface-container .system-message-area-container .dice-button {
+  background-color: transparent;
+  border: 0px solid transparent;
+  position: fixed;
+  top: 35em;
+  left: 35em;
+  transform: rotate(160deg);
+  z-index: 1000;
+}
+.index-body .game-area-container .game-interface-container .system-message-area-container .dice-button img {
+  max-height: 5em;
+  box-shadow: 0 0 2em 1em #fcbebe;
+  background-color: rgba(252, 190, 190, 0.9);
+  border-radius: 1em;
+}
 .index-body .game-area-container .game-interface-container .board-container {
   display: flex;
   justify-content: center;
@@ -539,7 +564,6 @@
   /* min-width: 3em; */
   margin: 5em;
   width: 0.5em;
-  max-height: 0.1em;
   height: 0.5em;
 }
 @media (min-width: 920px) {
@@ -555,7 +579,9 @@
 }
 @media (min-width: 400px) {
   .index-body .game-area-container .game-interface-container .board-container .game-board-table .board-row .board-cell img {
-    margin: 0 0 0 0em;
+    margin: 0 0 0 0.15em;
+    max-height: 1.8em;
+    max-width: 1.5em;
   }
 }
 @media (min-width: 820px) {

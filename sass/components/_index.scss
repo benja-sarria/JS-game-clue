@@ -326,6 +326,9 @@
                     margin-bottom: 0;
                 }
                 .system-messages-text {
+                    font-family: map-get($map: $fonts, $key: systemMsgs);
+                    font-size: 1.47em;
+                    color: map-get($map: $generalpalette, $key: bluemain);
                     .message-title {
                         @include titleSubtitle(
                             map-get($map: $fonts, $key: lighfont)
@@ -430,6 +433,21 @@
                         border-radius: 50em;
                     }
                 }
+                .dice-button {
+                    background-color: transparent;
+                    border: 0px solid transparent;
+                    position: fixed;
+                    top: 35em;
+                    left: 35em;
+                    transform: rotate(160deg);
+                    z-index: 1000;
+                    img {
+                        max-height: 5em;
+                        box-shadow: 0 0 2em 1em rgba(252, 190, 190, 1);
+                        background-color: rgba(252, 190, 190, 0.9);
+                        border-radius: 1em;
+                    }
+                }
             }
             .board-container {
                 display: flex;
@@ -513,7 +531,7 @@
                             /* min-width: 3em; */
                             margin: 5em;
                             width: 0.5em;
-                            max-height: 0.1em;
+                            // max-height: 0.1em;
                             height: 0.5em;
                             @media (min-width: 920px) {
                                 margin: 5em;
@@ -522,7 +540,9 @@
                             }
                             img {
                                 @media (min-width: 400px) {
-                                    margin: 0 0 0 0em;
+                                    margin: 0 0 0 0.15em;
+                                    max-height: 1.8em;
+                                    max-width: 1.5em;
                                 }
                                 @media (min-width: 820px) {
                                     margin: 0 0 0 0.2em;
