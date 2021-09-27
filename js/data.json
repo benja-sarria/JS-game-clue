@@ -48,5 +48,13 @@
         "estudio": "assets/cartas/estudio.png",
         "vestibulo": "assets/cartas/hall.png",
         "sala": "assets/cartas/sala.png"
+    },
+    "colors": {
+        "1": "rgb(206, 0, 0)",
+        "2": "rgb(226, 203, 0)",
+        "3": "rgb(105, 105, 105)",
+        "4": "rgb(44, 190, 24)",
+        "5": "rgb(49, 98, 233)",
+        "6": "rgb(107, 17, 192)"
     }
 }

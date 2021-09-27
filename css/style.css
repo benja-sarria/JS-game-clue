@@ -9,6 +9,27 @@
   src: url("../assets/fonts/SeratUltra.ttf");
   font-display: swap;
 }
+/* Hide scrollbar for IE, Edge and Firefox */
+/* -ms-overflow-style: none; */
+/* IE and Edge */
+/* scrollbar-width: none; */
+/* Firefox */
+/* Hide scrollbar for Chrome, Safari and Opera */
+::-webkit-scrollbar {
+  background-color: #0e6ba7;
+  width: 0.35em;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 5em;
+  background-image: linear-gradient(180deg, #00b2b0, rgba(0, 178, 176, 0.3));
+  /* 
+  background-color: transparentize(
+      $color: map-get($map: $generalpalette, $key: tealmain),
+      $amount: 0.3
+  ); */
+}
+
 .navbar-light .navbar-toggler-icon {
   background-image: url("../assets/hamburguermenumobile.png");
 }
@@ -23,6 +44,16 @@
   width: 100%;
   background-color: #0e6ba7;
   display: flex;
+}
+@media (max-width: 899px) {
+  .index-body .index-header .navbar-index {
+    padding: 0 0.8em;
+  }
+}
+@media (min-width: 1000px) {
+  .index-body .index-header .navbar-index {
+    padding: 0 0.35em;
+  }
 }
 @media (min-width: 992px) {
   .index-body .index-header .navbar-index {
@@ -357,11 +388,27 @@
   padding: 1em;
   background-color: white;
   border-radius: 0.45em;
+  display: flex;
+  flex-direction: column;
+}
+@media (min-width: 1300px) {
+  .index-body .game-area-container .game-interface-container {
+    display: flex;
+    flex-direction: row-reverse;
+  }
 }
 .index-body .game-area-container .game-interface-container .system-message-area-container {
+  position: sticky;
+  top: 1em;
+  background-color: rgba(255, 255, 255, 0.883);
+  z-index: 1500;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
   padding: 1em;
-  min-height: 30vh;
-  height: 30vh;
+  height: auto;
+  min-height: 13vh;
+  /* height: 30vh; */
   border: 0.35em solid #00b2b0;
   border-radius: 0.75em;
   box-shadow: 1px 5px 30px 5px #00b2b0;
@@ -369,12 +416,15 @@
 }
 @media (min-width: 1300px) {
   .index-body .game-area-container .game-interface-container .system-message-area-container {
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-direction: column;
     max-width: 22vw;
     min-height: 140vh;
     width: 30em;
     height: 39em;
-    position: absolute;
-    top: 6.25em;
+    position: sticky;
+    top: 0.5em;
     right: 1.25em;
     border: 0.35em solid #00b2b0;
     border-radius: 0.75em;
@@ -386,6 +436,13 @@
   font-family: "seratUltra";
   font-size: 1.47em;
   color: #0e6ba7;
+  margin-bottom: 0;
+}
+@media (min-width: 1300px) {
+  .index-body .game-area-container .game-interface-container .system-message-area-container .system-messages-text {
+    position: sticky;
+    top: 0.5em;
+  }
 }
 .index-body .game-area-container .game-interface-container .system-message-area-container .system-messages-text .message-title {
   font-family: "Pontano Sans";
@@ -416,50 +473,23 @@
   display: none;
 }
 .index-body .game-area-container .game-interface-container .system-message-area-container .dialog-interface-container {
+  position: unset;
   display: flex;
-  margin: 2em auto 0;
+  margin: 2em 2em 0 0;
   max-width: 30%;
   justify-content: space-evenly;
-  position: absolute;
-  top: 30%;
-  left: 35%;
-}
-@media (min-width: 323px) {
-  .index-body .game-area-container .game-interface-container .system-message-area-container .dialog-interface-container {
-    top: 35%;
-    left: 35%;
-  }
-}
-@media (min-width: 420px) {
-  .index-body .game-area-container .game-interface-container .system-message-area-container .dialog-interface-container {
-    top: 30%;
-    left: 35%;
-  }
-}
-@media (min-width: 530px) {
-  .index-body .game-area-container .game-interface-container .system-message-area-container .dialog-interface-container {
-    top: 35%;
-    left: 57%;
-  }
-}
-@media (min-width: 712px) {
-  .index-body .game-area-container .game-interface-container .system-message-area-container .dialog-interface-container {
-    top: 40.5%;
-    left: 67%;
-  }
-}
-@media (min-width: 900px) {
-  .index-body .game-area-container .game-interface-container .system-message-area-container .dialog-interface-container {
-    top: 35%;
-    left: 67%;
-  }
 }
 @media (min-width: 922px) {
   .index-body .game-area-container .game-interface-container .system-message-area-container .dialog-interface-container {
     position: unset;
-    top: 0%;
-    left: 0%;
     max-width: 30%;
+  }
+}
+@media (min-width: 1300px) {
+  .index-body .game-area-container .game-interface-container .system-message-area-container .dialog-interface-container {
+    position: sticky;
+    top: 7em;
+    justify-content: flex-start;
   }
 }
 .index-body .game-area-container .game-interface-container .system-message-area-container .dialog-interface-container .dialog-interface-box {
@@ -489,15 +519,106 @@
   border: 0px solid transparent;
   position: fixed;
   top: 35em;
-  left: 35em;
+  /* left: 35em; */
   transform: rotate(160deg);
   z-index: 1000;
+}
+@media (min-width: 323px) {
+  .index-body .game-area-container .game-interface-container .system-message-area-container .dice-button {
+    top: 30em;
+    right: 0.5em;
+  }
+}
+@media (min-width: 420px) {
+  .index-body .game-area-container .game-interface-container .system-message-area-container .dice-button {
+    top: 34em;
+  }
+}
+@media (min-width: 530px) {
+  .index-body .game-area-container .game-interface-container .system-message-area-container .dice-button {
+    top: 34em;
+    right: 1em;
+  }
+}
+@media (min-width: 712px) {
+  .index-body .game-area-container .game-interface-container .system-message-area-container .dice-button {
+    top: 33em;
+    right: 1.5em;
+  }
+}
+@media (min-width: 922px) {
+  .index-body .game-area-container .game-interface-container .system-message-area-container .dice-button {
+    top: 32em;
+    right: 2em;
+  }
+}
+@media (min-width: 1300px) {
+  .index-body .game-area-container .game-interface-container .system-message-area-container .dice-button {
+    top: 32em;
+    right: 22em;
+  }
 }
 .index-body .game-area-container .game-interface-container .system-message-area-container .dice-button img {
   max-height: 5em;
   box-shadow: 0 0 2em 1em #fcbebe;
   background-color: rgba(252, 190, 190, 0.9);
   border-radius: 1em;
+}
+@media (min-width: 323px) {
+  .index-body .game-area-container .game-interface-container .system-message-area-container .dice-button img {
+    max-height: 3em;
+  }
+}
+@media (min-width: 712px) {
+  .index-body .game-area-container .game-interface-container .system-message-area-container .dice-button img {
+    max-height: 4em;
+  }
+}
+@media (min-width: 922px) {
+  .index-body .game-area-container .game-interface-container .system-message-area-container .dice-button img {
+    max-height: 5em;
+  }
+}
+.index-body .game-area-container .game-interface-container .system-message-area-container .accusation-button {
+  display: block;
+  /* position: absolute; */
+  /* z-index: 2000;
+  @media (min-width: 323px) {
+      top: 11em;
+  }
+  @media (min-width: 420px) {
+      top: 10.75em;
+      right: 3em;
+  }
+  @media (min-width: 530px) {
+       top: 10.25em;
+  }
+  @media (min-width: 712px) {
+         top: 11.5em;
+  }
+  @media (min-width: 900px) {
+      top: 9em;
+  }
+
+  @media (min-width: 922px) {
+      top: 8em;
+  }
+  @media (min-width: 1300px) {
+      top: 15em;
+  }
+
+  right: 3em; */
+}
+@media (min-width: 1300px) {
+  .index-body .game-area-container .game-interface-container .system-message-area-container .accusation-button {
+    margin: 1em;
+    align-self: flex-end;
+    position: sticky;
+    top: 6em;
+  }
+}
+.index-body .game-area-container .game-interface-container .system-message-area-container .hidden-accusation-button {
+  display: none;
 }
 .index-body .game-area-container .game-interface-container .board-container {
   display: flex;
@@ -507,7 +628,8 @@
 @media (min-width: 1300px) {
   .index-body .game-area-container .game-interface-container .board-container {
     max-width: 70vw;
-    justify-content: flex-start;
+    justify-content: flex-end;
+    margin-right: 2.5em;
   }
 }
 .index-body .game-area-container .game-interface-container .board-container #escarlata-ficha {
@@ -3020,12 +3142,29 @@
 }
 .index-body .game-area-container .offcanvas-btn {
   position: absolute;
-  top: 60vh;
+  top: 50vh;
   left: -10vw;
   transition: all 150ms ease;
   min-width: 13vw;
+  z-index: 2500;
+}
+@media (min-width: 300px) {
+  .index-body .game-area-container .offcanvas-btn {
+    position: absolute;
+    left: -7vw;
+    top: 38vh;
+    min-height: 3em;
+  }
 }
 @media (min-width: 922px) {
+  .index-body .game-area-container .offcanvas-btn {
+    position: absolute;
+    left: -7vw;
+    top: 40vh;
+    min-height: 3em;
+  }
+}
+@media (min-width: 1300px) {
   .index-body .game-area-container .offcanvas-btn {
     position: absolute;
     left: -7vw;
@@ -3212,15 +3351,6 @@
 .index-body .game-area-container .offcanvas-body .row .col .show {
   width: 200%;
 }
-.index-body .accusation-button {
-  display: block;
-  position: absolute;
-  top: 16.5em;
-  right: 3em;
-}
-.index-body .hidden-accusation-button {
-  display: none;
-}
 .index-body .modal .modal-dialog .modal-content {
   /* .modal-header {
       /*  .modal-title {
@@ -3237,20 +3367,103 @@
   flex-wrap: wrap;
   justify-content: space-evenly;
   align-items: center;
-  max-width: 80%;
+  max-width: 95%;
   row-gap: 1em;
   margin: 0 auto;
   padding-left: 0;
   list-style: none;
 }
 .index-body .modal .modal-dialog .modal-content .modal-body .accusation-category-container .accusation-card-item .accusation-card {
-  max-height: 10em;
+  max-height: 9em;
+  margin: 0.15em;
+}
+@media (min-width: 860px) {
+  .index-body .modal .modal-dialog .modal-content .modal-body .accusation-category-container .accusation-card-item .accusation-card {
+    max-height: 12em;
+  }
 }
 .index-body .modal .modal-dialog .modal-content .modal-body .accusation-category-container .accusation-card-item .greyed-card {
   filter: grayscale(100%);
 }
+.index-body .modal .modal-dialog .modal-content .modal-body .accusation-category-container .card-suspect {
+  max-height: 30vh;
+  margin: 0.2em;
+}
+@media (min-width: 992px) {
+  .index-body .modal .modal-dialog .modal-content .modal-body .accusation-category-container .card-suspect {
+    max-height: 35vh;
+  }
+}
+@media (min-width: 1180px) {
+  .index-body .modal .modal-dialog .modal-content .modal-body .accusation-category-container .card-suspect {
+    max-height: 37vh;
+  }
+}
 .index-body .hidden-accusation-modal {
   display: none;
+}
+.index-body .swal2-container {
+  z-index: 2500;
+  outline: solid rgba(2, 2, 2, 0.5) 60em;
+  max-height: 98vh;
+}
+.index-body .swal2-container .swal2-popup {
+  margin-top: 2em;
+}
+.index-body .swal2-container .swal2-popup .swal2-image {
+  max-height: 14em;
+  max-width: 9em;
+}
+.index-body .swal2-container .swal2-popup .swal2-confirm {
+  background-color: #0e6ba7 !important;
+}
+.index-body .modal {
+  z-index: 2500;
+  /* display: flex; */
+  justify-content: center;
+  align-items: center;
+}
+.index-body .modal .modal-dialog {
+  max-width: none;
+}
+.index-body .modal .modal-dialog .modal-content {
+  outline: solid rgba(2, 2, 2, 0.5) 60em;
+  max-height: 90vh;
+  /* min-width: 60vw; */
+  max-width: 60vw;
+  overflow-y: scroll;
+  align-items: center;
+  /* left: -15em;
+  margin: 0 auto; */
+}
+.index-body .modal .modal-dialog .modal-content .modal-header {
+  width: 100%;
+  justify-content: space-between;
+}
+.index-body .modal .modal-dialog .modal-content .modal-body {
+  min-width: 50vw;
+  max-width: 50vw;
+  /* Hide scrollbar for IE, Edge and Firefox */
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */
+  /* Hide scrollbar for Chrome, Safari and Opera */
+}
+.index-body .modal .modal-dialog .modal-content .modal-body::-webkit-scrollbar {
+  display: none;
+}
+@media (min-width: 1092px) {
+  .index-body .modal .modal-dialog .modal-content .modal-body {
+    min-width: 42vw;
+    max-width: 42vw;
+  }
+}
+@media (min-width: 1300px) {
+  .index-body .modal .modal-dialog .modal-content .modal-body {
+    min-width: 40vw;
+    max-width: 40vw;
+  }
 }
 
 /* @media (min-width: 768px) and (max-width: 992px) {

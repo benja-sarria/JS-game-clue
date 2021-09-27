@@ -1,5 +1,4 @@
 // DECLARACIÓN DE VARIABLES A SER UTILIZADAS POSTERIORMENTE
-// primero consultamos la cantidad de jugadores
 let actualPlayer = 0;
 let playerNumber;
 let respuesta1;
@@ -57,6 +56,7 @@ const cartasDescubiertas = {};
 let showingCounter = 0;
 let cartaDetectada, holdingPlayer;
 let thereIsMovement, blockedCell;
+let playerWhoShowed;
 
 /* MAPA DEL TABLERO: Como los jugadores van del 1 al 6 - y en el array de jugadores los index van del 0 al 5, me reservo los números del 1 al 6 para ubicar a los jugadores, quedando el número 0 indicando los casilleros disponibles y el número 7 aquellos que no lo están. Las habitaciones se identifican por los siguientes numeros:
 Estudio: 8
@@ -322,7 +322,7 @@ const retrieveGameData = async () => {
     gameData = await dataFetch();
 };
 
-let personajesData, armasData, lugaresData, cartasData;
+let personajesData, armasData, lugaresData, cartasData, colorsData;
 
 // DECLARACIÓN DE FUNCIONES QUE ESTÁN RELACIONADAS A MOSTRAR ELEMENTOS DE LA INTERFAZ
 const showGame = (e) => {
@@ -340,6 +340,7 @@ const showGame = (e) => {
         armasData = gameData.armas;
         lugaresData = gameData.lugares;
         cartasData = gameData.cartas;
+        colorsData = gameData.colors;
         // console.log(personajes);
         onceReady();
     });
@@ -406,7 +407,7 @@ const navBarToggler = (e) => {
         }, 20);
     }
 };
-
+// ANIMACIONES CON JQUERY AL MODIFICAR LA PANTALLA
 window.addEventListener("resize", () => {
     if (screen.width >= 992) {
         console.log(`detectando el screen mayor `);
@@ -513,6 +514,7 @@ const onceReady = async () => {
     gameMessages.children[0].innerText = `¡Bienvenido a The Clue!
     En esta casa se ha cometido un crimen. Deberás recorrer la casa, investigando y hallando pistas que te ayuden a aclarar lo sucedido ¡Éxitos en tu búsqueda!`;
 
+    // Función de animación del dado
     const rollingAnimation = (counter) => {
         let rotation = 120;
         let processedcounter = counter;
@@ -563,6 +565,7 @@ const onceReady = async () => {
         hideInterface();
     };
 
+    // Personalización del apartado del jugador en donde se muestran las cartas del mismo
     const personalizePlayerOffcanvas = (player) => {
         switch (player + 1) {
             case 1:
@@ -656,6 +659,7 @@ const onceReady = async () => {
 
                 break;
         }
+        // Analiza las cartas del jugador, tanto las propias como las descubiertas y determina a qué mano correspoden. Luego añade las clases CSS con el border del color del jugador a quien corresponde
         let cartaDetectada, holdingPlayer;
         for (let row in everyDiscovery) {
             console.dir(everyDiscovery[row]);
@@ -773,7 +777,6 @@ const onceReady = async () => {
                     playerNumberConfirmation = true;
                 }
                 // Turno Jugador 1
-                /* let someOneWon = false; */
                 if (actualPlayer === 0) {
                     suspectHolderRow.innerHTML = ``;
                     weaponsHolderRow.innerHTML = ``;
@@ -807,7 +810,7 @@ const onceReady = async () => {
                     personalizePlayerOffcanvas(actualPlayer);
                     setTimeout(() => {
                         activePlayerPiece.focus();
-                    }, 5000);
+                    }, 4000);
                 } else if (actualPlayer === 1) {
                     suspectHolderRow.innerHTML = ``;
                     weaponsHolderRow.innerHTML = ``;
@@ -841,7 +844,7 @@ const onceReady = async () => {
                     personalizePlayerOffcanvas(actualPlayer);
                     setTimeout(() => {
                         activePlayerPiece.focus();
-                    }, 5000);
+                    }, 4000);
                 }
 
                 break;
@@ -887,7 +890,7 @@ const onceReady = async () => {
                     personalizePlayerOffcanvas(actualPlayer);
                     setTimeout(() => {
                         activePlayerPiece.focus();
-                    }, 5000);
+                    }, 4000);
                 } else if (actualPlayer === 1) {
                     suspectHolderRow.innerHTML = ``;
                     weaponsHolderRow.innerHTML = ``;
@@ -921,7 +924,7 @@ const onceReady = async () => {
                     personalizePlayerOffcanvas(actualPlayer);
                     setTimeout(() => {
                         activePlayerPiece.focus();
-                    }, 5000);
+                    }, 4000);
                 } else if (actualPlayer === 2) {
                     suspectHolderRow.innerHTML = ``;
                     weaponsHolderRow.innerHTML = ``;
@@ -955,7 +958,7 @@ const onceReady = async () => {
                     personalizePlayerOffcanvas(actualPlayer);
                     setTimeout(() => {
                         activePlayerPiece.focus();
-                    }, 5000);
+                    }, 4000);
                 }
                 break;
             case 4:
@@ -1000,7 +1003,7 @@ const onceReady = async () => {
                     personalizePlayerOffcanvas(actualPlayer);
                     setTimeout(() => {
                         activePlayerPiece.focus();
-                    }, 5000);
+                    }, 4000);
                 } else if (actualPlayer === 1) {
                     suspectHolderRow.innerHTML = ``;
                     weaponsHolderRow.innerHTML = ``;
@@ -1034,7 +1037,7 @@ const onceReady = async () => {
                     personalizePlayerOffcanvas(actualPlayer);
                     setTimeout(() => {
                         activePlayerPiece.focus();
-                    }, 5000);
+                    }, 4000);
                 } else if (actualPlayer === 2) {
                     suspectHolderRow.innerHTML = ``;
                     weaponsHolderRow.innerHTML = ``;
@@ -1068,7 +1071,7 @@ const onceReady = async () => {
                     personalizePlayerOffcanvas(actualPlayer);
                     setTimeout(() => {
                         activePlayerPiece.focus();
-                    }, 5000);
+                    }, 4000);
                 } else if (actualPlayer === 3) {
                     suspectHolderRow.innerHTML = ``;
                     weaponsHolderRow.innerHTML = ``;
@@ -1102,7 +1105,7 @@ const onceReady = async () => {
                     personalizePlayerOffcanvas(actualPlayer);
                     setTimeout(() => {
                         activePlayerPiece.focus();
-                    }, 5000);
+                    }, 4000);
                 }
                 break;
             case 5:
@@ -1147,7 +1150,7 @@ const onceReady = async () => {
                     personalizePlayerOffcanvas(actualPlayer);
                     setTimeout(() => {
                         activePlayerPiece.focus();
-                    }, 5000);
+                    }, 4000);
                 } else if (actualPlayer === 1) {
                     suspectHolderRow.innerHTML = ``;
                     weaponsHolderRow.innerHTML = ``;
@@ -1181,7 +1184,7 @@ const onceReady = async () => {
                     personalizePlayerOffcanvas(actualPlayer);
                     setTimeout(() => {
                         activePlayerPiece.focus();
-                    }, 5000);
+                    }, 4000);
                 } else if (actualPlayer === 2) {
                     suspectHolderRow.innerHTML = ``;
                     weaponsHolderRow.innerHTML = ``;
@@ -1215,7 +1218,7 @@ const onceReady = async () => {
                     personalizePlayerOffcanvas(actualPlayer);
                     setTimeout(() => {
                         activePlayerPiece.focus();
-                    }, 5000);
+                    }, 4000);
                 } else if (actualPlayer === 3) {
                     suspectHolderRow.innerHTML = ``;
                     weaponsHolderRow.innerHTML = ``;
@@ -1249,7 +1252,7 @@ const onceReady = async () => {
                     personalizePlayerOffcanvas(actualPlayer);
                     setTimeout(() => {
                         activePlayerPiece.focus();
-                    }, 5000);
+                    }, 4000);
                 } else if (actualPlayer === 4) {
                     suspectHolderRow.innerHTML = ``;
                     weaponsHolderRow.innerHTML = ``;
@@ -1283,7 +1286,7 @@ const onceReady = async () => {
                     personalizePlayerOffcanvas(actualPlayer);
                     setTimeout(() => {
                         activePlayerPiece.focus();
-                    }, 5000);
+                    }, 4000);
                 }
                 break;
             case 6:
@@ -1328,7 +1331,7 @@ const onceReady = async () => {
                     personalizePlayerOffcanvas(actualPlayer);
                     setTimeout(() => {
                         activePlayerPiece.focus();
-                    }, 5000);
+                    }, 4000);
                 } else if (actualPlayer === 1) {
                     suspectHolderRow.innerHTML = ``;
                     weaponsHolderRow.innerHTML = ``;
@@ -1362,7 +1365,7 @@ const onceReady = async () => {
                     personalizePlayerOffcanvas(actualPlayer);
                     setTimeout(() => {
                         activePlayerPiece.focus();
-                    }, 5000);
+                    }, 4000);
                 } else if (actualPlayer === 2) {
                     suspectHolderRow.innerHTML = ``;
                     weaponsHolderRow.innerHTML = ``;
@@ -1396,7 +1399,7 @@ const onceReady = async () => {
                     personalizePlayerOffcanvas(actualPlayer);
                     setTimeout(() => {
                         activePlayerPiece.focus();
-                    }, 5000);
+                    }, 4000);
                 } else if (actualPlayer === 3) {
                     suspectHolderRow.innerHTML = ``;
                     weaponsHolderRow.innerHTML = ``;
@@ -1430,7 +1433,7 @@ const onceReady = async () => {
                     personalizePlayerOffcanvas(actualPlayer);
                     setTimeout(() => {
                         activePlayerPiece.focus();
-                    }, 5000);
+                    }, 4000);
                 } else if (actualPlayer === 4) {
                     suspectHolderRow.innerHTML = ``;
                     weaponsHolderRow.innerHTML = ``;
@@ -1464,7 +1467,7 @@ const onceReady = async () => {
                     personalizePlayerOffcanvas(actualPlayer);
                     setTimeout(() => {
                         activePlayerPiece.focus();
-                    }, 5000);
+                    }, 4000);
                 } else if (actualPlayer === 5) {
                     suspectHolderRow.innerHTML = ``;
                     weaponsHolderRow.innerHTML = ``;
@@ -1498,7 +1501,7 @@ const onceReady = async () => {
                     personalizePlayerOffcanvas(actualPlayer);
                     setTimeout(() => {
                         activePlayerPiece.focus();
-                    }, 5000);
+                    }, 4000);
                 }
                 break;
             default:
@@ -1506,8 +1509,7 @@ const onceReady = async () => {
         }
     };
 
-    const accusation = () => {};
-
+    // Función que determina si corresponde o no iniciar la dinámica de acusación en función de si detecta que la ficha se encuentra dentro de una habitación
     const enoughToAccuse = (newCell, position) => {
         console.log("ejecutando enoughToAccuse");
         actualAccusingRoom = position;
@@ -1551,7 +1553,7 @@ const onceReady = async () => {
                 turnDynamic(playerNumber);
             }, 2000);
         }
-
+        // Reseteo de variables necesarias para el siguiente jugador
         console.log(movingPlayer);
         movingPlayer = undefined;
         movement = undefined;
@@ -1566,7 +1568,7 @@ const onceReady = async () => {
         newCoordenates = [undefined, undefined];
         activePlayerPiece = undefined;
     };
-
+    // Función que determina dónde se encuentra la ficha del jugador, tanto en la matriz como en el DOM; remueve la ficha del lugar anterior en la matriz devolviendo el valor 0 si era una celda cualquiera, o filtrando el array si era en una puerta, y elimina el IMG del DOM. Y Determina la nueva posición, ubicándola tanto en la matriz como en la nueva celda del HTML.
     const movingPlayerToCell = (
         actualPlayer,
         movingPlayerRow,
@@ -2993,7 +2995,7 @@ const onceReady = async () => {
                 break;
         }
     };
-
+    // Función que sirve para determinar si se trata de la puerta de una habitación. Y analiza a su vez si la antesala se encuentra disponible para ingresar - Corrije errores de cálculo de movimiento en casos muy específicos.
     const isRoomDoor = () => {
         console.log(`========= Ejecutando isRoomDoor =========`);
         let antesala, sala;
@@ -3175,7 +3177,7 @@ const onceReady = async () => {
         }
         console.log(`Total de puertas corregidas`);
     };
-
+    // Función que ayuda a determinar si se trata de un casillero susceptible de recibir a la ficha, o si es en realidad una pared o casillero inhabil.
     const isAbleCell = (cell) => {
         if (typeof cell === "number") {
             if (
@@ -3213,7 +3215,7 @@ const onceReady = async () => {
         }
     };
 
-    const playerAccused = (player, cell) => {
+    /* const playerAccused = (player, cell) => {
         if (
             cell === +(String(8) + String(player)) ||
             cell === +(String(9) + String(player)) ||
@@ -3229,10 +3231,11 @@ const onceReady = async () => {
         } else {
             return false;
         }
-    };
-
+    }; */
+    // FUNCIÓN PRINCIPAL PARA LA DETERMINACIÓN DEL MOVIMIENTO DEL PERSONAJE - Ubica la posición de la ficha, y en función de eso inicia el cálculo de las celdas vecinas determinando cuáles son hábiles para el movimiento y cuáles no. De ser hábiles, les añade la Clase movementAbleCell, permitiendo el movimiento de la ficha a la celda.
     const playerMovement = (diceNumber, actualPlayer) => {
         console.log(`ejecutando player movement`);
+        activePlayerPiece.focus();
         /* console.log(actualPlayer);
     console.log(diceNumber); */
         movement = diceNumber;
@@ -4414,7 +4417,7 @@ const onceReady = async () => {
     };
 
     // Función auxiliar que permite que al seleccionar las cartas de sospechoso, arma y lugar, vaya haciendo un checkmark y no se repitan en la tríada
-    const isInTriad = () => {
+    /* const isInTriad = () => {
         for (item of selectedTriade) {
             console.log(item);
             if (
@@ -4429,8 +4432,25 @@ const onceReady = async () => {
                 return false;
             }
         }
-    };
+    }; */
 
+    const popUpAccAdvise = (card) => {
+        switch (card) {
+            case "LLAVEDETUERCAS":
+                return "LLAVE DE TUERCAS";
+                break;
+            case "SALONDEBAILE":
+                return "SALÓN DE BAILE";
+                break;
+            case "SALADEBILLAR":
+                return "SALA DE BILLAR";
+                break;
+            default:
+                return card;
+                break;
+        }
+    };
+    // Función AUXILIAR de checkingNextPlHand; permite analizar la mano del jugador que sigue al que realizó la acusación. Recorre la Clave del jugador siguiente, analizando los arrays de cartas para determinar si tiene alguna carta que se corresponda con la acusación. De ser así, determina en forma aleatoria cuál carta mostrar al jugador que realizó la acusación. En caso de no tener ninguna, sigue hacia el jugador que le sigue (Función recurrente)
     const searchingPlHand = (player) => {
         if (player > Object.keys(manosArmadas).length) {
             player = 1;
@@ -4448,6 +4468,7 @@ const onceReady = async () => {
                     if (selectedTriade.includes(card)) {
                         console.log(`El jugador ${nextPlayer} tiene: ${card}`);
                         possibleShowingCards.push(card);
+                        playerWhoShowed = nextPlayer;
                     }
                 }
             }
@@ -4468,7 +4489,7 @@ const onceReady = async () => {
             }
         }
     };
-
+    // FUNCIÓN QUE BUSCA DETERMINAR SI EL JUGADOR SIGUIENTE TIENE CARTAS PARA MOSTRAR AL QUE SE ENCUENTRA HACIENDO LA ACUSACIÓN
     const checkingNextPlHand = (selectedTriade) => {
         matchFind = false;
         let triadeAccusationCheck = selectedTriade;
@@ -4492,10 +4513,65 @@ const onceReady = async () => {
             cardToShow = pickedCard[0];
             console.log(`Tiene varias cartas a mostrar, se seleccionó:`);
             console.log(cardToShow);
+            let tempCard = popUpAccAdvise(cardToShow);
+            Swal.fire({
+                title: `¡No acertaste! El <span style="color: ${
+                    colors[`${playerWhoShowed}`]
+                }">Jugador ${playerWhoShowed}</span> te mostró: <br> <span style="color: ${
+                    colors[`${playerWhoShowed}`]
+                }">${tempCard}</span>`,
+                /* text: `${tempCard}`, */
+                imageUrl: `${cartas[`${cardToShow.toLowerCase()}`]}`,
+                imageWidth: 180,
+                imageHeight: 300,
+                imageAlt: `${tempCard}`,
+                timer: 4000,
+                timerProgressBar: true,
+                didOpen: () => {
+                    const b = Swal.getHtmlContainer().querySelector("b");
+                },
+            }).then((result) => {
+                /* Read more about handling dismissals below */
+                if (result.dismiss === Swal.DismissReason.timer) {
+                    console.log("I was closed by the timer");
+                }
+            });
         } else if (possibleShowingCards.length === 1) {
             cardToShow = possibleShowingCards[0];
             console.log(`Tiene una sola carta a mostrar, se seleccionó:`);
             console.log(cardToShow);
+            let tempCard = popUpAccAdvise(cardToShow);
+            Swal.fire({
+                title: `¡No acertaste! El <span style="color: ${
+                    colors[`${playerWhoShowed}`]
+                }">Jugador ${playerWhoShowed}</span> te mostró: <br> <span style="color: ${
+                    colors[`${playerWhoShowed}`]
+                }">${tempCard}</span>`,
+                /* text: `${tempCard}`, */
+                imageUrl: `${cartas[`${cardToShow.toLowerCase()}`]}`,
+                imageWidth: 180,
+                imageHeight: 300,
+                imageAlt: `${tempCard}`,
+                timer: 4000,
+                timerProgressBar: true,
+                didOpen: () => {
+                    const b = Swal.getHtmlContainer().querySelector("b");
+                },
+            }).then((result) => {
+                /* Read more about handling dismissals below */
+                if (result.dismiss === Swal.DismissReason.timer) {
+                    console.log("I was closed by the timer");
+                }
+            });
+        } else {
+            Swal.fire({
+                title: "Sweet!",
+                text: `¡No te mostraron cartas! Puede que tengas alguna de las acusadas`,
+                imageUrl: "https://unsplash.it/400/200",
+                imageWidth: 400,
+                imageHeight: 200,
+                imageAlt: "Custom image",
+            });
         }
         if (esPersonaje(cardToShow) !== undefined) {
             category = 0;
@@ -4522,9 +4598,10 @@ const onceReady = async () => {
         console.log(cartasDescubiertas);
         possibleShowingCards = [];
         cardToShow = undefined;
+        playerWhoShowed = undefined;
     };
 
-    // FUNCIÓN QUE UNA VEZ CONFIRMADA LA ACUSACIÓN CHEQUEA SI CORRESPONDE DECLARAR UN GANADOR, O SI POR EL CONTRARIO, CORRESPONDE DAR CURSO AL SIGUIENTE TURNO
+    // FUNCIÓN QUE UNA VEZ CONFIRMADA LA ACUSACIÓN CHEQUEA SI CORRESPONDE DECLARAR UN GANADOR, O SI POR EL CONTRARIO, CORRESPONDE MOSTRAR UNA CARTA DEL JUGADOR SIGUIENTE, Y DAR CURSO AL SIGUIENTE TURNO
     const confirmAccusation = (evt) => {
         console.log(selectedTarget);
         movingAccusedPlayer();
@@ -4573,12 +4650,14 @@ const onceReady = async () => {
             hideDiceBtn();
             hideAccBtn();
             resetAccusation();
-            turnDynamic(playerNumber);
+            setTimeout(() => {
+                turnDynamic(playerNumber);
+            }, 4500);
         }
     };
 
     let suspectCheck, weaponCheck;
-
+    // Función que restaura las cartas a su color natural para el siguiente turno
     const unGrayingCards = () => {
         console.log(`Despintando cartas jugador`);
         let counter = 0;
@@ -4853,7 +4932,7 @@ const onceReady = async () => {
                 break;
         }
     };
-
+    // Función que mueve la ficha del jugador acusado tanto en la matriz como en el DOM hacia la habitación en la cual se lo está acusando. Asimismo, se encarga de eliminar a la ficha de su posición anterior.
     const movingAccusedPlayer = () => {
         console.log(`Ejecutando moving accused player`);
         switch (selectedTarget) {
@@ -5913,7 +5992,7 @@ const onceReady = async () => {
                 ) {
                     case 10:
                         document
-                            .querySelector(`#cell-3t`)
+                            .querySelector(`#cell-4t`)
                             .appendChild(fichaJugadorMostaza);
                         break;
                     case 9:
@@ -6473,6 +6552,10 @@ const onceReady = async () => {
     const cartas = cartasData;
     console.log(cartas);
 
+    // OBJETO CON COLORES TRAIDO DEL JSON
+    const colors = colorsData;
+    console.log(cartas);
+
     // FUNCIÓN QUE PERMITE DETERMINAR QUÉ CARTAS TIENE EL JUGADOR, LAS CLASIFICA EN CATEGORÍAS, Y DEVUELVE UN OBJETO QUE SERÁ ALMACENADO EN LA SESSION STORAGE A LOS FINES DE PODER IMPRIMIR LAS CARTAS DEL JUGADOR EN PANTALLA, EVITANDO TENER QUE REALIZAR DICHO CÁLCULO CADA VEZ QUE SEA SU TURNO
     const readyForPrint = (jugador, tipoDeImpresion) => {
         console.log(`Ejecutando readyForPrint`);
@@ -6862,7 +6945,7 @@ const onceReady = async () => {
         console.dir(manosClasificadas);
         return manosClasificadas;
     };
-
+    // Reset de los session storage al recargar la página
     window.onunload = function () {
         for (let i = 1; i <= 6; i += 1) {
             sessionStorage.removeItem(`playerHand${i}`);
@@ -6904,5 +6987,8 @@ const onceReady = async () => {
                 .delay(300)
                 .fadeIn(600);
         }
+    });
+    accusationButton.addEventListener("click", () => {
+        accusationModal.style.display = "flex";
     });
 };
