@@ -230,13 +230,13 @@ const diceBtn = document.querySelector(`#dice-btn`);
 const cardHolder = document.querySelector(`#cardHolder`);
 const suspectHolderRow =
     cardHolder.childNodes[1].childNodes[1].childNodes[1].childNodes[1]
-        .childNodes[1];
+        .childNodes[3];
 const weaponsHolderRow =
     cardHolder.childNodes[1].childNodes[1].childNodes[1].childNodes[1]
-        .childNodes[3];
+        .childNodes[7];
 const roomsHolderRow =
     cardHolder.childNodes[1].childNodes[1].childNodes[1].childNodes[1]
-        .childNodes[5];
+        .childNodes[11];
 const accusationModal = document.querySelector(`#accusationModal`);
 const accusationButton = document.querySelector(`#accusationButton`);
 const suspectsAccContainer =
@@ -276,6 +276,7 @@ const collapse1 = document.querySelector(`#multiCollapseExample1`);
 const collapse2 = document.querySelector(`#multiCollapseExample2`);
 const offcanvasTitle = document.querySelector(`#offcanvasExampleLabel`);
 const offcanvasContainer = document.querySelector(`#offcanvasExample`);
+const offcanvasPortrait = document.querySelector(`.offcanvas-img`);
 
 // CASILLEROS DE LAS ENTRADAS HABITACIONES
 const salaDoor = document.querySelector(`#cell-6r`);
@@ -567,6 +568,9 @@ const onceReady = async () => {
 
     // Personalización del apartado del jugador en donde se muestran las cartas del mismo
     const personalizePlayerOffcanvas = (player) => {
+        offCanvasBtn.addEventListener("focus", () => {
+            offCanvasBtn.style.left = "";
+        });
         switch (player + 1) {
             case 1:
                 for (let i = 1; i <= 6; i += 1) {
@@ -581,7 +585,28 @@ const onceReady = async () => {
                 }, 2500);
                 offCanvasBtn.innerText = "Srita. Escarlata";
                 offcanvasTitle.innerHTML = "Srita. Escarlata";
+                offcanvasContainer.classList.remove(
+                    `offcanvas-player${totalPlayers.length}`
+                );
                 offcanvasContainer.classList.add("offcanvas-player1");
+                offcanvasTitle.classList.remove(
+                    `offcanvas-title-${totalPlayers.length}`
+                );
+                offcanvasTitle.classList.add("offcanvas-title-1");
+                offcanvasCloseBtn.style.backgroundColor = `${
+                    colors[actualPlayer + 1]
+                }`;
+                offcanvasCloseBtn.addEventListener("mouseover", () => {
+                    offcanvasCloseBtn.style.filter = `brightness(180%) grayscale(50%)`;
+                });
+                offcanvasCloseBtn.addEventListener("mouseout", () => {
+                    offcanvasCloseBtn.style.filter = `brightness(100%)`;
+                });
+                offcanvasPortrait.setAttribute(
+                    "src",
+                    "assets/escarlataCanvas.webp"
+                );
+
                 break;
             case 2:
                 for (let i = 1; i <= 6; i += 1) {
@@ -596,6 +621,23 @@ const onceReady = async () => {
                 }, 2500);
                 offCanvasBtn.innerText = "Cnel. Mostaza";
                 offcanvasTitle.innerHTML = "Cnel. Mostaza";
+                offcanvasContainer.classList.remove("offcanvas-player1");
+                offcanvasContainer.classList.add("offcanvas-player2");
+                offcanvasTitle.classList.remove("offcanvas-title-1");
+                offcanvasTitle.classList.add("offcanvas-title-2");
+                offcanvasCloseBtn.style.backgroundColor = `${
+                    colors[actualPlayer + 1]
+                }`;
+                offcanvasCloseBtn.addEventListener("mouseover", () => {
+                    offcanvasCloseBtn.style.filter = `brightness(80%) grayscale(50%)`;
+                });
+                offcanvasCloseBtn.addEventListener("mouseout", () => {
+                    offcanvasCloseBtn.style.filter = `brightness(100%)`;
+                });
+                offcanvasPortrait.setAttribute(
+                    "src",
+                    "assets/mostazaCanvas.webp"
+                );
 
                 break;
             case 3:
@@ -611,6 +653,23 @@ const onceReady = async () => {
                 }, 2500);
                 offCanvasBtn.innerText = "Sra. Blanco";
                 offcanvasTitle.innerHTML = "Sra. Blanco";
+                offcanvasContainer.classList.remove("offcanvas-player2");
+                offcanvasContainer.classList.add("offcanvas-player3");
+                offcanvasTitle.classList.remove("offcanvas-title-2");
+                offcanvasTitle.classList.add("offcanvas-title-3");
+                offcanvasCloseBtn.style.backgroundColor = `${
+                    colors[actualPlayer + 1]
+                }`;
+                offcanvasCloseBtn.addEventListener("mouseover", () => {
+                    offcanvasCloseBtn.style.filter = `brightness(180%) grayscale(50%)`;
+                });
+                offcanvasCloseBtn.addEventListener("mouseout", () => {
+                    offcanvasCloseBtn.style.filter = `brightness(100%)`;
+                });
+                offcanvasPortrait.setAttribute(
+                    "src",
+                    "assets/blancoCanvas.webp"
+                );
 
                 break;
             case 4:
@@ -626,6 +685,17 @@ const onceReady = async () => {
                 }, 2500);
                 offCanvasBtn.innerText = "Sr. Verdi";
                 offcanvasTitle.innerHTML = "Sr. Verdi";
+                offcanvasContainer.classList.remove("offcanvas-player3");
+                offcanvasContainer.classList.add("offcanvas-player4");
+                offcanvasTitle.classList.remove("offcanvas-title-3");
+                offcanvasTitle.classList.add("offcanvas-title-4");
+                offcanvasCloseBtn.style.backgroundColor = `${
+                    colors[actualPlayer + 1]
+                }`;
+                offcanvasPortrait.setAttribute(
+                    "src",
+                    "assets/verdiCanvas.webp"
+                );
 
                 break;
             case 5:
@@ -641,6 +711,17 @@ const onceReady = async () => {
                 }, 2500);
                 offCanvasBtn.innerText = "Sra. Azulino";
                 offcanvasTitle.innerHTML = "Sra. Azulino";
+                offcanvasContainer.classList.remove("offcanvas-player4");
+                offcanvasContainer.classList.add("offcanvas-player5");
+                offcanvasTitle.classList.remove("offcanvas-title-4");
+                offcanvasTitle.classList.add("offcanvas-title-5");
+                offcanvasCloseBtn.style.backgroundColor = `${
+                    colors[actualPlayer + 1]
+                }`;
+                offcanvasPortrait.setAttribute(
+                    "src",
+                    "assets/azulinoCanvas.webp"
+                );
 
                 break;
             case 6:
@@ -656,9 +737,38 @@ const onceReady = async () => {
                 }, 2500);
                 offCanvasBtn.innerText = "Prof. Moradillo";
                 offcanvasTitle.innerHTML = "Prof. Moradillo";
+                offcanvasContainer.classList.remove("offcanvas-player5");
+                offcanvasContainer.classList.add("offcanvas-player6");
+                offcanvasTitle.classList.remove("offcanvas-title-5");
+                offcanvasTitle.classList.add("offcanvas-title-6");
+                offcanvasCloseBtn.style.backgroundColor = `${
+                    colors[actualPlayer + 1]
+                }`;
+                offcanvasPortrait.setAttribute(
+                    "src",
+                    "assets/moradilloCanvas.webp"
+                );
 
                 break;
         }
+        offCanvasBtn.style.minWidth = `${
+            getTextWidth(offCanvasBtn.innerText, getCanvasFontSize()) + 40
+        }px`;
+        offCanvasBtn.addEventListener("mouseout", () => {
+            offCanvasBtn.style.left = `-${getTextWidth(
+                offCanvasBtn.innerText,
+                getCanvasFontSize()
+            )}px`;
+        });
+        offCanvasBtn.addEventListener("blur", () => {
+            offCanvasBtn.style.left = `-${getTextWidth(
+                offCanvasBtn.innerText,
+                getCanvasFontSize()
+            )}px`;
+        });
+        offCanvasBtn.addEventListener("mouseover", () => {
+            offCanvasBtn.style.left = `-1em`;
+        });
         // Analiza las cartas del jugador, tanto las propias como las descubiertas y determina a qué mano correspoden. Luego añade las clases CSS con el border del color del jugador a quien corresponde
         let cartaDetectada, holdingPlayer;
         for (let row in everyDiscovery) {
@@ -6958,6 +7068,7 @@ const onceReady = async () => {
         console.log(evt);
         console.log(collapse1);
         console.log(collapse2);
+        offCanvasBtn.blur();
         if (collapse1.classList.contains("show")) {
             console.log(`Cerrando el collapse own`);
             ownCardsBtn[0].click();
@@ -6991,4 +7102,82 @@ const onceReady = async () => {
     accusationButton.addEventListener("click", () => {
         accusationModal.style.display = "flex";
     });
+
+    window.addEventListener("scroll", (evt) => {
+        if (screen.width < 1299) {
+            if (window.scrollY > 112) {
+                offCanvasBtn.style.position = "absolute";
+                offCanvasBtn.style.maxWidth = `${offCanvasBtn.innerText.length}px`;
+                offCanvasBtn.style.minWidth = `${
+                    getTextWidth(offCanvasBtn.innerText, getCanvasFontSize()) +
+                    40
+                }px`;
+                offCanvasBtn.style.top = `${window.scrollY + 110}px`;
+                offCanvasBtn.style.transition = "top 1000ms ease";
+                offCanvasBtn.addEventListener("mouseover", () => {
+                    offCanvasBtn.style.transition = "left 150ms ease";
+                });
+                offCanvasBtn.addEventListener("focus", () => {
+                    offCanvasBtn.style.transition = "left 150ms ease";
+                });
+            } else {
+                offCanvasBtn.style.position = "absolute";
+                offCanvasBtn.style.maxWidth = "none";
+                offCanvasBtn.style.minWidth = `${
+                    getTextWidth(offCanvasBtn.innerText, getCanvasFontSize()) +
+                    40
+                }px`;
+                offCanvasBtn.style.top = "";
+                offCanvasBtn.style.transition = "all 150ms ease";
+            }
+        } else {
+            if (window.scrollY > 110) {
+                offCanvasBtn.style.position = "absolute";
+                offCanvasBtn.style.maxWidth = `${offCanvasBtn.innerText.length}px`;
+                offCanvasBtn.style.minWidth = `${
+                    getTextWidth(offCanvasBtn.innerText, getCanvasFontSize()) +
+                    40
+                }px`;
+                offCanvasBtn.style.top = `${window.scrollY + 40}px`;
+                offCanvasBtn.style.transition = "top 1000ms ease";
+                offCanvasBtn.addEventListener("mouseover", () => {
+                    offCanvasBtn.style.transition = "left 150ms ease";
+                });
+                offCanvasBtn.addEventListener("focus", () => {
+                    offCanvasBtn.style.transition = "left 150ms ease";
+                });
+            } else {
+                offCanvasBtn.style.position = "absolute";
+                offCanvasBtn.style.maxWidth = "none";
+                offCanvasBtn.style.minWidth = `${
+                    getTextWidth(offCanvasBtn.innerText, getCanvasFontSize()) +
+                    40
+                }px`;
+                offCanvasBtn.style.top = "";
+                offCanvasBtn.style.transition = "all 150ms ease";
+            }
+        }
+    });
 };
+function getTextWidth(text, font) {
+    // re-use canvas object for better performance
+    const canvas =
+        getTextWidth.canvas ||
+        (getTextWidth.canvas = document.createElement("canvas"));
+    const context = canvas.getContext("2d");
+    context.font = font;
+    const metrics = context.measureText(text);
+    return metrics.width;
+}
+
+function getCssStyle(element, prop) {
+    return window.getComputedStyle(element, null).getPropertyValue(prop);
+}
+
+function getCanvasFontSize(el = offCanvasBtn) {
+    const fontWeight = getCssStyle(el, "font-weight") || "normal";
+    const fontSize = getCssStyle(el, "font-size") || "16px";
+    const fontFamily = getCssStyle(el, "font-family") || "Times New Roman";
+
+    return `${fontWeight} ${fontSize} ${fontFamily}`;
+}

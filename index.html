@@ -15,6 +15,11 @@
         <title>desafío_9</title>
     </head>
     <body class="index-body">
+
+
+        <a class="btn btn-primary offcanvas-btn hide-offcanvas-btn " data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">
+            Link with href
+        </a>
         <!-- BEGINS INDEX HEADER -->
         <header class="index-header">
             <nav
@@ -790,9 +795,6 @@
                   Content for the offcanvas goes here. You can place just about any Bootstrap component or custom elements here.
                 </div>
             </div>
-            <a class="btn btn-primary offcanvas-btn hide-offcanvas-btn " data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">
-                Link with href
-            </a>
             <!-- <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
                 Button with data-bs-target
             </button> -->
@@ -804,6 +806,7 @@
             </div>
             <div class="offcanvas-body">
                 <!-- COLLAPSE STARTS -->
+                <img src="assets\main-baner-sm.png" alt="" class="offcanvas-img">
                 <p>
                     <a class="btn btn-primary" data-bs-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1" id="ownCardsBtn">Cartas en Mano</a>
                     <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#multiCollapseExample2" aria-expanded="false" aria-controls="multiCollapseExample2" id="shownCardsBtn">Cartas Descubiertas</button>
@@ -813,8 +816,11 @@
                         <div class="collapse multi-collapse" id="multiCollapseExample1">
                             <div class="card card-body" id="card-container-body">
                                 <ul class="category-container">
+                                    <p class="category-title">Sospechosos</p>
                                     <li class="cards-category suspects"></li>
+                                    <p class="category-title">Armas</p>
                                     <li class="cards-category weapons"></li>
+                                    <p class="category-title">Habitaciones</p>
                                     <li class="cards-category rooms"></li>
                                 </ul>
                             </div>

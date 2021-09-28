@@ -30,6 +30,168 @@
 
 .index-body {
     background-color: rgb(255, 255, 255);
+    .hide-offcanvas-btn {
+        display: none;
+    }
+    .offcanvas-btn {
+        padding-right: 0.55em;
+        position: absolute;
+        top: 50vh;
+        left: -10vw;
+        /* transition: all 150ms ease; */
+        /* min-width: 13vw; */
+        z-index: 2500;
+        @media (min-width: 300px) {
+            position: absolute;
+            /* left: -7vw; */
+            top: 38vh;
+            min-height: 3em;
+        }
+        @media (min-width: 922px) {
+            position: absolute;
+            /* left: -7vw; */
+            top: 40vh;
+            min-height: 3em;
+        }
+        @media (min-width: 1300px) {
+            position: absolute;
+            /*    left: -7vw; */
+            top: 20vh;
+            min-height: 3em;
+        }
+        &:focus {
+            left: -1vw;
+            border: transparent;
+            transition: all 200ms ease;
+            outline: transparent;
+            box-shadow: 0 0 0 0 transparent;
+        }
+        &:hover {
+            left: -1vw;
+            border: transparent;
+            transition: all 200ms ease;
+        }
+    }
+    .offcanvas-btn-player1 {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        background-color: rgb(206, 0, 0);
+        border-color: darken($color: rgb(206, 0, 0), $amount: 5);
+        &:hover {
+            color: rgb(245, 253, 244);
+            border: solid 2px rgba(226, 183, 183, 0.808);
+            box-shadow: 0 0 15px 5px rgba(187, 63, 63, 0.808);
+        }
+        &:focus {
+            color: rgb(245, 253, 244);
+            border: solid 2px rgba(226, 183, 183, 0.808);
+            box-shadow: 0 0 15px 5px rgba(187, 63, 63, 0.808);
+        }
+    }
+    .offcanvas-btn-player2 {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        color: darken($color: rgb(226, 203, 0), $amount: 30);
+        background-color: rgb(226, 203, 0);
+        border-color: darken($color: rgb(226, 203, 0), $amount: 5);
+        &:hover {
+            border: solid 2px rgb(250, 245, 204);
+            box-shadow: 0 0 15px 5px rgb(226, 203, 0);
+        }
+        &:focus {
+            border: solid 2px rgb(250, 245, 204);
+            box-shadow: 0 0 15px 5px rgb(226, 203, 0);
+        }
+    }
+    .offcanvas-btn-player3 {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        color: darken($color: rgb(105, 105, 105), $amount: 20);
+        background-color: rgb(219, 219, 211);
+        border-color: darken($color: rgb(219, 219, 211), $amount: 5);
+        &:hover {
+            border: solid 2px rgb(211, 211, 211);
+            box-shadow: 0 0 15px 5px rgb(176, 177, 176);
+        }
+        &:focus {
+            border: solid 2px rgb(211, 211, 211);
+            box-shadow: 0 0 15px 5px rgb(176, 177, 176);
+        }
+    }
+    .offcanvas-btn-player4 {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        color: darken($color: rgb(44, 190, 24), $amount: 30);
+        background-color: rgb(44, 190, 24);
+        border-color: darken($color: rgb(44, 190, 24), $amount: 15);
+        &:hover {
+            color: rgb(245, 253, 244);
+            border: solid 2px rgb(200, 229, 196);
+            box-shadow: 0 0 15px 5px rgb(113, 177, 104);
+        }
+        &:focus {
+            color: rgb(245, 253, 244);
+            border: solid 2px rgb(200, 229, 196);
+            box-shadow: 0 0 15px 5px rgb(113, 177, 104);
+        }
+    }
+    .offcanvas-btn-player5 {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        background-color: rgb(49, 98, 233);
+        border-color: darken($color: rgb(49, 98, 233), $amount: 5);
+        &:hover {
+            color: rgb(245, 253, 244);
+            border: solid 2px rgba(112, 132, 185, 0.801);
+            box-shadow: 0 0 15px 5px rgba(60, 96, 195, 0.801);
+        }
+        &:focus {
+            color: rgb(245, 253, 244);
+            border: solid 2px rgba(112, 132, 185, 0.801);
+            box-shadow: 0 0 15px 5px rgba(60, 96, 195, 0.801);
+        }
+    }
+    .offcanvas-btn-player6 {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        background-color: rgb(107, 17, 192);
+        border-color: darken($color: rgb(107, 17, 192), $amount: 5);
+        &:hover {
+            color: rgb(245, 253, 244);
+            border: solid 2px rgba(151, 116, 184, 0.801);
+            box-shadow: 0 0 15px 5px rgba(121, 57, 180, 0.801);
+        }
+        &:focus {
+            color: rgb(245, 253, 244);
+            border: solid 2px rgba(151, 116, 184, 0.801);
+            box-shadow: 0 0 15px 5px rgba(121, 57, 180, 0.801);
+        }
+    }
+    .offcanvas-player1 {
+        background-color: rgb(208, 0, 0);
+    }
+    .offcanvas-player2 {
+        background-color: rgb(226, 203, 0);
+    }
+    .offcanvas-player3 {
+        background-color: rgb(105, 105, 105);
+    }
+    .offcanvas-player4 {
+        background-color: rgb(44, 190, 24);
+    }
+    .offcanvas-player5 {
+        background-color: rgb(49, 98, 233);
+    }
+    .offcanvas-player6 {
+        background-color: rgb(107, 17, 192);
+    }
+
     .index-header {
         background-image: linear-gradient(
             to bottom,
@@ -420,16 +582,17 @@
                     position: unset;
                     display: flex;
                     margin: 2em 2em 0 0;
-                    max-width: 30%;
+                    max-width: 40%;
                     justify-content: space-evenly;
                     @media (min-width: 922px) {
                         position: unset;
-                        max-width: 30%;
+                        max-width: 40%;
                     }
                     @media (min-width: 1300px) {
                         position: sticky;
-                        top: 7em;
+                        top: 5.5em;
                         justify-content: flex-start;
+                        margin: 0em 0em 0em 10em;
                     }
                     .dialog-interface-box {
                         color: map-get($map: $generalpalette, $key: bluemain);
@@ -445,11 +608,25 @@
                                 $alpha: 0.45
                             );
                         margin-right: 0.15em;
+                        background-color: rgba($color: white, $alpha: 0.1);
+                        font-family: map-get($map: $fonts, $key: systemMsgs);
+                        padding-left: 0.5em;
+                        font-size: 1.1em;
+                        max-width: 3em;
                         &:focus {
                             border-color: map-get(
                                 $map: $generalpalette,
                                 $key: bluemain
                             );
+                            outline: 0.2px solid
+                                transparentize(
+                                    $color:
+                                        map-get(
+                                            $map: $generalpalette,
+                                            $key: bluemain
+                                        ),
+                                    $amount: 0.85
+                                );
                         }
                     }
                     .dialog-interface-button {
@@ -462,7 +639,7 @@
                         );
                         border: none;
                         min-width: 1.8em;
-                        min-height: 1.8em;
+                        /* min-height: 1.8em; */
                         max-width: 3em;
                         max-height: 3em;
                         border-radius: 50em;
@@ -3092,245 +3269,149 @@
                 }
             }
         }
-        .hide-offcanvas-btn {
-            display: none;
-        }
-        .offcanvas-btn {
-            position: absolute;
-            top: 50vh;
-            left: -10vw;
-            transition: all 150ms ease;
-            min-width: 13vw;
-            z-index: 2500;
-            @media (min-width: 300px) {
-                position: absolute;
-                left: -7vw;
-                top: 38vh;
-                min-height: 3em;
-            }
-            @media (min-width: 922px) {
-                position: absolute;
-                left: -7vw;
-                top: 40vh;
-                min-height: 3em;
-            }
-            @media (min-width: 1300px) {
-                position: absolute;
-                left: -7vw;
-                top: 20vh;
-                min-height: 3em;
-            }
-            &:focus {
-                left: -1vw;
-                border: transparent;
-                transition: all 200ms ease;
-                outline: transparent;
-                box-shadow: 0 0 0 0 transparent;
-            }
-            &:hover {
-                left: -1vw;
-                border: transparent;
-                transition: all 200ms ease;
-            }
-        }
-        .offcanvas-btn-player1 {
-            display: flex;
-            align-items: center;
-            justify-content: flex-end;
-            background-color: rgb(206, 0, 0);
-            border-color: darken($color: rgb(206, 0, 0), $amount: 5);
-            &:hover {
-                color: rgb(245, 253, 244);
-                border: solid 2px rgba(226, 183, 183, 0.808);
-                box-shadow: 0 0 15px 5px rgba(187, 63, 63, 0.808);
-            }
-            &:focus {
-                color: rgb(245, 253, 244);
-                border: solid 2px rgba(226, 183, 183, 0.808);
-                box-shadow: 0 0 15px 5px rgba(187, 63, 63, 0.808);
-            }
-        }
-        .offcanvas-btn-player2 {
-            display: flex;
-            align-items: center;
-            justify-content: flex-end;
-            color: darken($color: rgb(226, 203, 0), $amount: 30);
-            background-color: rgb(226, 203, 0);
-            border-color: darken($color: rgb(226, 203, 0), $amount: 5);
-            &:hover {
-                border: solid 2px rgb(250, 245, 204);
-                box-shadow: 0 0 15px 5px rgb(226, 203, 0);
-            }
-            &:focus {
-                border: solid 2px rgb(250, 245, 204);
-                box-shadow: 0 0 15px 5px rgb(226, 203, 0);
-            }
-        }
-        .offcanvas-btn-player3 {
-            display: flex;
-            align-items: center;
-            justify-content: flex-end;
-            color: darken($color: rgb(105, 105, 105), $amount: 20);
-            background-color: rgb(219, 219, 211);
-            border-color: darken($color: rgb(219, 219, 211), $amount: 5);
-            &:hover {
-                border: solid 2px rgb(211, 211, 211);
-                box-shadow: 0 0 15px 5px rgb(176, 177, 176);
-            }
-            &:focus {
-                border: solid 2px rgb(211, 211, 211);
-                box-shadow: 0 0 15px 5px rgb(176, 177, 176);
-            }
-        }
-        .offcanvas-btn-player4 {
-            display: flex;
-            align-items: center;
-            justify-content: flex-end;
-            color: darken($color: rgb(44, 190, 24), $amount: 30);
-            background-color: rgb(44, 190, 24);
-            border-color: darken($color: rgb(44, 190, 24), $amount: 15);
-            &:hover {
-                color: rgb(245, 253, 244);
-                border: solid 2px rgb(200, 229, 196);
-                box-shadow: 0 0 15px 5px rgb(113, 177, 104);
-            }
-            &:focus {
-                color: rgb(245, 253, 244);
-                border: solid 2px rgb(200, 229, 196);
-                box-shadow: 0 0 15px 5px rgb(113, 177, 104);
-            }
-        }
-        .offcanvas-btn-player5 {
-            display: flex;
-            align-items: center;
-            justify-content: flex-end;
-            background-color: rgb(49, 98, 233);
-            border-color: darken($color: rgb(49, 98, 233), $amount: 5);
-            &:hover {
-                color: rgb(245, 253, 244);
-                border: solid 2px rgba(112, 132, 185, 0.801);
-                box-shadow: 0 0 15px 5px rgba(60, 96, 195, 0.801);
-            }
-            &:focus {
-                color: rgb(245, 253, 244);
-                border: solid 2px rgba(112, 132, 185, 0.801);
-                box-shadow: 0 0 15px 5px rgba(60, 96, 195, 0.801);
-            }
-        }
-        .offcanvas-btn-player6 {
-            display: flex;
-            align-items: center;
-            justify-content: flex-end;
-            background-color: rgb(107, 17, 192);
-            border-color: darken($color: rgb(107, 17, 192), $amount: 5);
-            &:hover {
-                color: rgb(245, 253, 244);
-                border: solid 2px rgba(151, 116, 184, 0.801);
-                box-shadow: 0 0 15px 5px rgba(121, 57, 180, 0.801);
-            }
-            &:focus {
-                color: rgb(245, 253, 244);
-                border: solid 2px rgba(151, 116, 184, 0.801);
-                box-shadow: 0 0 15px 5px rgba(121, 57, 180, 0.801);
-            }
-        }
-        .offcanvas-player1 {
-            background-image: linear-gradient(
-                175deg,
-                rgb(100, 42, 42),
-                rgb(197, 69, 69),
-                rgb(230, 177, 177) 95%
-            );
-            background-color: rgb(206, 0, 0);
-        }
-        /* .offcanvas-player2 {
-        }
-        .offcanvas-player3 {
-        }
-        .offcanvas-player4 {
-        }
-        .offcanvas-player5 {
-        }
-        .offcanvas-player6 {
-        }
-        .offcanvas-player7 {
-        } */
-        .offcanvas-body {
-            p {
-                .btn-primary {
-                    display: none;
+        .offcanvas {
+            z-index: 3000;
+            background-image: url("../assets/offcanvaspattern.webp");
+            background-position: -10em -5em;
+            background-size: 60em;
+            .offcanvas-header {
+                .offcanvas-close-btn {
+                    background: url("../assets/offcanvasClose.webp") center/1em
+                        auto no-repeat;
+                    opacity: 1;
+                    outline: 2px solid rgba($color: white, $alpha: 0.5);
+                }
+                .offcanvas-title {
+                    background-color: white;
+                    border-radius: 0.35em;
+                    padding: 0.5em;
+                    border: 3px solid;
+                    color: white;
+                }
+                .offcanvas-title-1 {
+                    background-color: rgb(206, 0, 0);
+                    border-color: rgba(226, 183, 183, 0.808);
+                }
+                .offcanvas-title-2 {
+                    background-color: rgb(206, 185, 2);
+                    border-color: rgb(250, 245, 204);
+                }
+                .offcanvas-title-3 {
+                    background-color: rgb(105, 105, 105);
+                    border-color: rgb(211, 211, 211);
+                }
+                .offcanvas-title-4 {
+                    background-color: rgb(44, 190, 24);
+                    border-color: rgb(200, 229, 196);
+                }
+                .offcanvas-title-5 {
+                    background-color: rgb(49, 98, 233);
+                    border-color: rgba(218, 225, 245, 0.801);
+                }
+                .offcanvas-title-6 {
+                    background-color: rgb(107, 17, 192);
+                    border-color: rgba(239, 226, 252, 0.801);
                 }
             }
-            .row {
-                .col {
-                    .collapse {
-                        .card-body {
-                            width: 100%;
-                            .category-container {
-                                margin-bottom: 0;
-                                padding-left: 0;
-                                list-style: none;
-                                .cards-category {
-                                    border-bottom: 2px solid
-                                        rgba(
-                                            $color:
-                                                map-get(
-                                                    $map: $generalpalette,
-                                                    $key: tealmain
-                                                ),
-                                            $alpha: 0.25
+            .offcanvas-body {
+                .offcanvas-img {
+                    position: absolute;
+                    top: -2em;
+                    left: 15em;
+                    z-index: -500;
+                    min-width: 10em;
+                }
+                p {
+                    .btn-primary {
+                        display: none;
+                    }
+                }
+                .row {
+                    .col {
+                        .collapse {
+                            .card-body {
+                                width: 100%;
+                                .category-container {
+                                    margin-bottom: 0;
+                                    padding-left: 0;
+                                    list-style: none;
+                                    .category-title {
+                                        &:first-of-type {
+                                            margin-top: 0em;
+                                        }
+                                        margin-top: 1.5em;
+                                        margin-bottom: 0em;
+                                        color: map-get(
+                                            $map: $generalpalette,
+                                            $key: tealmain
                                         );
-                                    min-height: 25vh;
-                                    display: flex;
-                                    flex-wrap: wrap;
-                                    justify-content: space-evenly;
-                                    padding: 0.5em 0;
-                                    .card-suspect {
-                                        max-height: 25vh;
-                                        margin: 0.15em;
+                                        border-bottom: 2px solid
+                                            rgba(
+                                                $color:
+                                                    map-get(
+                                                        $map: $generalpalette,
+                                                        $key: tealmain
+                                                    ),
+                                                $alpha: 0.25
+                                            );
                                     }
-                                    &:last-child {
-                                        border-bottom: transparent;
-                                    }
-                                    .carta-escarlata {
-                                        border: 4px solid rgb(206, 0, 0);
-                                        background-color: rgb(206, 0, 0);
-                                        border-radius: 0.5em;
-                                    }
-                                    .carta-mostaza {
-                                        border: 4px solid rgb(243, 208, 13);
-                                        background-color: rgb(243, 208, 13);
-                                        border-radius: 0.5em;
-                                    }
-                                    .carta-blanco {
-                                        border: 4px solid rgb(219, 219, 211);
-                                        background-color: rgb(219, 219, 211);
-                                        border-radius: 0.5em;
-                                    }
-                                    .carta-verdi {
-                                        border: 4px solid rgb(44, 190, 24);
-                                        background-color: rgb(44, 190, 24);
-                                        border-radius: 0.5em;
-                                    }
-                                    .carta-azulino {
-                                        border: 4px solid rgb(49, 98, 233);
-                                        background-color: rgb(49, 98, 233);
-                                        border-radius: 0.5em;
-                                    }
-                                    .carta-moradillo {
-                                        border: 4px solid rgb(142, 17, 192);
-                                        background-color: rgb(142, 17, 192);
-                                        border-radius: 0.5em;
+                                    .cards-category {
+                                        min-height: 25vh;
+                                        display: flex;
+                                        flex-wrap: wrap;
+                                        justify-content: space-evenly;
+                                        padding: 0.5em 0;
+                                        .card-suspect {
+                                            max-height: 25vh;
+                                            margin: 0.15em;
+                                        }
+                                        &:last-child {
+                                            border-bottom: transparent;
+                                        }
+                                        .carta-escarlata {
+                                            border: 4px solid rgb(206, 0, 0);
+                                            background-color: rgb(206, 0, 0);
+                                            border-radius: 0.5em;
+                                        }
+                                        .carta-mostaza {
+                                            border: 4px solid rgb(243, 208, 13);
+                                            background-color: rgb(243, 208, 13);
+                                            border-radius: 0.5em;
+                                        }
+                                        .carta-blanco {
+                                            border: 4px solid rgb(219, 219, 211);
+                                            background-color: rgb(
+                                                219,
+                                                219,
+                                                211
+                                            );
+                                            border-radius: 0.5em;
+                                        }
+                                        .carta-verdi {
+                                            border: 4px solid rgb(44, 190, 24);
+                                            background-color: rgb(44, 190, 24);
+                                            border-radius: 0.5em;
+                                        }
+                                        .carta-azulino {
+                                            border: 4px solid rgb(49, 98, 233);
+                                            background-color: rgb(49, 98, 233);
+                                            border-radius: 0.5em;
+                                        }
+                                        .carta-moradillo {
+                                            border: 4px solid rgb(142, 17, 192);
+                                            background-color: rgb(142, 17, 192);
+                                            border-radius: 0.5em;
+                                        }
                                     }
                                 }
                             }
+                            .card-2 {
+                                right: 57%;
+                            }
                         }
-                        .card-2 {
-                            right: 57%;
+                        .show {
+                            width: 200%;
                         }
-                    }
-                    .show {
-                        width: 200%;
                     }
                 }
             }
