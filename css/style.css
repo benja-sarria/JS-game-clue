@@ -3423,8 +3423,6 @@
       /*  .modal-title {
       } 
   } */
-  /* .modal-footer {
-  } */
 }
 .index-body .modal .modal-dialog .modal-content .modal-body .hidden-accusation-category-container {
   display: none;
@@ -3465,6 +3463,12 @@
   .index-body .modal .modal-dialog .modal-content .modal-body .accusation-category-container .card-suspect {
     max-height: 37vh;
   }
+}
+.index-body .modal .modal-dialog .modal-content .modal-footer .btn-primary {
+  display: block;
+}
+.index-body .modal .modal-dialog .modal-content .modal-footer .btn-primary-hidden {
+  display: none;
 }
 .index-body .hidden-accusation-modal {
   display: none;

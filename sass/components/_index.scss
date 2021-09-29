@@ -3462,8 +3462,14 @@
                         }
                     }
                 }
-                /* .modal-footer {
-                } */
+                .modal-footer {
+                    .btn-primary {
+                        display: block;
+                    }
+                    .btn-primary-hidden {
+                        display: none;
+                    }
+                }
             }
         }
     }

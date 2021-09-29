@@ -323,7 +323,12 @@ const retrieveGameData = async () => {
     gameData = await dataFetch();
 };
 
-let personajesData, armasData, lugaresData, cartasData, colorsData;
+let personajesData,
+    armasData,
+    lugaresData,
+    cartasData,
+    colorsData,
+    offcanvasData;
 
 // DECLARACIÓN DE FUNCIONES QUE ESTÁN RELACIONADAS A MOSTRAR ELEMENTOS DE LA INTERFAZ
 const showGame = (e) => {
@@ -342,6 +347,7 @@ const showGame = (e) => {
         lugaresData = gameData.lugares;
         cartasData = gameData.cartas;
         colorsData = gameData.colors;
+        offcanvasData = gameData.offcanvas;
         // console.log(personajes);
         onceReady();
     });
@@ -558,6 +564,9 @@ const onceReady = async () => {
             showMessage(`Turno Jugador ${player}`);
         }, 1500);
         setTimeout(() => {
+            activePlayerPiece.focus();
+        }, 2600);
+        setTimeout(() => {
             showMessage(`¡Tira los dados!`);
         }, 3000);
         setTimeout(() => {
@@ -604,7 +613,7 @@ const onceReady = async () => {
                 });
                 offcanvasPortrait.setAttribute(
                     "src",
-                    "assets/escarlataCanvas.webp"
+                    `${offcanvasPlayerImages[actualPlayer + 1]}`
                 );
 
                 break;
@@ -636,7 +645,7 @@ const onceReady = async () => {
                 });
                 offcanvasPortrait.setAttribute(
                     "src",
-                    "assets/mostazaCanvas.webp"
+                    `${offcanvasPlayerImages[actualPlayer + 1]}`
                 );
 
                 break;
@@ -668,7 +677,7 @@ const onceReady = async () => {
                 });
                 offcanvasPortrait.setAttribute(
                     "src",
-                    "assets/blancoCanvas.webp"
+                    `${offcanvasPlayerImages[actualPlayer + 1]}`
                 );
 
                 break;
@@ -694,7 +703,7 @@ const onceReady = async () => {
                 }`;
                 offcanvasPortrait.setAttribute(
                     "src",
-                    "assets/verdiCanvas.webp"
+                    `${offcanvasPlayerImages[actualPlayer + 1]}`
                 );
 
                 break;
@@ -720,7 +729,7 @@ const onceReady = async () => {
                 }`;
                 offcanvasPortrait.setAttribute(
                     "src",
-                    "assets/azulinoCanvas.webp"
+                    `${offcanvasPlayerImages[actualPlayer + 1]}`
                 );
 
                 break;
@@ -746,7 +755,7 @@ const onceReady = async () => {
                 }`;
                 offcanvasPortrait.setAttribute(
                     "src",
-                    "assets/moradilloCanvas.webp"
+                    `${offcanvasPlayerImages[actualPlayer + 1]}`
                 );
 
                 break;
@@ -918,9 +927,6 @@ const onceReady = async () => {
                     printCards(actualPlayer);
                     greyscaleCards(actualPlayer);
                     personalizePlayerOffcanvas(actualPlayer);
-                    setTimeout(() => {
-                        activePlayerPiece.focus();
-                    }, 4000);
                 } else if (actualPlayer === 1) {
                     suspectHolderRow.innerHTML = ``;
                     weaponsHolderRow.innerHTML = ``;
@@ -952,9 +958,6 @@ const onceReady = async () => {
                     printCards(actualPlayer);
                     greyscaleCards(actualPlayer);
                     personalizePlayerOffcanvas(actualPlayer);
-                    setTimeout(() => {
-                        activePlayerPiece.focus();
-                    }, 4000);
                 }
 
                 break;
@@ -998,9 +1001,6 @@ const onceReady = async () => {
                     printCards(actualPlayer);
                     greyscaleCards(actualPlayer);
                     personalizePlayerOffcanvas(actualPlayer);
-                    setTimeout(() => {
-                        activePlayerPiece.focus();
-                    }, 4000);
                 } else if (actualPlayer === 1) {
                     suspectHolderRow.innerHTML = ``;
                     weaponsHolderRow.innerHTML = ``;
@@ -1032,9 +1032,6 @@ const onceReady = async () => {
                     printCards(actualPlayer);
                     greyscaleCards(actualPlayer);
                     personalizePlayerOffcanvas(actualPlayer);
-                    setTimeout(() => {
-                        activePlayerPiece.focus();
-                    }, 4000);
                 } else if (actualPlayer === 2) {
                     suspectHolderRow.innerHTML = ``;
                     weaponsHolderRow.innerHTML = ``;
@@ -1066,9 +1063,6 @@ const onceReady = async () => {
                     printCards(actualPlayer);
                     greyscaleCards(actualPlayer);
                     personalizePlayerOffcanvas(actualPlayer);
-                    setTimeout(() => {
-                        activePlayerPiece.focus();
-                    }, 4000);
                 }
                 break;
             case 4:
@@ -1111,9 +1105,6 @@ const onceReady = async () => {
                     printCards(actualPlayer);
                     greyscaleCards(actualPlayer);
                     personalizePlayerOffcanvas(actualPlayer);
-                    setTimeout(() => {
-                        activePlayerPiece.focus();
-                    }, 4000);
                 } else if (actualPlayer === 1) {
                     suspectHolderRow.innerHTML = ``;
                     weaponsHolderRow.innerHTML = ``;
@@ -1145,9 +1136,6 @@ const onceReady = async () => {
                     printCards(actualPlayer);
                     greyscaleCards(actualPlayer);
                     personalizePlayerOffcanvas(actualPlayer);
-                    setTimeout(() => {
-                        activePlayerPiece.focus();
-                    }, 4000);
                 } else if (actualPlayer === 2) {
                     suspectHolderRow.innerHTML = ``;
                     weaponsHolderRow.innerHTML = ``;
@@ -1179,9 +1167,6 @@ const onceReady = async () => {
                     printCards(actualPlayer);
                     greyscaleCards(actualPlayer);
                     personalizePlayerOffcanvas(actualPlayer);
-                    setTimeout(() => {
-                        activePlayerPiece.focus();
-                    }, 4000);
                 } else if (actualPlayer === 3) {
                     suspectHolderRow.innerHTML = ``;
                     weaponsHolderRow.innerHTML = ``;
@@ -1213,9 +1198,6 @@ const onceReady = async () => {
                     printCards(actualPlayer);
                     greyscaleCards(actualPlayer);
                     personalizePlayerOffcanvas(actualPlayer);
-                    setTimeout(() => {
-                        activePlayerPiece.focus();
-                    }, 4000);
                 }
                 break;
             case 5:
@@ -1258,9 +1240,6 @@ const onceReady = async () => {
                     printCards(actualPlayer);
                     greyscaleCards(actualPlayer);
                     personalizePlayerOffcanvas(actualPlayer);
-                    setTimeout(() => {
-                        activePlayerPiece.focus();
-                    }, 4000);
                 } else if (actualPlayer === 1) {
                     suspectHolderRow.innerHTML = ``;
                     weaponsHolderRow.innerHTML = ``;
@@ -1292,9 +1271,6 @@ const onceReady = async () => {
                     printCards(actualPlayer);
                     greyscaleCards(actualPlayer);
                     personalizePlayerOffcanvas(actualPlayer);
-                    setTimeout(() => {
-                        activePlayerPiece.focus();
-                    }, 4000);
                 } else if (actualPlayer === 2) {
                     suspectHolderRow.innerHTML = ``;
                     weaponsHolderRow.innerHTML = ``;
@@ -1326,9 +1302,6 @@ const onceReady = async () => {
                     printCards(actualPlayer);
                     greyscaleCards(actualPlayer);
                     personalizePlayerOffcanvas(actualPlayer);
-                    setTimeout(() => {
-                        activePlayerPiece.focus();
-                    }, 4000);
                 } else if (actualPlayer === 3) {
                     suspectHolderRow.innerHTML = ``;
                     weaponsHolderRow.innerHTML = ``;
@@ -1360,9 +1333,6 @@ const onceReady = async () => {
                     printCards(actualPlayer);
                     greyscaleCards(actualPlayer);
                     personalizePlayerOffcanvas(actualPlayer);
-                    setTimeout(() => {
-                        activePlayerPiece.focus();
-                    }, 4000);
                 } else if (actualPlayer === 4) {
                     suspectHolderRow.innerHTML = ``;
                     weaponsHolderRow.innerHTML = ``;
@@ -1394,9 +1364,6 @@ const onceReady = async () => {
                     printCards(actualPlayer);
                     greyscaleCards(actualPlayer);
                     personalizePlayerOffcanvas(actualPlayer);
-                    setTimeout(() => {
-                        activePlayerPiece.focus();
-                    }, 4000);
                 }
                 break;
             case 6:
@@ -1439,9 +1406,6 @@ const onceReady = async () => {
                     printCards(actualPlayer);
                     greyscaleCards(actualPlayer);
                     personalizePlayerOffcanvas(actualPlayer);
-                    setTimeout(() => {
-                        activePlayerPiece.focus();
-                    }, 4000);
                 } else if (actualPlayer === 1) {
                     suspectHolderRow.innerHTML = ``;
                     weaponsHolderRow.innerHTML = ``;
@@ -1473,9 +1437,6 @@ const onceReady = async () => {
                     printCards(actualPlayer);
                     greyscaleCards(actualPlayer);
                     personalizePlayerOffcanvas(actualPlayer);
-                    setTimeout(() => {
-                        activePlayerPiece.focus();
-                    }, 4000);
                 } else if (actualPlayer === 2) {
                     suspectHolderRow.innerHTML = ``;
                     weaponsHolderRow.innerHTML = ``;
@@ -1507,9 +1468,6 @@ const onceReady = async () => {
                     printCards(actualPlayer);
                     greyscaleCards(actualPlayer);
                     personalizePlayerOffcanvas(actualPlayer);
-                    setTimeout(() => {
-                        activePlayerPiece.focus();
-                    }, 4000);
                 } else if (actualPlayer === 3) {
                     suspectHolderRow.innerHTML = ``;
                     weaponsHolderRow.innerHTML = ``;
@@ -1541,9 +1499,6 @@ const onceReady = async () => {
                     printCards(actualPlayer);
                     greyscaleCards(actualPlayer);
                     personalizePlayerOffcanvas(actualPlayer);
-                    setTimeout(() => {
-                        activePlayerPiece.focus();
-                    }, 4000);
                 } else if (actualPlayer === 4) {
                     suspectHolderRow.innerHTML = ``;
                     weaponsHolderRow.innerHTML = ``;
@@ -1575,9 +1530,6 @@ const onceReady = async () => {
                     printCards(actualPlayer);
                     greyscaleCards(actualPlayer);
                     personalizePlayerOffcanvas(actualPlayer);
-                    setTimeout(() => {
-                        activePlayerPiece.focus();
-                    }, 4000);
                 } else if (actualPlayer === 5) {
                     suspectHolderRow.innerHTML = ``;
                     weaponsHolderRow.innerHTML = ``;
@@ -1609,9 +1561,6 @@ const onceReady = async () => {
                     printCards(actualPlayer);
                     greyscaleCards(actualPlayer);
                     personalizePlayerOffcanvas(actualPlayer);
-                    setTimeout(() => {
-                        activePlayerPiece.focus();
-                    }, 4000);
                 }
                 break;
             default:
@@ -1640,6 +1589,7 @@ const onceReady = async () => {
             setTimeout(() => {
                 showMessage(`El Jugador ${actualPlayer + 1} puede acusar:`);
             }, 2000);
+            activePlayerPiece.focus();
             showAccBtn();
             hideDiceBtn();
             accusationDynamic();
@@ -4675,12 +4625,22 @@ const onceReady = async () => {
             });
         } else {
             Swal.fire({
-                title: "Sweet!",
+                title: "¿Estarás cerca...?",
                 text: `¡No te mostraron cartas! Puede que tengas alguna de las acusadas`,
-                imageUrl: "https://unsplash.it/400/200",
-                imageWidth: 400,
-                imageHeight: 200,
-                imageAlt: "Custom image",
+                imageUrl: `${cartas.unknown}`,
+                imageWidth: 180,
+                imageHeight: 300,
+                imageAlt: "Clue unknown card",
+                timer: 4000,
+                timerProgressBar: true,
+                didOpen: () => {
+                    const b = Swal.getHtmlContainer().querySelector("b");
+                },
+            }).then((result) => {
+                /* Read more about handling dismissals below */
+                if (result.dismiss === Swal.DismissReason.timer) {
+                    console.log("I was closed by the timer");
+                }
             });
         }
         if (esPersonaje(cardToShow) !== undefined) {
@@ -4713,6 +4673,7 @@ const onceReady = async () => {
 
     // FUNCIÓN QUE UNA VEZ CONFIRMADA LA ACUSACIÓN CHEQUEA SI CORRESPONDE DECLARAR UN GANADOR, O SI POR EL CONTRARIO, CORRESPONDE MOSTRAR UNA CARTA DEL JUGADOR SIGUIENTE, Y DAR CURSO AL SIGUIENTE TURNO
     const confirmAccusation = (evt) => {
+        accusationConfirmBtn.classList.toggle("btn-primary-hidden");
         console.log(selectedTarget);
         movingAccusedPlayer();
         console.log(`la Solución es: ${solution}`);
@@ -6472,6 +6433,7 @@ const onceReady = async () => {
                         cartas[`${guess.toLowerCase()}`]
                     }" alt="${guess.toLowerCase()}" class="card-suspect">`;
                 }
+                accusationConfirmBtn.classList.toggle("btn-primary-hidden");
                 break;
         }
         accusationConfirmBtn.addEventListener("click", confirmAccusation);
@@ -6665,6 +6627,10 @@ const onceReady = async () => {
     // OBJETO CON COLORES TRAIDO DEL JSON
     const colors = colorsData;
     console.log(cartas);
+
+    // OBJETO CON IMÁGENES OFFCANVAS TRAIDO DEL JSON
+    const offcanvasPlayerImages = offcanvasData;
+    console.log(offcanvasPlayerImages);
 
     // FUNCIÓN QUE PERMITE DETERMINAR QUÉ CARTAS TIENE EL JUGADOR, LAS CLASIFICA EN CATEGORÍAS, Y DEVUELVE UN OBJETO QUE SERÁ ALMACENADO EN LA SESSION STORAGE A LOS FINES DE PODER IMPRIMIR LAS CARTAS DEL JUGADOR EN PANTALLA, EVITANDO TENER QUE REALIZAR DICHO CÁLCULO CADA VEZ QUE SEA SU TURNO
     const readyForPrint = (jugador, tipoDeImpresion) => {

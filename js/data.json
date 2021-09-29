@@ -47,7 +47,8 @@
         "biblioteca": "assets/cartas/biblioteca.png",
         "estudio": "assets/cartas/estudio.png",
         "vestibulo": "assets/cartas/hall.png",
-        "sala": "assets/cartas/sala.png"
+        "sala": "assets/cartas/sala.png",
+        "unknown": "assets/unknownCard.webp"
     },
     "colors": {
         "1": "rgb(206, 0, 0)",
@@ -56,5 +57,13 @@
         "4": "rgb(44, 190, 24)",
         "5": "rgb(49, 98, 233)",
         "6": "rgb(107, 17, 192)"
+    },
+    "offcanvas": {
+        "1": "assets/escarlataCanvas.webp",
+        "2": "assets/mostazaCanvas.webp",
+        "3": "assets/blancoCanvas.webp",
+        "4": "assets/verdiCanvas.webp",
+        "5": "assets/azulinoCanvas.webp",
+        "6": "assets/moradilloCanvas.webp"
     }
 }
