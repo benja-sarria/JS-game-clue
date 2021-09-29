@@ -76,8 +76,11 @@
         display: flex;
         align-items: center;
         justify-content: flex-end;
-        background-color: rgb(206, 0, 0);
-        border-color: darken($color: rgb(206, 0, 0), $amount: 5);
+        background-color: map-get($map: $generalpalette, $key: escarlata);
+        border-color: darken(
+            $color: map-get($map: $generalpalette, $key: escarlata),
+            $amount: 5
+        );
         &:hover {
             color: rgb(245, 253, 244);
             border: solid 2px rgba(226, 183, 183, 0.808);
@@ -93,23 +96,31 @@
         display: flex;
         align-items: center;
         justify-content: flex-end;
-        color: darken($color: rgb(226, 203, 0), $amount: 30);
-        background-color: rgb(226, 203, 0);
-        border-color: darken($color: rgb(226, 203, 0), $amount: 5);
+        // color: darken($color: rgb(219, 158, 2), $amount: 30);
+        background-color: map-get($map: $generalpalette, $key: mostaza);
+        border-color: darken(
+            $color: map-get($map: $generalpalette, $key: mostaza),
+            $amount: 5
+        );
         &:hover {
             border: solid 2px rgb(250, 245, 204);
-            box-shadow: 0 0 15px 5px rgb(226, 203, 0);
+            box-shadow: 0 0 15px 5px
+                map-get($map: $generalpalette, $key: mostaza);
         }
         &:focus {
             border: solid 2px rgb(250, 245, 204);
-            box-shadow: 0 0 15px 5px rgb(226, 203, 0);
+            box-shadow: 0 0 15px 5px
+                map-get($map: $generalpalette, $key: mostaza);
         }
     }
     .offcanvas-btn-player3 {
         display: flex;
         align-items: center;
         justify-content: flex-end;
-        color: darken($color: rgb(105, 105, 105), $amount: 20);
+        color: darken(
+            $color: map-get($map: $generalpalette, $key: blanco),
+            $amount: 20
+        );
         background-color: rgb(219, 219, 211);
         border-color: darken($color: rgb(219, 219, 211), $amount: 5);
         &:hover {
@@ -125,9 +136,15 @@
         display: flex;
         align-items: center;
         justify-content: flex-end;
-        color: darken($color: rgb(44, 190, 24), $amount: 30);
-        background-color: rgb(44, 190, 24);
-        border-color: darken($color: rgb(44, 190, 24), $amount: 15);
+        color: darken(
+            $color: map-get($map: $generalpalette, $key: verdi),
+            $amount: 30
+        );
+        background-color: map-get($map: $generalpalette, $key: verdi);
+        border-color: darken(
+            $color: map-get($map: $generalpalette, $key: verdi),
+            $amount: 15
+        );
         &:hover {
             color: rgb(245, 253, 244);
             border: solid 2px rgb(200, 229, 196);
@@ -143,8 +160,11 @@
         display: flex;
         align-items: center;
         justify-content: flex-end;
-        background-color: rgb(49, 98, 233);
-        border-color: darken($color: rgb(49, 98, 233), $amount: 5);
+        background-color: map-get($map: $generalpalette, $key: azulino);
+        border-color: darken(
+            $color: map-get($map: $generalpalette, $key: azulino),
+            $amount: 5
+        );
         &:hover {
             color: rgb(245, 253, 244);
             border: solid 2px rgba(112, 132, 185, 0.801);
@@ -160,8 +180,11 @@
         display: flex;
         align-items: center;
         justify-content: flex-end;
-        background-color: rgb(107, 17, 192);
-        border-color: darken($color: rgb(107, 17, 192), $amount: 5);
+        background-color: map-get($map: $generalpalette, $key: moradillo);
+        border-color: darken(
+            $color: map-get($map: $generalpalette, $key: moradillo),
+            $amount: 5
+        );
         &:hover {
             color: rgb(245, 253, 244);
             border: solid 2px rgba(151, 116, 184, 0.801);
@@ -174,22 +197,22 @@
         }
     }
     .offcanvas-player1 {
-        background-color: rgb(208, 0, 0);
+        background-color: map-get($map: $generalpalette, $key: escarlata);
     }
     .offcanvas-player2 {
-        background-color: rgb(226, 203, 0);
+        background-color: map-get($map: $generalpalette, $key: mostaza);
     }
     .offcanvas-player3 {
-        background-color: rgb(105, 105, 105);
+        background-color: map-get($map: $generalpalette, $key: blanco);
     }
     .offcanvas-player4 {
-        background-color: rgb(44, 190, 24);
+        background-color: map-get($map: $generalpalette, $key: verdi);
     }
     .offcanvas-player5 {
-        background-color: rgb(49, 98, 233);
+        background-color: map-get($map: $generalpalette, $key: azulino);
     }
     .offcanvas-player6 {
-        background-color: rgb(107, 17, 192);
+        background-color: map-get($map: $generalpalette, $key: moradillo);
     }
 
     .index-header {
@@ -695,6 +718,7 @@
                 }
                 .accusation-button {
                     display: block;
+                    border: none;
                     @media (min-width: 1300px) {
                         margin: 1em;
                         align-self: flex-end;
@@ -744,18 +768,26 @@
                 }
                 #escarlata-ficha {
                     box-shadow: 0px 0px 20px 5px
-                        rgba($color: rgb(206, 0, 0), $alpha: 1);
+                        rgba(
+                            $color:
+                                map-get($map: $generalpalette, $key: escarlata),
+                            $alpha: 1
+                        );
                     background-color: rgba(
-                        $color: rgb(206, 0, 0),
-                        $alpha: 0.55
+                        $color: map-get($map: $generalpalette, $key: escarlata),
+                        $alpha: 0.65
                     );
                 }
                 #mostaza-ficha {
                     box-shadow: 0px 0px 20px 5px
-                        rgba($color: rgb(226, 203, 0), $alpha: 1);
+                        rgba(
+                            $color:
+                                map-get($map: $generalpalette, $key: mostaza),
+                            $alpha: 1
+                        );
                     background-color: rgba(
-                        $color: rgb(226, 203, 0),
-                        $alpha: 0.55
+                        $color: map-get($map: $generalpalette, $key: mostaza),
+                        $alpha: 0.65
                     );
                 }
                 #blanco-ficha {
@@ -763,30 +795,41 @@
                         rgba($color: rgb(219, 219, 211), $alpha: 1);
                     background-color: rgba(
                         $color: rgb(219, 219, 211),
-                        $alpha: 0.55
+                        $alpha: 0.65
                     );
                 }
                 #verdi-ficha {
                     box-shadow: 0px 0px 20px 5px
-                        rgba($color: rgb(44, 190, 24), $alpha: 1);
+                        rgba(
+                            $color: map-get($map: $generalpalette, $key: verdi),
+                            $alpha: 1
+                        );
                     background-color: rgba(
-                        $color: rgb(44, 190, 24),
-                        $alpha: 0.55
+                        $color: map-get($map: $generalpalette, $key: verdi),
+                        $alpha: 0.65
                     );
                 }
                 #azulino-ficha {
                     box-shadow: 0px 0px 20px 5px
-                        rgba($color: rgb(49, 98, 233), $alpha: 1);
+                        rgba(
+                            $color:
+                                map-get($map: $generalpalette, $key: azulino),
+                            $alpha: 1
+                        );
                     background-color: rgba(
-                        $color: rgb(49, 98, 233),
-                        $alpha: 0.55
+                        $color: map-get($map: $generalpalette, $key: azulino),
+                        $alpha: 0.65
                     );
                 }
                 #moradillo-ficha {
                     box-shadow: 0px 0px 20px 5px
-                        rgba($color: rgb(107, 17, 192), $alpha: 1);
+                        rgba(
+                            $color:
+                                map-get($map: $generalpalette, $key: moradillo),
+                            $alpha: 1
+                        );
                     background-color: rgba(
-                        $color: rgb(107, 17, 192),
+                        $color: map-get($map: $generalpalette, $key: moradillo),
                         $alpha: 0.55
                     );
                 }
@@ -3289,27 +3332,45 @@
                     color: white;
                 }
                 .offcanvas-title-1 {
-                    background-color: rgb(206, 0, 0);
+                    background-color: map-get(
+                        $map: $generalpalette,
+                        $key: escarlata
+                    );
                     border-color: rgba(226, 183, 183, 0.808);
                 }
                 .offcanvas-title-2 {
-                    background-color: rgb(206, 185, 2);
+                    background-color: map-get(
+                        $map: $generalpalette,
+                        $key: mostaza
+                    );
                     border-color: rgb(250, 245, 204);
                 }
                 .offcanvas-title-3 {
-                    background-color: rgb(105, 105, 105);
+                    background-color: map-get(
+                        $map: $generalpalette,
+                        $key: blanco
+                    );
                     border-color: rgb(211, 211, 211);
                 }
                 .offcanvas-title-4 {
-                    background-color: rgb(44, 190, 24);
+                    background-color: map-get(
+                        $map: $generalpalette,
+                        $key: verdi
+                    );
                     border-color: rgb(200, 229, 196);
                 }
                 .offcanvas-title-5 {
-                    background-color: rgb(49, 98, 233);
+                    background-color: map-get(
+                        $map: $generalpalette,
+                        $key: azulino
+                    );
                     border-color: rgba(218, 225, 245, 0.801);
                 }
                 .offcanvas-title-6 {
-                    background-color: rgb(107, 17, 192);
+                    background-color: map-get(
+                        $map: $generalpalette,
+                        $key: moradillo
+                    );
                     border-color: rgba(239, 226, 252, 0.801);
                 }
             }
@@ -3369,13 +3430,27 @@
                                             border-bottom: transparent;
                                         }
                                         .carta-escarlata {
-                                            border: 4px solid rgb(206, 0, 0);
-                                            background-color: rgb(206, 0, 0);
+                                            border: 4px solid
+                                                map-get(
+                                                    $map: $generalpalette,
+                                                    $key: escarlata
+                                                );
+                                            background-color: map-get(
+                                                $map: $generalpalette,
+                                                $key: escarlata
+                                            );
                                             border-radius: 0.5em;
                                         }
                                         .carta-mostaza {
-                                            border: 4px solid rgb(243, 208, 13);
-                                            background-color: rgb(243, 208, 13);
+                                            border: 4px solid
+                                                map-get(
+                                                    $map: $generalpalette,
+                                                    $key: mostaza
+                                                );
+                                            background-color: map-get(
+                                                $map: $generalpalette,
+                                                $key: mostaza
+                                            );
                                             border-radius: 0.5em;
                                         }
                                         .carta-blanco {
@@ -3388,18 +3463,39 @@
                                             border-radius: 0.5em;
                                         }
                                         .carta-verdi {
-                                            border: 4px solid rgb(44, 190, 24);
-                                            background-color: rgb(44, 190, 24);
+                                            border: 4px solid
+                                                map-get(
+                                                    $map: $generalpalette,
+                                                    $key: verdi
+                                                );
+                                            background-color: map-get(
+                                                $map: $generalpalette,
+                                                $key: verdi
+                                            );
                                             border-radius: 0.5em;
                                         }
                                         .carta-azulino {
-                                            border: 4px solid rgb(49, 98, 233);
-                                            background-color: rgb(49, 98, 233);
+                                            border: 4px solid
+                                                map-get(
+                                                    $map: $generalpalette,
+                                                    $key: azulino
+                                                );
+                                            background-color: map-get(
+                                                $map: $generalpalette,
+                                                $key: azulino
+                                            );
                                             border-radius: 0.5em;
                                         }
                                         .carta-moradillo {
-                                            border: 4px solid rgb(142, 17, 192);
-                                            background-color: rgb(142, 17, 192);
+                                            border: 4px solid
+                                                map-get(
+                                                    $map: $generalpalette,
+                                                    $key: moradillo
+                                                );
+                                            background-color: map-get(
+                                                $map: $generalpalette,
+                                                $key: moradillo
+                                            );
                                             border-radius: 0.5em;
                                         }
                                     }
@@ -3420,10 +3516,16 @@
     .modal {
         .modal-dialog {
             .modal-content {
-                /* .modal-header {
-                    /*  .modal-title {
-                    } 
-                } */
+                .modal-header {
+                    border-color: rgba(
+                        $color: map-get($map: $generalpalette, $key: tealmain),
+                        $alpha: 0.35
+                    );
+
+                    .modal-title {
+                        color: map-get($map: $generalpalette, $key: tealmain);
+                    }
+                }
                 .modal-body {
                     .hidden-accusation-category-container {
                         display: none;
@@ -3465,6 +3567,7 @@
                 .modal-footer {
                     .btn-primary {
                         display: block;
+                        border: none;
                     }
                     .btn-primary-hidden {
                         display: none;

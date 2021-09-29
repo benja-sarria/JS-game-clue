@@ -106,17 +106,16 @@
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  color: #494200;
-  background-color: #e2cb00;
-  border-color: #c9b400;
+  background-color: #e0a100;
+  border-color: #c78f00;
 }
 .index-body .offcanvas-btn-player2:hover {
   border: solid 2px #faf5cc;
-  box-shadow: 0 0 15px 5px #e2cb00;
+  box-shadow: 0 0 15px 5px #e0a100;
 }
 .index-body .offcanvas-btn-player2:focus {
   border: solid 2px #faf5cc;
-  box-shadow: 0 0 15px 5px #e2cb00;
+  box-shadow: 0 0 15px 5px #e0a100;
 }
 .index-body .offcanvas-btn-player3 {
   display: flex;
@@ -187,10 +186,10 @@
   box-shadow: 0 0 15px 5px rgba(121, 57, 180, 0.801);
 }
 .index-body .offcanvas-player1 {
-  background-color: #d00000;
+  background-color: #ce0000;
 }
 .index-body .offcanvas-player2 {
-  background-color: #e2cb00;
+  background-color: #e0a100;
 }
 .index-body .offcanvas-player3 {
   background-color: dimgray;
@@ -743,6 +742,7 @@
 }
 .index-body .game-area-container .game-interface-container .system-message-area-container .accusation-button {
   display: block;
+  border: none;
   /* position: absolute; */
   /* z-index: 2000;
   @media (min-width: 323px) {
@@ -796,23 +796,23 @@
 }
 .index-body .game-area-container .game-interface-container .board-container #escarlata-ficha {
   box-shadow: 0px 0px 20px 5px #ce0000;
-  background-color: rgba(206, 0, 0, 0.55);
+  background-color: rgba(206, 0, 0, 0.65);
 }
 .index-body .game-area-container .game-interface-container .board-container #mostaza-ficha {
-  box-shadow: 0px 0px 20px 5px #e2cb00;
-  background-color: rgba(226, 203, 0, 0.55);
+  box-shadow: 0px 0px 20px 5px #e0a100;
+  background-color: rgba(224, 161, 0, 0.65);
 }
 .index-body .game-area-container .game-interface-container .board-container #blanco-ficha {
   box-shadow: 0px 0px 20px 5px #dbdbd3;
-  background-color: rgba(219, 219, 211, 0.55);
+  background-color: rgba(219, 219, 211, 0.65);
 }
 .index-body .game-area-container .game-interface-container .board-container #verdi-ficha {
   box-shadow: 0px 0px 20px 5px #2cbe18;
-  background-color: rgba(44, 190, 24, 0.55);
+  background-color: rgba(44, 190, 24, 0.65);
 }
 .index-body .game-area-container .game-interface-container .board-container #azulino-ficha {
   box-shadow: 0px 0px 20px 5px #3162e9;
-  background-color: rgba(49, 98, 233, 0.55);
+  background-color: rgba(49, 98, 233, 0.65);
 }
 .index-body .game-area-container .game-interface-container .board-container #moradillo-ficha {
   box-shadow: 0px 0px 20px 5px #6b11c0;
@@ -3322,7 +3322,7 @@
   border-color: rgba(226, 183, 183, 0.808);
 }
 .index-body .game-area-container .offcanvas .offcanvas-header .offcanvas-title-2 {
-  background-color: #ceb902;
+  background-color: #e0a100;
   border-color: #faf5cc;
 }
 .index-body .game-area-container .offcanvas .offcanvas-header .offcanvas-title-3 {
@@ -3388,8 +3388,8 @@
   border-radius: 0.5em;
 }
 .index-body .game-area-container .offcanvas .offcanvas-body .row .col .collapse .card-body .category-container .cards-category .carta-mostaza {
-  border: 4px solid #f3d00d;
-  background-color: #f3d00d;
+  border: 4px solid #e0a100;
+  background-color: #e0a100;
   border-radius: 0.5em;
 }
 .index-body .game-area-container .offcanvas .offcanvas-body .row .col .collapse .card-body .category-container .cards-category .carta-blanco {
@@ -3408,8 +3408,8 @@
   border-radius: 0.5em;
 }
 .index-body .game-area-container .offcanvas .offcanvas-body .row .col .collapse .card-body .category-container .cards-category .carta-moradillo {
-  border: 4px solid #8e11c0;
-  background-color: #8e11c0;
+  border: 4px solid #6b11c0;
+  background-color: #6b11c0;
   border-radius: 0.5em;
 }
 .index-body .game-area-container .offcanvas .offcanvas-body .row .col .collapse .card-2 {
@@ -3418,11 +3418,11 @@
 .index-body .game-area-container .offcanvas .offcanvas-body .row .col .show {
   width: 200%;
 }
-.index-body .modal .modal-dialog .modal-content {
-  /* .modal-header {
-      /*  .modal-title {
-      } 
-  } */
+.index-body .modal .modal-dialog .modal-content .modal-header {
+  border-color: rgba(0, 178, 176, 0.35);
+}
+.index-body .modal .modal-dialog .modal-content .modal-header .modal-title {
+  color: #00b2b0;
 }
 .index-body .modal .modal-dialog .modal-content .modal-body .hidden-accusation-category-container {
   display: none;
@@ -3466,6 +3466,7 @@
 }
 .index-body .modal .modal-dialog .modal-content .modal-footer .btn-primary {
   display: block;
+  border: none;
 }
 .index-body .modal .modal-dialog .modal-content .modal-footer .btn-primary-hidden {
   display: none;

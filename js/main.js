@@ -277,6 +277,7 @@ const collapse2 = document.querySelector(`#multiCollapseExample2`);
 const offcanvasTitle = document.querySelector(`#offcanvasExampleLabel`);
 const offcanvasContainer = document.querySelector(`#offcanvasExample`);
 const offcanvasPortrait = document.querySelector(`.offcanvas-img`);
+const accusationModalTitle = document.querySelector(`.modal-title`);
 
 // CASILLEROS DE LAS ENTRADAS HABITACIONES
 const salaDoor = document.querySelector(`#cell-6r`);
@@ -447,6 +448,7 @@ const onceReady = async () => {
         dialogInterface.classList.remove("dialog-interface-hidden");
         dialogInterface.classList.add("dialog-interface-container");
         gameBtn.setAttribute("style", "display: none");
+        dialogInterfaceInput.focus();
     };
 
     const hideInterface = (e) => {
@@ -1586,6 +1588,9 @@ const onceReady = async () => {
                 console.log(evt.target[0].value);
             });
             console.log(`puedes acusar`);
+            accusationButton.style.backgroundColor = `${
+                colors[actualPlayer + 1]
+            }`;
             setTimeout(() => {
                 showMessage(`El Jugador ${actualPlayer + 1} puede acusar:`);
             }, 2000);
@@ -4673,7 +4678,6 @@ const onceReady = async () => {
 
     // FUNCIÓN QUE UNA VEZ CONFIRMADA LA ACUSACIÓN CHEQUEA SI CORRESPONDE DECLARAR UN GANADOR, O SI POR EL CONTRARIO, CORRESPONDE MOSTRAR UNA CARTA DEL JUGADOR SIGUIENTE, Y DAR CURSO AL SIGUIENTE TURNO
     const confirmAccusation = (evt) => {
-        accusationConfirmBtn.classList.toggle("btn-primary-hidden");
         console.log(selectedTarget);
         movingAccusedPlayer();
         console.log(`la Solución es: ${solution}`);
@@ -4692,6 +4696,22 @@ const onceReady = async () => {
             selectedTriade[2] === solution[2]
         ) {
             accusationCloseBtn.click();
+            const winningScreen = document.createElement("div");
+            let cardCounter = 1;
+            selectedTriade.forEach((card) => {
+                console.log(card);
+                let imgContainer = document.createElement("img");
+                imgContainer.classList.add("winning-card");
+                imgContainer.classList.add(`winning-card-${cardCounter}`);
+                cardCounter += 1;
+                imgContainer.setAttribute(
+                    "src",
+                    `${cartas[card.toLowerCase()]}`
+                );
+                winningScreen.classList.add("winning-screen");
+                winningScreen.appendChild(imgContainer);
+            });
+            document.childNodes[1].childNodes[3].appendChild(winningScreen);
             setTimeout(() => {
                 showMessage(
                     `¡Has ganado! El/la asesino/a era ${solution[0]}, con el/la ${solution[1]} en el/la ${solution[2]}`
@@ -6334,6 +6354,11 @@ const onceReady = async () => {
     // FUNCIÓN CALLBACK QUE CONTIENE LA LÓGICA DE LA SELECCIÓN DE SOSPECHOSO, ARMA Y LUGAR, MANIPULA LAS INTERFACES Y MUESTRA UNA INTERFAZ FINAL DE LA ACUSACIÓN REALIZADA
     const suspectSelection = (evt) => {
         console.log(evt.target.id);
+        if (accusationModalTitle.innerText !== `¿Que arma utilizó?`) {
+            accusationModalTitle.innerText = `¿Que arma utilizó?`;
+        } else {
+            accusationModalTitle.innerText = `¿Sostienes tu acusación?`;
+        }
         let accusedPlayerPiece;
         let accusedPlayerIndex, accusedPlayerRow;
         accusedCoordenates = [];
@@ -6433,6 +6458,9 @@ const onceReady = async () => {
                         cartas[`${guess.toLowerCase()}`]
                     }" alt="${guess.toLowerCase()}" class="card-suspect">`;
                 }
+                accusationConfirmBtn.style.backgroundColor = `${
+                    colors[actualPlayer + 1]
+                }`;
                 accusationConfirmBtn.classList.toggle("btn-primary-hidden");
                 break;
         }
@@ -6441,6 +6469,11 @@ const onceReady = async () => {
 
     // FUNCIÓN AUXILIAR QUE PERMITE RESTAURAR LA TRÍADA DE ACUSACIÓN A "" - SE PUEDE EJECUTAR SI EL USUARIO SE ARREPIENTE Y DESEA VARIAR LA ACUSACIÓN; ASÍ COMO CUANDO LA ACUSACIÓN FUE CONFIRMADA Y NO SE CORRESPONDE CON LA SOLUCIÓN
     const resetAccusation = (evt) => {
+        console.log("Haciendo el toggle de esconder el botón");
+        accusationModalTitle.innerText = `¿De quién sospechas?`;
+        if (!accusationConfirmBtn.classList.contains("btn-primary-hidden")) {
+            accusationConfirmBtn.classList.toggle("btn-primary-hidden");
+        }
         guessedAccContainer.innerHTML = "";
         selectedTriade = [];
         guessedAccContainer.classList.add(
@@ -7038,6 +7071,7 @@ const onceReady = async () => {
         if (collapse1.classList.contains("show")) {
             console.log(`Cerrando el collapse own`);
             ownCardsBtn[0].click();
+            $(`#card-container-body`).fadeOut(1);
         } else if (collapse2.classList.contains("show")) {
             shownCardsBtn[0].click();
             console.log(`Cerrando el collapse shown`);
@@ -7067,6 +7101,7 @@ const onceReady = async () => {
     });
     accusationButton.addEventListener("click", () => {
         accusationModal.style.display = "flex";
+        accusationModalTitle.innerText = `¿De quién sospechas?`;
     });
 
     window.addEventListener("scroll", (evt) => {
