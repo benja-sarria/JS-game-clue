@@ -4711,7 +4711,17 @@ const onceReady = async () => {
                 winningScreen.classList.add("winning-screen");
                 winningScreen.appendChild(imgContainer);
             });
-            document.childNodes[1].childNodes[3].appendChild(winningScreen);
+            let documentValues = Object.values(
+                document.childNodes[1].childNodes
+            );
+            let universalDocument;
+            for (let son of documentValues) {
+                console.dir(son);
+                if ((son.tagName = "body")) {
+                    universalDocument = son;
+                }
+            }
+            universalDocument.appendChild(winningScreen);
             setTimeout(() => {
                 showMessage(
                     `¡Has ganado! El/la asesino/a era ${solution[0]}, con el/la ${solution[1]} en el/la ${solution[2]}`
