@@ -216,7 +216,6 @@ const navbarIndex = document.querySelector(`.navbar-index`);
 const navbarCollapse = navbarIndex.childNodes[5];
 const navbarFix = document.querySelector(`.navbar-toggler`);
 const startBtn = document.querySelector(`#start-btn`);
-const otherStartBtn = document.querySelector(`#other-show-btn`);
 const quitBtn = document.querySelector(`#quit-btn`);
 const gameBtn = document.querySelector(`#game-btn`);
 const inputBtn = document.querySelector(`#input-btn`);
@@ -278,7 +277,7 @@ const offcanvasTitle = document.querySelector(`#offcanvasExampleLabel`);
 const offcanvasContainer = document.querySelector(`#offcanvasExample`);
 const offcanvasPortrait = document.querySelector(`.offcanvas-img`);
 const accusationModalTitle = document.querySelector(`.modal-title`);
-let newGameBtnDOM, quitGameBtnDOM;
+let newGameBtnDOM, quitGameBtnDOM, winningScreenDOM;
 
 // CASILLEROS DE LAS ENTRADAS HABITACIONES
 const salaDoor = document.querySelector(`#cell-6r`);
@@ -493,7 +492,6 @@ const onceReady = async () => {
         accusationButton.classList.remove("accusation-button");
     };
 
-    otherStartBtn.addEventListener("click", showGame);
     quitBtn.addEventListener("click", () => {
         window.location.reload();
     });
@@ -4712,6 +4710,7 @@ const onceReady = async () => {
             // Al haber ganado se crea la pantalla de victoria con sus respectivos botones de navegación para comenzar una nueva partida, o para salir del juego.
             const winningScreen = document.createElement("div");
             winningScreen.classList.add("winning-screen");
+            winningScreen.setAttribute("id", "winning-screen");
             const winningCards = document.createElement("div");
             winningCards.classList.add("winning-cards");
             const winningTextContainer = document.createElement("div");
@@ -7302,6 +7301,8 @@ const newGameFunction = () => {
     quitGameBtnDOM.addEventListener("click", () => {
         window.location.reload();
     });
+    winningScreenDOM = document.querySelector(`#winning-screen`);
+    $(winningScreenDOM).delay(0).fadeOut(2).delay(100).fadeIn(500);
 };
 // Función accesoria que ayuda a iniciar nuevamente la partida detectando el elemento guardado en el localstorage como validación para avanzar las pantallas hasta elegir cantidad de jugadores
 window.onload = function () {
@@ -7310,3 +7311,22 @@ window.onload = function () {
         showGame();
     }
 };
+
+// Captura de botón de cierre del carousel bootstrap para reiniciar el elemento active al primero cada vez que se cierre
+const carouselCloseBtn = document.querySelector(`#carousel-close-btn`);
+const carouselOkBtn = document.querySelector(`#carousel-ok-button`);
+const carousel = document.querySelector(`#carouselExampleControls`);
+carouselCloseBtn.addEventListener("click", () => {
+    let nodeValues = Object.values(carousel.children[0].children);
+    setTimeout(() => {
+        for (let node of nodeValues) {
+            if (node.classList.contains("active")) {
+                node.classList.remove("active");
+            }
+        }
+        carousel.children[0].children[0].classList.add("active");
+    }, 300);
+});
+carouselOkBtn.addEventListener("click", () => {
+    carouselCloseBtn.click();
+});

@@ -53,10 +53,7 @@
                             >
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#" id="other-show-btn">Jugar</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Instrucciones</a>
+                            <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#instructionsBackdrop">Instrucciones</a>
                         </li>
                         <li class="nav-item">
                             <a
@@ -894,8 +891,68 @@
             </div>
           </div>
         <!-- ACCUSATION MODAL ENDS -->
-
-
+  
+        <!-- INSTRUCTIONS BOOTSTRAP Modal -->
+        <div class="modal fade instructions-modal" id="instructionsBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Instrucciones</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="carousel-close-btn"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="carouselExampleControls" class="carousel slide carousel-dark" data-bs-ride="carousel">
+                        <div class="carousel-inner">
+                          <div class="carousel-item active" data-bs-interval="12000">
+                            <img src="./assets/instruction-1.webp" class="d-block w-100" alt="instructions">
+                          </div>
+                          <div class="carousel-item" data-bs-interval="12000">
+                            <img src="./assets/instruction-2.webp" class="d-block w-100" alt="...">
+                          </div>
+                          <div class="carousel-item" data-bs-interval="12000">
+                            <img src="./assets/instruction-3.webp" class="d-block w-100" alt="...">
+                          </div>
+                          <div class="carousel-item" data-bs-interval="12000">
+                            <img src="./assets/instruction-4.webp" class="d-block w-100" alt="...">
+                          </div>
+                          <div class="carousel-item" data-bs-interval="12000">
+                            <img src="./assets/instruction-5.webp" class="d-block w-100" alt="...">
+                          </div>
+                          <div class="carousel-item" data-bs-interval="12000">
+                            <img src="./assets/instruction-6.webp" class="d-block w-100" alt="...">
+                          </div>
+                          <div class="carousel-item" data-bs-interval="12000">
+                            <img src="./assets/instruction-7.webp" class="d-block w-100" alt="...">
+                          </div>
+                          <div class="carousel-item" data-bs-interval="12000">
+                            <img src="./assets/instruction-8.webp" class="d-block w-100" alt="...">
+                          </div>
+                          <div class="carousel-item" data-bs-interval="12000">
+                            <img src="./assets/instruction-9.webp" class="d-block w-100" alt="...">
+                          </div>
+                          <div class="carousel-item" data-bs-interval="12000">
+                            <img src="./assets/instruction-10.webp" class="d-block w-100" alt="...">
+                          </div>
+                          <div class="carousel-item" data-bs-interval="12000">
+                            <img src="./assets/instruction-11.webp" class="d-block w-100" alt="...">
+                          </div>
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                          <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                          <span class="visually-hidden">Next</span>
+                        </button>
+                      </div>
+                </div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="carousel-ok-button">¡Excelente!</button>
+                </div>
+            </div>
+            </div>
+        </div>
 
         <div></div>
         <!-- JQUERY CDN -->
