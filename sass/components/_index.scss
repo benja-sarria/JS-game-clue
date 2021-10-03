@@ -3640,6 +3640,53 @@
             }
         }
     }
+    .winning-screen {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        z-index: 5000;
+        position: absolute;
+        top: 7.15vh;
+        margin: 3em;
+        outline: solid rgba($color: #0202023b, $alpha: 0.75) 60em;
+        background-color: rgba($color: #0202023b, $alpha: 0.75);
+        .winning-text-container {
+            margin: 2em;
+            background-color: rgba($color: white, $alpha: 0.8);
+            box-shadow: 1px 0px 20px 10px white;
+            .winning-text {
+                text-align: center;
+                background-image: linear-gradient(
+                    180deg,
+                    map-get($map: $generalpalette, $key: tealmain),
+                    map-get($map: $generalpalette, $key: bluemain)
+                );
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                color: map-get($map: $generalpalette, $key: tealmain) white;
+
+                /*  text-shadow: -1px 0 rgba($color: white, $alpha: 0.75),
+                    0 1px rgba($color: white, $alpha: 0.75),
+                    1px 0 rgba($color: white, $alpha: 0.75),
+                    0 -1px rgba($color: white, $alpha: 0.75); */
+            }
+        }
+        .winning-cards {
+            .winning-card {
+                margin: 0 1em;
+                border-radius: 1em;
+            }
+            .winning-card-1 {
+                @include transform(rotate(-20deg));
+                margin-top: 4em;
+            }
+            .winning-card-3 {
+                @include transform(rotate(20deg));
+                margin-top: 4em;
+            }
+        }
+    }
 }
 
 /* @media (min-width: 768px) and (max-width: 992px) {

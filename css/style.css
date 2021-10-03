@@ -3537,6 +3537,54 @@
     max-width: 40vw;
   }
 }
+.index-body .winning-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 5000;
+  position: absolute;
+  top: 7.15vh;
+  margin: 3em;
+  outline: solid rgba(2, 2, 2, 0.75) 60em;
+  background-color: rgba(2, 2, 2, 0.75);
+}
+.index-body .winning-screen .winning-text-container {
+  margin: 2em;
+  background-color: rgba(255, 255, 255, 0.8);
+  box-shadow: 1px 0px 20px 10px white;
+}
+.index-body .winning-screen .winning-text-container .winning-text {
+  text-align: center;
+  background-image: linear-gradient(180deg, #00b2b0, #0e6ba7);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: #00b2b0 white;
+  /*  text-shadow: -1px 0 rgba($color: white, $alpha: 0.75),
+      0 1px rgba($color: white, $alpha: 0.75),
+      1px 0 rgba($color: white, $alpha: 0.75),
+      0 -1px rgba($color: white, $alpha: 0.75); */
+}
+.index-body .winning-screen .winning-cards .winning-card {
+  margin: 0 1em;
+  border-radius: 1em;
+}
+.index-body .winning-screen .winning-cards .winning-card-1 {
+  transform: rotate(-20deg);
+  -o-transform: rotate(-20deg);
+  -ms-transform: rotate(-20deg);
+  -moz-transform: rotate(-20deg);
+  -webkit-transform: rotate(-20deg);
+  margin-top: 4em;
+}
+.index-body .winning-screen .winning-cards .winning-card-3 {
+  transform: rotate(20deg);
+  -o-transform: rotate(20deg);
+  -ms-transform: rotate(20deg);
+  -moz-transform: rotate(20deg);
+  -webkit-transform: rotate(20deg);
+  margin-top: 4em;
+}
 
 /* @media (min-width: 768px) and (max-width: 992px) {
     display: flex;

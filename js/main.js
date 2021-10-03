@@ -4697,6 +4697,13 @@ const onceReady = async () => {
         ) {
             accusationCloseBtn.click();
             const winningScreen = document.createElement("div");
+            winningScreen.classList.add("winning-screen");
+            const winningCards = document.createElement("div");
+            winningCards.classList.add("winning-cards");
+            const winningTextContainer = document.createElement("div");
+            winningTextContainer.classList.add("winning-text-container");
+            winningScreen.appendChild(winningCards);
+            winningScreen.prepend(winningTextContainer);
             let cardCounter = 1;
             selectedTriade.forEach((card) => {
                 console.log(card);
@@ -4708,9 +4715,48 @@ const onceReady = async () => {
                     "src",
                     `${cartas[card.toLowerCase()]}`
                 );
-                winningScreen.classList.add("winning-screen");
-                winningScreen.appendChild(imgContainer);
+                winningCards.appendChild(imgContainer);
             });
+            const winningText = document.createElement("h2");
+            winningText.classList.add("winning-text");
+            winningText.innerText = `¡Has ganado!  ${
+                solution[0] === "VERDI" ||
+                solution[0] === "MOSTAZA" ||
+                solution[0] === "MORADILLO"
+                    ? "El"
+                    : "La"
+            } ${
+                solution[0] === "VERDI" ||
+                solution[0] === "MOSTAZA" ||
+                solution[0] === "MORADILLO"
+                    ? "asesino"
+                    : "asesina"
+            } era ${solution[0]}, con ${
+                solution[1] === "CUCHILLO" ||
+                solution[1] === "TUBO" ||
+                solution[1] === "CANDELABRO"
+                    ? "el"
+                    : "la"
+            } ${
+                solution[1] === "LLAVEDETUERCAS"
+                    ? `LLAVE DE TUERCAS`
+                    : solution[1]
+            } en ${
+                solution[2] === "INVERNADERO" ||
+                solution[2] === "SALONDEBAILE" ||
+                solution[2] === "COMEDOR" ||
+                solution[2] === "ESTUDIO" ||
+                solution[2] === "VESTIBULO"
+                    ? "el"
+                    : "la"
+            } ${
+                solution[2] === "SALONDEBAILE"
+                    ? `SALÓN DE BAILE`
+                    : solution[2] === "SALADEBILLAR"
+                    ? `SALA DE BILLAR`
+                    : solution[2]
+            }`;
+            winningTextContainer.prepend(winningText);
             let documentValues = Object.values(
                 document.childNodes[1].childNodes
             );
@@ -4721,10 +4767,42 @@ const onceReady = async () => {
                     universalDocument = son;
                 }
             }
-            universalDocument.appendChild(winningScreen);
+            universalDocument.prepend(winningScreen);
+            if (window.scrollY !== 0) {
+                winningScreen.style.top = `${window.scrollY + 20}px`;
+            }
+            window.addEventListener("scroll", (evt) => {
+                winningScreen.style.top = `${window.scrollY + 20}px`;
+            });
             setTimeout(() => {
                 showMessage(
-                    `¡Has ganado! El/la asesino/a era ${solution[0]}, con el/la ${solution[1]} en el/la ${solution[2]}`
+                    `¡Has ganado! ${
+                        solution[0] === "VERDI" ||
+                        solution[0] === "MOSTAZA" ||
+                        solution[0] === "MORADILLO"
+                            ? "El"
+                            : "La"
+                    } ${
+                        solution[0] === "VERDI" ||
+                        solution[0] === "MOSTAZA" ||
+                        solution[0] === "MORADILLO"
+                            ? "asesino"
+                            : "asesina"
+                    } era ${solution[0]}, con ${
+                        solution[1] === "CUCHILLO" ||
+                        solution[1] === "TUBO" ||
+                        solution[1] === "CANDELABRO"
+                            ? "el"
+                            : "la"
+                    } ${solution[1]} en ${
+                        solution[2] === "INVERNADERO" ||
+                        solution[2] === "SALONDEBAILE" ||
+                        solution[2] === "COMEDOR" ||
+                        solution[2] === "ESTUDIO" ||
+                        solution[2] === "VESTIBULO"
+                            ? "el"
+                            : "la"
+                    } ${solution[2]}`
                 );
             }, 200);
             for (let i = 1; i <= 6; i += 1) {
