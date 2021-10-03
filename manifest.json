@@ -1,0 +1,60 @@
+{
+    "name": "TheClue",
+    "short_name": "The Clue",
+    "theme_color": "#00b2b0",
+    "background_color": "#0e6ba7",
+    "display": "standalone",
+    "Scope": "/",
+    "start_url": "/index.html",
+    "icons": [
+        {
+            "src": "assets/icons/android-icon-72x72.webp",
+            "sizes": "72x72",
+            "type": "image/webp",
+            "purpose": "any maskable"
+        },
+        {
+            "src": "assets/icons/android-icon-96x96.webp",
+            "sizes": "96x96",
+            "type": "image/webp",
+            "purpose": "any maskable"
+        },
+        {
+            "src": "assets/icons/apple-icon-120x120.webp",
+            "sizes": "120x120",
+            "type": "image/webp",
+            "purpose": "any maskable"
+        },
+        {
+            "src": "assets/icons/apple-icon-144x144.webp",
+            "sizes": "144x144",
+            "type": "image/webp",
+            "purpose": "any maskable"
+        },
+        {
+            "src": "assets/icons/apple-icon-152x152.webp",
+            "sizes": "152x152",
+            "type": "image/webp",
+            "purpose": "any maskable"
+        },
+        {
+            "src": "assets/icons/android-icon-192x192.webp",
+            "sizes": "192x192",
+            "type": "image/webp",
+            "purpose": "any maskable"
+        },
+        {
+            "src": "assets/icons/ms-icon-310x310.webp",
+            "sizes": "310x310",
+            "type": "image/webp",
+            "purpose": "any maskable"
+        },
+        {
+            "src": "assets/icons/clueico-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "any maskable"
+        }
+    ],
+    "splash_pages": "assets/icons/clueico-512x512.png"
+}

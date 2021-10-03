@@ -31,7 +31,7 @@
 }
 
 .navbar-light .navbar-toggler-icon {
-  background-image: url("../assets/hamburguermenumobile.png");
+  background-image: url("../assets/hamburguermenumobile.webp");
 }
 
 .index-body {
@@ -3579,6 +3579,7 @@
 .index-body .winning-screen .winning-cards .winning-card {
   margin: 0 1em;
   border-radius: 1em;
+  box-shadow: 0px 0px 20px 5px #00b2b0;
 }
 @media (max-width: 430px) {
   .index-body .winning-screen .winning-cards .winning-card {
@@ -3621,6 +3622,7 @@
   display: flex;
   justify-content: space-evenly;
   min-width: 23em;
+  min-height: 6em;
 }
 .index-body .winning-screen .new-game-btn-container .new-game-btn {
   min-width: 9em;
@@ -3630,6 +3632,13 @@
   color: white;
   font-size: 1.15em;
   border: none;
+  box-shadow: 0px 0px 20px 5px #0e6ba7;
+  max-height: 3em;
+  transition: all 300ms ease;
+}
+.index-body .winning-screen .new-game-btn-container .new-game-btn:hover {
+  transition: all 300ms ease;
+  filter: brightness(1.2);
 }
 .index-body .winning-screen .new-game-btn-container .quit-game-btn {
   min-width: 9em;
@@ -3639,6 +3648,13 @@
   color: white;
   font-size: 1.15em;
   border: none;
+  max-height: 3em;
+  box-shadow: 0px 0px 20px 5px #686868;
+  transition: all 300ms ease;
+}
+.index-body .winning-screen .new-game-btn-container .quit-game-btn:hover {
+  transition: all 300ms ease;
+  filter: brightness(1.2);
 }
 @media (max-width: 750px) {
   .index-body .instructions-modal .modal-dialog {

@@ -4,6 +4,24 @@
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="theme-color" content="#00b2b0"/>
+        <link rel="apple-touch-icon" href="./assets/icons/apple-icon-180x180.webp">
+
+        <!-- METAETIQUETAS GENERALES -->
+        <meta name="description" content="En esta mansión se ha cometido un crimen terrible ¡Arriésgate y sé parte en la investigación de lo sucedido!">
+        <meta name="keywords" content="juego, juegos, juegos de mesa, clásicos, misterio, crimen">
+
+        <!-- PROTOCOLO OPEN GRAPH -->
+        <meta property="og:title" content="The Clue - ¡Devela el misterio!">
+        <meta property="og:type" content="website">
+        <meta property="og:image" content="assets/icons/clueico-512x512.webp">
+        <meta property="og:url" content="https://benja-sarria.github.io/JS-game-clue/">
+        <meta property="og:author" content="Benjamín A. Sarría Ferrer">
+        <meta property="og:description" content="Algo terrible ha sucedido en la mansión, y debes investigar lo sucedido ¡Juega y sé una pieza clave para develar el misterio!">
+
+        <!-- FAVICON -->
+        <link rel="icon" type="image/webp" href="assets/icons/clueico16x16.webp" sizes="16x16"/>
+
         <!-- BOOTSTRAP -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
         <!-- GOOGLE FONTS -->
@@ -12,7 +30,9 @@
         <link href="https://fonts.googleapis.com/css2?family=Pontano+Sans&display=swap" rel="stylesheet">
         <!-- CSS -->
         <link rel="stylesheet" href="./css/style.css" />
-        <title>desafío_9</title>
+        <!-- MANIFEST JSON -->
+        <link rel="manifest" href="manifest.json">
+        <title>The Clue - ¡Devela el misterio!</title>
     </head>
     <body class="index-body">
 
@@ -28,11 +48,10 @@
             >
                 <a class="navbar-brand col-6" href="#"
                     ><img
-                        src="./assets/clue-logo.png"
+                        src="./assets/clue-logo.webp"
                         alt="Logotipo del juego en colores aguamarina degradado en azul"
                         class="idex-navbar-logo"
-                    />
-                    <!-- <h1 class="index-title">"THE CLUE"</h1> --></a
+                    /></a
                 >
                 <button
                     class="navbar-toggler"
@@ -69,11 +88,11 @@
             </nav>
             <div class="banner-container" id="banner-container">
                 <img
-                    src="./assets/main-baner-sm.png"
+                    src="./assets/main-baner-sm.webp"
                     alt="Logotipo del juego en colores aguamarina degradado en azul"
                     class="main-banner-img-mobile"
                 />
-                <img src="./assets/main-baner-lg.png" alt="Logotipo del juego en colores aguamarina degradado en azul" class="main-banner-img-desktop">
+                <img src="./assets/main-baner-lg.webp" alt="Logotipo del juego en colores aguamarina degradado en azul" class="main-banner-img-desktop">
             </div>
         </header>
         <!-- ENDS INDEX HEADER  -->
@@ -136,7 +155,7 @@
                             <td id="cell-1n" class="board-cell unable"></td>
                             <td id="cell-1o" class="board-cell unable"></td>
                             <td id="cell-1p" class="board-cell unable"></td>
-                            <td id="cell-1q" class="board-cell able"><img src="./assets/fichas/escarlata.png" alt="ficha de Srita. Escarlata" id="escarlata-ficha" tabindex="1"></td>
+                            <td id="cell-1q" class="board-cell able"><img src="./assets/fichas/escarlata.webp" alt="ficha de Srita. Escarlata" id="escarlata-ficha" tabindex="1"></td>
                             <td id="cell-1r" class="board-cell unable"></td>
                             <td id="cell-1s" class="board-cell unable"></td>
                             <td id="cell-1t" class="board-cell unable"></td>
@@ -250,7 +269,7 @@
                             <td id="cell-5x" class="board-cell unable"></td>
                         </tr>
                         <tr id="row-6" class="board-row">
-                            <td id="cell-6a" class="board-cell able"><img src="./assets/fichas/moradillo.png" alt="ficha de Prof. Moradillo" id="moradillo-ficha" tabindex="1"></td>
+                            <td id="cell-6a" class="board-cell able"><img src="./assets/fichas/moradillo.webp" alt="ficha de Prof. Moradillo" id="moradillo-ficha" tabindex="1"></td>
                             <td id="cell-6b" class="board-cell able"></td>
                             <td id="cell-6c" class="board-cell able"></td>
                             <td id="cell-6d" class="board-cell able"></td>
@@ -325,7 +344,7 @@
                             <td id="cell-8u" class="board-cell able"></td>
                             <td id="cell-8v" class="board-cell able"></td>
                             <td id="cell-8w" class="board-cell able"></td>
-                            <td id="cell-8x" class="board-cell able"><img src="./assets/fichas/mostaza.png" alt="ficha de coronel mostaza" id="mostaza-ficha" tabindex="1"></td>
+                            <td id="cell-8x" class="board-cell able"><img src="./assets/fichas/mostaza.webp" alt="ficha de coronel mostaza" id="mostaza-ficha" tabindex="1"></td>
                         </tr>
                         <tr id="row-9" class="board-row">
                             <td id="cell-9a" class="board-cell unable"></td>
@@ -588,7 +607,7 @@
                             <td id="cell-18x" class="board-cell able"></td>
                         </tr>
                         <tr id="row-19" class="board-row">
-                            <td id="cell-19a" class="board-cell able"><img src="./assets/fichas/azulino.png" alt="ficha de Sra. Azulino" id="azulino-ficha" tabindex="1"></td>
+                            <td id="cell-19a" class="board-cell able"><img src="./assets/fichas/azulino.webp" alt="ficha de Sra. Azulino" id="azulino-ficha" tabindex="1"></td>
                             <td id="cell-19b" class="board-cell able"></td>
                             <td id="cell-19c" class="board-cell able"></td>
                             <td id="cell-19d" class="board-cell able"></td>
@@ -753,12 +772,12 @@
                             <td id="cell-25g" class="board-cell unable"></td>
                             <td id="cell-25h" class="board-cell unable"></td>
                             <td id="cell-25i" class="board-cell unable"></td>
-                            <td id="cell-25j" class="board-cell able"><img src="./assets/fichas/verdi.png" alt="ficha de Sr. Verdi" id="verdi-ficha" tabindex="1"></td>
+                            <td id="cell-25j" class="board-cell able"><img src="./assets/fichas/verdi.webp" alt="ficha de Sr. Verdi" id="verdi-ficha" tabindex="1"></td>
                             <td id="cell-25k" class="board-cell unable"></td>
                             <td id="cell-25l" class="board-cell unable"></td>
                             <td id="cell-25m" class="board-cell unable"></td>
                             <td id="cell-25n" class="board-cell unable"></td>
-                            <td id="cell-25o" class="board-cell able"><img src="./assets/fichas/blanco.png" alt="ficha de Sra. Blanco" id="blanco-ficha" tabindex="1"></td>
+                            <td id="cell-25o" class="board-cell able"><img src="./assets/fichas/blanco.webp" alt="ficha de Sra. Blanco" id="blanco-ficha" tabindex="1"></td>
                             <td id="cell-25p" class="board-cell unable"></td>
                             <td id="cell-25q" class="board-cell unable"></td>
                             <td id="cell-25r" class="board-cell unable"></td>
@@ -790,7 +809,7 @@
             </div>
             <div class="offcanvas-body">
                 <!-- COLLAPSE STARTS -->
-                <img src="assets\main-baner-sm.png" alt="" class="offcanvas-img">
+                <img src="assets\main-baner-sm.webp" alt="" class="offcanvas-img">
                 <p>
                     <a class="btn btn-primary" data-bs-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1" id="ownCardsBtn">Cartas en Mano</a>
                     <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#multiCollapseExample2" aria-expanded="false" aria-controls="multiCollapseExample2" id="shownCardsBtn">Cartas Descubiertas</button>
@@ -837,31 +856,31 @@
                 </div>
                 <div class="modal-body">
                   <ul class="hidden-accusation-category-container suspects-container">
-                      <li class="accusation-card-item"><img src="./assets/cartas/azulino.png" alt="carta de Sra. Azulino" class="accusation-card" id="azulino"></li>
-                      <li class="accusation-card-item"><img src="./assets/cartas/blanco.png" alt="carta de Sra. Blanco" class="accusation-card" id="blanco"></li>
-                      <li class="accusation-card-item"><img src="./assets/cartas/escarlata.png" alt="carta de Srta. Escarlata" class="accusation-card" id="escarlata"></li>
-                      <li class="accusation-card-item"><img src="./assets/cartas/moradillo.png" alt="carta de Prof. Moradillo" class="accusation-card" id="moradillo"></li>
-                      <li class="accusation-card-item"><img src="./assets/cartas/mostaza.png" alt="carta de Cnel. Mostaza" class="accusation-card" id="mostaza"></li>
-                      <li class="accusation-card-item"><img src="./assets/cartas/verdi.png" alt="carta de Sr. Verdi" class="accusation-card" id="verdi"></li>
+                      <li class="accusation-card-item"><img src="./assets/cartas/azulino.webp" alt="carta de Sra. Azulino" class="accusation-card" id="azulino"></li>
+                      <li class="accusation-card-item"><img src="./assets/cartas/blanco.webp" alt="carta de Sra. Blanco" class="accusation-card" id="blanco"></li>
+                      <li class="accusation-card-item"><img src="./assets/cartas/escarlata.webp" alt="carta de Srta. Escarlata" class="accusation-card" id="escarlata"></li>
+                      <li class="accusation-card-item"><img src="./assets/cartas/moradillo.webp" alt="carta de Prof. Moradillo" class="accusation-card" id="moradillo"></li>
+                      <li class="accusation-card-item"><img src="./assets/cartas/mostaza.webp" alt="carta de Cnel. Mostaza" class="accusation-card" id="mostaza"></li>
+                      <li class="accusation-card-item"><img src="./assets/cartas/verdi.webp" alt="carta de Sr. Verdi" class="accusation-card" id="verdi"></li>
                   </ul>
                   <ul class="hidden-accusation-category-container weapons-container">
-                      <li class="accusation-card-item"><img src="./assets/cartas/candelabro.png" alt="carta de Candelabro" class="accusation-card" id="candelabro"></li>
-                      <li class="accusation-card-item"><img src="./assets/cartas/cuchillo.png" alt="carta de Cuchillo"class="accusation-card" id="cuchillo"></li>
-                      <li class="accusation-card-item"><img src="./assets/cartas/cuerda.png" alt="carta de Cuerda" class="accusation-card" id="cuerda"></li>
-                      <li class="accusation-card-item"><img src="./assets/cartas/llavedetuercas.png" alt="carta de Llave de tuercas" class="accusation-card" id="llavedetuercas"></li>
-                      <li class="accusation-card-item"><img src="./assets/cartas/pistola.png" alt="carta de Pistola" class="accusation-card" id="pistola"></li>
-                      <li class="accusation-card-item"><img src="./assets/cartas/tubo.png" alt="carta de Tubo" class="accusation-card" id="tubo"></li>
+                      <li class="accusation-card-item"><img src="./assets/cartas/candelabro.webp" alt="carta de Candelabro" class="accusation-card" id="candelabro"></li>
+                      <li class="accusation-card-item"><img src="./assets/cartas/cuchillo.webp" alt="carta de Cuchillo"class="accusation-card" id="cuchillo"></li>
+                      <li class="accusation-card-item"><img src="./assets/cartas/cuerda.webp" alt="carta de Cuerda" class="accusation-card" id="cuerda"></li>
+                      <li class="accusation-card-item"><img src="./assets/cartas/llavedetuercas.webp" alt="carta de Llave de tuercas" class="accusation-card" id="llavedetuercas"></li>
+                      <li class="accusation-card-item"><img src="./assets/cartas/pistola.webp" alt="carta de Pistola" class="accusation-card" id="pistola"></li>
+                      <li class="accusation-card-item"><img src="./assets/cartas/tubo.webp" alt="carta de Tubo" class="accusation-card" id="tubo"></li>
                   </ul>
                   <ul class="hidden-accusation-category-container rooms-container">
-                      <li class="accusation-card-item"><img src="./assets/cartas/biblioteca.png" alt="carta de Biblioteca" class="accusation-card" id="biblioteca"></li>
-                      <li class="accusation-card-item"><img src="./assets/cartas/billar.png" alt="carta de Billar" class="accusation-card" id="saladebillar"></li>
-                      <li class="accusation-card-item"><img src="./assets/cartas/cocina.png" alt="carta de Cocina" class="accusation-card" id="cocina"></li>
-                      <li class="accusation-card-item"><img src="./assets/cartas/COMEDOR.png" alt="carta de Comedor" class="accusation-card" id="comedor"></li>
-                      <li class="accusation-card-item"><img src="./assets/cartas/estudio.png" alt="carta de Estudio" class="accusation-card" id="estudio"></li>
-                      <li class="accusation-card-item"><img src="./assets/cartas/hall.png" alt="carta de Vestíbulo" class="accusation-card" id="vestibulo"></li>
-                      <li class="accusation-card-item"><img src="./assets/cartas/invernadero.png" alt="carta de Invernadero" class="accusation-card" id="invernadero"></li>
-                      <li class="accusation-card-item"><img src="./assets/cartas/sala.png" alt="carta de Sala" class="accusation-card" id="sala"></li>
-                      <li class="accusation-card-item"><img src="./assets/cartas/salondebaile.png" alt="carta de Salón de Baile" class="accusation-card" id="salondebaile"></li>
+                      <li class="accusation-card-item"><img src="./assets/cartas/biblioteca.webp" alt="carta de Biblioteca" class="accusation-card" id="biblioteca"></li>
+                      <li class="accusation-card-item"><img src="./assets/cartas/billar.webp" alt="carta de Billar" class="accusation-card" id="saladebillar"></li>
+                      <li class="accusation-card-item"><img src="./assets/cartas/cocina.webp" alt="carta de Cocina" class="accusation-card" id="cocina"></li>
+                      <li class="accusation-card-item"><img src="./assets/cartas/COMEDOR.webp" alt="carta de Comedor" class="accusation-card" id="comedor"></li>
+                      <li class="accusation-card-item"><img src="./assets/cartas/estudio.webp" alt="carta de Estudio" class="accusation-card" id="estudio"></li>
+                      <li class="accusation-card-item"><img src="./assets/cartas/hall.webp" alt="carta de Vestíbulo" class="accusation-card" id="vestibulo"></li>
+                      <li class="accusation-card-item"><img src="./assets/cartas/invernadero.webp" alt="carta de Invernadero" class="accusation-card" id="invernadero"></li>
+                      <li class="accusation-card-item"><img src="./assets/cartas/sala.webp" alt="carta de Sala" class="accusation-card" id="sala"></li>
+                      <li class="accusation-card-item"><img src="./assets/cartas/salondebaile.webp" alt="carta de Salón de Baile" class="accusation-card" id="salondebaile"></li>
                   </ul>
                   <ul class="hidden-accusation-category-container guessed-container">
 
@@ -946,6 +965,12 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>   
         <!-- SWEET ALERT CDN -->
         <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <!-- SERVICE WORKER -->
+        <script>
+            if ("serviceWorker" in navigator) {
+              navigator.serviceWorker.register("/sw.js");
+            }
+          </script>
         <!-- MY LIBRARY -->
         <script src="./js/main.js"></script>
     </body>

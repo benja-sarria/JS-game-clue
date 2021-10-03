@@ -25,7 +25,7 @@
 }
 
 .navbar-light .navbar-toggler-icon {
-    background-image: url("../assets/hamburguermenumobile.png");
+    background-image: url("../assets/hamburguermenumobile.webp");
 }
 
 .index-body {
@@ -287,7 +287,6 @@
                     @media (min-width: 768px) {
                         min-height: 2em;
                         width: 85%;
-                        // background-image: url("../assets/hamburguermenumobile2.png");
                     }
                     @media (min-width: 900px) {
                         min-height: 100%;
@@ -3683,6 +3682,8 @@
             .winning-card {
                 margin: 0 1em;
                 border-radius: 1em;
+                box-shadow: 0px 0px 20px 5px
+                    map-get($map: $generalpalette, $key: tealmain);
                 @media (max-width: 430px) {
                     max-width: 5em;
                     border-radius: 0.6em;
@@ -3712,6 +3713,7 @@
             display: flex;
             justify-content: space-evenly;
             min-width: 23em;
+            min-height: 6em;
             .new-game-btn {
                 min-width: 9em;
                 min-height: 2.5em;
@@ -3724,6 +3726,14 @@
                 color: white;
                 font-size: 1.15em;
                 border: none;
+                box-shadow: 0px 0px 20px 5px
+                    map-get($map: $generalpalette, $key: bluemain);
+                max-height: 3em;
+                transition: all 300ms ease;
+                &:hover {
+                    transition: all 300ms ease;
+                    filter: brightness(1.2);
+                }
             }
             .quit-game-btn {
                 min-width: 9em;
@@ -3737,6 +3747,13 @@
                 color: white;
                 font-size: 1.15em;
                 border: none;
+                max-height: 3em;
+                box-shadow: 0px 0px 20px 5px rgb(104, 104, 104);
+                transition: all 300ms ease;
+                &:hover {
+                    transition: all 300ms ease;
+                    filter: brightness(1.2);
+                }
             }
         }
     }
