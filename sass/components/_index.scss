@@ -3668,6 +3668,7 @@
                     map-get($map: $generalpalette, $key: tealmain),
                     map-get($map: $generalpalette, $key: bluemain)
                 );
+                background-clip: text;
                 -webkit-background-clip: text;
                 -webkit-text-fill-color: transparent;
                 color: map-get($map: $generalpalette, $key: tealmain) white;
