@@ -278,6 +278,7 @@ const offcanvasTitle = document.querySelector(`#offcanvasExampleLabel`);
 const offcanvasContainer = document.querySelector(`#offcanvasExample`);
 const offcanvasPortrait = document.querySelector(`.offcanvas-img`);
 const accusationModalTitle = document.querySelector(`.modal-title`);
+let newGameBtnDOM, quitGameBtnDOM;
 
 // CASILLEROS DE LAS ENTRADAS HABITACIONES
 const salaDoor = document.querySelector(`#cell-6r`);
@@ -333,7 +334,7 @@ let personajesData,
 
 // DECLARACIÓN DE FUNCIONES QUE ESTÁN RELACIONADAS A MOSTRAR ELEMENTOS DE LA INTERFAZ
 const showGame = (e) => {
-    e.preventDefault();
+    /*  e.preventDefault(); */
     gameBoard.classList.remove("hidden-game-container");
     gameBoard.classList.add("game-area-container");
     bannerContainer.classList.add("hidden-game-container");
@@ -354,6 +355,9 @@ const showGame = (e) => {
     });
     // Aplicación de animaciones con Jquery
     $(gameBoard).delay(0).fadeOut(10).delay(100).fadeIn(500);
+    setTimeout(() => {
+        gameBtn.focus();
+    }, 600);
 };
 
 startBtn.addEventListener("click", showGame);
@@ -490,8 +494,15 @@ const onceReady = async () => {
     };
 
     otherStartBtn.addEventListener("click", showGame);
-    quitBtn.addEventListener("click", hideGame);
+    quitBtn.addEventListener("click", () => {
+        window.location.reload();
+    });
     gameBtn.addEventListener("click", startGame);
+    let reloading = localStorage.getItem("reloading");
+    if (reloading) {
+        gameBtn.click();
+        localStorage.removeItem("reloading");
+    }
 
     // FIN DECLARACIÓN DE FUNCIONES QUE ESTÁN RELACIONADAS A MOSTRAR ELEMENTOS DE LA INTERFAZ
 
@@ -520,8 +531,10 @@ const onceReady = async () => {
     });
 
     // Cartel de Bienvenida al juego
-    gameMessages.children[0].innerText = `¡Bienvenido a The Clue!
-    En esta casa se ha cometido un crimen. Deberás recorrer la casa, investigando y hallando pistas que te ayuden a aclarar lo sucedido ¡Éxitos en tu búsqueda!`;
+    if (gameMessages.children[0].innerText === "") {
+        gameMessages.children[0].innerText = `¡Bienvenido a The Clue!
+        En esta casa se ha cometido un crimen. Deberás recorrer la casa, investigando y hallando pistas que te ayuden a aclarar lo sucedido ¡Éxitos en tu búsqueda!`;
+    }
 
     // Función de animación del dado
     const rollingAnimation = (counter) => {
@@ -4696,6 +4709,7 @@ const onceReady = async () => {
             selectedTriade[2] === solution[2]
         ) {
             accusationCloseBtn.click();
+            // Al haber ganado se crea la pantalla de victoria con sus respectivos botones de navegación para comenzar una nueva partida, o para salir del juego.
             const winningScreen = document.createElement("div");
             winningScreen.classList.add("winning-screen");
             const winningCards = document.createElement("div");
@@ -4704,6 +4718,19 @@ const onceReady = async () => {
             winningTextContainer.classList.add("winning-text-container");
             winningScreen.appendChild(winningCards);
             winningScreen.prepend(winningTextContainer);
+            const newGameBtnContainer = document.createElement("div");
+            newGameBtnContainer.classList.add("new-game-btn-container");
+            const newGameBtn = document.createElement("button");
+            const quitGameBtn = document.createElement("button");
+            newGameBtn.classList.add("new-game-btn");
+            quitGameBtn.classList.add("quit-game-btn");
+            newGameBtn.innerText = "Nueva Partida";
+            quitGameBtn.innerText = "Salir";
+            newGameBtn.setAttribute("id", "new-Game-Btn");
+            quitGameBtn.setAttribute("id", "quit-Game-Btn");
+            newGameBtnContainer.appendChild(newGameBtn);
+            newGameBtnContainer.appendChild(quitGameBtn);
+            winningScreen.appendChild(newGameBtnContainer);
             let cardCounter = 1;
             selectedTriade.forEach((card) => {
                 console.log(card);
@@ -4769,46 +4796,20 @@ const onceReady = async () => {
             }
             universalDocument.prepend(winningScreen);
             if (window.scrollY !== 0) {
-                winningScreen.style.top = `${window.scrollY + 20}px`;
+                winningScreen.style.top = `${window.scrollY}px`;
             }
             window.addEventListener("scroll", (evt) => {
-                winningScreen.style.top = `${window.scrollY + 20}px`;
+                winningScreen.style.top = `${window.scrollY}px`;
             });
             setTimeout(() => {
-                showMessage(
-                    `¡Has ganado! ${
-                        solution[0] === "VERDI" ||
-                        solution[0] === "MOSTAZA" ||
-                        solution[0] === "MORADILLO"
-                            ? "El"
-                            : "La"
-                    } ${
-                        solution[0] === "VERDI" ||
-                        solution[0] === "MOSTAZA" ||
-                        solution[0] === "MORADILLO"
-                            ? "asesino"
-                            : "asesina"
-                    } era ${solution[0]}, con ${
-                        solution[1] === "CUCHILLO" ||
-                        solution[1] === "TUBO" ||
-                        solution[1] === "CANDELABRO"
-                            ? "el"
-                            : "la"
-                    } ${solution[1]} en ${
-                        solution[2] === "INVERNADERO" ||
-                        solution[2] === "SALONDEBAILE" ||
-                        solution[2] === "COMEDOR" ||
-                        solution[2] === "ESTUDIO" ||
-                        solution[2] === "VESTIBULO"
-                            ? "el"
-                            : "la"
-                    } ${solution[2]}`
-                );
+                showMessage(``);
             }, 200);
             for (let i = 1; i <= 6; i += 1) {
                 sessionStorage.removeItem(`playerHand${i}`);
             }
             hideAccBtn();
+            // Función que maneja el evento click en cualquiera de los botones de navegación de la pantalla de victoria
+            newGameFunction();
         } else {
             setTimeout(() => {
                 showMessage(
@@ -7191,7 +7192,27 @@ const onceReady = async () => {
         accusationModal.style.display = "flex";
         accusationModalTitle.innerText = `¿De quién sospechas?`;
     });
+    /* Detección de eventos keydown: 
+    
+     - Tecla "Enter": Cuando el dado se encuentra visible, como atajo de accesibilidad para poder tirar el dado con presionar el botón.
 
+     - Teclas "SHIFT" + "E": Truco para pintar todas las celdas como hábiles para el movimiento a los fines del testing .
+    */
+    document.addEventListener("keydown", (e) => {
+        let pressedKey = e;
+        console.log(pressedKey);
+        if (pressedKey.key === "E" && pressedKey.shiftKey) {
+            movementAbleCells.forEach((element) =>
+                element.classList.add("movement-in-cell")
+            );
+        }
+        if (diceBtn.classList.contains("dialog-interface-container")) {
+            if (pressedKey.key === "Enter") {
+                diceBtn.click();
+            }
+        }
+    });
+    // Detección del evento scroll para mover dinámicamente el botón offcanvas simulando el efecto sticky de CSS, pero conservando la capacidad de mantener parte del elemento fuera de pantalla (lo que el sticky no permite, forzando a todo el elemento a permanecer visible), para lograr el efecto hover del mismo.
     window.addEventListener("scroll", (evt) => {
         if (screen.width < 1299) {
             if (window.scrollY > 112) {
@@ -7248,8 +7269,8 @@ const onceReady = async () => {
         }
     });
 };
+// Funciones que ayudan a determinar el width del texto contenido en el Offcanvas BTN a los fines de darle un ancho dinámico al botón.
 function getTextWidth(text, font) {
-    // re-use canvas object for better performance
     const canvas =
         getTextWidth.canvas ||
         (getTextWidth.canvas = document.createElement("canvas"));
@@ -7270,3 +7291,22 @@ function getCanvasFontSize(el = offCanvasBtn) {
 
     return `${fontWeight} ${fontSize} ${fontFamily}`;
 }
+// Función que ejecuta las acciones relativas a iniciar una nueva partida recargando la página y devolviendo al usuario al estado de elegir cantidad de jugadores, o en caso de optar por "salir", devuelve a la pantalla principal de la página recargando la misma.
+const newGameFunction = () => {
+    newGameBtnDOM = document.querySelector(`#new-Game-Btn`);
+    newGameBtnDOM.addEventListener("click", () => {
+        localStorage.setItem("reloading", "true");
+        window.location.reload();
+    });
+    quitGameBtnDOM = document.querySelector(`#quit-Game-Btn`);
+    quitGameBtnDOM.addEventListener("click", () => {
+        window.location.reload();
+    });
+};
+// Función accesoria que ayuda a iniciar nuevamente la partida detectando el elemento guardado en el localstorage como validación para avanzar las pantallas hasta elegir cantidad de jugadores
+window.onload = function () {
+    let reloading = localStorage.getItem("reloading");
+    if (reloading) {
+        showGame();
+    }
+};

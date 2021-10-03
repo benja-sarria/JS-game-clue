@@ -3647,10 +3647,16 @@
         justify-content: center;
         z-index: 5000;
         position: absolute;
-        top: 7.15vh;
-        margin: 3em;
+        top: 0vh;
+        margin: 2em 10em;
         outline: solid rgba($color: #0202023b, $alpha: 0.75) 60em;
         background-color: rgba($color: #0202023b, $alpha: 0.75);
+        @media (max-width: 530px) {
+            margin: 1em;
+        }
+        @media (min-width: 530px) and (max-width: 900px) {
+            margin: 3em;
+        }
         .winning-text-container {
             margin: 2em;
             background-color: rgba($color: white, $alpha: 0.8);
@@ -3676,6 +3682,20 @@
             .winning-card {
                 margin: 0 1em;
                 border-radius: 1em;
+                @media (max-width: 430px) {
+                    max-width: 5em;
+                    border-radius: 0.6em;
+                    margin: 0 0.3em;
+                }
+                @media (min-width: 430px) and (max-width: 530px) {
+                    max-width: 6.5em;
+                    border-radius: 0.6em;
+                    margin: 0 0.3em;
+                }
+                @media (min-width: 530px) and (max-width: 900px) {
+                    max-width: 7em;
+                    border-radius: 0.6em;
+                }
             }
             .winning-card-1 {
                 @include transform(rotate(-20deg));
@@ -3684,6 +3704,38 @@
             .winning-card-3 {
                 @include transform(rotate(20deg));
                 margin-top: 4em;
+            }
+        }
+        .new-game-btn-container {
+            margin-top: 3.5em;
+            display: flex;
+            justify-content: space-evenly;
+            min-width: 23em;
+            .new-game-btn {
+                min-width: 9em;
+                min-height: 2.5em;
+                border-radius: 2em;
+                background-image: linear-gradient(
+                    180deg,
+                    map-get($map: $generalpalette, $key: tealmain),
+                    map-get($map: $generalpalette, $key: bluemain)
+                );
+                color: white;
+                font-size: 1.15em;
+                border: none;
+            }
+            .quit-game-btn {
+                min-width: 9em;
+                min-height: 2.5em;
+                border-radius: 2em;
+                background-image: linear-gradient(
+                    180deg,
+                    rgb(170, 170, 170),
+                    rgb(97, 97, 97)
+                );
+                color: white;
+                font-size: 1.15em;
+                border: none;
             }
         }
     }
