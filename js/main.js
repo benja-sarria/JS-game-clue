@@ -6176,42 +6176,42 @@ const onceReady = async () => {
                         break;
                     case 9:
                         document
-                            .querySelector(`#cell-5k`)
+                            .querySelector(`#cell-4n`)
                             .appendChild(fichaJugadorMostaza);
                         break;
                     case 8:
                         document
-                            .querySelector(`#cell-2e`)
+                            .querySelector(`#cell-2d`)
                             .appendChild(fichaJugadorMostaza);
                         break;
                     case 11:
                         document
-                            .querySelector(`#cell-10c`)
+                            .querySelector(`#cell-10e`)
                             .appendChild(fichaJugadorMostaza);
                         break;
                     case 12:
                         document
-                            .querySelector(`#cell-14u`)
+                            .querySelector(`#cell-14v`)
                             .appendChild(fichaJugadorMostaza);
                         break;
                     case 13:
                         document
-                            .querySelector(`#cell-16d`)
+                            .querySelector(`#cell-14e`)
                             .appendChild(fichaJugadorMostaza);
                         break;
                     case 15:
                         document
-                            .querySelector(`#cell-19l`)
+                            .querySelector(`#cell-22m`)
                             .appendChild(fichaJugadorMostaza);
                         break;
                     case 14:
                         document
-                            .querySelector(`#cell-22d`)
+                            .querySelector(`#cell-23c`)
                             .appendChild(fichaJugadorMostaza);
                         break;
                     case 16:
                         document
-                            .querySelector(`#cell-23w`)
+                            .querySelector(`#cell-23u`)
                             .appendChild(fichaJugadorMostaza);
                         break;
                 }
